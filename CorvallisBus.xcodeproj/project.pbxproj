@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */; };
 		5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */; };
-		5C4937D419CFCB82009A2FB2 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D319CFCB82009A2FB2 /* FirstViewController.swift */; };
-		5C4937D619CFCB82009A2FB2 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D519CFCB82009A2FB2 /* SecondViewController.swift */; };
 		5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937D719CFCB82009A2FB2 /* Main.storyboard */; };
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
 		5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */; };
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
+		5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118919D3B6A600CD4462 /* LookupLists.swift */; };
+		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
+		5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
+		5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
+		5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
+		5CE4757919D8B62600655ECC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
 		5CE5614A19D1036200A1A600 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614919D1036200A1A600 /* BusStop.swift */; };
-		5CE5614C19D1071D00A1A600 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614B19D1071D00A1A600 /* StringExtension.swift */; };
-		5CE5614E19D1097100A1A600 /* BusStopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614D19D1097100A1A600 /* BusStopTests.swift */; };
+		5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */; };
 		5CE5615119D10B0F00A1A600 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614919D1036200A1A600 /* BusStop.swift */; };
-		5CE5615219D10E1D00A1A600 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614B19D1071D00A1A600 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,20 +35,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsTableViewController.swift; sourceTree = "<group>"; };
 		5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937D019CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C4937D319CFCB82009A2FB2 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		5C4937D519CFCB82009A2FB2 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		5C4937D819CFCB82009A2FB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C4937DA19CFCB82009A2FB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5C4937DD19CFCB82009A2FB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
+		5C82118919D3B6A600CD4462 /* LookupLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupLists.swift; sourceTree = "<group>"; };
+		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
+		5CC871DD19D8A92C008A0F2E /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
+		5CE4757619D8AFCF00655ECC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = CorvallisBus/JSONHelper.swift; sourceTree = "<group>"; };
 		5CE5614919D1036200A1A600 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
-		5CE5614B19D1071D00A1A600 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		5CE5614D19D1097100A1A600 /* BusStopTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopTests.swift; sourceTree = "<group>"; };
+		5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDeserializationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +71,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C1E467319D8E68900B95798 /* Data Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				5CE5614919D1036200A1A600 /* BusStop.swift */,
+				5CC871DD19D8A92C008A0F2E /* BusRoute.swift */,
+			);
+			name = "Data Contracts";
+			sourceTree = "<group>";
+		};
+		5C1E467419D8E69400B95798 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */,
+				5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		5C4937C319CFCB82009A2FB2 = {
 			isa = PBXGroup;
 			children = (
+				5CE4757619D8AFCF00655ECC /* JSONHelper.swift */,
 				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E619CFCB82009A2FB2 /* CorvallisBusTests */,
 				5C4937CD19CFCB82009A2FB2 /* Products */,
@@ -88,14 +112,13 @@
 			isa = PBXGroup;
 			children = (
 				5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */,
-				5C4937D319CFCB82009A2FB2 /* FirstViewController.swift */,
-				5C4937D519CFCB82009A2FB2 /* SecondViewController.swift */,
 				5C4937D719CFCB82009A2FB2 /* Main.storyboard */,
 				5C4937DA19CFCB82009A2FB2 /* Images.xcassets */,
 				5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */,
 				5C4937CF19CFCB82009A2FB2 /* Supporting Files */,
-				5CE5614919D1036200A1A600 /* BusStop.swift */,
-				5CE5614B19D1071D00A1A600 /* StringExtension.swift */,
+				5C1E467319D8E68900B95798 /* Data Contracts */,
+				5C82118919D3B6A600CD4462 /* LookupLists.swift */,
+				5C1E467419D8E69400B95798 /* View Controllers */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -113,7 +136,7 @@
 			children = (
 				5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */,
 				5C4937E719CFCB82009A2FB2 /* Supporting Files */,
-				5CE5614D19D1097100A1A600 /* BusStopTests.swift */,
+				5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */,
 			);
 			path = CorvallisBusTests;
 			sourceTree = "<group>";
@@ -227,10 +250,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CE5614A19D1036200A1A600 /* BusStop.swift in Sources */,
-				5C4937D619CFCB82009A2FB2 /* SecondViewController.swift in Sources */,
-				5CE5614C19D1071D00A1A600 /* StringExtension.swift in Sources */,
+				5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */,
+				5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */,
+				5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */,
+				5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */,
+				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
-				5C4937D419CFCB82009A2FB2 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,9 +263,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CE5615219D10E1D00A1A600 /* StringExtension.swift in Sources */,
 				5CE5615119D10B0F00A1A600 /* BusStop.swift in Sources */,
-				5CE5614E19D1097100A1A600 /* BusStopTests.swift in Sources */,
+				5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */,
+				5CE4757919D8B62600655ECC /* BusRoute.swift in Sources */,
+				5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */,
 				5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

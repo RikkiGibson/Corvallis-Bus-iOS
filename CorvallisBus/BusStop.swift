@@ -8,26 +8,35 @@
 
 import Foundation
 
-class BusStop {
-    let ID: Int
-//    let Name: String
-//    let Road: String
-//    let Bearing: Double
-//    let AdherancePoint: Bool
-//    let Lat: Double
-//    let Long: Double
-//    let Distance: Double
+class BusStop : Deserializable, Equatable {
+    var ID: Int?
+    var Name: String?
+    var Road: String?
+    var Bearing: Double?
+    var AdherancePoint: Bool?
+    var Lat: Double?
+    var Long: Double?
+
+    // Required because of reasons
+    init() { }
     
-    init(json: Dictionary<String, AnyObject>) {
-        if let id: String = json["ID"]?.value {
-            self.ID = id.toInt()!
-        }
-//        self.Name = json["Name"]
-//        self.Road = json["Road"]
-//        self.Bearing = json["Bearing"]
-//        self.AdherancePoint = json["AdherancePoint"]
-//        self.Lat = json["Lat"]
-//        self.Long = json["Long"]
-//        self.Distance = json["Distance"]
+    required init(data: [String: AnyObject]) {
+        self.ID <<< data["ID"]
+        self.Name <<< data["Name"]
+        self.Road <<< data["Road"]
+        self.Bearing <<< data["Bearing"]
+        self.AdherancePoint <<< data["AdherancePoint"]
+        self.Lat <<< data["Lat"]
+        self.Long <<< data["Long"]
     }
+}
+    
+func == (lhs: BusStop, rhs: BusStop) -> Bool {
+    return lhs.ID == rhs.ID &&
+        lhs.Name == rhs.Name &&
+        lhs.Road == rhs.Road &&
+        lhs.Bearing == rhs.Bearing &&
+        lhs.AdherancePoint == rhs.AdherancePoint &&
+        lhs.Lat == rhs.Lat &&
+        lhs.Long == rhs.Long
 }
