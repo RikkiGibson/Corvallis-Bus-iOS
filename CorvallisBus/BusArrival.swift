@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class BusArrival : Deserializable {
+    var expected: NSDate?
+    var route: String?
+    var scheduled: NSDate?
+    
+    required init(data: [String : AnyObject]) {
+        self.expected <<< data["Expected"]
+        self.route <<< data["Route"]
+        self.scheduled <<< data["Scheduled"]
+    }
+}

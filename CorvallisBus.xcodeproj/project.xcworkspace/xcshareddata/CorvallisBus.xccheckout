@@ -22,7 +22,7 @@
 		<key>846B39FC32422E80F46CC6D18CCDE6F834224436</key>
 		<string>../..</string>
 		<key>9540366943750F418CA1A28462EA7F786EC07683</key>
-		<string>../../CorvallisBus/JSONHelper/</string>
+		<string>../../CorvallisBus/JSONHelper</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://bitbucket.org/rikkigibson/corvallisbus.git</string>

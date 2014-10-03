@@ -15,6 +15,7 @@
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
 		5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118919D3B6A600CD4462 /* LookupLists.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
+		5CB431DD19DE2E8900C01681 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB431DC19DE2E8900C01681 /* BusArrival.swift */; };
 		5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
 		5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
 		5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
@@ -47,6 +48,7 @@
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
 		5C82118919D3B6A600CD4462 /* LookupLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupLists.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
+		5CB431DC19DE2E8900C01681 /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
 		5CC871DD19D8A92C008A0F2E /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		5CE4757619D8AFCF00655ECC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = CorvallisBus/JSONHelper.swift; sourceTree = "<group>"; };
 		5CE5614919D1036200A1A600 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				5CE5614919D1036200A1A600 /* BusStop.swift */,
 				5CC871DD19D8A92C008A0F2E /* BusRoute.swift */,
+				5CB431DC19DE2E8900C01681 /* BusArrival.swift */,
 			);
 			name = "Data Contracts";
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */,
 				5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */,
 				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
+				5CB431DD19DE2E8900C01681 /* BusArrival.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
