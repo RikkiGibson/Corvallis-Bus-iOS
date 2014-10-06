@@ -11,7 +11,7 @@ import Foundation
 struct LookupLists {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
     /**
-        Gets the static list of bus stops.
+        Gets the cached list of bus stops.
         If the list has not yet been obtained, executes an optional callback.
     */
     private static var _stops: [BusStop]?
@@ -43,7 +43,7 @@ struct LookupLists {
     }
     
     /**
-        Gets the static list of routes.
+        Gets the cached list of routes.
         If the list has not yet been obtained, executes an optional callback.
     */
     private static var _routes: [BusRoute]?
@@ -78,11 +78,11 @@ struct LookupLists {
         Gets the list of arrivals for the provided stop IDs.
         When more than 10 stops are provided, a data task for each 10 stops is spawned off and the results are aggregated before the caller's callback is executed.
     */
-    static func arrivals(stops: [Int], callback: () -> Void) -> [(id: Int, arrivals:[BusArrival])]? {
+    static func arrivals(stops: [Int], callback: () -> Void) -> [StopArrival]? {
         var joinedStops = stops.reduce("") { $0.description + ", " + $1.description }
         var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
         
-        var result: [(id: Int, arrivals:[BusArrival])]?
+        var result: [StopArrival]?
         
         var session = NSURLSession.sharedSession();
         session.dataTaskWithURL(url, completionHandler: {
@@ -92,11 +92,13 @@ struct LookupLists {
             }
             
             var jsonError: NSError?
-            var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSArray as [[String : AnyObject]]
+            var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String : AnyObject]
             
             if (jsonError != nil) {
                 println(jsonError!.description)
             }
+            
+            result = toStopArrivals(arrivalJson)
             
             callback()
         })
