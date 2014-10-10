@@ -16,6 +16,7 @@
 		5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118919D3B6A600CD4462 /* LookupLists.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
 		5CB431DD19DE2E8900C01681 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB431DC19DE2E8900C01681 /* BusArrival.swift */; };
+		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
 		5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
 		5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
 		5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
@@ -49,6 +50,7 @@
 		5C82118919D3B6A600CD4462 /* LookupLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupLists.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		5CB431DC19DE2E8900C01681 /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
+		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
 		5CC871DD19D8A92C008A0F2E /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		5CE4757619D8AFCF00655ECC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = CorvallisBus/JSONHelper.swift; sourceTree = "<group>"; };
 		5CE5614919D1036200A1A600 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			children = (
 				5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */,
 				5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */,
+				5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -201,9 +204,11 @@
 				TargetAttributes = {
 					5C4937CB19CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
 					};
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 				};
@@ -252,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */,
 				5CE5614A19D1036200A1A600 /* BusStop.swift in Sources */,
 				5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */,
 				5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */,
@@ -406,6 +412,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -417,6 +425,7 @@
 				INFOPLIST_FILE = CorvallisBusTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Debug;
@@ -425,6 +434,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -432,6 +443,7 @@
 				INFOPLIST_FILE = CorvallisBusTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Release;

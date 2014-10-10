@@ -10,9 +10,9 @@ import Foundation
 
 typealias StopArrival = (id: Int, arrivals: [BusArrival])
 
-private func toStopArrival(key: String, value: [String: AnyObject]) -> StopArrival? {
+private func toStopArrival(key: String, value: AnyObject) -> StopArrival? {
     var arrivals: [BusArrival]?
-    arrivals <<<<* (value as AnyObject)
+    arrivals <<<<* value
     
     var intKey = key.toInt()
     
@@ -24,12 +24,9 @@ private func toStopArrival(key: String, value: [String: AnyObject]) -> StopArriv
 
 func toStopArrivals(data: [String : AnyObject]) -> [StopArrival] {
     var result = [StopArrival]()
-    // keys are stop IDs
-    // values are a list of bus arrivals
-    // good luck.
     
     for (key, value) in data {
-        var arrival = toStopArrival(key, value as [String : AnyObject])
+        var arrival = toStopArrival(key, value)
         if arrival != nil {
             result.append(arrival!)
         }
@@ -37,14 +34,38 @@ func toStopArrivals(data: [String : AnyObject]) -> [StopArrival] {
     return result
 }
 
+// what is this javascript
+let toNSDate = { () -> (AnyObject? -> NSDate?) in
+    let dateFormatter = NSDateFormatter()
+    
+    return { obj in
+        if (obj != nil && obj is String) {
+            return dateFormatter.dateFromString(obj as String)
+        }
+        return nil
+    }
+}()
+
 class BusArrival : Deserializable {
     var expected: NSDate?
     var route: String?
     var scheduled: NSDate?
     
     required init(data: [String : AnyObject]) {
-        self.expected <<< data["Expected"]
+        self.expected <<< (value: data["Expected"], format: "dd MMM yy HH:mm ZZZ")
         self.route <<< data["Route"]
-        self.scheduled <<< data["Scheduled"]
+        self.scheduled <<< (value: data["Scheduled"], format: "dd MMM yy HH:mm ZZZ")
+    }
+    
+    
+    var description: String {
+        get {
+            let date = expected ?? scheduled
+            if date != nil && self.route != nil {
+                let etaInMinutes = String(format: "%0.0f", date!.timeIntervalSinceDate(NSDate.date()) / 60)
+                return "Route \(self.route!): \(etaInMinutes) minutes"
+            }
+            return ""
+        }
     }
 }

@@ -11,11 +11,11 @@ import Foundation
 struct LookupLists {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
     /**
-        Gets the cached list of bus stops.
-        If the list has not yet been obtained, executes an optional callback.
+        Gets the cached list of bus stops. Executes a callback to allow assignment to a
+        variable in the calling scope or to act upon the result set.
     */
     private static var _stops: [BusStop]?
-    static func stops(callback: () -> Void = { () in }) -> [BusStop]? {
+    static func stops(callback: ([BusStop]) -> Void) -> Void {
         if _stops == nil {
             var session = NSURLSession.sharedSession()
             session.dataTaskWithURL(NSURL(string: "\(rootUrl)/stops"),
@@ -35,11 +35,12 @@ struct LookupLists {
                 }
                 
                 self._stops = stopJson.map() { BusStop(data: $0) }
-                callback()
+                callback(self._stops!)
             }).resume()
         }
-        
-        return _stops;
+        else {
+            callback(self._stops!)
+        }
     }
     
     /**
@@ -47,7 +48,7 @@ struct LookupLists {
         If the list has not yet been obtained, executes an optional callback.
     */
     private static var _routes: [BusRoute]?
-    static func routes(callback: () -> Void = { () in }) -> [BusRoute]? {
+    static func routes(callback: ([BusRoute]) -> Void) -> Void {
         if _routes == nil {
             var session = NSURLSession.sharedSession()
             session.dataTaskWithURL(NSURL(string: "\(rootUrl)/routes"),
@@ -67,22 +68,21 @@ struct LookupLists {
                     }
                     
                     self._routes = stopJson.map() { BusRoute(data: $0) }
-                    callback()
+                    callback(self._routes!)
             }).resume()
         }
-        
-        return _routes;
+        else {
+            callback(self._routes!)
+        }
     }
     
     /**
         Gets the list of arrivals for the provided stop IDs.
-        When more than 10 stops are provided, a data task for each 10 stops is spawned off and the results are aggregated before the caller's callback is executed.
     */
-    static func arrivals(stops: [Int], callback: () -> Void) -> [StopArrival]? {
-        var joinedStops = stops.reduce("") { $0.description + ", " + $1.description }
+    static func arrivals(stops: [Int], callback: ([StopArrival]) -> Void) -> Void {
+        var joinedStops = ",".join(stops.map() { String($0) })
+        var urlString = "\(rootUrl)/arrivals?stops=\(joinedStops)"
         var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
-        
-        var result: [StopArrival]?
         
         var session = NSURLSession.sharedSession();
         session.dataTaskWithURL(url, completionHandler: {
@@ -92,17 +92,13 @@ struct LookupLists {
             }
             
             var jsonError: NSError?
-            var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String : AnyObject]
+            var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String: AnyObject]
             
             if (jsonError != nil) {
                 println(jsonError!.description)
             }
             
-            result = toStopArrivals(arrivalJson)
-            
-            callback()
-        })
-        
-        return result;
+            callback(toStopArrivals(arrivalJson))
+        }).resume()
     }
 }

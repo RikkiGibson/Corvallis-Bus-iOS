@@ -12,13 +12,15 @@ class RoutesTableViewController : UITableViewController {
     var routes: [BusRoute]?
     var stops: [BusStop]?
     override func viewDidLoad() {
-        routes = LookupLists.routes() { () -> Void in
+        LookupLists.routes() { (result) -> Void in
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.routes = result
                 self.tableView.reloadData()
             }
         }
-        stops = LookupLists.stops() { () -> Void in
+        LookupLists.stops() { (result) -> Void in
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                self.stops = result
                 self.tableView.reloadData()
             }
         }
