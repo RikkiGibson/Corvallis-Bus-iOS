@@ -34,7 +34,7 @@ func toStopArrivals(data: [String : AnyObject]) -> [StopArrival] {
     return result
 }
 
-// what is this javascript
+// what is this, javascript?
 let toNSDate = { () -> (AnyObject? -> NSDate?) in
     let dateFormatter = NSDateFormatter()
     

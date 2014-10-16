@@ -22,7 +22,7 @@ class ArrivalViewController: UIViewController {
         
         if currentStop != nil && currentStop?.ID != nil {
             var stop = [currentStop!.ID!]
-            LookupLists.arrivals(stop) { result in
+            CorvallisBusService.arrivals(stop) { result in
                 dispatch_async(dispatch_get_main_queue()) {
                     self.arrivalInfo = result
                     self.showArrival()

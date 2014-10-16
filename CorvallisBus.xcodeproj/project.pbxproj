@@ -13,17 +13,31 @@
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
 		5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */; };
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
-		5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118919D3B6A600CD4462 /* LookupLists.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
-		5CB431DD19DE2E8900C01681 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB431DC19DE2E8900C01681 /* BusArrival.swift */; };
 		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
-		5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
-		5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
-		5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4757619D8AFCF00655ECC /* JSONHelper.swift */; };
-		5CE4757919D8B62600655ECC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC871DD19D8A92C008A0F2E /* BusRoute.swift */; };
-		5CE5614A19D1036200A1A600 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614919D1036200A1A600 /* BusStop.swift */; };
 		5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */; };
-		5CE5615119D10B0F00A1A600 /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614919D1036200A1A600 /* BusStop.swift */; };
+		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
+		5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF192AF19EF513100CB21EC /* TodayViewController.swift */; };
+		5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CF192B119EF513100CB21EC /* MainInterface.storyboard */; };
+		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5CF192F519EF52B500CB21EC /* CorvallisBusFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5CF1930119EF52B500CB21EC /* CorvallisBusFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1930019EF52B500CB21EC /* CorvallisBusFrameworkTests.swift */; };
+		5CF1930419EF52B500CB21EC /* CorvallisBusFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192F019EF52B500CB21EC /* CorvallisBusFramework.framework */; };
+		5CF1930519EF52B500CB21EC /* CorvallisBusFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192F019EF52B500CB21EC /* CorvallisBusFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5CF1931019EF52F400CB21EC /* CorvallisBusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */; };
+		5CF1931519EF569500CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
+		5CF1931619EF569500CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
+		5CF1931719EF569500CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
+		5CF1931919EF569C00CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
+		5CF1931A19EF56C900CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
+		5CF1931B19EF56CC00CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
+		5CF1931C19EF56CF00CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
+		5CF1931D19EF56D900CB21EC /* CorvallisBusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */; };
+		5CF1931E19EF57E300CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
+		5CF1931F19EF58A500CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
+		5CF1932019EF58B000CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
+		5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
+		5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +48,70 @@
 			remoteGlobalIDString = 5C4937CB19CFCB82009A2FB2;
 			remoteInfo = CorvallisBus;
 		};
+		5CF192B319EF513100CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192A719EF513100CB21EC;
+			remoteInfo = CorvallisBusTodayExtension;
+		};
+		5CF192B619EF513100CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192A719EF513100CB21EC;
+			remoteInfo = CorvallisBusTodayExtension;
+		};
+		5CF192FB19EF52B500CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C4937CB19CFCB82009A2FB2;
+			remoteInfo = CorvallisBus;
+		};
+		5CF1930219EF52B500CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192EF19EF52B500CB21EC;
+			remoteInfo = CorvallisBusFramework;
+		};
+		5CF1930619EF52B600CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192EF19EF52B500CB21EC;
+			remoteInfo = CorvallisBusFramework;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5CF192BB19EF513100CB21EC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF1930B19EF52B600CB21EC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5CF1930519EF52B500CB21EC /* CorvallisBusFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
 		5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsTableViewController.swift; sourceTree = "<group>"; };
 		5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937D019CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,14 +122,26 @@
 		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
-		5C82118919D3B6A600CD4462 /* LookupLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupLists.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
-		5CB431DC19DE2E8900C01681 /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
 		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
-		5CC871DD19D8A92C008A0F2E /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
-		5CE4757619D8AFCF00655ECC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = CorvallisBus/JSONHelper.swift; sourceTree = "<group>"; };
-		5CE5614919D1036200A1A600 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDeserializationTests.swift; sourceTree = "<group>"; };
+		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		5CF192AE19EF513100CB21EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CF192AF19EF513100CB21EC /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5CF192B119EF513100CB21EC /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		5CF192BC19EF513900CB21EC /* CorvallisBusTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBusTodayExtension.entitlements; sourceTree = "<group>"; };
+		5CF192F019EF52B500CB21EC /* CorvallisBusFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CorvallisBusFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF192F319EF52B500CB21EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CorvallisBusFramework.h; sourceTree = "<group>"; };
+		5CF192FA19EF52B500CB21EC /* CorvallisBusFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF192FF19EF52B500CB21EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CF1930019EF52B500CB21EC /* CorvallisBusFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusFrameworkTests.swift; sourceTree = "<group>"; };
+		5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusService.swift; sourceTree = "<group>"; };
+		5CF1931219EF569500CB21EC /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
+		5CF1931319EF569500CB21EC /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
+		5CF1931419EF569500CB21EC /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
+		5CF1931819EF569C00CB21EC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +149,33 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF1930419EF52B500CB21EC /* CorvallisBusFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5C4937E019CFCB82009A2FB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192A519EF513100CB21EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192EC19EF52B500CB21EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192F719EF52B500CB21EC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -78,9 +188,6 @@
 		5C1E467319D8E68900B95798 /* Data Contracts */ = {
 			isa = PBXGroup;
 			children = (
-				5CE5614919D1036200A1A600 /* BusStop.swift */,
-				5CC871DD19D8A92C008A0F2E /* BusRoute.swift */,
-				5CB431DC19DE2E8900C01681 /* BusArrival.swift */,
 			);
 			name = "Data Contracts";
 			sourceTree = "<group>";
@@ -98,9 +205,12 @@
 		5C4937C319CFCB82009A2FB2 = {
 			isa = PBXGroup;
 			children = (
-				5CE4757619D8AFCF00655ECC /* JSONHelper.swift */,
 				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E619CFCB82009A2FB2 /* CorvallisBusTests */,
+				5CF192AC19EF513100CB21EC /* CorvallisBusTodayExtension */,
+				5CF192F119EF52B500CB21EC /* CorvallisBusFramework */,
+				5CF192FD19EF52B500CB21EC /* CorvallisBusFrameworkTests */,
+				5CF192A919EF513100CB21EC /* Frameworks */,
 				5C4937CD19CFCB82009A2FB2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,6 +220,9 @@
 			children = (
 				5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */,
 				5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */,
+				5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */,
+				5CF192F019EF52B500CB21EC /* CorvallisBusFramework.framework */,
+				5CF192FA19EF52B500CB21EC /* CorvallisBusFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,13 +230,13 @@
 		5C4937CE19CFCB82009A2FB2 /* CorvallisBus */ = {
 			isa = PBXGroup;
 			children = (
+				5C02311119E9C69900135B42 /* CorvallisBus.entitlements */,
 				5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */,
 				5C4937D719CFCB82009A2FB2 /* Main.storyboard */,
 				5C4937DA19CFCB82009A2FB2 /* Images.xcassets */,
 				5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */,
 				5C4937CF19CFCB82009A2FB2 /* Supporting Files */,
 				5C1E467319D8E68900B95798 /* Data Contracts */,
-				5C82118919D3B6A600CD4462 /* LookupLists.swift */,
 				5C1E467419D8E69400B95798 /* View Controllers */,
 			);
 			path = CorvallisBus;
@@ -155,7 +268,92 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		5CF192A919EF513100CB21EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5CF192AA19EF513100CB21EC /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5CF192AC19EF513100CB21EC /* CorvallisBusTodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				5CF192BC19EF513900CB21EC /* CorvallisBusTodayExtension.entitlements */,
+				5CF192AF19EF513100CB21EC /* TodayViewController.swift */,
+				5CF192B119EF513100CB21EC /* MainInterface.storyboard */,
+				5CF192AD19EF513100CB21EC /* Supporting Files */,
+			);
+			path = CorvallisBusTodayExtension;
+			sourceTree = "<group>";
+		};
+		5CF192AD19EF513100CB21EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CF192AE19EF513100CB21EC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CF192F119EF52B500CB21EC /* CorvallisBusFramework */ = {
+			isa = PBXGroup;
+			children = (
+				5CF1931819EF569C00CB21EC /* JSONHelper.swift */,
+				5CF1931119EF556600CB21EC /* Data Contracts */,
+				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
+				5CF192F219EF52B500CB21EC /* Supporting Files */,
+				5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */,
+			);
+			path = CorvallisBusFramework;
+			sourceTree = "<group>";
+		};
+		5CF192F219EF52B500CB21EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CF192F319EF52B500CB21EC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CF192FD19EF52B500CB21EC /* CorvallisBusFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				5CF1930019EF52B500CB21EC /* CorvallisBusFrameworkTests.swift */,
+				5CF192FE19EF52B500CB21EC /* Supporting Files */,
+			);
+			path = CorvallisBusFrameworkTests;
+			sourceTree = "<group>";
+		};
+		5CF192FE19EF52B500CB21EC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CF192FF19EF52B500CB21EC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CF1931119EF556600CB21EC /* Data Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				5CF1931219EF569500CB21EC /* BusArrival.swift */,
+				5CF1931319EF569500CB21EC /* BusRoute.swift */,
+				5CF1931419EF569500CB21EC /* BusStop.swift */,
+			);
+			name = "Data Contracts";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		5CF192ED19EF52B500CB21EC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF192F519EF52B500CB21EC /* CorvallisBusFramework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		5C4937CB19CFCB82009A2FB2 /* CorvallisBus */ = {
@@ -165,10 +363,16 @@
 				5C4937C819CFCB82009A2FB2 /* Sources */,
 				5C4937C919CFCB82009A2FB2 /* Frameworks */,
 				5C4937CA19CFCB82009A2FB2 /* Resources */,
+				5CF192BB19EF513100CB21EC /* Embed App Extensions */,
+				5CF1930B19EF52B600CB21EC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5CF192B419EF513100CB21EC /* PBXTargetDependency */,
+				5CF192B719EF513100CB21EC /* PBXTargetDependency */,
+				5CF1930319EF52B500CB21EC /* PBXTargetDependency */,
+				5CF1930719EF52B600CB21EC /* PBXTargetDependency */,
 			);
 			name = CorvallisBus;
 			productName = CorvallisBus;
@@ -193,6 +397,59 @@
 			productReference = 5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CF192B819EF513100CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusTodayExtension" */;
+			buildPhases = (
+				5CF192A419EF513100CB21EC /* Sources */,
+				5CF192A519EF513100CB21EC /* Frameworks */,
+				5CF192A619EF513100CB21EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CorvallisBusTodayExtension;
+			productName = CorvallisBusTodayExtension;
+			productReference = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		5CF192EF19EF52B500CB21EC /* CorvallisBusFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CF1930819EF52B600CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusFramework" */;
+			buildPhases = (
+				5CF192EB19EF52B500CB21EC /* Sources */,
+				5CF192EC19EF52B500CB21EC /* Frameworks */,
+				5CF192ED19EF52B500CB21EC /* Headers */,
+				5CF192EE19EF52B500CB21EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CorvallisBusFramework;
+			productName = CorvallisBusFramework;
+			productReference = 5CF192F019EF52B500CB21EC /* CorvallisBusFramework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5CF192F919EF52B500CB21EC /* CorvallisBusFrameworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CF1930C19EF52B600CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusFrameworkTests" */;
+			buildPhases = (
+				5CF192F619EF52B500CB21EC /* Sources */,
+				5CF192F719EF52B500CB21EC /* Frameworks */,
+				5CF192F819EF52B500CB21EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CF192FC19EF52B500CB21EC /* PBXTargetDependency */,
+			);
+			name = CorvallisBusFrameworkTests;
+			productName = CorvallisBusFrameworkTests;
+			productReference = 5CF192FA19EF52B500CB21EC /* CorvallisBusFrameworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,10 +462,32 @@
 					5C4937CB19CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
+						TestTargetID = 5C4937CB19CFCB82009A2FB2;
+					};
+					5CF192A719EF513100CB21EC = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					5CF192EF19EF52B500CB21EC = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+					};
+					5CF192F919EF52B500CB21EC = {
+						CreatedOnToolsVersion = 6.0.1;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 				};
@@ -228,6 +507,9 @@
 			targets = (
 				5C4937CB19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E219CFCB82009A2FB2 /* CorvallisBusTests */,
+				5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */,
+				5CF192EF19EF52B500CB21EC /* CorvallisBusFramework */,
+				5CF192F919EF52B500CB21EC /* CorvallisBusFrameworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +532,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5CF192A619EF513100CB21EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192EE19EF52B500CB21EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192F819EF52B500CB21EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -257,15 +561,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CF1931C19EF56CF00CB21EC /* BusStop.swift in Sources */,
+				5CF1931B19EF56CC00CB21EC /* BusRoute.swift in Sources */,
+				5CF1931A19EF56C900CB21EC /* BusArrival.swift in Sources */,
 				5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */,
-				5CE5614A19D1036200A1A600 /* BusStop.swift in Sources */,
-				5C82118A19D3B6A600CD4462 /* LookupLists.swift in Sources */,
-				5CC871DE19D8A92C008A0F2E /* BusRoute.swift in Sources */,
-				5CE4757719D8AFCF00655ECC /* JSONHelper.swift in Sources */,
+				5CF1931D19EF56D900CB21EC /* CorvallisBusService.swift in Sources */,
 				5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */,
 				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
-				5CB431DD19DE2E8900C01681 /* BusArrival.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
+				5CF1931E19EF57E300CB21EC /* JSONHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,11 +577,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CE5615119D10B0F00A1A600 /* BusStop.swift in Sources */,
-				5CE4757819D8B62000655ECC /* JSONHelper.swift in Sources */,
-				5CE4757919D8B62600655ECC /* BusRoute.swift in Sources */,
+				5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */,
+				5CF1931F19EF58A500CB21EC /* JSONHelper.swift in Sources */,
 				5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */,
+				5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */,
+				5CF1932019EF58B000CB21EC /* BusArrival.swift in Sources */,
 				5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192A419EF513100CB21EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192EB19EF52B500CB21EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF1931719EF569500CB21EC /* BusStop.swift in Sources */,
+				5CF1931619EF569500CB21EC /* BusRoute.swift in Sources */,
+				5CF1931519EF569500CB21EC /* BusArrival.swift in Sources */,
+				5CF1931019EF52F400CB21EC /* CorvallisBusService.swift in Sources */,
+				5CF1931919EF569C00CB21EC /* JSONHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192F619EF52B500CB21EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CF1930119EF52B500CB21EC /* CorvallisBusFrameworkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +621,31 @@
 			isa = PBXTargetDependency;
 			target = 5C4937CB19CFCB82009A2FB2 /* CorvallisBus */;
 			targetProxy = 5C4937E419CFCB82009A2FB2 /* PBXContainerItemProxy */;
+		};
+		5CF192B419EF513100CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */;
+			targetProxy = 5CF192B319EF513100CB21EC /* PBXContainerItemProxy */;
+		};
+		5CF192B719EF513100CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */;
+			targetProxy = 5CF192B619EF513100CB21EC /* PBXContainerItemProxy */;
+		};
+		5CF192FC19EF52B500CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C4937CB19CFCB82009A2FB2 /* CorvallisBus */;
+			targetProxy = 5CF192FB19EF52B500CB21EC /* PBXContainerItemProxy */;
+		};
+		5CF1930319EF52B500CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192EF19EF52B500CB21EC /* CorvallisBusFramework */;
+			targetProxy = 5CF1930219EF52B500CB21EC /* PBXContainerItemProxy */;
+		};
+		5CF1930719EF52B600CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192EF19EF52B500CB21EC /* CorvallisBusFramework */;
+			targetProxy = 5CF1930619EF52B600CB21EC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -392,9 +750,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -402,9 +764,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -448,6 +814,119 @@
 			};
 			name = Release;
 		};
+		5CF192B919EF513100CB21EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CorvallisBusTodayExtension/CorvallisBusTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CorvallisBusTodayExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5CF192BA19EF513100CB21EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CorvallisBusTodayExtension/CorvallisBusTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = CorvallisBusTodayExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5CF1930919EF52B600CB21EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CorvallisBusFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5CF1930A19EF52B600CB21EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CorvallisBusFramework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		5CF1930D19EF52B600CB21EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CorvallisBusFrameworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
+			};
+			name = Debug;
+		};
+		5CF1930E19EF52B600CB21EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CorvallisBusFrameworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -477,6 +956,30 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		5CF192B819EF513100CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CF192B919EF513100CB21EC /* Debug */,
+				5CF192BA19EF513100CB21EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5CF1930819EF52B600CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CF1930919EF52B600CB21EC /* Debug */,
+				5CF1930A19EF52B600CB21EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5CF1930C19EF52B600CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusFrameworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CF1930D19EF52B600CB21EC /* Debug */,
+				5CF1930E19EF52B600CB21EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

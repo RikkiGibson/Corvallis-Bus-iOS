@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0600"
+   wasCreatedForAppExtension = "YES"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +15,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C4937CB19CFCB82009A2FB2"
-               BuildableName = "CorvallisBus.app"
-               BlueprintName = "CorvallisBus"
+               BlueprintIdentifier = "5CF192A719EF513100CB21EC"
+               BuildableName = "CorvallisBusTodayExtension.appex"
+               BlueprintName = "CorvallisBusTodayExtension"
                ReferencedContainer = "container:CorvallisBus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C4937E219CFCB82009A2FB2"
-               BuildableName = "CorvallisBusTests.xctest"
-               BlueprintName = "CorvallisBusTests"
+               BlueprintIdentifier = "5C4937CB19CFCB82009A2FB2"
+               BuildableName = "CorvallisBus.app"
+               BlueprintName = "CorvallisBus"
                ReferencedContainer = "container:CorvallisBus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -60,16 +61,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C4937E219CFCB82009A2FB2"
-               BuildableName = "CorvallisBusTests.xctest"
-               BlueprintName = "CorvallisBusTests"
-               ReferencedContainer = "container:CorvallisBus.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "5CF192F919EF52B500CB21EC"
                BuildableName = "CorvallisBusFrameworkTests.xctest"
                BlueprintName = "CorvallisBusFrameworkTests"
@@ -88,9 +79,10 @@
       </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
+      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
@@ -113,7 +105,8 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
