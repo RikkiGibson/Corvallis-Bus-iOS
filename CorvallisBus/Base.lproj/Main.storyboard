@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="-12"/>
         </scene>
-        <!--Routes Table View Controller-->
+        <!--Favorites Table View Controller-->
         <scene sceneID="Z3a-y9-BCI">
             <objects>
-                <tableViewController id="kgi-lG-CAE" customClass="RoutesTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="kgi-lG-CAE" customClass="FavoritesTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="us2-8a-Mad">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -37,6 +37,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EGX-Yy-o96" id="PLw-6k-ZGX">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="PoK-i7-5E2" kind="show" id="9AW-fb-Rwl"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -48,7 +51,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTw-pc-Wic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1590" y="-322"/>
+            <point key="canvasLocation" x="3225" y="-406"/>
         </scene>
         <!--Routes Table View Controller-->
         <scene sceneID="oi1-8p-H73">
@@ -78,7 +81,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hP-Gx-Uac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1594" y="380"/>
+            <point key="canvasLocation" x="1641" y="336"/>
         </scene>
         <!--Stops Table View Controller-->
         <scene sceneID="1iC-B1-aed">
@@ -108,12 +111,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aP0-0n-65b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3166" y="380"/>
+            <point key="canvasLocation" x="3213" y="336"/>
         </scene>
-        <!--Arrival View Controller-->
+        <!--Arrivals View Controller-->
         <scene sceneID="zJF-6F-YSn">
             <objects>
-                <viewController id="ILy-9q-U5V" customClass="ArrivalViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ILy-9q-U5V" userLabel="Arrivals View Controller" customClass="ArrivalViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PUJ-My-eoB"/>
                         <viewControllerLayoutGuide type="bottom" id="1en-6b-mtk"/>
@@ -155,7 +158,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="jGl-cv-Gv4"/>
+                    <navigationItem key="navigationItem" id="jGl-cv-Gv4">
+                        <barButtonItem key="rightBarButtonItem" title="Favorite" id="jyH-XW-twA">
+                            <connections>
+                                <action selector="favoriteButtonPressed:" destination="ILy-9q-U5V" id="56O-SY-u5F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="txtArrivalTime" destination="hRc-hh-wxo" id="LnB-re-9tb"/>
                         <outlet property="txtStopName" destination="SYh-eo-l20" id="Udw-Ti-if0"/>
@@ -163,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hY6-QM-UlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4803" y="379.5"/>
+            <point key="canvasLocation" x="4851" y="335"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Liu-BI-VBo">
@@ -182,7 +191,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKe-M6-DCs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="778" y="-322"/>
+            <point key="canvasLocation" x="2412" y="-406"/>
         </scene>
         <!--Routes-->
         <scene sceneID="Xgl-nL-gHl">
@@ -201,7 +210,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLi-oH-sQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="782" y="380"/>
+            <point key="canvasLocation" x="829.5" y="336"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fcL-ir-ckt">
@@ -219,7 +228,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Fv-Uh-rDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2354" y="380"/>
+            <point key="canvasLocation" x="2401.5" y="336"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4WV-d9-9fX">
@@ -237,10 +246,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh5-Y3-VUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3956" y="380"/>
+            <point key="canvasLocation" x="4003.5" y="336"/>
         </scene>
     </scenes>
     <resources>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="9AW-fb-Rwl"/>
+    </inferredMetricsTieBreakers>
 </document>

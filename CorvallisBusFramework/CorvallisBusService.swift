@@ -101,4 +101,38 @@ struct CorvallisBusService {
             callback(toStopArrivals(arrivalJson))
         }).resume()
     }
+    
+    private static var _favorites: [BusStop]?
+    static func favorites(callback: ([BusStop]) -> Void) -> Void {
+        if _favorites != nil {
+            callback(self._favorites!)
+        }
+        
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
+        let favoriteIds = defaults.objectForKey("Favorites") as? NSArray
+        
+        if favoriteIds == nil {
+            self._favorites = [BusStop]()
+            callback(self._favorites!)
+        }
+        else {
+            self.stops() { stops in
+                self._favorites = stops.filter() { stop in
+                    stop.ID == nil ? false : favoriteIds!.containsObject(stop.ID!)
+                }
+                callback(self._favorites!)
+            }
+        }
+    }
+    
+    static func setFavorites(favorites: [BusStop]) -> Void {
+        self._favorites = favorites
+        
+        let favoriteIds = NSArray(array: favorites.filter() { $0.ID != nil }
+                                                  .map() { $0.ID! })
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
+        defaults.setObject(favoriteIds,
+                 forKey: "Favorites")
+        defaults.synchronize()
+    }
 }

@@ -45,7 +45,39 @@ class ArrivalViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func favoriteButtonPressed(sender: UIBarButtonItem) {
+        if self.currentStop == nil {
+            println("Attempted to add favorite with nil current stop.")
+            return
+        }
+        
+        CorvallisBusService.favorites() {
+            var favorites = NSMutableArray(array: $0)
+            if favorites.containsObject(self.currentStop!) {
+                favorites.removeObject(self.currentStop!)
+            } else {
+                favorites.addObject(self.currentStop!)
+            }
+            CorvallisBusService.setFavorites(favorites as AnyObject as [BusStop])
+        }
+        
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
+        
+        let immutableArray = defaults.objectForKey("Favorites") as? NSArray
+        var favorites = immutableArray == nil ?
+            NSMutableArray() : NSMutableArray(array: immutableArray!)
+        
+        if currentStop != nil && currentStop!.ID != nil {
+            if favorites.containsObject(currentStop!.ID!) {
+                favorites.removeObject(currentStop!.ID!)
+            } else {
+                favorites.addObject(currentStop!.ID!)
+            }
+        }
+        defaults.setObject(favorites, forKey: "Favorites")
+        defaults.synchronize()
+    }
     /*
     // MARK: - Navigation
 

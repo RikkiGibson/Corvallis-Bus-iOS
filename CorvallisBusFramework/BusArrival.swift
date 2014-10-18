@@ -34,18 +34,6 @@ func toStopArrivals(data: [String : AnyObject]) -> [StopArrival] {
     return result
 }
 
-// what is this, javascript?
-let toNSDate = { () -> (AnyObject? -> NSDate?) in
-    let dateFormatter = NSDateFormatter()
-    
-    return { obj in
-        if (obj != nil && obj is String) {
-            return dateFormatter.dateFromString(obj as String)
-        }
-        return nil
-    }
-}()
-
 class BusArrival : Deserializable {
     var expected: NSDate?
     var route: String?
