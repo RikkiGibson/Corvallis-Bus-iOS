@@ -14,16 +14,18 @@ class FavoritesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CorvallisBusService.favorites() {
-            self.favorites = $0
-            dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
-        }
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        CorvallisBusService.favorites() {
+            self.favorites = $0
+            dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,7 +75,6 @@ class FavoritesTableViewController: UITableViewController {
             // Delete the row from the data source
             if favorites != nil {
                 favorites!.removeAtIndex(indexPath.row)
-                for f in favorites! { println(f.Name) }
                 CorvallisBusService.setFavorites(favorites!)
             }
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)

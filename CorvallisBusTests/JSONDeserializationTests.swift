@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 import XCTest
 
 class JSONDeserializationTests : XCTestCase {
@@ -28,8 +29,7 @@ class JSONDeserializationTests : XCTestCase {
         expected.Road = "Main St."
         expected.Bearing = -123.456
         expected.AdherancePoint = false
-        expected.Lat = 45.76541
-        expected.Long = 97.55453
+        expected.Location = CLLocation(latitude: 45.76541, longitude: 97.55453)
         
         XCTAssert(actual == expected)
     }

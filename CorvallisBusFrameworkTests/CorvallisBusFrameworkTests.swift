@@ -33,4 +33,11 @@ class CorvallisBusFrameworkTests: XCTestCase {
         }
     }
     
+    func testAny() {
+        XCTAssert([1,2,3].any(), "sequence with elements")
+        
+        var arr = [Int]()
+        XCTAssert(!arr.any(), "empty sequence")
+    }
+    
 }

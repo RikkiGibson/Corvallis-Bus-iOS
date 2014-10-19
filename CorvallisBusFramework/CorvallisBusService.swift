@@ -104,8 +104,9 @@ struct CorvallisBusService {
     
     private static var _favorites: [BusStop]?
     static func favorites(callback: ([BusStop]) -> Void) -> Void {
-        if _favorites != nil {
+        if self._favorites != nil {
             callback(self._favorites!)
+            return
         }
         
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
@@ -114,14 +115,14 @@ struct CorvallisBusService {
         if favoriteIds == nil {
             self._favorites = [BusStop]()
             callback(self._favorites!)
+            return
         }
-        else {
-            self.stops() { stops in
-                self._favorites = stops.filter() { stop in
-                    stop.ID == nil ? false : favoriteIds!.containsObject(stop.ID!)
-                }
-                callback(self._favorites!)
+        
+        self.stops() { stops in
+            self._favorites = stops.filter() { stop in
+                stop.ID == nil ? false : favoriteIds!.containsObject(stop.ID!)
             }
+            callback(self._favorites!)
         }
     }
     
@@ -134,5 +135,11 @@ struct CorvallisBusService {
         defaults.setObject(favoriteIds,
                  forKey: "Favorites")
         defaults.synchronize()
+    }
+    
+    static func initialize() -> Void {
+        self.routes() { r in println(r) }
+        self.stops() { s in println(s) }
+        self.favorites() { f in println(f) }
     }
 }

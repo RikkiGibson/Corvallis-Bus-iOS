@@ -14,6 +14,11 @@
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
 		5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */; };
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
+		5C6565CF19F342E300585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
+		5C6565D019F3442900585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
+		5C6565D119F3447D00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
+		5C6565D219F3447E00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
+		5C6565D319F3447E00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
 		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
 		5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */; };
@@ -124,6 +129,7 @@
 		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
+		5C6565CE19F342E300585B5B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
 		5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDeserializationTests.swift; sourceTree = "<group>"; };
@@ -306,6 +312,7 @@
 				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
 				5CF192F219EF52B500CB21EC /* Supporting Files */,
 				5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */,
+				5C6565CE19F342E300585B5B /* Utils.swift */,
 			);
 			path = CorvallisBusFramework;
 			sourceTree = "<group>";
@@ -571,6 +578,7 @@
 				5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */,
 				5CF1931D19EF56D900CB21EC /* CorvallisBusService.swift in Sources */,
 				5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */,
+				5C6565D119F3447D00585B5B /* Utils.swift in Sources */,
 				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
 				5CF1931E19EF57E300CB21EC /* JSONHelper.swift in Sources */,
@@ -584,6 +592,7 @@
 				5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */,
 				5CF1931F19EF58A500CB21EC /* JSONHelper.swift in Sources */,
 				5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */,
+				5C6565D219F3447E00585B5B /* Utils.swift in Sources */,
 				5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */,
 				5CF1932019EF58B000CB21EC /* BusArrival.swift in Sources */,
 				5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */,
@@ -595,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */,
+				5C6565D319F3447E00585B5B /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +617,7 @@
 				5CF1931519EF569500CB21EC /* BusArrival.swift in Sources */,
 				5CF1931019EF52F400CB21EC /* CorvallisBusService.swift in Sources */,
 				5CF1931919EF569C00CB21EC /* JSONHelper.swift in Sources */,
+				5C6565CF19F342E300585B5B /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF1930119EF52B500CB21EC /* CorvallisBusFrameworkTests.swift in Sources */,
+				5C6565D019F3442900585B5B /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

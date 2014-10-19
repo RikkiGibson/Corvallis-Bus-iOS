@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class BusStop : Deserializable, Equatable {
     var ID: Int?
@@ -14,8 +15,7 @@ class BusStop : Deserializable, Equatable {
     var Road: String?
     var Bearing: Double?
     var AdherancePoint: Bool?
-    var Lat: Double?
-    var Long: Double?
+    var Location: CLLocation?
 
     // Required because of reasons
     init() { }
@@ -26,8 +26,12 @@ class BusStop : Deserializable, Equatable {
         self.Road <<< data["Road"]
         self.Bearing <<< data["Bearing"]
         self.AdherancePoint <<< data["AdherancePoint"]
-        self.Lat <<< data["Lat"]
-        self.Long <<< data["Long"]
+        
+        var lat: Double?; lat <<< data["Lat"]
+        var long: Double?; long <<< data["Long"]
+        if lat != nil && long != nil {
+            self.Location = CLLocation(latitude: lat!, longitude: long!)
+        }
     }
 }
     
@@ -37,6 +41,5 @@ func == (lhs: BusStop, rhs: BusStop) -> Bool {
         lhs.Road == rhs.Road &&
         lhs.Bearing == rhs.Bearing &&
         lhs.AdherancePoint == rhs.AdherancePoint &&
-        lhs.Lat == rhs.Lat &&
-        lhs.Long == rhs.Long
+        lhs.Location!.distanceFromLocation(rhs.Location).isZero
 }
