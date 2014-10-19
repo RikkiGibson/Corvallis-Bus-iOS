@@ -34,13 +34,10 @@
 		5CF1931519EF569500CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
 		5CF1931619EF569500CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
 		5CF1931719EF569500CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
-		5CF1931919EF569C00CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
 		5CF1931A19EF56C900CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
 		5CF1931B19EF56CC00CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
 		5CF1931C19EF56CF00CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
 		5CF1931D19EF56D900CB21EC /* CorvallisBusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1930F19EF52F400CB21EC /* CorvallisBusService.swift */; };
-		5CF1931E19EF57E300CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
-		5CF1931F19EF58A500CB21EC /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931819EF569C00CB21EC /* JSONHelper.swift */; };
 		5CF1932019EF58B000CB21EC /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
 		5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931319EF569500CB21EC /* BusRoute.swift */; };
 		5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931419EF569500CB21EC /* BusStop.swift */; };
@@ -149,7 +146,6 @@
 		5CF1931219EF569500CB21EC /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
 		5CF1931319EF569500CB21EC /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		5CF1931419EF569500CB21EC /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
-		5CF1931819EF569C00CB21EC /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,7 +303,6 @@
 		5CF192F119EF52B500CB21EC /* CorvallisBusFramework */ = {
 			isa = PBXGroup;
 			children = (
-				5CF1931819EF569C00CB21EC /* JSONHelper.swift */,
 				5CF1931119EF556600CB21EC /* Data Contracts */,
 				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
 				5CF192F219EF52B500CB21EC /* Supporting Files */,
@@ -581,7 +576,6 @@
 				5C6565D119F3447D00585B5B /* Utils.swift in Sources */,
 				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
-				5CF1931E19EF57E300CB21EC /* JSONHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +584,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */,
-				5CF1931F19EF58A500CB21EC /* JSONHelper.swift in Sources */,
 				5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */,
 				5C6565D219F3447E00585B5B /* Utils.swift in Sources */,
 				5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */,
@@ -616,7 +609,6 @@
 				5CF1931619EF569500CB21EC /* BusRoute.swift in Sources */,
 				5CF1931519EF569500CB21EC /* BusArrival.swift in Sources */,
 				5CF1931019EF52F400CB21EC /* CorvallisBusService.swift in Sources */,
-				5CF1931919EF569C00CB21EC /* JSONHelper.swift in Sources */,
 				5C6565CF19F342E300585B5B /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

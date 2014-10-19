@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class BusStop : Deserializable, Equatable {
+class BusStop : Equatable {
     var ID: Int?
     var Name: String?
     var Road: String?
@@ -20,15 +20,29 @@ class BusStop : Deserializable, Equatable {
     // Required because of reasons
     init() { }
     
-    required init(data: [String: AnyObject]) {
-        self.ID <<< data["ID"]
-        self.Name <<< data["Name"]
-        self.Road <<< data["Road"]
-        self.Bearing <<< data["Bearing"]
-        self.AdherancePoint <<< data["AdherancePoint"]
+    init(data: [String: AnyObject]) {
+        var cursor: AnyObject?
+        cursor = data["ID"]
+        self.ID = cursor as? Int
         
-        var lat: Double?; lat <<< data["Lat"]
-        var long: Double?; long <<< data["Long"]
+        cursor = data["Name"]
+        self.Name = cursor as? String
+        
+        cursor = data["Road"]
+        self.Road = cursor as? String
+        
+        cursor = data["Bearing"]
+        self.Bearing = cursor as? Double
+        
+        cursor = data["AdherancePoint"]
+        self.AdherancePoint = cursor as? Bool
+        
+        cursor = data["Lat"]
+        var lat = cursor as? Double
+        
+        cursor = data["Long"]
+        var long = cursor as? Double
+        
         if lat != nil && long != nil {
             self.Location = CLLocation(latitude: lat!, longitude: long!)
         }
@@ -36,10 +50,5 @@ class BusStop : Deserializable, Equatable {
 }
     
 func == (lhs: BusStop, rhs: BusStop) -> Bool {
-    return lhs.ID == rhs.ID &&
-        lhs.Name == rhs.Name &&
-        lhs.Road == rhs.Road &&
-        lhs.Bearing == rhs.Bearing &&
-        lhs.AdherancePoint == rhs.AdherancePoint &&
-        lhs.Location!.distanceFromLocation(rhs.Location).isZero
+    return lhs.ID == rhs.ID
 }

@@ -10,17 +10,11 @@ import UIKit
 
 class RoutesTableViewController : UITableViewController {
     var routes: [BusRoute]?
-    var stops: [BusStop]?
+    
     override func viewDidLoad() {
         CorvallisBusService.routes() { (result) -> Void in
             dispatch_async(dispatch_get_main_queue()) { () -> Void in
                 self.routes = result
-                self.tableView.reloadData()
-            }
-        }
-        CorvallisBusService.stops() { (result) -> Void in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                self.stops = result
                 self.tableView.reloadData()
             }
         }
@@ -38,26 +32,24 @@ class RoutesTableViewController : UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as? UITableViewCell
-    
-        if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "TableViewCell")
-        }
-        
+        var cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as UITableViewCell
+
         var route = self.routes?[indexPath.row]
-        if route != nil && route!.name != nil && route!.additionalName != nil {
-            cell!.textLabel!.text = String(format:"%@: %@", route!.name!, route!.additionalName!)
+        if route != nil {
+            cell.textLabel!.text = route!.description
         }
         
-        return cell!
+        return cell
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destination = segue.destinationViewController as UINavigationController
         var actualDestination = destination.childViewControllers.last as StopsTableViewController
-        if let value = routes {
+        if let routes = routes {
             if let index = self.tableView.indexPathForSelectedRow() {
-                actualDestination.stops = value[index.row].path
+                let route = routes[index.row]
+                actualDestination.navigationItem.title = route.description
+                actualDestination.stops = route.path
             }
         }
     }

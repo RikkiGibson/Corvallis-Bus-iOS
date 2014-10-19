@@ -77,7 +77,7 @@
                             <outlet property="delegate" destination="J4D-fD-DJe" id="2Kh-Iy-4Vk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="gEv-Bc-sSB"/>
+                    <navigationItem key="navigationItem" title="Routes" id="gEv-Bc-sSB"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hP-Gx-Uac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,6 +254,6 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9AW-fb-Rwl"/>
+        <segue reference="fB9-Pi-IRq"/>
     </inferredMetricsTieBreakers>
 </document>

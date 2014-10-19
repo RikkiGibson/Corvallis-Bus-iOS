@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct CorvallisBusService {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
@@ -50,6 +51,7 @@ struct CorvallisBusService {
     private static var _routes: [BusRoute]?
     static func routes(callback: ([BusRoute]) -> Void) -> Void {
         if _routes == nil {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             var session = NSURLSession.sharedSession()
             session.dataTaskWithURL(NSURL(string: "\(rootUrl)/routes"),
                 completionHandler: {
@@ -68,6 +70,7 @@ struct CorvallisBusService {
                     }
                     
                     self._routes = stopJson.map() { BusRoute(data: $0) }
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     callback(self._routes!)
             }).resume()
         }
@@ -135,11 +138,5 @@ struct CorvallisBusService {
         defaults.setObject(favoriteIds,
                  forKey: "Favorites")
         defaults.synchronize()
-    }
-    
-    static func initialize() -> Void {
-        self.routes() { r in println(r) }
-        self.stops() { s in println(s) }
-        self.favorites() { f in println(f) }
     }
 }

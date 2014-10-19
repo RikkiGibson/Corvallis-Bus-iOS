@@ -98,7 +98,9 @@ class StopsTableViewController: UITableViewController {
         var destination = segue.destinationViewController.childViewControllers.last as ArrivalViewController
         var indexPath = self.tableView.indexPathForSelectedRow()
         if stops != nil && indexPath != nil {
-            destination.currentStop = stops![indexPath!.row]
+            let stop = stops![indexPath!.row]
+            destination.currentStop = stop
+            destination.navigationItem.title = stop.Road
         }
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.

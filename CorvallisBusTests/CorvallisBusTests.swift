@@ -34,8 +34,7 @@ class CorvallisBusTests: XCTestCase {
     }
     
     func testDateFromString() {
-        var date: NSDate?
-        date <<< (value: "09 Oct 14 18:23 -0700", format: "dd MMM yy HH:mm ZZZ")
+        var date = toNSDate("09 Oct 14 18:23 -0700")
         println(date?.description)
     }
     
