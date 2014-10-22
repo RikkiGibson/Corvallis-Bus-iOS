@@ -12,8 +12,8 @@ class RoutesTableViewController : UITableViewController {
     var routes: [BusRoute]?
     
     override func viewDidLoad() {
-        CorvallisBusService.routes() { (result) -> Void in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+        CorvallisBusService.routes() { result in
+            dispatch_async(dispatch_get_main_queue()) {
                 self.routes = result
                 self.tableView.reloadData()
             }
@@ -36,7 +36,7 @@ class RoutesTableViewController : UITableViewController {
 
         var route = self.routes?[indexPath.row]
         if route != nil {
-            cell.textLabel!.text = route!.description
+            cell.textLabel.text = route!.description
         }
         
         return cell

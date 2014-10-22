@@ -48,7 +48,7 @@ class StopsTableViewController: UITableViewController {
         
         // Configure the cell...
         if let value = stops {
-            cell.textLabel?.text = value[indexPath.row].Name
+            cell.textLabel.text = value[indexPath.row].Name
         }
         
         return cell

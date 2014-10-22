@@ -16,6 +16,7 @@ class BusStop : Equatable {
     var Bearing: Double?
     var AdherancePoint: Bool?
     var Location: CLLocation?
+    var distanceFromUser: CLLocationDistance?
 
     // Required because of reasons
     init() { }

@@ -16,7 +16,9 @@ class BusRoute {
     private var _path: [[String: AnyObject]]?
     lazy var path: [BusStop]? = {
         if self._path != nil {
-            return self._path!.map() { BusStop(data: $0) }
+            var result = self._path!.map() { BusStop(data: $0) }
+            self._path = nil // causes deallocation
+            return result
         }
         return nil
     }()
@@ -45,10 +47,7 @@ class BusRoute {
     
     var description: String {
         get {
-            if self.name != nil && self.additionalName != nil {
-                return String(format:"%@: %@", self.name!, self.additionalName!)
-            }
-            return ""
+            return self.name == nil ? "" : self.name!
         }
     }
 }

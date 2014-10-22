@@ -73,7 +73,7 @@ class BusArrival {
         get {
             let date = expected ?? scheduled
             if date != nil && self.route != nil {
-                let etaInMinutes = String(format: "%0.0f", date!.timeIntervalSinceDate(NSDate.date()) / 60)
+                let etaInMinutes = String(format: "%0.0f", date!.timeIntervalSinceDate(NSDate()) / 60)
                 return "Route \(self.route!): \(etaInMinutes) minutes"
             }
             return ""

@@ -55,7 +55,7 @@ class FavoritesTableViewController: UITableViewController {
 
         // Configure the cell...
         if let list = favorites {
-            cell.textLabel?.text = list[indexPath.row].Name
+            cell.textLabel.text = list[indexPath.row].Name
         }
         return cell
     }
