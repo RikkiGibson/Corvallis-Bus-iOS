@@ -21,4 +21,33 @@ extension Array {
         }
         return false
     }
+    
+    /**
+        Returns the first element in self that satisfies the given predicate,
+        or the first element in the sequence if no predicate is provided.
+    */
+    func first(predicate: T -> Bool = { t in true }) -> T? {
+        for element in self {
+            if predicate(element) {
+                return element
+            }
+        }
+        return nil
+    }
+    
+    /**
+        Takes a transform that returns an optional type and
+        returns an array containing only the non-nil elements.
+    */
+    func mapUnwrap<U>(transform: T -> U?) -> [U] {
+        var result = [U]()
+        
+        for t in self {
+            var u = transform(t)
+            if u != nil {
+                result.append(u!)
+            }
+        }
+        return result
+    }
 }

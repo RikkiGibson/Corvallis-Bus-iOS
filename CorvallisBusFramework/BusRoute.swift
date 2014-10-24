@@ -9,45 +9,36 @@
 import Foundation
 
 class BusRoute {
-    var name: String?
-    var additionalName: String?
-    var routeDescription: String?
-    var url: String?
+    let name: String
+    let additionalName: String
+    let routeDescription: String
     private var _path: [[String: AnyObject]]?
     lazy var path: [BusStop]? = {
         if self._path != nil {
-            var result = self._path!.map() { BusStop(data: $0) }
+            var result = self._path!.mapUnwrap() { BusStop(data: $0) }
             self._path = nil // causes deallocation
             return result
         }
         return nil
     }()
     
-    // Required because of reasons
-    init() { }
-    
-    init(data: [String : AnyObject]) {
-        var cursor: AnyObject?
+    init?(data: [String : AnyObject]) {
+        self.name = ""
+        self.additionalName = ""
+        self.routeDescription = ""
         
-        cursor = data["Name"]
-        self.name = cursor as? String
+        var name = data["Name"] as? String
+        if name == nil { return nil }
+        self.name = name!
         
-        cursor = data["AdditionalName"]
-        self.additionalName = cursor as? String
+        var additionalName = data["AdditionalName"] as? String
+        if additionalName == nil { return nil }
+        self.additionalName = additionalName!
         
-        cursor = data["Description"]
-        self.routeDescription = cursor as? String
+        var description = data["Description"] as? String
+        if description == nil { return nil }
+        self.routeDescription = description!
         
-        cursor = data["URL"]
-        self.url = cursor as? String
-        
-        cursor = data["Path"]
-        self._path = cursor as? [[String: AnyObject]]
-    }
-    
-    var description: String {
-        get {
-            return self.name == nil ? "" : self.name!
-        }
+        self._path = data["Path"] as? [[String: AnyObject]]
     }
 }

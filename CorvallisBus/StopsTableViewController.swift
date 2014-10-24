@@ -47,8 +47,8 @@ class StopsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath) as UITableViewCell
         
         // Configure the cell...
-        if let value = stops {
-            cell.textLabel.text = value[indexPath.row].Name
+        if self.stops != nil {
+            cell.textLabel.text = self.stops![indexPath.row].name
         }
         
         return cell
@@ -94,17 +94,16 @@ class StopsTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         var destination = segue.destinationViewController.childViewControllers.last as ArrivalViewController
         var indexPath = self.tableView.indexPathForSelectedRow()
         if stops != nil && indexPath != nil {
             let stop = stops![indexPath!.row]
             destination.currentStop = stop
-            destination.navigationItem.title = stop.Road
+            destination.navigationItem.title = stop.road
         }
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    
 
 }

@@ -8,16 +8,12 @@
 
 import Foundation
 
-// A StopArrival contains the stop ID and a list of times
-// that a particular route will arrive at that stop.
-typealias StopArrival = (id: Int, arrivals: [BusArrival])
-
-private func toStopArrival(key: String, value: AnyObject) -> StopArrival? {
+private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals: [BusArrival])? {
     var busArrivals: [BusArrival]?
     
     var busArrivalJson = value as? [[String : AnyObject]]
     if busArrivalJson != nil {
-        busArrivals = busArrivalJson!.map() { BusArrival(data: $0) }
+        busArrivals = busArrivalJson!.mapUnwrap() { BusArrival(data: $0) }
     }
     
     var intKey = key.toInt()
@@ -27,13 +23,17 @@ private func toStopArrival(key: String, value: AnyObject) -> StopArrival? {
     return nil
 }
 
-func toStopArrivals(data: [String : AnyObject]) -> [StopArrival] {
-    var result = [StopArrival]()
+/**
+    A stop arrival is a key-value pair in a dictionary where a stop ID can be provided
+    to receive a list of bus arrival times for that stop.
+*/
+func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
+    var result = [Int : [BusArrival]]()
     
     for (key, value) in data {
         var arrival = toStopArrival(key, value)
         if arrival != nil {
-            result.append(arrival!)
+            result[arrival!.id] = arrival!.arrivals
         }
     }
     return result
@@ -52,31 +52,31 @@ let toNSDate = { () -> (AnyObject? -> NSDate?) in
 }()
 
 class BusArrival {
-    var expected: NSDate?
-    var route: String?
-    var scheduled: NSDate?
+    let route: String
+    let arrivalTime: NSDate
     
-    init(data: [String : AnyObject]) {
-        var cursor: AnyObject?
-        cursor = data["Expected"]
-        self.expected = toNSDate(cursor)
+    init?(data: [String : AnyObject]) {
+        self.route = ""
+        self.arrivalTime = NSDate()
         
-        cursor = data["Route"]
-        self.route = cursor as? String
+        var route = data["Route"] as? String
+        if route == nil { return nil }
+        self.route = route!
         
-        cursor = data["Scheduled"]
-        self.scheduled = toNSDate(cursor)
+        let expected = toNSDate(data["Expected"])
+        let scheduled = toNSDate(data["Scheduled"])
+        
+        if expected == nil && scheduled == nil { return nil }
+        self.arrivalTime = (expected ?? scheduled)!
     }
     
     
     var description: String {
         get {
-            let date = expected ?? scheduled
-            if date != nil && self.route != nil {
-                let etaInMinutes = String(format: "%0.0f", date!.timeIntervalSinceDate(NSDate()) / 60)
-                return "Route \(self.route!): \(etaInMinutes) minutes"
-            }
-            return ""
+            let etaInMinutes = self.arrivalTime.timeIntervalSinceDate(NSDate()) / 60
+            let friendlyEta = etaInMinutes < 1 ? "less than 1 minute" :
+                String(format: "%0.0f", etaInMinutes) + " minutes"
+            return "Route \(self.route): \(friendlyEta)"
         }
     }
 }

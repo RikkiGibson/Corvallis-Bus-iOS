@@ -10,46 +10,41 @@ import Foundation
 import CoreLocation
 
 class BusStop : Equatable {
-    var ID: Int?
-    var Name: String?
-    var Road: String?
-    var Bearing: Double?
-    var AdherancePoint: Bool?
-    var Location: CLLocation?
+    let id: Int
+    let name: String
+    let road: String
+    let location: CLLocation
     var distanceFromUser: CLLocationDistance?
-
-    // Required because of reasons
-    init() { }
     
-    init(data: [String: AnyObject]) {
-        var cursor: AnyObject?
-        cursor = data["ID"]
-        self.ID = cursor as? Int
+    
+    init?(data: [String: AnyObject]) {
+        self.id = 0
+        self.name = ""
+        self.road = ""
+        self.location = CLLocation()
+
+        var id = data["ID"] as? Int
+        if id == nil { return nil }
+        self.id = id!
         
-        cursor = data["Name"]
-        self.Name = cursor as? String
+        var name = data["Name"] as? String
+        if name == nil { return nil }
+        self.name = name!
         
-        cursor = data["Road"]
-        self.Road = cursor as? String
+        var road = data["Road"] as? String
+        if road == nil { return nil }
+        self.road = road!
         
-        cursor = data["Bearing"]
-        self.Bearing = cursor as? Double
+        var lat = data["Lat"] as? Double
+        if lat == nil { return nil }
         
-        cursor = data["AdherancePoint"]
-        self.AdherancePoint = cursor as? Bool
+        var long = data["Long"] as? Double
+        if long == nil { return nil }
         
-        cursor = data["Lat"]
-        var lat = cursor as? Double
-        
-        cursor = data["Long"]
-        var long = cursor as? Double
-        
-        if lat != nil && long != nil {
-            self.Location = CLLocation(latitude: lat!, longitude: long!)
-        }
+        self.location = CLLocation(latitude: lat!, longitude: long!)
     }
 }
     
 func == (lhs: BusStop, rhs: BusStop) -> Bool {
-    return lhs.ID == rhs.ID
+    return lhs.id == rhs.id
 }

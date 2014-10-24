@@ -26,12 +26,12 @@ internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManager
     }
     
     internal func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        _locationManager.stopUpdatingLocation()
         if let location = locations.last as? CLLocation {
             _callback(location)
         }
         else {
             println("CorvallisBusLocationManagerDelegate had an issue responding to location update.")
         }
-        _locationManager.stopUpdatingLocation()
     }
 }

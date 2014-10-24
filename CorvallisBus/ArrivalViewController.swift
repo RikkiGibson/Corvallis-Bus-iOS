@@ -18,7 +18,7 @@ class ArrivalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        txtStopName.text = currentStop?.Name
+        txtStopName.text = currentStop?.name
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -27,9 +27,9 @@ class ArrivalViewController: UIViewController {
     }
     
     func updateArrivals() -> Void {
-        if currentStop != nil && currentStop?.ID != nil {
-            CorvallisBusService.arrivals([currentStop!.ID!]) { arrivals in
-                dispatch_async(dispatch_get_main_queue()) { self.showArrivals(arrivals) }
+        if currentStop != nil {
+            CorvallisBusService.arrivals([currentStop!.id]) { stopArrivals in
+                dispatch_async(dispatch_get_main_queue()) { self.showArrivals(stopArrivals) }
             }
         }
     }
@@ -37,20 +37,23 @@ class ArrivalViewController: UIViewController {
     func updateFavoriteButtonText() -> Void {
         self.btnFavorite.title = ""
         
-        if currentStop != nil && currentStop!.ID != nil {
+        if self.currentStop != nil {
             CorvallisBusService.favorites() { favorites in
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.btnFavorite.title = favorites.any() { $0.ID == self.currentStop!.ID! }
+                    self.btnFavorite.title = favorites.any() { $0.id == self.currentStop!.id }
                         ? "Unfavorite" : "Favorite"
                 }
             }
         }
     }
         
-    func showArrivals(stopArrivals: [StopArrival]) -> Void {
-        if stopArrivals.count > 0 {
-            var busArrivals = stopArrivals[0].arrivals
-            txtArrivalTime.text = "\n".join(busArrivals.map() { $0.description })
+    func showArrivals(stopArrivals: [Int : [BusArrival]]) -> Void {
+        var busArrivals: [BusArrival]?
+        if self.currentStop != nil {
+            busArrivals = stopArrivals[self.currentStop!.id]
+        }
+        if busArrivals != nil {
+            txtArrivalTime.text = "\n".join(busArrivals!.map() { $0.description })
         }
         else {
             txtArrivalTime.text = "No arrivals found!"
@@ -63,15 +66,15 @@ class ArrivalViewController: UIViewController {
     }
     
     @IBAction func favoriteButtonPressed(sender: UIBarButtonItem) {
-        if self.currentStop == nil || self.currentStop!.ID == nil {
+        if self.currentStop == nil {
             println("Attempted to add favorite with nil current stop.")
             return
         }
         
-        CorvallisBusService.favorites() {
-            var favorites = $0
-            if favorites.any({ $0.ID == self.currentStop!.ID! }) {
-                favorites = favorites.filter() { $0.ID != self.currentStop!.ID! }
+        CorvallisBusService.favorites() { favorites in
+            var favorites = favorites
+            if favorites.any({ favorite in favorite.id == self.currentStop!.id }) {
+                favorites = favorites.filter() { favorite in favorite.id != self.currentStop!.id }
                 sender.title = "Favorite"
             } else {
                 favorites.append(self.currentStop!)

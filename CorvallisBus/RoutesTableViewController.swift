@@ -36,7 +36,7 @@ class RoutesTableViewController : UITableViewController {
 
         var route = self.routes?[indexPath.row]
         if route != nil {
-            cell.textLabel.text = route!.description
+            cell.textLabel.text = route!.name
         }
         
         return cell
@@ -48,7 +48,7 @@ class RoutesTableViewController : UITableViewController {
         if let routes = routes {
             if let index = self.tableView.indexPathForSelectedRow() {
                 let route = routes[index.row]
-                actualDestination.navigationItem.title = route.description
+                actualDestination.navigationItem.title = route.name
                 actualDestination.stops = route.path
             }
         }

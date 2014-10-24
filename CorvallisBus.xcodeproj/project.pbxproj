@@ -30,7 +30,7 @@
 		5C6565D319F3447E00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
 		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
-		5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */; };
+		5CCFADDB19F85E0700CCC03F /* Corvallis, OR.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */; };
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF192AF19EF513100CB21EC /* TodayViewController.swift */; };
 		5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CF192B119EF513100CB21EC /* MainInterface.storyboard */; };
@@ -141,7 +141,7 @@
 		5C6565CE19F342E300585B5B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
-		5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDeserializationTests.swift; sourceTree = "<group>"; };
+		5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Corvallis, OR.gpx"; sourceTree = "<group>"; };
 		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5CF192AE19EF513100CB21EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -265,7 +265,6 @@
 			children = (
 				5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */,
 				5C4937E719CFCB82009A2FB2 /* Supporting Files */,
-				5CE5614D19D1097100A1A600 /* JSONDeserializationTests.swift */,
 			);
 			path = CorvallisBusTests;
 			sourceTree = "<group>";
@@ -310,6 +309,7 @@
 		5CF192F119EF52B500CB21EC /* CorvallisBusFramework */ = {
 			isa = PBXGroup;
 			children = (
+				5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */,
 				5CF1931119EF556600CB21EC /* Data Contracts */,
 				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
 				5CF192F219EF52B500CB21EC /* Supporting Files */,
@@ -557,6 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CCFADDB19F85E0700CCC03F /* Corvallis, OR.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,7 +594,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CF1932219EF58B500CB21EC /* BusStop.swift in Sources */,
-				5CE5614E19D1097100A1A600 /* JSONDeserializationTests.swift in Sources */,
 				5C6565D219F3447E00585B5B /* Utils.swift in Sources */,
 				5CF1932119EF58B200CB21EC /* BusRoute.swift in Sources */,
 				5CF1932019EF58B000CB21EC /* BusArrival.swift in Sources */,

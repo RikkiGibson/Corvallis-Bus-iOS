@@ -13,11 +13,11 @@ import CoreLocation
 struct CorvallisBusService {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
-    /**
-    Gets the cached list of bus stops. Executes a callback to allow assignment to a
-    variable in the calling scope or to act upon the result set.
-    */
+    
     private static var _stops: [BusStop]?
+    /**
+        Executes a callback using the list of stops from the Corvallis Bus server.
+    */
     static func stops(callback: ([BusStop]) -> Void) -> Void {
         if _stops == nil {
             var session = NSURLSession.sharedSession()
@@ -44,7 +44,7 @@ struct CorvallisBusService {
                         println(jsonError!.description)
                     }
                     
-                    self._stops = stopJson.map() { BusStop(data: $0) }
+                    self._stops = stopJson.mapUnwrap() { BusStop(data: $0) }
                     callback(self._stops!)
             }).resume()
         }
@@ -54,8 +54,7 @@ struct CorvallisBusService {
     }
     
     /**
-    Gets the cached list of routes.
-    If the list has not yet been obtained, executes an optional callback.
+        Executes a callback using the list of routes from the Corvallis Bus server.
     */
     private static var _routes: [BusRoute]?
     static func routes(callback: ([BusRoute]) -> Void) -> Void {
@@ -64,7 +63,7 @@ struct CorvallisBusService {
             var url = NSURL(string: "\(rootUrl)/routes?stops=true")
             
             if url == nil {
-                println("NSURL did not instanciate properly")
+                println("NSURL did not instantiate properly")
                 return
             }
             
@@ -84,7 +83,7 @@ struct CorvallisBusService {
                         println(jsonError!.description)
                     }
                     
-                    self._routes = stopJson.map() { BusRoute(data: $0) }
+                    self._routes = stopJson.mapUnwrap() { BusRoute(data: $0) }
                     callback(self._routes!)
             }).resume()
         }
@@ -94,15 +93,15 @@ struct CorvallisBusService {
     }
     
     /**
-    Gets the list of arrivals for the provided stop IDs.
+        Executes a callback using the arrival information for the provided list of stop IDs.
     */
-    static func arrivals(stops: [Int], callback: ([StopArrival]) -> Void) -> Void {
+    static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
         var joinedStops = ",".join(stops.map() { String($0) })
         var urlString = "\(rootUrl)/arrivals?stops=\(joinedStops)"
         var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
         
         if url == nil {
-            println("NSURL did not instanciate properly")
+            println("NSURL did not instantiate properly")
             return
         }
         
@@ -115,26 +114,24 @@ struct CorvallisBusService {
             
             var jsonError: NSError?
             var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String: AnyObject]
-            
             if (jsonError != nil) {
                 println(jsonError!.description)
             }
-            
             callback(toStopArrivals(arrivalJson))
         }).resume()
     }
     
     /**
-        Returns the list of favorite stops sorted by proximity to the user.
+        Executes a callback using a list of the user's favorite stop objects.
         Asynchronously obtains the user's location and the user's list of favorite stops.
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
-    private static var _location: CLLocation?
+    private static var _userLocation: CLLocation?
     private static var _favorites: [BusStop]?
     static func favorites(callback: ([BusStop]) -> Void) -> Void {
         
         locationManagerDelegate.userLocation() {
-            self._location = $0
+            self._userLocation = $0
             self._getSortedFavorites(callback)
         }
         
@@ -143,18 +140,10 @@ struct CorvallisBusService {
             println("NSUserDefaults did not instantiate properly in CorvallisBusService")
             return
         }
-        let favoriteIds = defaults!.objectForKey("Favorites") as? NSArray
-        
-        if favoriteIds == nil {
-            self._favorites = [BusStop]()
-            self._getSortedFavorites(callback)
-            return
-        }
+        let favoriteIds = defaults!.objectForKey("Favorites") as? NSArray ?? NSArray()
         
         self.stops() { stops in
-            self._favorites = stops.filter() { stop in
-                stop.ID == nil ? false : favoriteIds!.containsObject(stop.ID!)
-            }
+            self._favorites = stops.filter() { stop in favoriteIds.containsObject(stop.id) }
             self._getSortedFavorites(callback)
         }
     }
@@ -163,17 +152,17 @@ struct CorvallisBusService {
         Finally executes the client's callback with the sorted list of favorites.
     */
     private static func _getSortedFavorites(callback: [BusStop] -> Void) -> Void {
-        if self._favorites == nil || self._location == nil {
+        if self._favorites == nil || self._userLocation == nil {
             return
         }
         
-        var favorites = self._favorites!.filter() { $0.Location != nil }
+        var favorites = self._favorites!
         for favorite in favorites {
-            favorite.distanceFromUser = favorite.Location!.distanceFromLocation(self._location!)
+            favorite.distanceFromUser = favorite.location.distanceFromLocation(self._userLocation!)
         }
         favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
         
-        self._location = nil
+        self._userLocation = nil
         self._favorites = nil
         
         callback(favorites)
@@ -182,8 +171,7 @@ struct CorvallisBusService {
     static func setFavorites(favorites: [BusStop]) -> Void {
         self._favorites = favorites
         
-        let favoriteIds = NSArray(array: favorites.filter() { $0.ID != nil }
-                                                  .map() { $0.ID! })
+        let favoriteIds = NSArray(array: favorites.map() { $0.id })
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
         
         

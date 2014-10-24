@@ -11,7 +11,7 @@ import NotificationCenter
 
 class TodayViewController: UITableViewController, NCWidgetProviding {
     var favoriteStops: [BusStop]?
-    var arrivals: [StopArrival]?
+    var arrivals: [Int : [BusArrival]]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +44,15 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as TodayTableViewCell!
         
         if let favoriteStops = self.favoriteStops {
-            cell.labelRouteName.text = favoriteStops[indexPath.row].Name
-        }
-        
-        if let arrivals = self.arrivals {
-            cell.labelArrivals.text = "\n".join(arrivals[indexPath.row].arrivals.map() { $0.description })
+            let currentStop = favoriteStops[indexPath.row]
+            cell.labelRouteName.text = currentStop.name
+            
+            if self.arrivals != nil {
+                let busArrivals = self.arrivals![currentStop.id]
+                if busArrivals != nil {
+                    cell.labelArrivals.text = "\n".join(busArrivals!.map() { $0.description })
+                }
+            }
         }
         
         return cell
@@ -63,7 +67,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     // MARK: Data access
     func updateArrivals() {
         if let favoriteStops = self.favoriteStops {
-            CorvallisBusService.arrivals(favoriteStops.filter() { $0.ID != nil }.map() { $0.ID! }) {
+            var favIds = favoriteStops.map() { $0.id }
+            CorvallisBusService.arrivals(favIds) {
                 self.arrivals = $0
                 dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
             }
