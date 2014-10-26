@@ -10,10 +10,10 @@ import Foundation
 import CoreLocation
 
 class BusStop : Equatable {
-    let id: Int
-    let name: String
-    let road: String
-    let location: CLLocation
+    let id = 0
+    let name = ""
+    let road = ""
+    let location = CLLocation()
     var distanceFromUser: CLLocationDistance?
     
     

@@ -45,6 +45,9 @@ struct CorvallisBusService {
                     }
                     
                     self._stops = stopJson.mapUnwrap() { BusStop(data: $0) }
+                    for stop in self._stops! {
+                        println(stop.name)
+                    }
                     callback(self._stops!)
             }).resume()
         }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C1274BF19FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
+		5C1274C019FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
 		5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */; };
 		5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */; };
 		5C36E07A19F7106300024186 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF1931219EF569500CB21EC /* BusArrival.swift */; };
@@ -124,6 +126,7 @@
 
 /* Begin PBXFileReference section */
 		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
+		5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoriteStopTableViewCell.xib; path = ../CorvallisBusTodayExtension/FavoriteStopTableViewCell.xib; sourceTree = "<group>"; };
 		5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsTableViewController.swift; sourceTree = "<group>"; };
 		5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		5C36E07E19F7240800024186 /* TodayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTableViewCell.swift; sourceTree = "<group>"; };
@@ -309,6 +312,7 @@
 		5CF192F119EF52B500CB21EC /* CorvallisBusFramework */ = {
 			isa = PBXGroup;
 			children = (
+				5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */,
 				5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */,
 				5CF1931119EF556600CB21EC /* Data Contracts */,
 				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
@@ -532,6 +536,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C1274BF19FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */,
 				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
 				5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */,
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
@@ -549,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C1274C019FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */,
 				5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

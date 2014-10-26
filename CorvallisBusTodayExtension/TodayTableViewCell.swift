@@ -11,6 +11,7 @@ import UIKit
 class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var labelRouteName: UILabel!
     @IBOutlet weak var labelArrivals: UILabel!
+    @IBOutlet weak var labelDistance: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

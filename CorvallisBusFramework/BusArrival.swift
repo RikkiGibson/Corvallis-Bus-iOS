@@ -52,12 +52,10 @@ let toNSDate = { () -> (AnyObject? -> NSDate?) in
 }()
 
 class BusArrival {
-    let route: String
-    let arrivalTime: NSDate
+    let route = ""
+    let arrivalTime = NSDate()
     
     init?(data: [String : AnyObject]) {
-        self.route = ""
-        self.arrivalTime = NSDate()
         
         var route = data["Route"] as? String
         if route == nil { return nil }

@@ -15,6 +15,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.registerNib(UINib(nibName: "FavoriteStopTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoriteStopTableViewCell")
         // Do any additional setup after loading the view from its nib.
     }
     
@@ -41,7 +43,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
 //    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as TodayTableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("FavoriteStopTableViewCell") as TodayTableViewCell!
         
         if let favoriteStops = self.favoriteStops {
             let currentStop = favoriteStops[indexPath.row]
@@ -52,6 +54,11 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
                 if busArrivals != nil {
                     cell.labelArrivals.text = "\n".join(busArrivals!.map() { $0.description })
                 }
+            }
+            
+            if currentStop.distanceFromUser != nil {
+                let distanceInMiles = String(format: "%1.1f", currentStop.distanceFromUser! * 0.000621371)
+                cell.labelDistance.text = distanceInMiles + " miles"
             }
         }
         

@@ -9,23 +9,20 @@
 import Foundation
 
 class BusRoute {
-    let name: String
-    let additionalName: String
-    let routeDescription: String
+    let name = ""
+    let additionalName = ""
+    let routeDescription = ""
     private var _path: [[String: AnyObject]]?
-    lazy var path: [BusStop]? = {
+    lazy var path: [BusStop] = {
         if self._path != nil {
             var result = self._path!.mapUnwrap() { BusStop(data: $0) }
             self._path = nil // causes deallocation
             return result
         }
-        return nil
+        return [BusStop]()
     }()
     
     init?(data: [String : AnyObject]) {
-        self.name = ""
-        self.additionalName = ""
-        self.routeDescription = ""
         
         var name = data["Name"] as? String
         if name == nil { return nil }
