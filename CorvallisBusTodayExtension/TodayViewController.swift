@@ -15,8 +15,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.registerNib(UINib(nibName: "FavoriteStopTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoriteStopTableViewCell")
+        
         // Do any additional setup after loading the view from its nib.
     }
     
@@ -37,22 +37,18 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         return 0
     }
     
-//    func updatePreferredContentSize() {
-//        preferredContentSize = CGSizeMake(CGFloat(0), CGFloat(tableView(tableView, numberOfRowsInSection: 0)) * 2 * CGFloat(tableView.rowHeight) + tableView.sectionFooterHeight)
-//        println(preferredContentSize)
-//    }
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FavoriteStopTableViewCell") as TodayTableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("FavoriteStopTableViewCell") as FavoriteStopTableViewCell!
         
-        if let favoriteStops = self.favoriteStops {
-            let currentStop = favoriteStops[indexPath.row]
+        if self.favoriteStops != nil {
+            let currentStop = self.favoriteStops![indexPath.row]
             cell.labelRouteName.text = currentStop.name
             
             if self.arrivals != nil {
                 let busArrivals = self.arrivals![currentStop.id]
                 if busArrivals != nil {
-                    cell.labelArrivals.text = "\n".join(busArrivals!.map() { $0.description })
+                    cell.labelArrivals.text = busArrivals!.any() ?
+                        "\n".join(busArrivals!.map() { $0.description }) : "No arrivals!"
                 }
             }
             
@@ -65,38 +61,44 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         return cell
     }
     
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        coordinator.animateAlongsideTransition({ context in
-//            self.tableView.frame = CGRectMake(0, 0, size.width, size.height)
-//            }, completion: nil)
-//    }
-    
-    // MARK: Data access
-    func updateArrivals() {
-        if let favoriteStops = self.favoriteStops {
-            var favIds = favoriteStops.map() { $0.id }
-            CorvallisBusService.arrivals(favIds) {
-                self.arrivals = $0
-                dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
+    func updateFavoriteStops() {
+        CorvallisBusService.favorites() { result in
+            self.favoriteStops = result
+            self.updateArrivals()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.preferredContentSize = self.tableView.contentSize
+                self.tableView.reloadData()
             }
         }
     }
     
+    // MARK: Data access
+    func updateArrivals() {
+        if self.favoriteStops != nil {
+            var favIds = self.favoriteStops!.map() { $0.id }
+            CorvallisBusService.arrivals(favIds) {
+                self.arrivals = $0
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.preferredContentSize = self.tableView.contentSize
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
+        return UIEdgeInsets(top: defaultMarginInsets.top,
+            left: defaultMarginInsets.left - 3,
+            bottom: defaultMarginInsets.bottom,
+            right: defaultMarginInsets.right)
+    }
+    
     func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
         // Perform any setup necessary in order to update the view.
-
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        
-        CorvallisBusService.favorites() { result in
-            self.favoriteStops = result
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-                self.updateArrivals()
-            }
-        }
-        
+        updateFavoriteStops()
         completionHandler(NCUpdateResult.NewData)
     }
 }

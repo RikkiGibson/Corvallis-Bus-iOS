@@ -8,6 +8,7 @@
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="nSa-FI-X2c"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -17,13 +18,110 @@
                     <connections>
                         <segue destination="cMm-CO-mh0" kind="relationship" relationship="viewControllers" id="NDD-XW-nkO"/>
                         <segue destination="Q0p-Gt-6XU" kind="relationship" relationship="viewControllers" id="6OS-mb-F5Q"/>
+                        <segue destination="M6r-Fk-EKp" kind="relationship" relationship="viewControllers" id="yp4-Ei-ckG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="54" y="-12"/>
         </scene>
-        <!--Favorites Table View Controller-->
+        <!--Service Alerts-->
+        <scene sceneID="Hlh-LG-56o">
+            <objects>
+                <navigationController toolbarHidden="NO" id="M6r-Fk-EKp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Service Alerts" image="first" id="XE2-GM-Z0I"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kwS-ND-3v9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="CPT-pn-8Im">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="RsN-wr-N8g" kind="relationship" relationship="rootViewController" id="E99-mB-DE9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ut-go-K1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="711" y="-722"/>
+        </scene>
+        <!--Service Alerts-->
+        <scene sceneID="mot-VK-lkv">
+            <objects>
+                <viewController id="RsN-wr-N8g" customClass="ServiceAlertsViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ENs-fK-w00"/>
+                        <viewControllerLayoutGuide type="bottom" id="zZN-2B-g9N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jAl-qt-SdY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-fk-Nf6">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0Ws-fk-Nf6" secondAttribute="trailing" id="81p-GY-x0s"/>
+                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="top" secondItem="ENs-fK-w00" secondAttribute="bottom" id="WZ4-yZ-AdA"/>
+                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="bottom" secondItem="zZN-2B-g9N" secondAttribute="top" id="ecw-YT-zgw"/>
+                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="leading" secondItem="jAl-qt-SdY" secondAttribute="leading" id="vtV-bY-KlJ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="0Ws-fk-Nf6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="81p-GY-x0s"/>
+                                <exclude reference="WZ4-yZ-AdA"/>
+                                <exclude reference="ecw-YT-zgw"/>
+                                <exclude reference="vtV-bY-KlJ"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="0Ws-fk-Nf6"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="81p-GY-x0s"/>
+                                <include reference="WZ4-yZ-AdA"/>
+                                <include reference="ecw-YT-zgw"/>
+                                <include reference="vtV-bY-KlJ"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem systemItem="rewind" id="Med-oK-gwE">
+                            <connections>
+                                <action selector="goBack" destination="0Ws-fk-Nf6" id="o6H-5A-5z1"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="qCZ-vf-p6Q"/>
+                        <barButtonItem systemItem="fastForward" id="bB3-nk-2ZW">
+                            <connections>
+                                <action selector="goForward" destination="0Ws-fk-Nf6" id="1VG-B4-P0Z"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="GvJ-0a-mGu"/>
+                        <barButtonItem systemItem="refresh" id="Ud2-PR-0La">
+                            <connections>
+                                <action selector="reload" destination="0Ws-fk-Nf6" id="eTU-CN-zpb"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Service Alerts" id="oRZ-mf-Uh8"/>
+                    <connections>
+                        <outlet property="webView" destination="0Ws-fk-Nf6" id="HZ0-Cl-01P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e7f-aD-c5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1431" y="-722"/>
+        </scene>
+        <!--Favorites-->
         <scene sceneID="Z3a-y9-BCI">
             <objects>
                 <tableViewController id="kgi-lG-CAE" customClass="FavoritesTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
@@ -47,7 +145,7 @@
                             <outlet property="delegate" destination="kgi-lG-CAE" id="TBo-O8-1C7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="xdv-KC-d3w"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="xdv-KC-d3w"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTw-pc-Wic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -251,9 +349,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fB9-Pi-IRq"/>
+        <segue reference="9AW-fb-Rwl"/>
     </inferredMetricsTieBreakers>
 </document>

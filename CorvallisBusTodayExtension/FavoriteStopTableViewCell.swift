@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodayTableViewCell: UITableViewCell {
+class FavoriteStopTableViewCell: UITableViewCell {
     @IBOutlet weak var labelRouteName: UILabel!
     @IBOutlet weak var labelArrivals: UILabel!
     @IBOutlet weak var labelDistance: UILabel!

@@ -180,8 +180,7 @@ struct CorvallisBusService {
             return
         }
         
-        defaults!.setObject(favoriteIds,
-                 forKey: "Favorites")
+        defaults!.setObject(favoriteIds, forKey: "Favorites")
         defaults!.synchronize()
     }
 }
