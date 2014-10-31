@@ -16,7 +16,12 @@ internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManager
     override init() {
         super.init()
         self._locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        self._locationManager.requestWhenInUseAuthorization()
+        
+        // iOS 8 only
+        if self._locationManager.respondsToSelector("requestWhenInUseAuthorization") {
+            self._locationManager.requestWhenInUseAuthorization()
+        }
+        
         self._locationManager.delegate = self
     }
     

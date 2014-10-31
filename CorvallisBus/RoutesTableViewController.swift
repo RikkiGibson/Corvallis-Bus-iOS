@@ -43,14 +43,22 @@ class RoutesTableViewController : UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destination = segue.destinationViewController as UINavigationController
-        var actualDestination = destination.childViewControllers.last as StopsTableViewController
-        if let routes = routes {
-            if let index = self.tableView.indexPathForSelectedRow() {
-                let route = routes[index.row]
-                actualDestination.navigationItem.title = route.name
-                actualDestination.stops = route.path
-            }
+        let destination: AnyObject = segue.destinationViewController
+        // iOS 7
+        if destination is StopsTableViewController {
+            prepareDestination(destination as StopsTableViewController)
+        }
+        else { // iOS 8
+            prepareDestination(destination.childViewControllers.last as StopsTableViewController)
+        }
+    }
+    
+    func prepareDestination(destination: StopsTableViewController) {
+        let index = self.tableView.indexPathForSelectedRow()
+        if routes != nil && index != nil {
+            let route = routes![index!.row]
+            destination.navigationItem.title = route.name
+            destination.stops = route.path
         }
     }
 }

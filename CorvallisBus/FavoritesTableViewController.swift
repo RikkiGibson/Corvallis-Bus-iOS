@@ -101,17 +101,24 @@ class FavoritesTableViewController: UITableViewController {
 
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        var destination = segue.destinationViewController.childViewControllers.last as ArrivalViewController
-        var indexPath = self.tableView.indexPathForSelectedRow()
-        if favorites != nil && indexPath != nil {
-            destination.currentStop = favorites![indexPath!.row]
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destination: AnyObject = segue.destinationViewController
+        // iOS 7
+        if destination is ArrivalViewController {
+            prepareDestination(destination as ArrivalViewController)
         }
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        else { // iOS 8
+            prepareDestination(destination.childViewControllers.last as ArrivalViewController)
+        }
     }
-
-
+    
+    func prepareDestination(destination: ArrivalViewController) {
+        let index = self.tableView.indexPathForSelectedRow()
+        if favorites != nil && index != nil {
+            let stop = favorites![index!.row]
+            destination.currentStop = stop
+            destination.navigationItem.title = stop.road
+        }
+    }
 }
