@@ -18,7 +18,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="cMm-CO-mh0" kind="relationship" relationship="viewControllers" id="NDD-XW-nkO"/>
-                        <segue destination="Q0p-Gt-6XU" kind="relationship" relationship="viewControllers" id="6OS-mb-F5Q"/>
+                        <segue destination="9H0-PB-c8c" kind="relationship" relationship="viewControllers" id="w3R-6E-JFl"/>
                         <segue destination="M6r-Fk-EKp" kind="relationship" relationship="viewControllers" id="yp4-Ei-ckG"/>
                     </connections>
                 </tabBarController>
@@ -45,7 +45,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ut-go-K1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="711" y="-722"/>
+            <point key="canvasLocation" x="819" y="-724"/>
         </scene>
         <!--Service Alerts-->
         <scene sceneID="mot-VK-lkv">
@@ -120,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e7f-aD-c5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1431" y="-722"/>
+            <point key="canvasLocation" x="1539" y="-724"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Z3a-y9-BCI">
@@ -151,66 +151,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTw-pc-Wic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3225" y="-406"/>
-        </scene>
-        <!--Routes Table View Controller-->
-        <scene sceneID="oi1-8p-H73">
-            <objects>
-                <tableViewController title="Routes" id="J4D-fD-DJe" userLabel="Routes Table View Controller" customClass="RoutesTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Tyx-De-8DH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="IDR-CQ-njO">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IDR-CQ-njO" id="bcc-0H-SHX">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="9H0-PB-c8c" kind="show" id="I88-nh-Tt2"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="J4D-fD-DJe" id="A76-FB-kY9"/>
-                            <outlet property="delegate" destination="J4D-fD-DJe" id="2Kh-Iy-4Vk"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Routes" id="gEv-Bc-sSB"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8hP-Gx-Uac" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1641" y="336"/>
-        </scene>
-        <!--Stops Table View Controller-->
-        <scene sceneID="1iC-B1-aed">
-            <objects>
-                <tableViewController id="Jrc-tL-ip6" customClass="StopsTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="l6L-WK-Yff">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="osW-4f-jWz">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osW-4f-jWz" id="bcr-ke-4ZP">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="PoK-i7-5E2" kind="show" id="fB9-Pi-IRq"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Jrc-tL-ip6" id="ZtF-Rs-xNM"/>
-                            <outlet property="delegate" destination="Jrc-tL-ip6" id="NAb-V9-vS0"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="0J5-oA-F6S"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aP0-0n-65b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3213" y="336"/>
         </scene>
         <!--Arrivals View Controller-->
         <scene sceneID="zJF-6F-YSn">
@@ -272,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hY6-QM-UlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4851" y="335"/>
+            <point key="canvasLocation" x="4072.5" y="355"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Liu-BI-VBo">
@@ -293,29 +233,11 @@
             </objects>
             <point key="canvasLocation" x="2412" y="-406"/>
         </scene>
-        <!--Routes-->
-        <scene sceneID="Xgl-nL-gHl">
-            <objects>
-                <navigationController title="Routes" automaticallyAdjustsScrollViewInsets="NO" id="Q0p-Gt-6XU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Routes" image="second" id="ODh-Oh-B9K"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GAU-Kz-WQv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="J4D-fD-DJe" kind="relationship" relationship="rootViewController" id="z7F-3v-FVP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qLi-oH-sQ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="829.5" y="336"/>
-        </scene>
-        <!--Navigation Controller-->
+        <!--Stops-->
         <scene sceneID="fcL-ir-ckt">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
+                <navigationController title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" selectedImage="second" systemItem="contacts" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HQ9-65-zxJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -323,12 +245,71 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Jrc-tL-ip6" kind="relationship" relationship="rootViewController" id="j6l-Hl-XZb"/>
+                        <segue destination="Rfu-K7-Css" kind="relationship" relationship="rootViewController" id="knh-MX-6Nz"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Fv-Uh-rDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2401.5" y="336"/>
+            <point key="canvasLocation" x="1623" y="356"/>
+        </scene>
+        <!--Stops Map View Controller-->
+        <scene sceneID="Vuq-bu-hgT">
+            <objects>
+                <viewController id="Rfu-K7-Css" customClass="StopsMapViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vmb-rm-uRA"/>
+                        <viewControllerLayoutGuide type="bottom" id="SZz-GU-DQm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GSn-ny-dvK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="227-x1-g4E">
+                                <variation key="widthClass=compact" constant="49"/>
+                            </constraint>
+                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="9e4-n3-tUg">
+                                <variation key="widthClass=compact" constant="64"/>
+                            </constraint>
+                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="B46-ce-nBi"/>
+                            <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="eQ2-qE-Euo"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="227-x1-g4E"/>
+                                <exclude reference="9e4-n3-tUg"/>
+                                <exclude reference="B46-ce-nBi"/>
+                                <exclude reference="Lfj-Ge-O3N"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="eQ2-qE-Euo"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="227-x1-g4E"/>
+                                <include reference="9e4-n3-tUg"/>
+                                <include reference="B46-ce-nBi"/>
+                                <include reference="Lfj-Ge-O3N"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="jUS-nx-sK2"/>
+                    <connections>
+                        <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2470.5" y="354"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4WV-d9-9fX">
@@ -346,14 +327,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hh5-Y3-VUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4003.5" y="336"/>
+            <point key="canvasLocation" x="3225" y="356"/>
         </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fB9-Pi-IRq"/>
-    </inferredMetricsTieBreakers>
 </document>

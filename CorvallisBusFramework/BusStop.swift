@@ -18,11 +18,6 @@ class BusStop : Equatable {
     
     
     init?(data: [String: AnyObject]) {
-        self.id = 0
-        self.name = ""
-        self.road = ""
-        self.location = CLLocation()
-
         var id = data["ID"] as? Int
         if id == nil { return nil }
         self.id = id!

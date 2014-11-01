@@ -21,6 +21,7 @@
 		5C36E08319F75AE700024186 /* CorvallisBusLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C36E08219F75AE700024186 /* CorvallisBusLocationManagerDelegate.swift */; };
 		5C36E08419F7658900024186 /* CorvallisBusLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C36E08219F75AE700024186 /* CorvallisBusLocationManagerDelegate.swift */; };
 		5C36E08519F7658A00024186 /* CorvallisBusLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C36E08219F75AE700024186 /* CorvallisBusLocationManagerDelegate.swift */; };
+		5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
 		5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */; };
 		5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937D719CFCB82009A2FB2 /* Main.storyboard */; };
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
@@ -31,6 +32,7 @@
 		5C6565D119F3447D00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
 		5C6565D219F3447E00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
 		5C6565D319F3447E00585B5B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6565CE19F342E300585B5B /* Utils.swift */; };
+		5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */; };
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
 		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
 		5CCFADDB19F85E0700CCC03F /* Corvallis, OR.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */; };
@@ -134,6 +136,7 @@
 		5C36E07E19F7240800024186 /* FavoriteStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteStopTableViewCell.swift; path = ../CorvallisBusTodayExtension/FavoriteStopTableViewCell.swift; sourceTree = "<group>"; };
 		5C36E08019F7293700024186 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5C36E08219F75AE700024186 /* CorvallisBusLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusLocationManagerDelegate.swift; sourceTree = "<group>"; };
+		5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopAnnotation.swift; sourceTree = "<group>"; };
 		5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937D019CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
 		5C6565CE19F342E300585B5B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsMapViewController.swift; sourceTree = "<group>"; };
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
 		5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Corvallis, OR.gpx"; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */,
 				5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */,
 				5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */,
+				5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 				5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */,
 				5C4937CF19CFCB82009A2FB2 /* Supporting Files */,
 				5C1E467419D8E69400B95798 /* View Controllers */,
+				5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -594,6 +600,8 @@
 				5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */,
 				5C6565D119F3447D00585B5B /* Utils.swift in Sources */,
 				5C36E08519F7658A00024186 /* CorvallisBusLocationManagerDelegate.swift in Sources */,
+				5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */,
+				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
 				5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
 			);
