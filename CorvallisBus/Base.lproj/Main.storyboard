@@ -237,7 +237,7 @@
         <scene sceneID="fcL-ir-ckt">
             <objects>
                 <navigationController title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" selectedImage="second" systemItem="contacts" id="3EM-pA-Tx3"/>
+                    <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HQ9-65-zxJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -252,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="1623" y="356"/>
         </scene>
-        <!--Stops Map View Controller-->
+        <!--Find a Stop-->
         <scene sceneID="Vuq-bu-hgT">
             <objects>
-                <viewController id="Rfu-K7-Css" customClass="StopsMapViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Find a Stop" id="Rfu-K7-Css" customClass="StopsMapViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vmb-rm-uRA"/>
                         <viewControllerLayoutGuide type="bottom" id="SZz-GU-DQm"/>
@@ -302,7 +302,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="jUS-nx-sK2"/>
+                    <navigationItem key="navigationItem" title="Find a Stop" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
                     </connections>
@@ -331,7 +331,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bus_toolbar_icon" width="22" height="22"/>
         <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
     </resources>
 </document>
