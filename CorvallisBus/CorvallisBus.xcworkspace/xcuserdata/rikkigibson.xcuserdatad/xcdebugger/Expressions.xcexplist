@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CorvallisBus.FavoritesTableViewController.tableView (CorvallisBus.FavoritesTableViewController)(ObjectiveC.UITableView, cellForRowAtIndexPath : ObjectiveC.NSIndexPath) -&gt; ObjectiveC.UITableViewCell:FavoritesTableViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CorvallisBus.FavoritesTableViewController.(viewDidLoad (CorvallisBus.FavoritesTableViewController) -&gt; () -&gt; ()).(closure #1):FavoritesTableViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0600"
-   wasCreatedForAppExtension = "YES"
-   version = "1.8">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -15,23 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5CF192A719EF513100CB21EC"
-               BuildableName = "CorvallisBusTodayExtension.appex"
-               BlueprintName = "CorvallisBusTodayExtension"
+               BlueprintIdentifier = "5C4937CB19CFCB82009A2FB2"
+               BuildableName = "CorvallisBus.app"
+               BlueprintName = "CorvallisBus"
                ReferencedContainer = "container:CorvallisBus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5C4937CB19CFCB82009A2FB2"
-               BuildableName = "CorvallisBus.app"
-               BlueprintName = "CorvallisBus"
+               BlueprintIdentifier = "5C4937E219CFCB82009A2FB2"
+               BuildableName = "CorvallisBusTests.xctest"
+               BlueprintName = "CorvallisBusTests"
                ReferencedContainer = "container:CorvallisBus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,6 +60,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5C4937E219CFCB82009A2FB2"
+               BuildableName = "CorvallisBusTests.xctest"
+               BlueprintName = "CorvallisBusTests"
+               ReferencedContainer = "container:CorvallisBus.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "5CF192F919EF52B500CB21EC"
                BuildableName = "CorvallisBusFrameworkTests.xctest"
                BlueprintName = "CorvallisBusFrameworkTests"
@@ -79,16 +88,15 @@
       </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      askForAppToLaunch = "Yes"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5C4937CB19CFCB82009A2FB2"
@@ -96,21 +104,20 @@
             BlueprintName = "CorvallisBus"
             ReferencedContainer = "container:CorvallisBus.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
-      <IDERemoteRunnable
-         RemotePath = "/Today-View"
-         BundleIdentifier = "/Today-View">
-      </IDERemoteRunnable>
+      <LocationScenarioReference
+         identifier = "../CorvallisBusFramework/Corvallis, OR.gpx"
+         referenceType = "0">
+      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
-      debugDocumentVersioning = "YES"
-      askForAppToLaunch = "Yes">
+      debugDocumentVersioning = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
