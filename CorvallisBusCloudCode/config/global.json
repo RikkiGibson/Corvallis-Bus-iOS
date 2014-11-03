@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Corvallis Bus": {
+            "applicationId": "9opwF8DAywRM4AZuDPoZ5u9jvajZdgxkU36uYnCm", 
+            "masterKey": "qXHUhHerfmI2Ir1SMhkfGW9cnrGc64oqYZAPPGo2"
+        }, 
+        "_default": {
+            "link": "Corvallis Bus"
+        }
+    }
+}

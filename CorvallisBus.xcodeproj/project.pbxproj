@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C07B47A1A07045800F5928E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4781A07045800F5928E /* Bolts.framework */; };
+		5C07B47B1A07045800F5928E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4791A07045800F5928E /* Parse.framework */; };
+		5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47C1A07048400F5928E /* AudioToolbox.framework */; };
+		5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47E1A07048C00F5928E /* CFNetwork.framework */; };
+		5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4801A07049400F5928E /* CoreGraphics.framework */; };
+		5C07B4821A07049800F5928E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
+		5C07B4841A0704A800F5928E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4831A0704A800F5928E /* libz.dylib */; };
+		5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4851A0704B600F5928E /* MobileCoreServices.framework */; };
+		5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4871A0704BE00F5928E /* QuartzCore.framework */; };
+		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
+		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
+		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
 		5C1274BF19FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
 		5C1274C019FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
 		5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */; };
@@ -130,6 +142,17 @@
 
 /* Begin PBXFileReference section */
 		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
+		5C07B4781A07045800F5928E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		5C07B4791A07045800F5928E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		5C07B47C1A07048400F5928E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5C07B47E1A07048C00F5928E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5C07B4801A07049400F5928E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5C07B4831A0704A800F5928E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		5C07B4851A0704B600F5928E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5C07B4871A0704BE00F5928E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5C07B48B1A0704CC00F5928E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoriteStopTableViewCell.xib; path = ../CorvallisBusTodayExtension/FavoriteStopTableViewCell.xib; sourceTree = "<group>"; };
 		5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsTableViewController.swift; sourceTree = "<group>"; };
 		5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
@@ -175,7 +198,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */,
+				5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */,
+				5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */,
+				5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */,
+				5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */,
+				5C07B4841A0704A800F5928E /* libz.dylib in Frameworks */,
+				5C07B4821A07049800F5928E /* CoreLocation.framework in Frameworks */,
+				5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */,
+				5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */,
+				5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */,
 				5CF1930419EF52B500CB21EC /* CorvallisBusFramework.framework in Frameworks */,
+				5C07B47B1A07045800F5928E /* Parse.framework in Frameworks */,
+				5C07B47A1A07045800F5928E /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +263,8 @@
 		5C4937C319CFCB82009A2FB2 = {
 			isa = PBXGroup;
 			children = (
+				5C07B4781A07045800F5928E /* Bolts.framework */,
+				5C07B4791A07045800F5928E /* Parse.framework */,
 				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E619CFCB82009A2FB2 /* CorvallisBusTests */,
 				5CF192AC19EF513100CB21EC /* CorvallisBusTodayExtension */,
@@ -293,6 +330,15 @@
 		5CF192A919EF513100CB21EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */,
+				5C07B48B1A0704CC00F5928E /* StoreKit.framework */,
+				5C07B4891A0704C600F5928E /* Security.framework */,
+				5C07B4871A0704BE00F5928E /* QuartzCore.framework */,
+				5C07B4851A0704B600F5928E /* MobileCoreServices.framework */,
+				5C07B4831A0704A800F5928E /* libz.dylib */,
+				5C07B4801A07049400F5928E /* CoreGraphics.framework */,
+				5C07B47E1A07048C00F5928E /* CFNetwork.framework */,
+				5C07B47C1A07048400F5928E /* AudioToolbox.framework */,
 				5C36E08019F7293700024186 /* CoreLocation.framework */,
 				5CF192AA19EF513100CB21EC /* NotificationCenter.framework */,
 			);
@@ -798,6 +844,10 @@
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -815,6 +865,10 @@
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
