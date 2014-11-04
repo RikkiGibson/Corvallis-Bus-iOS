@@ -15,7 +15,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.registerNib(UINib(nibName: "FavoriteStopTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoriteStopTableViewCell")
+        self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
         
         // Do any additional setup after loading the view from its nib.
     }
@@ -38,17 +38,16 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FavoriteStopTableViewCell") as FavoriteStopTableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as FavoriteStopTableViewCell!
         
         if self.favoriteStops != nil {
             let currentStop = self.favoriteStops![indexPath.row]
             cell.labelRouteName.text = currentStop.name
             
             if self.arrivals != nil {
-                let busArrivals = self.arrivals![currentStop.id]
-                if busArrivals != nil {
-                    cell.labelArrivals.text = busArrivals!.any() ?
-                        "\n".join(busArrivals!.map() { $0.description }) : "No arrivals!"
+                if let busArrivals = self.arrivals![currentStop.id] {
+                    cell.labelArrivals.text = busArrivals.any() ?
+                        "\n".join(busArrivals.map() { $0.description }) : "No arrivals!"
                 }
             }
             

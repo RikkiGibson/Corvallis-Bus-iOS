@@ -13,13 +13,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var initializedMapLocation = false
+    var initialStop: BusStop?
+    
+    let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        
         CorvallisBusService.stops() { stops in
             var annotations = stops.map() { BusStopAnnotation(stop: $0) }
             self.mapView.addAnnotations(annotations);
@@ -30,6 +32,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         // Update the highlighting of all annotations based on current state of favorites.
         var busStopAnnotations = self.mapView.annotations.mapUnwrap() { $0 as? BusStopAnnotation }
+        
+        // initialStop is injected by another view in order to display a particular stop on the map
+        if self.initialStop != nil {
+            var annotation = busStopAnnotations.first() { $0.stop.id == self.initialStop!.id }
+            self.mapView.selectAnnotation(annotation, animated: false)
+            self.initializedMapLocation = true
+            self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
+                span: self.defaultSpan), animated: true)
+            self.initialStop = nil
+        }
+        
         CorvallisBusService.favorites() { favorites in
             for annotation in busStopAnnotations {
                 if let view = self.mapView.viewForAnnotation(annotation) {
@@ -47,7 +60,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         if !self.initializedMapLocation {
             self.mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate,
-                span: MKCoordinateSpanMake(0.05, 0.05)), animated: false)
+                span: self.defaultSpan), animated: false)
             self.initializedMapLocation = true
         }
     }

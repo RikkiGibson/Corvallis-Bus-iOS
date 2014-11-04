@@ -126,93 +126,27 @@
         <scene sceneID="Z3a-y9-BCI">
             <objects>
                 <tableViewController id="kgi-lG-CAE" customClass="FavoritesTableViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="us2-8a-Mad">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="us2-8a-Mad">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" id="EGX-Yy-o96">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EGX-Yy-o96" id="PLw-6k-ZGX">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="PoK-i7-5E2" kind="show" id="9AW-fb-Rwl"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kgi-lG-CAE" id="6b1-Yy-UQO"/>
                             <outlet property="delegate" destination="kgi-lG-CAE" id="TBo-O8-1C7"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Favorites" id="xdv-KC-d3w"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="E4A-UY-iqt">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <attributedString key="attributedTitle"/>
+                    </refreshControl>
+                    <connections>
+                        <segue destination="9H0-PB-c8c" kind="push" id="PT6-Zk-jgp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTw-pc-Wic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3225" y="-406"/>
-        </scene>
-        <!--Arrivals View Controller-->
-        <scene sceneID="zJF-6F-YSn">
-            <objects>
-                <viewController id="ILy-9q-U5V" userLabel="Arrivals View Controller" customClass="ArrivalViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PUJ-My-eoB"/>
-                        <viewControllerLayoutGuide type="bottom" id="1en-6b-mtk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vyP-qd-Y6e">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYh-eo-l20">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="170" width="368" height="21"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRc-hh-wxo">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="236" width="368" height="21"/>
-                                </variation>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="SYh-eo-l20"/>
-                                <exclude reference="hRc-hh-wxo"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="SYh-eo-l20"/>
-                                <include reference="hRc-hh-wxo"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <navigationItem key="navigationItem" id="jGl-cv-Gv4">
-                        <barButtonItem key="rightBarButtonItem" id="jyH-XW-twA">
-                            <connections>
-                                <action selector="favoriteButtonPressed:" destination="ILy-9q-U5V" id="NHf-VI-2QL"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="btnFavorite" destination="jyH-XW-twA" id="4x8-VP-fps"/>
-                        <outlet property="txtArrivalTime" destination="hRc-hh-wxo" id="LnB-re-9tb"/>
-                        <outlet property="txtStopName" destination="SYh-eo-l20" id="Udw-Ti-if0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hY6-QM-UlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4072.5" y="355"/>
+            <point key="canvasLocation" x="336" y="818"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Liu-BI-VBo">
@@ -231,14 +165,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKe-M6-DCs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2412" y="-406"/>
+            <point key="canvasLocation" x="-477" y="818"/>
         </scene>
         <!--Stops-->
         <scene sceneID="fcL-ir-ckt">
             <objects>
-                <navigationController title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Stops" title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HQ9-65-zxJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -250,7 +185,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Fv-Uh-rDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1623" y="356"/>
+            <point key="canvasLocation" x="1101" y="-12"/>
         </scene>
         <!--Find a Stop-->
         <scene sceneID="Vuq-bu-hgT">
@@ -270,24 +205,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="227-x1-g4E">
-                                <variation key="widthClass=compact" constant="49"/>
-                            </constraint>
-                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="9e4-n3-tUg">
-                                <variation key="widthClass=compact" constant="64"/>
-                            </constraint>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="B46-ce-nBi"/>
                             <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
+                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="U3M-KA-abK"/>
+                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" id="o6B-3e-Pnx"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="eQ2-qE-Euo"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="227-x1-g4E"/>
-                                <exclude reference="9e4-n3-tUg"/>
                                 <exclude reference="B46-ce-nBi"/>
                                 <exclude reference="Lfj-Ge-O3N"/>
+                                <exclude reference="o6B-3e-Pnx"/>
+                                <exclude reference="U3M-KA-abK"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -295,10 +226,10 @@
                                 <include reference="eQ2-qE-Euo"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="227-x1-g4E"/>
-                                <include reference="9e4-n3-tUg"/>
                                 <include reference="B46-ce-nBi"/>
                                 <include reference="Lfj-Ge-O3N"/>
+                                <include reference="o6B-3e-Pnx"/>
+                                <include reference="U3M-KA-abK"/>
                             </mask>
                         </variation>
                     </view>
@@ -309,29 +240,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2470.5" y="354"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="4WV-d9-9fX">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PoK-i7-5E2" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UbM-bF-CkI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ILy-9q-U5V" kind="relationship" relationship="rootViewController" id="wm8-2S-Uqh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hh5-Y3-VUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3225" y="356"/>
+            <point key="canvasLocation" x="1914" y="-18"/>
         </scene>
     </scenes>
     <resources>
         <image name="bus_toolbar_icon" width="22" height="22"/>
         <image name="first" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="PT6-Zk-jgp"/>
+    </inferredMetricsTieBreakers>
 </document>

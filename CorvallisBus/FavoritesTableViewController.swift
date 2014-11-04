@@ -7,24 +7,48 @@
 //
 
 import UIKit
+import MapKit
 
 class FavoritesTableViewController: UITableViewController {
     var favorites: [BusStop]?
+    var arrivals: [Int : [BusArrival]]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.registerNib(UINib(nibName: "FavoritesTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoritesTableViewCell")
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "updateList:", forControlEvents: .ValueChanged)
+        self.refreshControl?.beginRefreshing()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
+        updateList(self)
+    }
+    
+    func updateList(sender: AnyObject) {
         CorvallisBusService.favorites() {
             self.favorites = $0
+            self.updateArrivals()
             dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
+        }
+    }
+    
+    func updateArrivals() {
+        if self.favorites != nil {
+            CorvallisBusService.arrivals(self.favorites!.map() { $0.id }) {
+                self.arrivals = $0
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
+                }
+            }
         }
     }
 
@@ -51,11 +75,24 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath) as UITableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as FavoriteStopTableViewCell
+        
         // Configure the cell...
         if self.favorites != nil {
-            cell.textLabel.text = favorites![indexPath.row].name
+            let stop = favorites![indexPath.row]
+            cell.labelRouteName.text = stop.name
+            if self.arrivals != nil {
+                if let busArrivals = arrivals![stop.id] {
+                    cell.labelArrivals.text = busArrivals.any() ?
+                        "\n".join(busArrivals.map() { $0.description }) : "No arrivals!"
+                }
+            }
+            
+            let metersToMiles = 0.000621371
+            if stop.distanceFromUser != nil {
+                let distanceInMiles = String(format: "%1.1f", stop.distanceFromUser! * metersToMiles)
+                cell.labelDistance.text = distanceInMiles + " miles"
+            }
         }
         return cell
     }
@@ -67,15 +104,13 @@ class FavoritesTableViewController: UITableViewController {
         return true
     }
     
-    
-    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            if favorites != nil {
-                favorites!.removeAtIndex(indexPath.row)
-                CorvallisBusService.setFavorites(favorites!)
+            if self.favorites != nil {
+                self.favorites!.removeAtIndex(indexPath.row)
+                CorvallisBusService.setFavorites(self.favorites!)
             }
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
@@ -83,6 +118,12 @@ class FavoritesTableViewController: UITableViewController {
         }    
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let map = self.tabBarController?.viewControllers?[1].childViewControllers.first as? StopsMapViewController {
+            map.initialStop = favorites?[indexPath.row]
+            self.tabBarController?.selectedIndex = 1
+        }
+    }
 
     /*
     // Override to support rearranging the table view.
@@ -98,27 +139,4 @@ class FavoritesTableViewController: UITableViewController {
         return true
     }
     */
-
-    
-    // MARK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destination: AnyObject = segue.destinationViewController
-        // iOS 7
-        if destination is ArrivalViewController {
-            prepareDestination(destination as ArrivalViewController)
-        }
-        else { // iOS 8
-            prepareDestination(destination.childViewControllers.last as ArrivalViewController)
-        }
-    }
-    
-    func prepareDestination(destination: ArrivalViewController) {
-        let index = self.tableView.indexPathForSelectedRow()
-        if favorites != nil && index != nil {
-            let stop = favorites![index!.row]
-            destination.currentStop = stop
-            destination.navigationItem.title = stop.road
-        }
-    }
 }
