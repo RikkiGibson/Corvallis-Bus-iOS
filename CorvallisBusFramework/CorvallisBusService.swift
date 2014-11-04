@@ -24,7 +24,7 @@ struct CorvallisBusService {
             var url = NSURL(string: "\(rootUrl)/stops")
             
             if url == nil {
-                println("NSURL did not instanciate properly")
+                println("NSURL did not instantiate properly")
                 return
             }
             
@@ -129,7 +129,6 @@ struct CorvallisBusService {
     private static var _userLocation: CLLocation?
     private static var _favorites: [BusStop]?
     static func favorites(callback: ([BusStop]) -> Void) -> Void {
-        
         locationManagerDelegate.userLocation() {
             self._userLocation = $0
             self._getSortedFavorites(callback)
@@ -155,7 +154,6 @@ struct CorvallisBusService {
         if self._favorites == nil || self._userLocation == nil {
             return
         }
-        
         var favorites = self._favorites!
         for favorite in favorites {
             favorite.distanceFromUser = favorite.location.distanceFromLocation(self._userLocation!)
@@ -169,11 +167,8 @@ struct CorvallisBusService {
     }
     
     static func setFavorites(favorites: [BusStop]) -> Void {
-        self._favorites = favorites
-        
         let favoriteIds = NSArray(array: favorites.map() { $0.id })
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
-        
         
         if defaults == nil {
             println("NSUserDefaults did not instantiate properly in CorvallisBusService")
@@ -183,4 +178,5 @@ struct CorvallisBusService {
         defaults!.setObject(favoriteIds, forKey: "Favorites")
         defaults!.synchronize()
     }
+    
 }

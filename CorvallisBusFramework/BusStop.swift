@@ -38,6 +38,17 @@ class BusStop : Equatable {
         
         self.location = CLLocation(latitude: lat!, longitude: long!)
     }
+    
+    var friendlyDistance: String {
+        get {
+            if self.distanceFromUser != nil {
+                let metersToMiles = 0.000621371
+                let distanceInMiles = String(format: "%1.1f", self.distanceFromUser! * metersToMiles)
+                return distanceInMiles + " miles"
+            }
+            return ""
+        }
+    }
 }
     
 func == (lhs: BusStop, rhs: BusStop) -> Bool {

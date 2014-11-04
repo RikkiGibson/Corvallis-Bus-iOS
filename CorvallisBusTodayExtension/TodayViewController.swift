@@ -40,21 +40,14 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as FavoriteStopTableViewCell!
         
-        if self.favoriteStops != nil {
-            let currentStop = self.favoriteStops![indexPath.row]
+        if let currentStop = self.favoriteStops?[indexPath.row] {
             cell.labelRouteName.text = currentStop.name
             
-            if self.arrivals != nil {
-                if let busArrivals = self.arrivals![currentStop.id] {
-                    cell.labelArrivals.text = busArrivals.any() ?
-                        "\n".join(busArrivals.map() { $0.description }) : "No arrivals!"
-                }
+            if let busArrivals = self.arrivals?[currentStop.id] {
+                cell.labelArrivals.text = friendlyArrivals(busArrivals)
             }
             
-            if currentStop.distanceFromUser != nil {
-                let distanceInMiles = String(format: "%1.1f", currentStop.distanceFromUser! * 0.000621371)
-                cell.labelDistance.text = distanceInMiles + " miles"
-            }
+            cell.labelDistance.text = currentStop.friendlyDistance
         }
         
         return cell

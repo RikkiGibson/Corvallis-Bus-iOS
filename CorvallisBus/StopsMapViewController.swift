@@ -35,11 +35,13 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         
         // initialStop is injected by another view in order to display a particular stop on the map
         if self.initialStop != nil {
-            var annotation = busStopAnnotations.first() { $0.stop.id == self.initialStop!.id }
-            self.mapView.selectAnnotation(annotation, animated: false)
-            self.initializedMapLocation = true
+            let annotation = busStopAnnotations.first() { $0.stop.id == self.initialStop!.id }
             self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
                 span: self.defaultSpan), animated: true)
+            // prevents wonky appearance if this annotation was already selected, but the map was in a different position
+            self.mapView.deselectAnnotation(annotation, animated: false)
+            self.mapView.selectAnnotation(annotation, animated: false)
+            self.initializedMapLocation = true
             self.initialStop = nil
         }
         
@@ -91,8 +93,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             button.setImage(UIImage(named: "favorite"), forState: UIControlState.Normal)
             button.setImage(UIImage(named: "favorite"), forState: UIControlState.Selected)
             button.selected = annotation.isFavorite
-            button.addTarget(self, action: "buttonPush:", forControlEvents: UIControlEvents.TouchUpInside)
             
+            button.addTarget(self, action: "buttonPush:", forControlEvents: UIControlEvents.TouchUpInside)
+
             annotationView.rightCalloutAccessoryView = button
         }
         
@@ -143,7 +146,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
                     favorites.append(annotation.stop)
                 }
                 CorvallisBusService.setFavorites(favorites)
-                self.updateSelectedStateForAnnotationView(view, favorites: favorites)
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.updateSelectedStateForAnnotationView(view, favorites: favorites)
+                }
             }
         }
     }
@@ -160,15 +165,5 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             view.image = UIImage(named: annotation!.isFavorite ? "goldoval" : "greenoval")
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

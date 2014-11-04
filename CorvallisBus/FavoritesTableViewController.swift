@@ -19,7 +19,7 @@ class FavoritesTableViewController: UITableViewController {
         self.tableView.registerNib(UINib(nibName: "FavoritesTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "updateList:", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
         self.refreshControl?.beginRefreshing()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,10 +29,10 @@ class FavoritesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        updateList(self)
+        updateFavorites(self)
     }
     
-    func updateList(sender: AnyObject) {
+    func updateFavorites(sender: AnyObject) {
         CorvallisBusService.favorites() {
             self.favorites = $0
             self.updateArrivals()
@@ -77,23 +77,16 @@ class FavoritesTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as FavoriteStopTableViewCell
         
-        // Configure the cell...
-        if self.favorites != nil {
-            let stop = favorites![indexPath.row]
-            cell.labelRouteName.text = stop.name
-            if self.arrivals != nil {
-                if let busArrivals = arrivals![stop.id] {
-                    cell.labelArrivals.text = busArrivals.any() ?
-                        "\n".join(busArrivals.map() { $0.description }) : "No arrivals!"
-                }
+        if let currentStop = self.favorites?[indexPath.row] {
+            cell.labelRouteName.text = currentStop.name
+            
+            if let busArrivals = self.arrivals?[currentStop.id] {
+                cell.labelArrivals.text = friendlyArrivals(busArrivals)
             }
             
-            let metersToMiles = 0.000621371
-            if stop.distanceFromUser != nil {
-                let distanceInMiles = String(format: "%1.1f", stop.distanceFromUser! * metersToMiles)
-                cell.labelDistance.text = distanceInMiles + " miles"
-            }
+            cell.labelDistance.text = currentStop.friendlyDistance
         }
+        
         return cell
     }
 
@@ -111,8 +104,8 @@ class FavoritesTableViewController: UITableViewController {
             if self.favorites != nil {
                 self.favorites!.removeAtIndex(indexPath.row)
                 CorvallisBusService.setFavorites(self.favorites!)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    

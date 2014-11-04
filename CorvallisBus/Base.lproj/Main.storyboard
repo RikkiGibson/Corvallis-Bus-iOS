@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -29,7 +30,7 @@
         <!--Service Alerts-->
         <scene sceneID="Hlh-LG-56o">
             <objects>
-                <navigationController toolbarHidden="NO" id="M6r-Fk-EKp" sceneMemberID="viewController">
+                <navigationController id="M6r-Fk-EKp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Service Alerts" image="first" id="XE2-GM-Z0I"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kwS-ND-3v9">
@@ -40,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="RsN-wr-N8g" kind="relationship" relationship="rootViewController" id="E99-mB-DE9"/>
+                        <segue destination="WAf-8A-IQa" kind="relationship" relationship="rootViewController" id="s2I-Ng-8Rs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ut-go-K1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -48,79 +49,70 @@
             <point key="canvasLocation" x="819" y="-724"/>
         </scene>
         <!--Service Alerts-->
-        <scene sceneID="mot-VK-lkv">
+        <scene sceneID="n01-MQ-IPU">
             <objects>
-                <viewController id="RsN-wr-N8g" customClass="ServiceAlertsViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ENs-fK-w00"/>
-                        <viewControllerLayoutGuide type="bottom" id="zZN-2B-g9N"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jAl-qt-SdY">
+                <tableViewController id="WAf-8A-IQa" customClass="ServiceAlertsViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="p1g-wr-KWE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-fk-Nf6">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0Ws-fk-Nf6" secondAttribute="trailing" id="81p-GY-x0s"/>
-                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="top" secondItem="ENs-fK-w00" secondAttribute="bottom" id="WZ4-yZ-AdA"/>
-                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="bottom" secondItem="zZN-2B-g9N" secondAttribute="top" id="ecw-YT-zgw"/>
-                            <constraint firstItem="0Ws-fk-Nf6" firstAttribute="leading" secondItem="jAl-qt-SdY" secondAttribute="leading" id="vtV-bY-KlJ"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="0Ws-fk-Nf6"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="81p-GY-x0s"/>
-                                <exclude reference="WZ4-yZ-AdA"/>
-                                <exclude reference="ecw-YT-zgw"/>
-                                <exclude reference="vtV-bY-KlJ"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="0Ws-fk-Nf6"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="81p-GY-x0s"/>
-                                <include reference="WZ4-yZ-AdA"/>
-                                <include reference="ecw-YT-zgw"/>
-                                <include reference="vtV-bY-KlJ"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem systemItem="rewind" id="Med-oK-gwE">
-                            <connections>
-                                <action selector="goBack" destination="0Ws-fk-Nf6" id="o6H-5A-5z1"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="qCZ-vf-p6Q"/>
-                        <barButtonItem systemItem="fastForward" id="bB3-nk-2ZW">
-                            <connections>
-                                <action selector="goForward" destination="0Ws-fk-Nf6" id="1VG-B4-P0Z"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="GvJ-0a-mGu"/>
-                        <barButtonItem systemItem="refresh" id="Ud2-PR-0La">
-                            <connections>
-                                <action selector="reload" destination="0Ws-fk-Nf6" id="eTU-CN-zpb"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Service Alerts" id="oRZ-mf-Uh8"/>
-                    <connections>
-                        <outlet property="webView" destination="0Ws-fk-Nf6" id="HZ0-Cl-01P"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e7f-aD-c5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServiceAlertCell" rowHeight="88" id="960-vw-GP2" customClass="ServiceAlertTableViewCell" customModule="CorvallisBus" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="960-vw-GP2" id="phc-gT-CIj">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" placeholderIntrinsicWidth="384" placeholderIntrinsicHeight="40" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW3-Pf-OoW">
+                                            <rect key="frame" x="8" y="3" width="584" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                <rect key="frame" x="8" y="8" width="384" height="39"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="384" placeholderIntrinsicHeight="15" text="Summary" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75F-vb-LED">
+                                            <rect key="frame" x="8" y="42" width="584" height="32"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                                <rect key="frame" x="8" y="42" width="384" height="0.0"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="top" secondItem="phc-gT-CIj" secondAttribute="topMargin" constant="-5" id="5nZ-Ds-5ZV"/>
+                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="trailing" secondItem="phc-gT-CIj" secondAttribute="trailingMargin" id="MFB-Fc-ne6"/>
+                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="leading" secondItem="phc-gT-CIj" secondAttribute="leadingMargin" id="OlK-yk-PNg"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="75F-vb-LED" secondAttribute="bottom" constant="6" id="Ur3-Hh-Ylo"/>
+                                        <constraint firstItem="75F-vb-LED" firstAttribute="top" secondItem="BW3-Pf-OoW" secondAttribute="bottom" constant="-1" id="dXe-jo-2Wk"/>
+                                        <constraint firstItem="75F-vb-LED" firstAttribute="trailing" secondItem="phc-gT-CIj" secondAttribute="trailingMargin" id="qdt-pi-lPv"/>
+                                        <constraint firstItem="75F-vb-LED" firstAttribute="leading" secondItem="phc-gT-CIj" secondAttribute="leadingMargin" id="zCH-dC-wTE"/>
+                                    </constraints>
+                                    <variation key="widthClass=compact">
+                                        <mask key="subviews">
+                                            <include reference="BW3-Pf-OoW"/>
+                                            <include reference="75F-vb-LED"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelDescription" destination="75F-vb-LED" id="ogp-mQ-KzC"/>
+                                    <outlet property="labelTitle" destination="BW3-Pf-OoW" id="p9o-wy-kxB"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="WAf-8A-IQa" id="0sQ-Je-Agi"/>
+                            <outlet property="delegate" destination="WAf-8A-IQa" id="tuC-a9-TPE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Service Alerts" id="ToI-Rp-AoI"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qUZ-f9-fKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1539" y="-724"/>
+            <point key="canvasLocation" x="1530" y="-724"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Z3a-y9-BCI">
@@ -140,9 +132,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
                     </refreshControl>
-                    <connections>
-                        <segue destination="9H0-PB-c8c" kind="push" id="PT6-Zk-jgp"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTw-pc-Wic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,10 +204,10 @@
                                 <exclude reference="eQ2-qE-Euo"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="U3M-KA-abK"/>
                                 <exclude reference="B46-ce-nBi"/>
                                 <exclude reference="Lfj-Ge-O3N"/>
                                 <exclude reference="o6B-3e-Pnx"/>
-                                <exclude reference="U3M-KA-abK"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -226,10 +215,10 @@
                                 <include reference="eQ2-qE-Euo"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="U3M-KA-abK"/>
                                 <include reference="B46-ce-nBi"/>
                                 <include reference="Lfj-Ge-O3N"/>
                                 <include reference="o6B-3e-Pnx"/>
-                                <include reference="U3M-KA-abK"/>
                             </mask>
                         </variation>
                     </view>
@@ -240,14 +229,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="-18"/>
+            <point key="canvasLocation" x="1914" y="-12"/>
         </scene>
     </scenes>
     <resources>
         <image name="bus_toolbar_icon" width="22" height="22"/>
         <image name="first" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="PT6-Zk-jgp"/>
-    </inferredMetricsTieBreakers>
 </document>
