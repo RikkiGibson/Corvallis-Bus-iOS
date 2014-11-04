@@ -19,8 +19,6 @@
 		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
 		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
-		5C1274BF19FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
-		5C1274C019FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */; };
 		5C1E467119D8E5D600B95798 /* StopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */; };
 		5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */; };
 		5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */; };
@@ -49,6 +47,8 @@
 		5C82118C19D3BBC500CD4462 /* RoutesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */; };
 		5CB589FB19E22F9C00327783 /* ArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */; };
 		5CCFADDB19F85E0700CCC03F /* Corvallis, OR.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */; };
+		5CEA850B1A0868A500B7FBD9 /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85091A0868A100B7FBD9 /* FavoriteStopTableViewCell.xib */; };
+		5CEA850C1A0868A600B7FBD9 /* FavoriteStopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85091A0868A100B7FBD9 /* FavoriteStopTableViewCell.xib */; };
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF192AF19EF513100CB21EC /* TodayViewController.swift */; };
 		5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CF192B119EF513100CB21EC /* MainInterface.storyboard */; };
@@ -153,7 +153,6 @@
 		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5C07B48B1A0704CC00F5928E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FavoriteStopTableViewCell.xib; path = ../CorvallisBusTodayExtension/FavoriteStopTableViewCell.xib; sourceTree = "<group>"; };
 		5C1E467019D8E5D600B95798 /* StopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsTableViewController.swift; sourceTree = "<group>"; };
 		5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +174,7 @@
 		5C82118B19D3BBC500CD4462 /* RoutesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesTableViewController.swift; sourceTree = "<group>"; };
 		5CB589FA19E22F9C00327783 /* ArrivalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalViewController.swift; sourceTree = "<group>"; };
 		5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Corvallis, OR.gpx"; sourceTree = "<group>"; };
+		5CEA85091A0868A100B7FBD9 /* FavoriteStopTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoriteStopTableViewCell.xib; sourceTree = "<group>"; };
 		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		5CF192AE19EF513100CB21EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -367,8 +367,8 @@
 		5CF192F119EF52B500CB21EC /* CorvallisBusFramework */ = {
 			isa = PBXGroup;
 			children = (
+				5CEA85091A0868A100B7FBD9 /* FavoriteStopTableViewCell.xib */,
 				5C36E07E19F7240800024186 /* FavoriteStopTableViewCell.swift */,
-				5C1274BE19FC41390099000D /* FavoriteStopTableViewCell.xib */,
 				5CCFADDA19F85E0700CCC03F /* Corvallis, OR.gpx */,
 				5CF1931119EF556600CB21EC /* Data Contracts */,
 				5CF192F419EF52B500CB21EC /* CorvallisBusFramework.h */,
@@ -592,10 +592,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C1274BF19FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */,
 				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
 				5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */,
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
+				5CEA850C1A0868A600B7FBD9 /* FavoriteStopTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,8 +611,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C3992F21A05B30B00AF52E4 /* Images.xcassets in Resources */,
-				5C1274C019FC41390099000D /* FavoriteStopTableViewCell.xib in Resources */,
 				5CF192B219EF513100CB21EC /* MainInterface.storyboard in Resources */,
+				5CEA850B1A0868A500B7FBD9 /* FavoriteStopTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
