@@ -20,35 +20,44 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "initializeMap:", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        CorvallisBusService.stops() { stops in
-            var annotations = stops.map() { BusStopAnnotation(stop: $0) }
-            self.mapView.addAnnotations(annotations);
-        }
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        initializeMap(self)
+    }
+    
+    func initializeMap(sender: AnyObject) {
         // Update the highlighting of all annotations based on current state of favorites.
-        var busStopAnnotations = self.mapView.annotations.mapUnwrap() { $0 as? BusStopAnnotation }
-        
-        // initialStop is injected by another view in order to display a particular stop on the map
-        if self.initialStop != nil {
-            let annotation = busStopAnnotations.first() { $0.stop.id == self.initialStop!.id }
-            self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
-                span: self.defaultSpan), animated: true)
-            // prevents wonky appearance if this annotation was already selected, but the map was in a different position
-            self.mapView.deselectAnnotation(annotation, animated: false)
-            self.mapView.selectAnnotation(annotation, animated: false)
-            self.initializedMapLocation = true
-            self.initialStop = nil
-        }
-        
-        CorvallisBusService.favorites() { favorites in
-            for annotation in busStopAnnotations {
-                if let view = self.mapView.viewForAnnotation(annotation) {
-                    self.updateSelectedStateForAnnotationView(view, favorites: favorites)
+        let busStopAnnotations = self.mapView.annotations.mapUnwrap() { $0 as? BusStopAnnotation }
+        CorvallisBusService.stops() { stops in
+            // Opening the view while offline can prevent annotations from being added to the map
+            if !busStopAnnotations.any() {
+                var annotations = stops.map() { BusStopAnnotation(stop: $0) }
+                self.mapView.addAnnotations(annotations);
+            }
+            // initialStop is injected by another view in order to display a particular stop on the map
+            if self.initialStop != nil {
+                let annotation = busStopAnnotations.first() { $0.stop.id == self.initialStop!.id }
+                self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
+                    span: self.defaultSpan), animated: true)
+                // prevents wonky appearance if this annotation was already selected, but the map was in a different position
+                self.mapView.deselectAnnotation(annotation, animated: false)
+                self.mapView.selectAnnotation(annotation, animated: false)
+                self.initializedMapLocation = true
+                self.initialStop = nil
+            }
+            
+            CorvallisBusService.favorites() { favorites in
+                for annotation in busStopAnnotations {
+                    if let view = self.mapView.viewForAnnotation(annotation) {
+                        self.updateSelectedStateForAnnotationView(view, favorites: favorites)
+                    }
                 }
             }
         }

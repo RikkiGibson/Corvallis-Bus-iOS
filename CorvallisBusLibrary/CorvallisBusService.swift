@@ -17,8 +17,9 @@ struct CorvallisBusService {
     private static var _stops: [BusStop]?
     /**
         Executes a callback using the list of stops from the Corvallis Bus server.
+    
     */
-    static func stops(callback: ([BusStop]) -> Void) -> Void {
+    static func stops(callback: [BusStop] -> Void) -> Void {
         if _stops == nil {
             var session = NSURLSession.sharedSession()
             var url = NSURL(string: "\(rootUrl)/stops")
@@ -33,6 +34,7 @@ struct CorvallisBusService {
                     (data, response, error) -> Void in
                     if (error != nil) {
                         println(error.description)
+                        return
                     }
                     
                     var jsonError: NSError?
@@ -42,6 +44,7 @@ struct CorvallisBusService {
                     
                     if (jsonError != nil) {
                         println(jsonError!.description)
+                        return
                     }
                     
                     self._stops = stopJson.mapUnwrap() { BusStop(data: $0) }
@@ -72,6 +75,7 @@ struct CorvallisBusService {
                     (data, response, error) -> Void in
                     if (error != nil) {
                         println(error.description)
+                        return
                     }
                     
                     var jsonError: NSError?
@@ -81,6 +85,7 @@ struct CorvallisBusService {
                     
                     if (jsonError != nil) {
                         println(jsonError!.description)
+                        return
                     }
                     
                     self._routes = stopJson.mapUnwrap() { BusRoute(data: $0) }
@@ -96,26 +101,33 @@ struct CorvallisBusService {
         Executes a callback using the arrival information for the provided list of stop IDs.
     */
     static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
-        var joinedStops = ",".join(stops.map() { String($0) })
-        var urlString = "\(rootUrl)/arrivals?stops=\(joinedStops)"
-        var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
+        // no point in getting arrival times for 0 bus stops
+        if !stops.any() {
+            callback([Int : [BusArrival]]())
+            return
+        }
         
+        var joinedStops = ",".join(stops.map() { String($0) })
+        var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
         if url == nil {
             println("NSURL did not instantiate properly")
             return
         }
         
-        var session = NSURLSession.sharedSession();
+        let session = NSURLSession.sharedSession()
         session.dataTaskWithURL(url!, completionHandler: {
-            data, response, error -> Void in
+            data, response, error in
             if (error != nil) {
                 println(error.description)
+                return
             }
             
             var jsonError: NSError?
-            var arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String: AnyObject]
+            let arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String: AnyObject]
+            
             if (jsonError != nil) {
                 println(jsonError!.description)
+                return
             }
             callback(toStopArrivals(arrivalJson))
         }).resume()

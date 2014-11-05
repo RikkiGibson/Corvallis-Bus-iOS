@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        /*
         Parse.setApplicationId("9opwF8DAywRM4AZuDPoZ5u9jvajZdgxkU36uYnCm", clientKey: "czS3p99OeIan69n8etH37NRm7Hs9mYfaJWXK8a3u")
         
         // iOS 8
@@ -27,11 +29,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else { // iOS 7
             application.registerForRemoteNotificationTypes(.Badge | .Alert | .Sound)
         }
+        */
         
         return true
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        
+        /*
         var currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.setDeviceTokenFromData(deviceToken)
         currentInstallation.saveInBackgroundWithBlock() { succeeded, error in
@@ -39,10 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 currentInstallation.saveEventually()
             }
         }
+        */
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        PFPush.handlePush(userInfo)
+        //PFPush.handlePush(userInfo)
     }
 
     func applicationWillResignActive(application: UIApplication) {
