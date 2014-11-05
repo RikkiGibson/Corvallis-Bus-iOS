@@ -9,10 +9,10 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>CorvallisBusFramework.xcscheme</key>
+		<key>CorvallisBusLibrary.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>5</integer>
 		</dict>
 		<key>CorvallisBusTodayExtension.xcscheme</key>
 		<dict>
@@ -28,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>5C4937E219CFCB82009A2FB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C7612671A09C75E001F9DBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C7612711A09C75E001F9DBE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
