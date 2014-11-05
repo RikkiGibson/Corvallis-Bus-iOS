@@ -24,11 +24,11 @@ class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate {
         if let url = NSURL(string: "http://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current") {
             self.items = [MWFeedItem]()
             
-            self.parser = MWFeedParser(feedURL: url)
-            self.parser!.delegate = self
-            self.parser!.feedParseType = ParseTypeItemsOnly
-            self.parser!.connectionType = ConnectionTypeAsynchronously
-            self.parser!.parse()
+            var parser = MWFeedParser(feedURL: url)
+            parser.delegate = self
+            parser.feedParseType = ParseTypeItemsOnly
+            parser.connectionType = ConnectionTypeAsynchronously
+            parser.parse()
         }
     }
     
