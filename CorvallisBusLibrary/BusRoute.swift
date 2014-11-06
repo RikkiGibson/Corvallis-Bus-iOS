@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import MapKit
 
 class BusRoute {
     let name = ""
     let additionalName = ""
     let routeDescription = ""
+    let polyline = MKPolyline()
     private var _path: [[String: AnyObject]]?
     lazy var path: [BusStop] = {
         if self._path != nil {
@@ -24,18 +26,22 @@ class BusRoute {
     
     init?(data: [String : AnyObject]) {
         
-        var name = data["Name"] as? String
+        let name = data["Name"] as? String
         if name == nil { return nil }
         self.name = name!
         
-        var additionalName = data["AdditionalName"] as? String
+        let additionalName = data["AdditionalName"] as? String
         if additionalName == nil { return nil }
         self.additionalName = additionalName!
         
-        var description = data["Description"] as? String
+        let description = data["Description"] as? String
         if description == nil { return nil }
         self.routeDescription = description!
         
         self._path = data["Path"] as? [[String: AnyObject]]
+        
+        let polylineString = data["Polyline"] as? String
+        if polylineString == nil { return nil }
+        self.polyline = MKPolyline(GMEncodedString: polylineString)
     }
 }

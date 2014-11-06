@@ -14,11 +14,3 @@ end
 target 'CorvallisBusTodayExtension' do
 
 end
-
-target 'CorvallisBusFramework' do
-
-end
-
-target 'CorvallisBusFrameworkTests' do
-
-end

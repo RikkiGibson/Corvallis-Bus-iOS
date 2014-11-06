@@ -8,25 +8,21 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-CorvallisBus.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>4C0C5D26B61E8EE63126C6E8</key>
+		<key>D68B65F451120C9135EC3545</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EBBC24AF49D2D17A23877B3</key>
+		<key>E6FE72F856A783CCC5E19606</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -53,6 +53,14 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let currentStop = self.favoriteStops?[indexPath.row] {
+            if let url = NSURL(string: "CorvallisBus://?\(currentStop.id)") {
+                self.extensionContext?.openURL(url) { success in }
+            }
+        }
+    }
+    
     func updateFavoriteStops() {
         CorvallisBusService.favorites() { result in
             self.favoriteStops = result

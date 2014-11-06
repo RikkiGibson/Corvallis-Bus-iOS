@@ -179,7 +179,7 @@
         <!--Find a Stop-->
         <scene sceneID="Vuq-bu-hgT">
             <objects>
-                <viewController title="Find a Stop" id="Rfu-K7-Css" customClass="StopsMapViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StopsMap" title="Find a Stop" id="Rfu-K7-Css" customClass="StopsMapViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vmb-rm-uRA"/>
                         <viewControllerLayoutGuide type="bottom" id="SZz-GU-DQm"/>

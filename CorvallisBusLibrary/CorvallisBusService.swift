@@ -102,6 +102,7 @@ struct CorvallisBusService {
     */
     static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
         // no point in getting arrival times for 0 bus stops
+        // especially when doing so crashes the app
         if !stops.any() {
             callback([Int : [BusArrival]]())
             return

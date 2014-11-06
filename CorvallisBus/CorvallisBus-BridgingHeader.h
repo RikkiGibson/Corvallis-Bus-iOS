@@ -10,5 +10,6 @@
 #define CorvallisBus_BridgingHeader_h
 
 #include <MWFeedParser/MWFeedParser.h>
+#include "MKPolyline+GMEncodedString.h"
 
 #endif
