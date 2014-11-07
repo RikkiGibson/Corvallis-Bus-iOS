@@ -36,13 +36,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         }
         */
         
-        let authorization = CLLocationManager.authorizationStatus()
-        if authorization == .AuthorizedWhenInUse || authorization == .Authorized {
-            self.navigationItem.rightBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
-        } else {
-            self.mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(44.56802, -123.27926),
-            span: MKCoordinateSpanMake(0.028, 0.028)), animated: false)
-        }
+        self.navigationItem.rightBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -55,6 +49,16 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let authorization = CLLocationManager.authorizationStatus()
+        if !self.initializedMapLocation &&
+            authorization != .AuthorizedWhenInUse &&
+            authorization != .Authorized {
+            self.mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(44.56802, -123.27926),
+                span: MKCoordinateSpanMake(0.028, 0.028)), animated: false)
+            self.initializedMapLocation = true
+        }
+        
         self.refreshMap(self)
     }
     
@@ -65,8 +69,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
                 self.busAnnotations = stops.map() { BusStopAnnotation(stop: $0) }
                 dispatch_async(dispatch_get_main_queue()) {
                     self.mapView.addAnnotations(self.busAnnotations)
-                    self.displayInitialStop()
                     self.updateFavoritedStateForAllAnnotationViews()
+                    self.displayInitialStop()
                 }
             } else {
                 dispatch_async(dispatch_get_main_queue()) {
