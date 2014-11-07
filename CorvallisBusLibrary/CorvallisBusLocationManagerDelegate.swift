@@ -11,7 +11,7 @@ import CoreLocation
 
 internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
-    private var _callback: CLLocation -> Void = { loc in }
+    private var _callback: CLLocation? -> Void = { loc in }
     
     override init() {
         super.init()
@@ -25,7 +25,7 @@ internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManager
         self._locationManager.delegate = self
     }
     
-    func userLocation(callback: CLLocation -> Void) {
+    func userLocation(callback: CLLocation? -> Void) {
         self._callback = callback
         _locationManager.startUpdatingLocation()
     }
@@ -38,5 +38,9 @@ internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManager
         else {
             println("CorvallisBusLocationManagerDelegate had an issue responding to location update.")
         }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        _callback(nil)
     }
 }

@@ -54,6 +54,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if let currentStop = self.favoriteStops?[indexPath.row] {
             if let url = NSURL(string: "CorvallisBus://?\(currentStop.id)") {
                 self.extensionContext?.openURL(url) { success in }

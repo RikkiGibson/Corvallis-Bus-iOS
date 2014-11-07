@@ -17,7 +17,6 @@ struct CorvallisBusService {
     private static var _stops: [BusStop]?
     /**
         Executes a callback using the list of stops from the Corvallis Bus server.
-    
     */
     static func stops(callback: [BusStop] -> Void) -> Void {
         if _stops == nil {
@@ -139,10 +138,12 @@ struct CorvallisBusService {
         Asynchronously obtains the user's location and the user's list of favorite stops.
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
+    private static var _updatedLocation: Bool = false
     private static var _userLocation: CLLocation?
     private static var _favorites: [BusStop]?
     static func favorites(callback: ([BusStop]) -> Void) -> Void {
         locationManagerDelegate.userLocation() {
+            self._updatedLocation = true
             self._userLocation = $0
             self._getSortedFavorites(callback)
         }
@@ -161,21 +162,25 @@ struct CorvallisBusService {
     }
     
     /**
-        Finally executes the client's callback with the sorted list of favorites.
+        Finally executes the client's callback with the favorites list.
+        If location is enabled, favorites are sorted by proximity.
     */
     private static func _getSortedFavorites(callback: [BusStop] -> Void) -> Void {
-        if self._favorites == nil || self._userLocation == nil {
+        if self._favorites == nil || !self._updatedLocation {
             return
         }
+        
         var favorites = self._favorites!
-        for favorite in favorites {
-            favorite.distanceFromUser = favorite.location.distanceFromLocation(self._userLocation!)
+        if self._userLocation != nil {
+            for favorite in favorites {
+                favorite.distanceFromUser = favorite.location.distanceFromLocation(self._userLocation!)
+            }
+            favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
+            self._userLocation = nil
         }
-        favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
         
-        self._userLocation = nil
+        self._updatedLocation = false
         self._favorites = nil
-        
         callback(favorites)
     }
     

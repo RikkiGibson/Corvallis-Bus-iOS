@@ -108,7 +108,7 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let map = self.tabBarController?.viewControllers?[1].childViewControllers.first as? StopsMapViewController {
-            map.initialStop = favorites?[indexPath.row]
+            map.initialStop = self.favorites?[indexPath.row]
             self.tabBarController?.selectedIndex = 1
         }
     }
