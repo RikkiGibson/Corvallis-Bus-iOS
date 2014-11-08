@@ -15,7 +15,7 @@ class BusStop : Equatable {
     let road = ""
     let location = CLLocation()
     var distanceFromUser: CLLocationDistance?
-    
+    var isNearestStop = false
     
     init?(data: [String: AnyObject]) {
         var id = data["ID"] as? Int

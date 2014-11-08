@@ -46,6 +46,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             if let busArrivals = self.arrivals?[currentStop.id] {
                 cell.labelArrivals.text = friendlyArrivals(busArrivals)
             }
+            cell.locationImage.hidden = !currentStop.isNearestStop
             
             cell.labelDistance.text = currentStop.friendlyDistance
         }
@@ -64,7 +65,8 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     
     func updateFavoriteStops() {
         CorvallisBusService.favorites() { result in
-            self.favoriteStops = result
+            let todayItemCount = CorvallisBusService.todayViewItemCount
+            self.favoriteStops = result.count < todayItemCount ? result : Array(result[0..<todayItemCount])
             self.updateArrivals()
             dispatch_async(dispatch_get_main_queue()) {
                 self.preferredContentSize = self.tableView.contentSize

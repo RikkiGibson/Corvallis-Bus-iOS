@@ -78,6 +78,7 @@ class FavoritesTableViewController: UITableViewController {
             if let busArrivals = self.arrivals?[currentStop.id] {
                 cell.labelArrivals.text = friendlyArrivals(busArrivals)
             }
+            cell.locationImage.hidden = !currentStop.isNearestStop
             
             cell.labelDistance.text = currentStop.friendlyDistance
         }
@@ -89,6 +90,9 @@ class FavoritesTableViewController: UITableViewController {
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
+        if let currentStop = self.favorites?[indexPath.row] {
+            return !currentStop.isNearestStop
+        }
         return true
     }
     
@@ -98,7 +102,7 @@ class FavoritesTableViewController: UITableViewController {
             // Delete the row from the data source
             if self.favorites != nil {
                 self.favorites!.removeAtIndex(indexPath.row)
-                CorvallisBusService.setFavorites(self.favorites!)
+                CorvallisBusService.setFavorites(self.favorites!.filter() { !$0.isNearestStop })
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
         } else if editingStyle == .Insert {
@@ -127,4 +131,8 @@ class FavoritesTableViewController: UITableViewController {
         return true
     }
     */
+    
+    @IBAction func unwindToFavoritesTableViewController(segue: UIStoryboardSegue) {
+    
+    }
 }

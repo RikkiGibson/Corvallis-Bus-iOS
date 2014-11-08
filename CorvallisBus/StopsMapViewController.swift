@@ -101,6 +101,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     
     func updateFavoritedStateForAllAnnotationViews() {
         CorvallisBusService.favorites() { favorites in
+            let favorites = favorites.filter() { !$0.isNearestStop }
             dispatch_async(dispatch_get_main_queue()) {
                 for annotation in self.mapView.annotations {
                     if let view = self.mapView.viewForAnnotation(annotation as? MKAnnotation) {
@@ -208,7 +209,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         if let annotation = self.mapView.selectedAnnotations.first as? BusStopAnnotation {
             let view = self.mapView.viewForAnnotation(annotation)
             CorvallisBusService.favorites() { favorites in
-                var favorites = favorites
+                var favorites = favorites.filter() { !$0.isNearestStop }
                 // if this stop is in favorites, remove it
                 if favorites.any({ $0.id == annotation.stop.id }) {
                     favorites = favorites.filter() { $0.id != annotation.stop.id }

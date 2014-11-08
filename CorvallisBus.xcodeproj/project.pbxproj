@@ -55,6 +55,7 @@
 		5C7616B31A0AC263008E4A57 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616961A0AC223008E4A57 /* BusArrival.swift */; };
 		5C7616B41A0AC26C008E4A57 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76169D1A0AC223008E4A57 /* Utils.swift */; };
 		5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */; };
+		5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */; };
 		5C9608221A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608231A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608241A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
@@ -172,6 +173,7 @@
 		5C76169C1A0AC223008E4A57 /* FavoriteStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStopTableViewCell.swift; sourceTree = "<group>"; };
 		5C76169D1A0AC223008E4A57 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsMapViewController.swift; sourceTree = "<group>"; };
+		5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		5C96081A1A0B2A9900DA9F5B /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = "../../Library/Developer/Xcode/DerivedData/CorvallisBus-bfjswdxkiuwgahdtklberawovcri/Build/Products/Debug-iphoneos/Polyline.framework"; sourceTree = "<group>"; };
 		5C9608201A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKPolyline+GMEncodedString.h"; sourceTree = "<group>"; };
 		5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKPolyline+GMEncodedString.m"; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */,
 				5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */,
 				5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */,
+				5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */,
 				5C7616A71A0AC239008E4A57 /* BusRoute.swift in Sources */,
 				5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */,
+				5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */,
 				5C7616B11A0AC249008E4A57 /* Utils.swift in Sources */,
 				5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */,
 				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
