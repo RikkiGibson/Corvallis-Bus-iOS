@@ -20,6 +20,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.mapView.delegate = self
+        self.mapView.showsUserLocation = true
         
         CorvallisBusService.stops() { stops in
             dispatch_async(dispatch_get_main_queue()) {
@@ -42,9 +44,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "refreshMap:",
             userInfo: nil, repeats: true)
-        
-        self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
     }
     
     override func viewWillAppear(animated: Bool) {

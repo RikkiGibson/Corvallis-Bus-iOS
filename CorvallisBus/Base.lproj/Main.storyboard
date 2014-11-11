@@ -32,7 +32,7 @@
         <scene sceneID="Hlh-LG-56o">
             <objects>
                 <navigationController id="M6r-Fk-EKp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Service Alerts" image="first" id="XE2-GM-Z0I"/>
+                    <tabBarItem key="tabBarItem" title="Service Alerts" image="alert" id="XE2-GM-Z0I"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kwS-ND-3v9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -302,11 +302,11 @@
             </objects>
             <point key="canvasLocation" x="1920" y="-624"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Preferences-->
         <scene sceneID="ygG-FP-nZf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lLO-Ov-FtA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="PKG-sN-Eqb"/>
+                    <tabBarItem key="tabBarItem" title="Preferences" image="settings" id="PKG-sN-Eqb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WQM-rX-PMk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -323,7 +323,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="22" height="22"/>
-        <image name="first" width="30" height="30"/>
+        <image name="settings" width="22" height="22"/>
     </resources>
 </document>
