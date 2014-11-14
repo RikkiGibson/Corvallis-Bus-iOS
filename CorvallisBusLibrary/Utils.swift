@@ -43,7 +43,7 @@ extension Array {
         var result = [U]()
         
         for t in self {
-            var u = transform(t)
+            let u = transform(t)
             if u != nil {
                 result.append(u!)
             }

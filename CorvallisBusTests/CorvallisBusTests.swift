@@ -33,9 +33,4 @@ class CorvallisBusTests: XCTestCase {
         }
     }
     
-    func testDateFromString() {
-        var date = toNSDate("09 Oct 14 18:23 -0700")
-        println(date?.description)
-    }
-    
 }

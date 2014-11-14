@@ -46,7 +46,7 @@ struct CorvallisBusService {
                         return
                     }
                     
-                    self._stops = stopJson.mapUnwrap() { BusStop(data: $0) }
+                    self._stops = stopJson.mapUnwrap() { toBusStop($0) }
                     callback(self._stops!)
             }).resume()
         }
@@ -87,7 +87,7 @@ struct CorvallisBusService {
                         return
                     }
                     
-                    self._routes = stopJson.mapUnwrap() { BusRoute(data: $0) }
+                    self._routes = stopJson.mapUnwrap() { toBusRoute($0) }
                     callback(self._routes!)
             }).resume()
         }

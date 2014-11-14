@@ -9,34 +9,39 @@
 import Foundation
 import CoreLocation
 
+func toBusStop(data: [String : AnyObject]) -> BusStop? {
+    let id = data["ID"] as? Int
+    if id == nil { return nil }
+    
+    let name = data["Name"] as? String
+    if name == nil { return nil }
+    
+    let road = data["Road"] as? String
+    if road == nil { return nil }
+    
+    let lat = data["Lat"] as? Double
+    if lat == nil { return nil }
+    
+    let long = data["Long"] as? Double
+    if long == nil { return nil }
+    
+    return BusStop(id: id!, name: name!, road: road!,
+        location: CLLocation(latitude: lat!, longitude: long!))
+}
+
 class BusStop : Equatable {
-    let id = 0
-    let name = ""
-    let road = ""
-    let location = CLLocation()
+    let id: Int
+    let name: String
+    let road: String
+    let location: CLLocation
     var distanceFromUser: CLLocationDistance?
     var isNearestStop = false
     
-    init?(data: [String: AnyObject]) {
-        var id = data["ID"] as? Int
-        if id == nil { return nil }
-        self.id = id!
-        
-        var name = data["Name"] as? String
-        if name == nil { return nil }
-        self.name = name!
-        
-        var road = data["Road"] as? String
-        if road == nil { return nil }
-        self.road = road!
-        
-        var lat = data["Lat"] as? Double
-        if lat == nil { return nil }
-        
-        var long = data["Long"] as? Double
-        if long == nil { return nil }
-        
-        self.location = CLLocation(latitude: lat!, longitude: long!)
+    private init(id: Int, name: String, road: String, location: CLLocation) {
+        self.id = id
+        self.name = name
+        self.road = road
+        self.location = location
     }
     
     var friendlyDistance: String {
