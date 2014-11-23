@@ -56,6 +56,7 @@
 		5C7616B41A0AC26C008E4A57 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76169D1A0AC223008E4A57 /* Utils.swift */; };
 		5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */; };
 		5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */; };
+		5C92AC411A17254500A1C208 /* CorvallisBusLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */; };
 		5C9608221A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608231A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608241A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
@@ -174,6 +175,7 @@
 		5C76169D1A0AC223008E4A57 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsMapViewController.swift; sourceTree = "<group>"; };
 		5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusLibraryTests.swift; sourceTree = "<group>"; };
 		5C96081A1A0B2A9900DA9F5B /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = "../../Library/Developer/Xcode/DerivedData/CorvallisBus-bfjswdxkiuwgahdtklberawovcri/Build/Products/Debug-iphoneos/Polyline.framework"; sourceTree = "<group>"; };
 		5C9608201A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKPolyline+GMEncodedString.h"; sourceTree = "<group>"; };
 		5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKPolyline+GMEncodedString.m"; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				5C7612771A09C75E001F9DBE /* Supporting Files */,
+				5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */,
 			);
 			path = CorvallisBusLibraryTests;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C92AC411A17254500A1C208 /* CorvallisBusLibraryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +857,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -876,6 +881,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -960,6 +966,7 @@
 		5C76127D1A09C75E001F9DBE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -972,12 +979,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		5C76127E1A09C75E001F9DBE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

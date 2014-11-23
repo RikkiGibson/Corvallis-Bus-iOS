@@ -1,25 +1,17 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
-      "scale" : "1x",
-      "filename" : "big58-3.png"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "filename" : "big58-2.png"
-    },
-    {
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "filename" : "big58-1.png"
+      "idiom" : "universal",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "big58.png",
-      "unassigned" : true,
-      "scale" : "1x"
+      "scale" : "2x",
+      "filename" : "big58@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

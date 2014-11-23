@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "unfavorite.png"
+      "filename" : "bus_toolbar_icon_selected.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "unfavorite@2x.png"
+      "filename" : "bus_toolbar_icon_selected@2X.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "unfavorite@3x.png"
+      "filename" : "bus_toolbar_icon_selected@3x.png"
     }
   ],
   "info" : {

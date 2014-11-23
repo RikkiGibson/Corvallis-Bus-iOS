@@ -15,11 +15,16 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     var initializedMapLocation = false
     var initialStop: BusStop?
     var busAnnotations: [BusStopAnnotation]?
+    var selectedAnnotation: BusStopAnnotation?
     
     let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
+    let greenOvalImage = UIImage(named: "greenoval")
+    let goldOvalImage = UIImage(named: "goldoval")
+    let favoriteImage = UIImage(named: "favorite")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
         
@@ -42,7 +47,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
-        NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "refreshMap:",
+        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "refreshMap:",
             userInfo: nil, repeats: true)
     }
     
@@ -148,13 +153,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         if let annotation = annotation as? BusStopAnnotation {
             annotationView.canShowCallout = true
             
-            let button = UIButton.buttonWithType(UIButtonType.ContactAdd) as UIButton
-            button.setImage(UIImage(named: "favorite"), forState: UIControlState.Normal)
-            button.setImage(UIImage(named: "favorite"), forState: UIControlState.Selected)
+            let button = UIButton.buttonWithType(.DetailDisclosure) as UIButton
+            button.setImage(self.favoriteImage, forState: UIControlState.Normal)
+            button.setImage(self.favoriteImage, forState: UIControlState.Selected)
             button.selected = annotation.isFavorite
             
-            button.addTarget(self, action: "buttonPush:", forControlEvents: UIControlEvents.TouchUpInside)
-
+            button.addTarget(self, action: "buttonPush:", forControlEvents: .TouchUpInside)
+            
+            // weird workaround needed to make the button look right in iOS 8
+            button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            button.frame = CGRect(x: 0, y: 0, width: button.frame.width + 20, height: button.frame.height + 20)
+            
             annotationView.rightCalloutAccessoryView = button
             
             updateFavoritedStyleForAnnotationView(annotationView, favorited: annotation.isFavorite)
@@ -168,6 +177,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         jumps the annotation to the front.
     */
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        self.selectedAnnotation = view.annotation as? BusStopAnnotation
         updateArrivalTime(view)
     }
     
@@ -199,11 +209,13 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         When an annotation is deselected, it should jump to the back if it's not a favorite stop.
     */
     func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
-        if let annotation = view.annotation as? BusStopAnnotation {
-            view.layer.zPosition = annotation.isFavorite ? 2 : 1
+        if self.selectedAnnotation != nil {
+            view.layer.zPosition = self.selectedAnnotation!.isFavorite ? 2 : 1
         } else {
             view.layer.zPosition = 1
         }
+        
+        self.selectedAnnotation = nil
     }
     
     func buttonPush(sender: AnyObject!) {
@@ -227,28 +239,32 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     /**
-        Updates the image color and button state for an annotation view.
+        Updates the state of an annotation to indicate whether it's a favorite.
     */
-    func updateFavoritedStateForAnnotation(annotation: MKAnnotation, favorites: [BusStop]) {
-        if let annotation = annotation as? BusStopAnnotation {
-            annotation.isFavorite = favorites.any() { $0.id == annotation.stop.id }
-            if let view = self.mapView.viewForAnnotation(annotation) {
-                updateFavoritedStyleForAnnotationView(view, favorited: annotation.isFavorite)
-            }
+    func updateFavoritedStateForAnnotation(annotation: BusStopAnnotation, favorites: [BusStop]) {
+        annotation.isFavorite = favorites.any() { $0.id == annotation.stop.id }
+        if let view = self.mapView.viewForAnnotation(annotation) {
+            updateFavoritedStyleForAnnotationView(view, favorited: annotation.isFavorite)
         }
     }
     
+    /**
+        Updates the appearance of an annotation view to indicate whether it's a favorite.
+    */
     func updateFavoritedStyleForAnnotationView(view: MKAnnotationView, favorited: Bool) {
         if let button = view.rightCalloutAccessoryView as? UIButton {
             button.selected = favorited
         }
-        if favorited {
-            view.image = UIImage(named: "goldoval")
-            view.layer.zPosition = 2
-        } else {
-            view.image = UIImage(named: "greenoval")
-            view.layer.zPosition = 1
+        view.image = favorited ? self.goldOvalImage : self.greenOvalImage
+        
+        var isSelected = false
+        if self.selectedAnnotation != nil {
+            if let annotationToUpdate = view.annotation as? BusStopAnnotation {
+                isSelected = self.selectedAnnotation!.stop.id == annotationToUpdate.stop.id
+            }
         }
+        
+        view.layer.zPosition = favorited || isSelected ? 2 : 1
     }
 
 }

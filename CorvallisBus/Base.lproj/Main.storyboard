@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -53,55 +53,31 @@
         <scene sceneID="n01-MQ-IPU">
             <objects>
                 <tableViewController id="WAf-8A-IQa" customClass="ServiceAlertsViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="p1g-wr-KWE">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="22" sectionFooterHeight="22" id="p1g-wr-KWE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServiceAlertCell" rowHeight="88" id="960-vw-GP2" customClass="ServiceAlertTableViewCell" customModule="CorvallisBus" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCell" textLabel="c1Q-cG-QIU" detailTextLabel="wKf-am-EIM" style="IBUITableViewCellStyleSubtitle" id="Woq-oY-Of7">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="960-vw-GP2" id="phc-gT-CIj">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Woq-oY-Of7" id="Y6M-CX-gYU">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" placeholderIntrinsicWidth="384" placeholderIntrinsicHeight="40" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BW3-Pf-OoW">
-                                            <rect key="frame" x="8" y="3" width="584" height="40"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c1Q-cG-QIU">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="8" y="8" width="384" height="39"/>
-                                            </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="384" placeholderIntrinsicHeight="15" text="Summary" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="75F-vb-LED">
-                                            <rect key="frame" x="8" y="42" width="584" height="32"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wKf-am-EIM">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="widthClass=compact" misplaced="YES">
-                                                <rect key="frame" x="8" y="42" width="384" height="0.0"/>
-                                            </variation>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="top" secondItem="phc-gT-CIj" secondAttribute="topMargin" constant="-5" id="5nZ-Ds-5ZV"/>
-                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="trailing" secondItem="phc-gT-CIj" secondAttribute="trailingMargin" id="MFB-Fc-ne6"/>
-                                        <constraint firstItem="BW3-Pf-OoW" firstAttribute="leading" secondItem="phc-gT-CIj" secondAttribute="leadingMargin" id="OlK-yk-PNg"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="75F-vb-LED" secondAttribute="bottom" constant="6" id="Ur3-Hh-Ylo"/>
-                                        <constraint firstItem="75F-vb-LED" firstAttribute="top" secondItem="BW3-Pf-OoW" secondAttribute="bottom" constant="-1" id="dXe-jo-2Wk"/>
-                                        <constraint firstItem="75F-vb-LED" firstAttribute="trailing" secondItem="phc-gT-CIj" secondAttribute="trailingMargin" id="qdt-pi-lPv"/>
-                                        <constraint firstItem="75F-vb-LED" firstAttribute="leading" secondItem="phc-gT-CIj" secondAttribute="leadingMargin" id="zCH-dC-wTE"/>
-                                    </constraints>
-                                    <variation key="widthClass=compact">
-                                        <mask key="subviews">
-                                            <include reference="BW3-Pf-OoW"/>
-                                            <include reference="75F-vb-LED"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="labelDescription" destination="75F-vb-LED" id="ogp-mQ-KzC"/>
-                                    <outlet property="labelTitle" destination="BW3-Pf-OoW" id="p9o-wy-kxB"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -113,7 +89,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUZ-f9-fKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1636.5" y="-1298"/>
+            <point key="canvasLocation" x="1636" y="-1298"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Z3a-y9-BCI">
@@ -161,7 +137,11 @@
         <scene sceneID="fcL-ir-ckt">
             <objects>
                 <navigationController storyboardIdentifier="Stops" title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
+                    <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="bus_toolbar_icon_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HQ9-65-zxJ">
@@ -260,7 +240,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -270,26 +250,9 @@
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="U3M-KA-abK"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" id="o6B-3e-Pnx"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="eQ2-qE-Euo"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="U3M-KA-abK"/>
-                                <exclude reference="B46-ce-nBi"/>
-                                <exclude reference="Lfj-Ge-O3N"/>
-                                <exclude reference="o6B-3e-Pnx"/>
-                            </mask>
-                        </variation>
                         <variation key="widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="eQ2-qE-Euo"/>
-                            </mask>
                             <mask key="constraints">
-                                <include reference="U3M-KA-abK"/>
-                                <include reference="B46-ce-nBi"/>
                                 <include reference="Lfj-Ge-O3N"/>
-                                <include reference="o6B-3e-Pnx"/>
                             </mask>
                         </variation>
                     </view>
@@ -324,7 +287,8 @@
     </scenes>
     <resources>
         <image name="alert" width="22" height="22"/>
-        <image name="bus_toolbar_icon" width="22" height="22"/>
+        <image name="bus_toolbar_icon" width="25" height="25"/>
+        <image name="bus_toolbar_icon_selected" width="25" height="25"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>

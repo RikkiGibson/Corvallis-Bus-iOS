@@ -9,16 +9,11 @@
 import Foundation
 
 private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals: [BusArrival])? {
-    var busArrivals: [BusArrival]?
-    
-    var busArrivalJson = value as? [[String : AnyObject]]
-    if busArrivalJson != nil {
-        busArrivals = busArrivalJson!.mapUnwrap() { toBusArrival($0) }
-    }
-    
-    var intKey = key.toInt()
-    if intKey != nil && busArrivals != nil {
-        return (id: intKey!, arrivals: busArrivals!)
+    if let busArrivalJson = value as? [[String : AnyObject]] {
+        if let intKey = key.toInt() {
+            let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
+            return (id: intKey, arrivals: busArrivals)
+        }
     }
     return nil
 }
@@ -31,9 +26,8 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
     var result = [Int : [BusArrival]]()
     
     for (key, value) in data {
-        var arrival = toStopArrival(key, value)
-        if arrival != nil {
-            result[arrival!.id] = arrival!.arrivals
+        if let arrival = toStopArrival(key, value) {
+            result[arrival.id] = arrival.arrivals
         }
     }
     return result

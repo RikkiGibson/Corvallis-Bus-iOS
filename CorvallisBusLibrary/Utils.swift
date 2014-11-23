@@ -43,9 +43,22 @@ extension Array {
         var result = [U]()
         
         for t in self {
-            let u = transform(t)
-            if u != nil {
-                result.append(u!)
+            if let u = transform(t) {
+                result.append(u)
+            }
+        }
+        return result
+    }
+    
+    /**
+        Takes an equality comparer and returns a new array containing all the distinct elemnts.
+    */
+    func distinct(comparer: (T, T) -> Bool) -> [T] {
+        var result = [T]()
+        for t in self {
+            // if there are no elements in the result set equal to this element, add it
+            if !result.any({ comparer($0, t) }) {
+                result.append(t)
             }
         }
         return result

@@ -31,10 +31,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let favoriteStops = favoriteStops {
-            return favoriteStops.count
-        }
-        return 0
+        return self.favoriteStops?.count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

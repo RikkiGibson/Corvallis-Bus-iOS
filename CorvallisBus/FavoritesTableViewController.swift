@@ -21,8 +21,6 @@ class FavoritesTableViewController: UITableViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
         self.refreshControl?.beginRefreshing()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -63,10 +61,7 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.favorites != nil {
-            return self.favorites!.count
-        }
-        return 0
+        return self.favorites?.count ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -78,6 +73,8 @@ class FavoritesTableViewController: UITableViewController {
             if let busArrivals = self.arrivals?[currentStop.id] {
                 cell.labelArrivals.text = friendlyArrivals(busArrivals)
             }
+            
+            // Only the nearest stop should display the location icon
             cell.locationImage.hidden = !currentStop.isNearestStop
             
             cell.labelDistance.text = currentStop.friendlyDistance
@@ -87,27 +84,24 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
         if let currentStop = self.favorites?[indexPath.row] {
             return !currentStop.isNearestStop
         }
         return true
     }
     
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == .Delete {
             // Delete the row from the data source
             if self.favorites != nil {
                 self.favorites!.removeAtIndex(indexPath.row)
                 CorvallisBusService.setFavorites(self.favorites!.filter() { !$0.isNearestStop })
+                
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             }
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -115,24 +109,5 @@ class FavoritesTableViewController: UITableViewController {
             map.initialStop = self.favorites?[indexPath.row]
             self.tabBarController?.selectedIndex = 1
         }
-    }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView!, moveRowAtIndexPath fromIndexPath: NSIndexPath!, toIndexPath: NSIndexPath!) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-    
-    @IBAction func unwindToFavoritesTableViewController(segue: UIStoryboardSegue) {
-    
     }
 }

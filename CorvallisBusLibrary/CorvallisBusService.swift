@@ -191,7 +191,6 @@ struct CorvallisBusService {
             self._getSortedFavorites(favoriteIds, callback)
         }
         
-        // ensure that the stops are gotten and cached
         self.stops() { stops in
             self._getSortedFavorites(favoriteIds, callback)
         }

@@ -8,33 +8,38 @@
 
 import UIKit
 
-class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate {
-    var parser: MWFeedParser?
+class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate, UIWebViewDelegate {
+    let webViewController = UIViewController()
+    let dateFormatter = NSDateFormatter()
     var items = [MWFeedItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let webView = UIWebView()
+        webView.delegate = self
+        self.webViewController.view = webView
+        self.webViewController.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: "Open in Safari", style: .Plain, target: self, action: "openInBrowser:")
+        
+        self.dateFormatter.dateStyle = .LongStyle
+        self.dateFormatter.timeStyle = .NoStyle
 
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if let url = NSURL(string: "http://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current") {
             self.items = [MWFeedItem]()
             
-            var parser = MWFeedParser(feedURL: url)
+            let parser = MWFeedParser(feedURL: url)
             parser.delegate = self
             parser.feedParseType = ParseTypeItemsOnly
             parser.connectionType = ConnectionTypeAsynchronously
             parser.parse()
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.tableView.reloadData()
     }
     
     func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
@@ -44,13 +49,14 @@ class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate {
     func feedParserDidFinish(parser: MWFeedParser!) {
         if items.count == 0 {
             let item = MWFeedItem()
-            item.title = "No current service alerts!\nTouch to view the service alerts website"
+            item.title = "No current service alerts!\nTap to view the service alerts website."
             item.link = "http://www.corvallisoregon.gov/index.aspx?page=1105"
             items.append(item)
         }
+        
         self.tableView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -65,21 +71,39 @@ class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ServiceAlertCell") as ServiceAlertTableViewCell
-
-        cell.labelTitle.text = self.items[indexPath.row].title
-        cell.labelDescription.text = self.items[indexPath.row].summary
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as UITableViewCell
+        let item = self.items[indexPath.row]
+        cell.textLabel.text = item.title
+        cell.detailTextLabel?.text = item.date == nil ? "" : self.dateFormatter.stringFromDate(item.date)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 150
+    func openInBrowser(sender: AnyObject) {
+        if let webView = self.webViewController.view as? UIWebView {
+            if let url = webView.request?.URL {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }
+    }
+    
+    /**
+        Causes Safari to be opened if a link is tapped.
+    */
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType == .LinkClicked {
+            UIApplication.sharedApplication().openURL(request.URL)
+            return false
+        }
+        return true
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let url = NSURL(string: self.items[indexPath.row].link) {
-            UIApplication.sharedApplication().openURL(url)
+            if let webView = self.webViewController.view as? UIWebView {
+                webView.loadRequest(NSURLRequest(URL: url))
+                self.navigationController?.pushViewController(self.webViewController, animated: true)
+            }
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
