@@ -151,6 +151,11 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             MKAnnotationView(annotation: annotation, reuseIdentifier: identifier) ?? MKAnnotationView()
     
         if let annotation = annotation as? BusStopAnnotation {
+            if let height = self.greenOvalImage?.size.height {
+                // this tweak makes the bottom of the pin seem to touch the right spot
+                annotationView.centerOffset = CGPoint(x: 0, y: height / -3)
+            }
+
             annotationView.canShowCallout = true
             
             let button = UIButton.buttonWithType(.DetailDisclosure) as UIButton

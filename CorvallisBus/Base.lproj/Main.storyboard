@@ -137,11 +137,7 @@
         <scene sceneID="fcL-ir-ckt">
             <objects>
                 <navigationController storyboardIdentifier="Stops" title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="bus_toolbar_icon_selected"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HQ9-65-zxJ">
@@ -288,7 +284,6 @@
     <resources>
         <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="25" height="25"/>
-        <image name="bus_toolbar_icon_selected" width="25" height="25"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>
