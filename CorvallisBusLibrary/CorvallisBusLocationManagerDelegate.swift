@@ -35,7 +35,7 @@ internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManager
         if let location = locations.last as? CLLocation {
             _callback(location)
         } else {
-            println("CorvallisBusLocationManagerDelegate had an issue responding to location update.")
+            _callback(nil)
         }
     }
     

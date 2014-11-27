@@ -8,13 +8,17 @@
 
 import UIKit
 
-class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate, UIWebViewDelegate {
+class ServiceAlertsViewController: UITableViewController, UIWebViewDelegate {
     let webViewController = UIViewController()
     let dateFormatter = NSDateFormatter()
+    let feedParser = ServiceAlertsFeedParserDelegate()
     var items = [MWFeedItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.addTarget(self, action: "reloadFeed:", forControlEvents: .ValueChanged)
         
         let webView = UIWebView()
         webView.delegate = self
@@ -30,31 +34,15 @@ class ServiceAlertsViewController: UITableViewController, MWFeedParserDelegate, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let url = NSURL(string: "http://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current") {
-            self.items = [MWFeedItem]()
-            
-            let parser = MWFeedParser(feedURL: url)
-            parser.delegate = self
-            parser.feedParseType = ParseTypeItemsOnly
-            parser.connectionType = ConnectionTypeAsynchronously
-            parser.parse()
-        }
+        self.reloadFeed(self);
     }
     
-    func feedParser(parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        items.append(item)
-    }
-    
-    func feedParserDidFinish(parser: MWFeedParser!) {
-        if items.count == 0 {
-            let item = MWFeedItem()
-            item.title = "No current service alerts!\nTap to view the service alerts website."
-            item.link = "http://www.corvallisoregon.gov/index.aspx?page=1105"
-            items.append(item)
+    func reloadFeed(sender: AnyObject) {
+        self.feedParser.feedItems() { items in
+            self.items = items
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
-        
-        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

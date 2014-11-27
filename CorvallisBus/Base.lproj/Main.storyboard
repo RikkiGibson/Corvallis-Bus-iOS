@@ -283,7 +283,7 @@
     </scenes>
     <resources>
         <image name="alert" width="22" height="22"/>
-        <image name="bus_toolbar_icon" width="25" height="25"/>
+        <image name="bus_toolbar_icon" width="28" height="28"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>

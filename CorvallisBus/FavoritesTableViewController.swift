@@ -29,6 +29,10 @@ class FavoritesTableViewController: UITableViewController {
         updateFavorites(self)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.arrivals = nil
+    }
+    
     func updateFavorites(sender: AnyObject) {
         CorvallisBusService.favorites() {
             self.favorites = $0
@@ -72,6 +76,8 @@ class FavoritesTableViewController: UITableViewController {
             
             if let busArrivals = self.arrivals?[currentStop.id] {
                 cell.labelArrivals.text = friendlyArrivals(busArrivals)
+            } else {
+                cell.labelArrivals.text = "Loading..."
             }
             
             // Only the nearest stop should display the location icon

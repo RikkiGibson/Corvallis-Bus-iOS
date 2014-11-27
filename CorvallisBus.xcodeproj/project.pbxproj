@@ -21,6 +21,7 @@
 		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
 		5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */; };
+		5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */; };
 		5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */; };
 		5C36E08119F7293700024186 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
 		5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
@@ -28,7 +29,6 @@
 		5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */; };
 		5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937D719CFCB82009A2FB2 /* Main.storyboard */; };
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
-		5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */; };
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
 		5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */; };
 		5C7612731A09C75E001F9DBE /* libCorvallisBusLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */; };
@@ -148,6 +148,7 @@
 		5C07B48B1A0704CC00F5928E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsFeedParserDelegate.swift; sourceTree = "<group>"; };
 		5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsViewController.swift; sourceTree = "<group>"; };
 		5C36E08019F7293700024186 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopAnnotation.swift; sourceTree = "<group>"; };
@@ -156,7 +157,6 @@
 		5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C4937D819CFCB82009A2FB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C4937DA19CFCB82009A2FB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5C4937DD19CFCB82009A2FB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
@@ -303,12 +303,12 @@
 				5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */,
 				5C4937D719CFCB82009A2FB2 /* Main.storyboard */,
 				5C4937DA19CFCB82009A2FB2 /* Images.xcassets */,
-				5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */,
 				5C4937CF19CFCB82009A2FB2 /* Supporting Files */,
 				5C1E467419D8E69400B95798 /* View Controllers */,
 				5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */,
 				5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */,
 				5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */,
+				5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -577,7 +577,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
-				5C4937DE19CFCB82009A2FB2 /* LaunchScreen.xib in Resources */,
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
 				5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */,
 			);
@@ -655,6 +654,7 @@
 				5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */,
 				5C7616B11A0AC249008E4A57 /* Utils.swift in Sources */,
 				5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */,
+				5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */,
 				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
 				5C7616AF1A0AC246008E4A57 /* FavoriteStopTableViewCell.swift in Sources */,
 				5C7616AB1A0AC240008E4A57 /* CorvallisBusLocationManagerDelegate.swift in Sources */,
@@ -746,14 +746,6 @@
 				5C4937D819CFCB82009A2FB2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5C4937DC19CFCB82009A2FB2 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5C4937DD19CFCB82009A2FB2 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -856,7 +848,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -881,6 +873,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
