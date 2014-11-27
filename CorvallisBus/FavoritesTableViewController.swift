@@ -22,6 +22,7 @@ class FavoritesTableViewController: UITableViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
         
+        // This observer causes updateFavorites to be called without further intervention
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites:",
             name: UIApplicationDidBecomeActiveNotification, object: UIApplication.sharedApplication())
         NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites:",
@@ -30,19 +31,30 @@ class FavoritesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
+    // Called when switching to this tab, not when reopening the app or
+    // bringing focus back after dismissing Notification Center, for instance.
+    // Since DidBecomeActiveNotification fires on launch, we avoid
+    // redundant network requests with the finishedLoading flag.
+    private var finishedLoading = false
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        updateFavorites(self)
+        
+        if self.finishedLoading {
+            self.updateFavorites(self)
+        } else {
+            self.finishedLoading = true
+        }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func updateFavorites(sender: AnyObject) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         CorvallisBusService.favorites() {
             self.favorites = $0
+            dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
             self.updateArrivals()
         }
     }
@@ -50,7 +62,7 @@ class FavoritesTableViewController: UITableViewController {
     func updateArrivals() {
         if self.favorites != nil {
             CorvallisBusService.arrivals(self.favorites!.map() { $0.id }) {
-                self.arrivals = $0
+                self.arrivals = $0.map() { (key, value) in (key, friendlyArrivals(value)) }
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()

@@ -80,7 +80,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         if self.favoriteStops != nil {
             let favIds = self.favoriteStops!.map() { $0.id }
             CorvallisBusService.arrivals(favIds) {
-                self.arrivals = $0
+                self.arrivals = $0.map() { (key, value) in (key, friendlyArrivals(value)) }
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.preferredContentSize = self.tableView.contentSize

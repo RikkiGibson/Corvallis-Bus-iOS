@@ -64,3 +64,24 @@ extension Array {
         return result
     }
 }
+
+extension Dictionary {
+    func map<Key2,Value2>(transform: (Key, Value) -> (key: Key2, value: Value2)) -> [Key2 : Value2] {
+        var resultDictionary = [Key2 : Value2]()
+        for (key, value) in self {
+            let resultPair = transform(key, value)
+            resultDictionary[resultPair.key] = resultPair.value
+        }
+        return resultDictionary
+    }
+    
+    func mapUnwrap<Key2, Value2>(transform: (Key, Value) -> (key: Key2, value: Value2)?) -> [Key2 : Value2] {
+        var resultDictionary = [Key2 : Value2]()
+        for (key, value) in self {
+            if let resultPair = transform(key, value) {
+                resultDictionary[resultPair.key] = resultPair.value
+            }
+        }
+        return resultDictionary
+    }
+}

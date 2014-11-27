@@ -20,16 +20,21 @@ struct CorvallisBusService {
     */
     static func stops(callback: [BusStop] -> Void) -> Void {
         if _stops == nil {
-            var session = NSURLSession.sharedSession()
-            var url = NSURL(string: "\(rootUrl)/stops")
+            let session = NSURLSession.sharedSession()
             
-            if url == nil {
-                println("NSURL did not instantiate properly")
-                return
+            var stopsJson: [[String : AnyObject]]?
+            var routesJson: [[String : AnyObject]]?
+            
+            let finally = { () -> Void in
+                if stopsJson != nil && routesJson != nil {
+                    self._routes = routesJson!.mapUnwrap() { toBusRoute($0) }
+                    self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
+                    callback(self._stops!)
+                }
             }
             
-            session.dataTaskWithURL(url!,
-                completionHandler: {
+            let stopsURL = NSURL(string: "\(rootUrl)/stops")!
+            session.dataTaskWithURL(stopsURL) {
                     (data, response, error) -> Void in
                     if (error != nil) {
                         println(error.description)
@@ -37,18 +42,38 @@ struct CorvallisBusService {
                     }
                     
                     var jsonError: NSError?
-                    var stopJson = NSJSONSerialization.JSONObjectWithData(data,
+                    stopsJson = (NSJSONSerialization.JSONObjectWithData(data,
                         options: .AllowFragments,
-                        error: &jsonError)?.objectForKey("stops") as NSArray as [[String : AnyObject]]
+                        error: &jsonError)?.objectForKey("stops") as NSArray as [[String : AnyObject]])
                     
                     if (jsonError != nil) {
                         println(jsonError!.description)
                         return
                     }
-                    
-                    self._stops = stopJson.mapUnwrap() { toBusStop($0) }
-                    callback(self._stops!)
-            }).resume()
+                    finally()
+            }.resume()
+            
+            let routesURL = NSURL(string: "\(rootUrl)/routes")!
+            session.dataTaskWithURL(routesURL) {
+                (data, response, error) -> Void in
+                if (error != nil) {
+                    println(error.description)
+                    return
+                }
+                
+                var jsonError: NSError?
+                routesJson = (NSJSONSerialization.JSONObjectWithData(data,
+                    options: .AllowFragments,
+                    error: &jsonError)?.objectForKey("routes") as NSArray as [[String : AnyObject]])
+                
+                if (jsonError != nil) {
+                    println(jsonError!.description)
+                    return
+                }
+                finally()
+            }.resume()
+            
+            
         }
         else {
             callback(self._stops!)
@@ -99,11 +124,11 @@ struct CorvallisBusService {
     /**
         Executes a callback using the arrival information for the provided list of stop IDs.
     */
-    static func arrivals(stops: [Int], callback: [Int : String] -> Void) -> Void {
+    static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
         // no point in getting arrival times for 0 bus stops
         // especially when doing so crashes the app
         if !stops.any() {
-            callback([Int : String]())
+            callback([Int : [BusArrival]]())
             return
         }
         
@@ -177,7 +202,6 @@ struct CorvallisBusService {
     private static var _updatedLocation: Bool = false
     private static var _userLocation: CLLocation?
     static func favorites(callback: ([BusStop]) -> Void) -> Void {
-        
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
         if defaults == nil {
             println("NSUserDefaults did not instantiate properly in CorvallisBusService")

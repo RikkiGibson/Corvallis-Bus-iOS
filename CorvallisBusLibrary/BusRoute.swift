@@ -35,13 +35,13 @@ class BusRoute {
     let routeDescription: String
     let polyline: MKPolyline
     private var _path: [[String: AnyObject]]?
-    lazy var path: [BusStop] = {
+    lazy var path: [Int] = {
         if self._path != nil {
-            var result = self._path!.mapUnwrap() { toBusStop($0) }
+            let result = self._path!.mapUnwrap() { $0["ID"] as? Int }
             self._path = nil // causes deallocation
             return result
         }
-        return [BusStop]()
+        return [Int]()
     }()
     
     private init(name: String, additionalName: String, routeDescription: String,

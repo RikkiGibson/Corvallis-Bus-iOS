@@ -8,38 +8,29 @@
 
 import Foundation
 
-private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals: String)? {
-    if let busArrivalJson = value as? [[String : AnyObject]] {
-        if let intKey = key.toInt() {
-            let busArrivals = friendlyArrivals(busArrivalJson.mapUnwrap() { toBusArrival($0) })
-            return (id: intKey, arrivals: busArrivals)
-        }
-    }
-    return nil
-}
-
 /**
     A stop arrival is a key-value pair in a dictionary where a stop ID can be provided
     to receive a list of bus arrival times for that stop.
 */
-func toStopArrivals(data: [String : AnyObject]) -> [Int : String] {
-    var result = [Int : String]()
-    
-    for (key, value) in data {
-        if let arrival = toStopArrival(key, value) {
-            result[arrival.id] = arrival.arrivals
+func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
+    return data.mapUnwrap() { (key, value) in
+        if let busArrivalJson = value as? [[String : AnyObject]] {
+            if let intKey = key.toInt() {
+                let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
+                return (intKey, busArrivals)
+            }
         }
+        return nil
     }
-    return result
 }
 
 private let toNSDate = { () -> (AnyObject? -> NSDate?) in
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "dd MMM yy HH:mm ZZZ"
     
-    return {
-        if ($0 != nil && $0 is String) {
-            return dateFormatter.dateFromString($0 as String)
+    return { obj in
+        if let string = obj as? String {
+            return dateFormatter.dateFromString(string)
         }
         return nil
     }
@@ -49,12 +40,12 @@ func toBusArrival(data: [String : AnyObject]) -> BusArrival? {
     let route = data["Route"] as? String
     if route == nil { return nil }
     
-    let expected = toNSDate(data["Expected"])
-    let scheduled = toNSDate(data["Scheduled"])
-    
-    if expected == nil && scheduled == nil { return nil }
-    
-    return BusArrival(route: route!, arrivalTime: (expected ?? scheduled)!)
+    if let expected = toNSDate(data["Expected"]) {
+        return BusArrival(route: route!, arrivalTime: expected)
+    } else if let scheduled = toNSDate(data["Expected"]) {
+        return BusArrival(route: route!, arrivalTime: scheduled)
+    }
+    return nil
 }
 
 class BusArrival {

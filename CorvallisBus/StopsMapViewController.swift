@@ -27,13 +27,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        
-        CorvallisBusService.stops() { stops in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.busAnnotations = stops.map() { BusStopAnnotation(stop: $0) }
-                self.mapView.addAnnotations(self.busAnnotations)
-            }
-        }
 
         /*
         CorvallisBusService.routes() { routes in
@@ -58,6 +51,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.refreshMap(self)
+        
+        // Give the map a default position when location is disabled
         let authorization = CLLocationManager.authorizationStatus()
         if !self.initializedMapLocation &&
             authorization != .AuthorizedWhenInUse &&
@@ -66,8 +62,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
                 span: MKCoordinateSpanMake(0.028, 0.028)), animated: false)
             self.initializedMapLocation = true
         }
-        
-        self.refreshMap(self)
     }
     
     func refreshMap(sender: AnyObject) {
@@ -201,7 +195,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
                 if let busArrivals = arrivals[annotation.stop.id] {
                     dispatch_async(dispatch_get_main_queue()) {
                         annotation.willChangeValueForKey("subtitle")
-                        annotation.subtitle = busArrivals
+                        annotation.subtitle = busArrivals.first?.description ?? "No arrivals!"
                         annotation.didChangeValueForKey("subtitle")
                     }
                 }
