@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -14,13 +14,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading... " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lzx-Ft-Gnj">
-                        <rect key="frame" x="8" y="24" width="73" height="18"/>
+                        <rect key="frame" x="8" y="26" width="73" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLm-c5-i9G">
-                        <rect key="frame" x="8" y="3" width="96" height="22"/>
+                        <rect key="frame" x="8" y="5" width="96" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="dbB-hZ-by4"/>
                         </constraints>
@@ -29,10 +29,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLocWhite" translatesAutoresizingMaskIntoConstraints="NO" id="8Nv-Hd-d8A">
-                        <rect key="frame" x="287" y="25" width="15" height="20"/>
+                        <rect key="frame" x="287" y="27" width="15" height="15"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gi-Q2-uci">
-                        <rect key="frame" x="267" y="52" width="45" height="13.5"/>
+                        <rect key="frame" x="267" y="49" width="45" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -40,13 +40,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="8Nv-Hd-d8A" secondAttribute="trailing" constant="10" id="C6M-mD-P7p"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="3gi-Q2-uci" secondAttribute="bottom" constant="-4.5" id="QEa-y3-fgV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="3gi-Q2-uci" secondAttribute="bottom" constant="-1" id="QEa-y3-fgV"/>
                     <constraint firstItem="bLm-c5-i9G" firstAttribute="leading" secondItem="lzx-Ft-Gnj" secondAttribute="leading" id="VdD-qF-UhW"/>
-                    <constraint firstItem="bLm-c5-i9G" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="-5" id="eb2-Kj-58v"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="8Nv-Hd-d8A" secondAttribute="bottom" constant="17" id="ggr-rS-oLl"/>
-                    <constraint firstItem="8Nv-Hd-d8A" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="17" id="pXM-aH-xTd"/>
+                    <constraint firstAttribute="centerY" secondItem="8Nv-Hd-d8A" secondAttribute="centerY" id="dhR-P0-Cdv"/>
+                    <constraint firstItem="bLm-c5-i9G" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="-3" id="eb2-Kj-58v"/>
                     <constraint firstItem="bLm-c5-i9G" firstAttribute="leading" secondItem="Igl-iX-BVv" secondAttribute="leadingMargin" id="pk5-MK-Xxk"/>
-                    <constraint firstItem="lzx-Ft-Gnj" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="16" id="r2D-Jg-Gp9"/>
+                    <constraint firstItem="lzx-Ft-Gnj" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="18" id="r2D-Jg-Gp9"/>
                     <constraint firstItem="3gi-Q2-uci" firstAttribute="trailing" secondItem="Igl-iX-BVv" secondAttribute="trailingMargin" id="vKr-VX-DRk"/>
                 </constraints>
             </tableViewCellContentView>

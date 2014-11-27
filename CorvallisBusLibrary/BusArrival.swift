@@ -8,10 +8,10 @@
 
 import Foundation
 
-private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals: [BusArrival])? {
+private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals: String)? {
     if let busArrivalJson = value as? [[String : AnyObject]] {
         if let intKey = key.toInt() {
-            let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
+            let busArrivals = friendlyArrivals(busArrivalJson.mapUnwrap() { toBusArrival($0) })
             return (id: intKey, arrivals: busArrivals)
         }
     }
@@ -22,8 +22,8 @@ private func toStopArrival(key: String, value: AnyObject) -> (id: Int, arrivals:
     A stop arrival is a key-value pair in a dictionary where a stop ID can be provided
     to receive a list of bus arrival times for that stop.
 */
-func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
-    var result = [Int : [BusArrival]]()
+func toStopArrivals(data: [String : AnyObject]) -> [Int : String] {
+    var result = [Int : String]()
     
     for (key, value) in data {
         if let arrival = toStopArrival(key, value) {

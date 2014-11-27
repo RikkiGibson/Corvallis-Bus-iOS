@@ -11,18 +11,11 @@ import NotificationCenter
 
 class TodayViewController: UITableViewController, NCWidgetProviding {
     var favoriteStops: [BusStop]?
-    var arrivals: [Int : [BusArrival]]?
+    var arrivals: [Int : String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
-        
-        // Do any additional setup after loading the view from its nib.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: Table view
@@ -41,7 +34,7 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
             cell.labelRouteName.text = currentStop.name
             
             if let busArrivals = self.arrivals?[currentStop.id] {
-                cell.labelArrivals.text = friendlyArrivals(busArrivals)
+                cell.labelArrivals.text = busArrivals
             }
             cell.locationImage.hidden = !currentStop.isNearestStop
             
@@ -60,32 +53,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
     
-    func updateFavoriteStops() {
-        CorvallisBusService.favorites() { result in
-            let todayItemCount = CorvallisBusService.todayViewItemCount
-            self.favoriteStops = result.count < todayItemCount ? result : Array(result[0..<todayItemCount])
-            self.updateArrivals()
-            dispatch_async(dispatch_get_main_queue()) {
-                self.preferredContentSize = self.tableView.contentSize
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    // MARK: Data access
-    func updateArrivals() {
-        if self.favoriteStops != nil {
-            var favIds = self.favoriteStops!.map() { $0.id }
-            CorvallisBusService.arrivals(favIds) {
-                self.arrivals = $0
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.preferredContentSize = self.tableView.contentSize
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInsets: UIEdgeInsets) -> UIEdgeInsets {
         return UIEdgeInsets(top: defaultMarginInsets.top,
             left: defaultMarginInsets.left - 3,
@@ -98,7 +65,28 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        updateFavoriteStops()
-        completionHandler(NCUpdateResult.NewData)
+        updateFavoriteStops(completionHandler)
+    }
+    
+    func updateFavoriteStops(completionHandler: NCUpdateResult -> Void) {
+        CorvallisBusService.favorites() { result in
+            let todayItemCount = CorvallisBusService.todayViewItemCount
+            self.favoriteStops = result.count < todayItemCount ? result : Array(result[0..<todayItemCount])
+            self.updateArrivals(completionHandler)
+        }
+    }
+    
+    func updateArrivals(completionHandler: NCUpdateResult -> Void) {
+        if self.favoriteStops != nil {
+            let favIds = self.favoriteStops!.map() { $0.id }
+            CorvallisBusService.arrivals(favIds) {
+                self.arrivals = $0
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                    self.preferredContentSize = self.tableView.contentSize
+                    completionHandler(.NewData)
+                }
+            }
+        }
     }
 }

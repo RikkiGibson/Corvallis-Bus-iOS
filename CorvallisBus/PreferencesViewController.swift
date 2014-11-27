@@ -16,7 +16,8 @@ class PreferencesViewController: UIViewController {
     
     override func viewDidLoad() {
         let processInfo = NSProcessInfo.processInfo()
-        let canUseTodayExtension = processInfo.respondsToSelector("operatingSystemVersion") ? processInfo.operatingSystemVersion.majorVersion >= 8 : false
+        let canUseTodayExtension = processInfo.respondsToSelector("operatingSystemVersion") ?
+            processInfo.operatingSystemVersion.majorVersion >= 8 : false
         labelTodayItems.hidden = !canUseTodayExtension
         stepperTodayItems.hidden = !canUseTodayExtension
         counterTodayItems.hidden = !canUseTodayExtension

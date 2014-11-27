@@ -51,6 +51,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             userInfo: nil, repeats: true)
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -103,7 +107,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    
     func updateFavoritedStateForAllAnnotations() {
         CorvallisBusService.favorites() { favorites in
             let favorites = favorites.filter() { !$0.isNearestStop }
@@ -115,11 +118,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
@@ -198,11 +196,12 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         view.layer.zPosition = 2
         
         if let annotation = view.annotation as? BusStopAnnotation {
+            annotation.subtitle = "Loading..."
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
                 if let busArrivals = arrivals[annotation.stop.id] {
                     dispatch_async(dispatch_get_main_queue()) {
                         annotation.willChangeValueForKey("subtitle")
-                        annotation.subtitle = busArrivals.first?.description ?? "No arrivals!"
+                        annotation.subtitle = busArrivals
                         annotation.didChangeValueForKey("subtitle")
                     }
                 }

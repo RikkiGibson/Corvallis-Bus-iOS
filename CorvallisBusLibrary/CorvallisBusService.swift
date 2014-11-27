@@ -99,11 +99,11 @@ struct CorvallisBusService {
     /**
         Executes a callback using the arrival information for the provided list of stop IDs.
     */
-    static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
+    static func arrivals(stops: [Int], callback: [Int : String] -> Void) -> Void {
         // no point in getting arrival times for 0 bus stops
         // especially when doing so crashes the app
         if !stops.any() {
-            callback([Int : [BusArrival]]())
+            callback([Int : String]())
             return
         }
         

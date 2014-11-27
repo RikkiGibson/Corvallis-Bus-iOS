@@ -11,33 +11,39 @@ import MapKit
 
 class FavoritesTableViewController: UITableViewController {
     var favorites: [BusStop]?
-    var arrivals: [Int : [BusArrival]]?
+    var arrivals: [Int : String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.registerNib(UINib(nibName: "FavoritesTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "FavoritesTableViewCell")
+        let cellNib = UINib(nibName: "FavoritesTableViewCell", bundle: NSBundle.mainBundle())
+        self.tableView.registerNib(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
-        self.refreshControl?.beginRefreshing()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites:",
+            name: UIApplicationDidBecomeActiveNotification, object: UIApplication.sharedApplication())
+        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites:",
+            userInfo: nil, repeats: true)
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         updateFavorites(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        self.arrivals = nil
-    }
-    
     func updateFavorites(sender: AnyObject) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         CorvallisBusService.favorites() {
             self.favorites = $0
             self.updateArrivals()
-            dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
         }
     }
     
@@ -48,18 +54,15 @@ class FavoritesTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             }
+        } else {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -75,9 +78,7 @@ class FavoritesTableViewController: UITableViewController {
             cell.labelRouteName.text = currentStop.name
             
             if let busArrivals = self.arrivals?[currentStop.id] {
-                cell.labelArrivals.text = friendlyArrivals(busArrivals)
-            } else {
-                cell.labelArrivals.text = "Loading..."
+                cell.labelArrivals.text = busArrivals
             }
             
             // Only the nearest stop should display the location icon
