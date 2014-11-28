@@ -11,9 +11,12 @@ import MapKit
 
 class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
+    private let EXPANDED_TABLE_VIEW_HEIGHT: CGFloat = 152
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
-    private let tableViewHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 22))
+    @IBOutlet weak var tableViewHeader: UILabel!
+    
+    @IBOutlet weak var favoriteButton: UIButton!
     
     private var routesForStopSortedByArrivals: [BusRoute]?
     private var arrivals: [BusArrival]?
@@ -40,8 +43,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
         
+        
         self.tableViewHeight.constant = 0
-        self.tableView.tableHeaderView = self.tableViewHeader
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -100,15 +103,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     func displayInitialStop() {
         // initialStop is injected by another view in order to display a particular stop on the map
-        if self.initialStop != nil && self.busAnnotations != nil {
+        if self.initialStop != nil {
             
-            let annotation = self.busAnnotations!.first() { $0.stop.id == self.initialStop!.id }
-            self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
-                span: self.defaultSpan), animated: false)
-            
-            // prevents wonky appearance if this annotation was already selected, but the map was in a different position
-            self.mapView.deselectAnnotation(annotation, animated: true)
-            self.mapView.selectAnnotation(annotation, animated: true)
+            if let annotation = self.busAnnotations?.first({ $0.stop.id == self.initialStop!.id }) {
+                
+                self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
+                    span: self.defaultSpan), animated: false)
+                
+                // prevents wonky appearance if this annotation was already selected, but the map was in a different position
+                self.mapView.deselectAnnotation(annotation, animated: true)
+                self.mapView.selectAnnotation(annotation, animated: true)
+            }
             
             self.initializedMapLocation = true
             self.initialStop = nil
@@ -165,21 +170,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 // this tweak makes the bottom of the pin seem to touch the right spot
                 annotationView.centerOffset = CGPoint(x: 0, y: height / -3)
             }
-
-            annotationView.canShowCallout = true
-            
-            let button = UIButton.buttonWithType(.DetailDisclosure) as UIButton
-            button.setImage(self.favoriteImage, forState: UIControlState.Normal)
-            button.setImage(self.favoriteImage, forState: UIControlState.Selected)
-            button.selected = annotation.isFavorite
-            
-            button.addTarget(self, action: "buttonPush:", forControlEvents: .TouchUpInside)
-            
-            // weird workaround needed to make the button look right in iOS 8
-            button.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-            button.frame = CGRect(x: 0, y: 0, width: button.frame.width + 20, height: button.frame.height + 20)
-            
-            annotationView.rightCalloutAccessoryView = button
             
             self.updateStyleForBusAnnotationView(annotationView, favorited: annotation.isFavorite)
         }
@@ -188,8 +178,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func presentTableView() {
-        if self.tableViewHeight.constant != 132 {
-            self.tableViewHeight.constant = 132
+        if self.tableViewHeight.constant != EXPANDED_TABLE_VIEW_HEIGHT {
+            self.tableViewHeight.constant = EXPANDED_TABLE_VIEW_HEIGHT
             UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
         }
     }
@@ -219,7 +209,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func updateArrivalTimeForSelectedAnnotationView() {
-        if let selectedAnnotation = self.mapView?.selectedAnnotations?.first as? MKAnnotation {
+        if let selectedAnnotation = self.mapView?.selectedAnnotations?.first as? BusStopAnnotation {
             if let selectedView = self.mapView.viewForAnnotation(selectedAnnotation) {
                 updateArrivalTime(selectedView)
             }
@@ -237,19 +227,27 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 } else {
                     self.routesForStopSortedByArrivals = nil
                 }
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.tableView.reloadData()
-                    if self.routeListNeedsInitialization {
-                        let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
-                        self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .None)
-                        self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
-                        
-                        self.tableViewHeader.text = annotation.stop.name
-                    
-                        self.presentTableView()
-                        self.routeListNeedsInitialization = false
-                    }
-                }
+                dispatch_async(dispatch_get_main_queue(), self.updateTableView)
+            }
+        }
+    }
+    
+    func updateTableView() {
+        if self.selectedAnnotation != nil {
+            self.favoriteButton.selected = self.selectedAnnotation!.isFavorite
+            
+            // TODO: select the row containing the route that was selected before
+            // reloading to preserve consistency between the map and table view.
+            self.tableView.reloadData()
+            if self.routeListNeedsInitialization {
+                let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
+                self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .Bottom)
+                self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
+                
+                self.tableViewHeader.text = self.selectedAnnotation!.stop.name
+                
+                self.presentTableView()
+                self.routeListNeedsInitialization = false
             }
         }
     }
@@ -274,21 +272,23 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         }
     }
     
-    func buttonPush(sender: AnyObject!) {
+    @IBAction func buttonPush(sender: AnyObject!) {
         if let annotation = self.mapView.selectedAnnotations.first as? BusStopAnnotation {
-            let view = self.mapView.viewForAnnotation(annotation)
             CorvallisBusService.favorites() { favorites in
                 var favorites = favorites.filter() { !$0.isNearestStop }
+                var addedFavorite = false
                 // if this stop is in favorites, remove it
                 if favorites.any({ $0.id == annotation.stop.id }) {
                     favorites = favorites.filter() { $0.id != annotation.stop.id }
                 } else {
                     // if this stop isn't in favorites, add it
                     favorites.append(annotation.stop)
+                    addedFavorite = true
                 }
                 CorvallisBusService.setFavorites(favorites)
                 dispatch_async(dispatch_get_main_queue()) {
                     self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
+                    self.favoriteButton.selected = addedFavorite
                 }
             }
         }
@@ -308,10 +308,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         Updates the appearance of an annotation view to indicate whether it's a favorite.
     */
     func updateStyleForBusAnnotationView(view: MKAnnotationView, favorited: Bool) {
-        if let button = view.rightCalloutAccessoryView as? UIButton {
-            button.selected = favorited
-        }
-        
         var isSelected = false
         if self.selectedAnnotation != nil {
             if let annotationToUpdate = view.annotation as? BusStopAnnotation {
@@ -325,7 +321,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         } else {
             view.image = self.greenOvalImage
         }
-        
     }
     
     // MARK - Table view data source
@@ -356,9 +351,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Table view delegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let currentStop = self.selectedAnnotation?.stop {
-            let currentRoute = currentStop.routes[indexPath.row]
-            self.mapView.addOverlay(currentRoute.polyline)
+        if self.routesForStopSortedByArrivals != nil {
+            self.mapView.addOverlay(self.routesForStopSortedByArrivals![indexPath.row].polyline)
         }
     }
     

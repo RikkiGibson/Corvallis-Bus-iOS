@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -136,7 +137,7 @@
         <!--Stops-->
         <scene sceneID="fcL-ir-ckt">
             <objects>
-                <navigationController storyboardIdentifier="Stops" title="Stops" automaticallyAdjustsScrollViewInsets="NO" id="9H0-PB-c8c" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Stops" title="Stops" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9H0-PB-c8c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Find a Stop" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
@@ -236,14 +237,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
-                                <rect key="frame" x="0.0" y="64" width="600" height="355"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="399"/>
                             </mapView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Za-Cgt">
-                                <rect key="frame" x="0.0" y="419" width="600" height="132"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Za-Cgt">
+                                <rect key="frame" x="0.0" y="399" width="600" height="152"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="132" id="8pV-B3-ssB"/>
+                                    <constraint firstAttribute="height" constant="152" id="8pV-B3-ssB"/>
                                 </constraints>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="JJx-xV-KDb" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wt-WX-vxD">
+                                            <rect key="frame" x="15" y="11" width="543" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-lF-qnY">
+                                            <rect key="frame" x="566" y="11" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="22" id="h8U-6U-dyf"/>
+                                                <constraint firstAttribute="width" secondItem="GC3-lF-qnY" secondAttribute="height" multiplier="1:1" id="y1n-r0-5JK"/>
+                                            </constraints>
+                                            <color key="tintColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <state key="normal" image="favorite"/>
+                                            <state key="selected" image="favorite"/>
+                                            <connections>
+                                                <action selector="buttonPush:" destination="Rfu-K7-Css" eventType="touchUpInside" id="Ndr-sK-nYg"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.49019607843137253" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <accessibility key="accessibilityConfiguration" label=""/>
+                                    <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="1wt-WX-vxD" secondAttribute="bottom" constant="12" id="FXf-jN-M25"/>
+                                        <constraint firstItem="GC3-lF-qnY" firstAttribute="leading" secondItem="1wt-WX-vxD" secondAttribute="trailing" constant="8" id="Ktt-NS-EWf"/>
+                                        <constraint firstAttribute="trailing" secondItem="GC3-lF-qnY" secondAttribute="trailing" constant="12" id="MdT-09-lxC"/>
+                                        <constraint firstItem="1wt-WX-vxD" firstAttribute="leading" secondItem="JJx-xV-KDb" secondAttribute="leading" constant="15" id="Vjf-bs-Ee4"/>
+                                        <constraint firstAttribute="bottom" secondItem="GC3-lF-qnY" secondAttribute="bottom" constant="11" id="WfP-b0-gnC"/>
+                                        <constraint firstItem="1wt-WX-vxD" firstAttribute="top" secondItem="JJx-xV-KDb" secondAttribute="top" constant="11" id="XHK-Zv-ndQ"/>
+                                        <constraint firstItem="GC3-lF-qnY" firstAttribute="top" secondItem="JJx-xV-KDb" secondAttribute="top" constant="11" id="hxE-Wl-cQw"/>
+                                    </constraints>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="Lzg-vD-PjH" appends="YES" id="FlV-fQ-kHv"/>
+                                    </connections>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusArrivalCell" textLabel="qcS-aJ-dpQ" style="IBUITableViewCellStyleDefault" id="KnT-tI-vyq">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -271,7 +312,7 @@
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="fdw-Za-Cgt" secondAttribute="bottom" id="FV4-Zx-Smy"/>
                             <constraint firstItem="fdw-Za-Cgt" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leadingMargin" constant="-16" id="JWd-g0-FV6"/>
                             <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
-                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" id="o6B-3e-Pnx"/>
+                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" constant="-20" id="o6B-3e-Pnx"/>
                         </constraints>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
@@ -281,12 +322,19 @@
                     </view>
                     <navigationItem key="navigationItem" title="Find a Stop" id="jUS-nx-sK2"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="GC3-lF-qnY" id="s8X-dB-CJm"/>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
                         <outlet property="tableView" destination="fdw-Za-Cgt" id="AWV-Qg-Ruv"/>
+                        <outlet property="tableViewHeader" destination="1wt-WX-vxD" id="ipZ-mc-pVf"/>
                         <outlet property="tableViewHeight" destination="8pV-B3-ssB" id="qR9-JQ-ZCN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Lzg-vD-PjH">
+                    <connections>
+                        <action selector="buttonPush:" destination="Rfu-K7-Css" id="uJj-bN-vLo"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1920" y="-624"/>
         </scene>
@@ -313,6 +361,7 @@
     <resources>
         <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="28" height="28"/>
+        <image name="favorite" width="44" height="44"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>
