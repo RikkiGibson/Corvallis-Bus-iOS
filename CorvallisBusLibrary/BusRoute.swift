@@ -25,13 +25,29 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String)
     if polyline == nil { return nil }
     
-    return BusRoute(name: name!, additionalName: additionalName!,
+    let color = parseColor(data["Color"])
+    if color == nil { return nil }
+    
+    return BusRoute(name: name!, additionalName: additionalName!, color: color!,
         routeDescription: description!, polyline: polyline!, path: path)
+}
+
+private func parseColor(obj: AnyObject?) -> UIColor? {
+    if let string = obj as? String {
+        if countElements(string) != 6 { return nil }
+        var colorHex: UInt32 = 0
+        NSScanner(string: string).scanHexInt(&colorHex)
+        return UIColor(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,
+            green: CGFloat(colorHex >> 8 & 0xFF) / 255.0,
+            blue: CGFloat(colorHex & 0xFF) / 255.0, alpha: 1.0)
+    }
+    return nil
 }
 
 class BusRoute {
     let name: String
     let additionalName: String
+    let color: UIColor
     let routeDescription: String
     let polyline: MKPolyline
     private var _path: [[String: AnyObject]]?
@@ -44,10 +60,11 @@ class BusRoute {
         return [Int]()
     }()
     
-    private init(name: String, additionalName: String, routeDescription: String,
-        polyline: MKPolyline, path: [[String: AnyObject]]?) {
+    private init(name: String, additionalName: String, color: UIColor,
+        routeDescription: String, polyline: MKPolyline, path: [[String: AnyObject]]?) {
             self.name = name
             self.additionalName = additionalName
+            self.color = color
             self.routeDescription = routeDescription
             self.polyline = polyline
             self._path = path

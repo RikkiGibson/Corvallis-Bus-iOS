@@ -56,6 +56,21 @@ class BusStop : Equatable {
         self._routes = routes
     }
     
+    func routesSortedByArrivals(arrivals: [BusArrival]) -> [BusRoute] {
+        return self.routes.sorted() { firstRoute, secondRoute in
+            let firstArrival = arrivals.first() { $0.route == firstRoute.name }
+            let secondArrival = arrivals.first() { $0.route == secondRoute.name }
+            if firstArrival == nil {
+                return false
+            } else if secondArrival == nil {
+                return true
+            } else {
+                return firstArrival!.arrivalTime.compare(
+                    secondArrival!.arrivalTime) == NSComparisonResult.OrderedAscending
+            }
+        }
+    }
+    
     var friendlyDistance: String {
         get {
             if self.distanceFromUser != nil {

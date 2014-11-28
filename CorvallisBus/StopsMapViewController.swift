@@ -9,32 +9,41 @@
 import UIKit
 import MapKit
 
-class StopsMapViewController: UIViewController, MKMapViewDelegate {
+class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var mapView: MKMapView!
-    var initializedMapLocation = false
-    var initialStop: BusStop?
-    var busAnnotations: [BusStopAnnotation]?
-    var selectedAnnotation: BusStopAnnotation?
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
+    private let tableViewHeader = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 22))
     
-    let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
-    let greenOvalImage = UIImage(named: "greenoval")
-    let goldOvalImage = UIImage(named: "goldoval")
-    let favoriteImage = UIImage(named: "favorite")
+    private var routesForStopSortedByArrivals: [BusRoute]?
+    private var arrivals: [BusArrival]?
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
+    var initialStop: BusStop?
+    
+    private var initializedMapLocation = false
+    private var busAnnotations: [BusStopAnnotation]?
+    private var selectedAnnotation: BusStopAnnotation?
+    
+    private let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
+    private let greenOvalImage = UIImage(named: "greenoval")
+    private let greenOvalHighlightedImage = UIImage(named: "greenoval-highlighted")
+    private let goldOvalImage = UIImage(named: "goldoval")
+    private let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
+    
+    private let favoriteImage = UIImage(named: "favorite")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-
-        /*
-        CorvallisBusService.routes() { routes in
-            dispatch_async(dispatch_get_main_queue()) {
-                self.mapView.addOverlays(routes.map() { $0.polyline })
-            }
-        }
-        */
+        
+        self.tableViewHeight.constant = 0
+        self.tableView.tableHeaderView = self.tableViewHeader
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         self.navigationItem.rightBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
         
@@ -53,7 +62,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         
         self.refreshMap(self)
         
-        // Give the map a default position when location is disabled
+        // Gives the map a default position when location is disabled
         let authorization = CLLocationManager.authorizationStatus()
         if !self.initializedMapLocation &&
             authorization != .AuthorizedWhenInUse &&
@@ -63,6 +72,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             self.initializedMapLocation = true
         }
     }
+    
+    // MARK - Map view delegate
     
     func refreshMap(sender: AnyObject) {
         CorvallisBusService.stops() { stops in
@@ -90,12 +101,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     func displayInitialStop() {
         // initialStop is injected by another view in order to display a particular stop on the map
         if self.initialStop != nil && self.busAnnotations != nil {
+            
             let annotation = self.busAnnotations!.first() { $0.stop.id == self.initialStop!.id }
             self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
                 span: self.defaultSpan), animated: false)
+            
             // prevents wonky appearance if this annotation was already selected, but the map was in a different position
             self.mapView.deselectAnnotation(annotation, animated: true)
             self.mapView.selectAnnotation(annotation, animated: true)
+            
             self.initializedMapLocation = true
             self.initialStop = nil
         }
@@ -125,7 +139,11 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if let polyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyline)
-            renderer.strokeColor = UIColor.redColor()
+            if let selectedIndex = self.tableView.indexPathsForSelectedRows()?.first as? NSIndexPath {
+                if let currentRoute = self.routesForStopSortedByArrivals?[selectedIndex.row] {
+                    renderer.strokeColor = currentRoute.color
+                }
+            }
             renderer.lineWidth = 5
             return renderer
         }
@@ -163,19 +181,41 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
             
             annotationView.rightCalloutAccessoryView = button
             
-            updateFavoritedStyleForAnnotationView(annotationView, favorited: annotation.isFavorite)
+            self.updateStyleForBusAnnotationView(annotationView, favorited: annotation.isFavorite)
         }
         
         return annotationView
     }
     
+    func presentTableView() {
+        if self.tableViewHeight.constant != 132 {
+            self.tableViewHeight.constant = 132
+            UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
+        }
+    }
+    
+    func dismissTableView() {
+        if self.tableViewHeight.constant != 0 {
+            self.tableViewHeight.constant = 0
+            
+            UIView.animateWithDuration(0.2,
+                animations: { self.view.layoutIfNeeded() },
+                completion: { success in self.tableView.reloadData() })
+        }
+    }
+    
+    private var routeListNeedsInitialization = false
     /**
         Displays the current arrival time on the annotation's callout, updates the favorited state and
         jumps the annotation to the front.
     */
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
-        updateArrivalTime(view)
+        if self.selectedAnnotation != nil {
+            self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
+        }
+        self.routeListNeedsInitialization = true
+        self.updateArrivalTime(view)
     }
     
     func updateArrivalTimeForSelectedAnnotationView() {
@@ -190,13 +230,24 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         view.layer.zPosition = 2
         
         if let annotation = view.annotation as? BusStopAnnotation {
-            annotation.subtitle = "Loading..."
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
-                if let busArrivals = arrivals[annotation.stop.id] {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        annotation.willChangeValueForKey("subtitle")
-                        annotation.subtitle = busArrivals.first?.description ?? "No arrivals!"
-                        annotation.didChangeValueForKey("subtitle")
+                self.arrivals = arrivals[annotation.stop.id]
+                if self.arrivals != nil {
+                    self.routesForStopSortedByArrivals = annotation.stop.routesSortedByArrivals(self.arrivals!)
+                } else {
+                    self.routesForStopSortedByArrivals = nil
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.tableView.reloadData()
+                    if self.routeListNeedsInitialization {
+                        let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
+                        self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .None)
+                        self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
+                        
+                        self.tableViewHeader.text = annotation.stop.name
+                    
+                        self.presentTableView()
+                        self.routeListNeedsInitialization = false
                     }
                 }
             }
@@ -208,12 +259,19 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     */
     func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
         if self.selectedAnnotation != nil {
+            self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
             view.layer.zPosition = self.selectedAnnotation!.isFavorite ? 2 : 1
         } else {
             view.layer.zPosition = 1
         }
-        
         self.selectedAnnotation = nil
+        self.mapView.removeOverlays(self.mapView.overlays)
+        
+        dispatch_after(50, dispatch_get_main_queue()) {
+            if self.selectedAnnotation == nil {
+                self.dismissTableView()
+            }
+        }
     }
     
     func buttonPush(sender: AnyObject!) {
@@ -242,18 +300,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
     func updateFavoritedStateForAnnotation(annotation: BusStopAnnotation, favorites: [BusStop]) {
         annotation.isFavorite = favorites.any() { $0.id == annotation.stop.id }
         if let view = self.mapView.viewForAnnotation(annotation) {
-            updateFavoritedStyleForAnnotationView(view, favorited: annotation.isFavorite)
+            self.updateStyleForBusAnnotationView(view, favorited: annotation.isFavorite)
         }
     }
     
     /**
         Updates the appearance of an annotation view to indicate whether it's a favorite.
     */
-    func updateFavoritedStyleForAnnotationView(view: MKAnnotationView, favorited: Bool) {
+    func updateStyleForBusAnnotationView(view: MKAnnotationView, favorited: Bool) {
         if let button = view.rightCalloutAccessoryView as? UIButton {
             button.selected = favorited
         }
-        view.image = favorited ? self.goldOvalImage : self.greenOvalImage
         
         var isSelected = false
         if self.selectedAnnotation != nil {
@@ -263,6 +320,50 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate {
         }
         
         view.layer.zPosition = favorited || isSelected ? 2 : 1
+        if favorited {
+            view.image = self.goldOvalImage
+        } else {
+            view.image = self.greenOvalImage
+        }
+        
     }
-
+    
+    // MARK - Table view data source
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.routesForStopSortedByArrivals?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("BusArrivalCell") as UITableViewCell
+        
+        if self.arrivals != nil && self.routesForStopSortedByArrivals != nil {
+            let currentRoute = self.routesForStopSortedByArrivals![indexPath.row]
+            let arrivalsForRoute = self.arrivals!.filter() { $0.route == currentRoute.name }
+            let arrivalsDescription = arrivalsForRoute.any() ?
+                ", ".join(arrivalsForRoute.map() { $0.friendlyEta }) : "No arrivals!"
+            
+            cell.textLabel.text = "\(currentRoute.name): \(arrivalsDescription)"
+        }
+        
+        return cell
+    }
+    
+    // MARK - Table view delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let currentStop = self.selectedAnnotation?.stop {
+            let currentRoute = currentStop.routes[indexPath.row]
+            self.mapView.addOverlay(currentRoute.polyline)
+        }
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        self.mapView.removeOverlays(self.mapView.overlays)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 }

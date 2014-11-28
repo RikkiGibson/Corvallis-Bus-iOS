@@ -17,6 +17,7 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
         if let busArrivalJson = value as? [[String : AnyObject]] {
             if let intKey = key.toInt() {
                 let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
+                    .sorted() { $0.arrivalTime.compare($1.arrivalTime) == NSComparisonResult.OrderedAscending }
                 return (intKey, busArrivals)
             }
         }
@@ -57,12 +58,17 @@ class BusArrival {
         self.arrivalTime = arrivalTime
     }
     
-    var description: String {
+    var friendlyEta: String {
         get {
             let etaInMinutes = self.arrivalTime.timeIntervalSinceDate(NSDate()) / 60
-            let friendlyEta = etaInMinutes < 1 ? "less than 1 minute" :
+            return etaInMinutes < 1 ? "less than 1 minute" :
                 String(format: "%0.0f", etaInMinutes) + " minutes"
-            return "Route \(self.route): \(friendlyEta)"
+        }
+    }
+    
+    var description: String {
+        get {
+            return "Route \(self.route): \(self.friendlyEta)"
         }
     }
 }

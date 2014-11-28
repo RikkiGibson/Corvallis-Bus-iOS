@@ -15,7 +15,7 @@ class BusStopAnnotation: NSObject, MKAnnotation {
     var title: String { get { return stop.name } }
     var coordinate: CLLocationCoordinate2D { get { return stop.location.coordinate } }
     
-    var subtitle = "Loading..."
+    var subtitle: String { get { return stop.id.description } }
     var isFavorite = false
     
     init(stop: BusStop) {

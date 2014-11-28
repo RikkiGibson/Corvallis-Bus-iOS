@@ -236,14 +236,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
-                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="355"/>
                             </mapView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Za-Cgt">
+                                <rect key="frame" x="0.0" y="419" width="600" height="132"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="132" id="8pV-B3-ssB"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusArrivalCell" textLabel="qcS-aJ-dpQ" style="IBUITableViewCellStyleDefault" id="KnT-tI-vyq">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KnT-tI-vyq" id="8wJ-6x-Ra9">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qcS-aJ-dpQ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="fdw-Za-Cgt" secondAttribute="trailing" constant="-16" id="1XN-2b-eiD"/>
+                            <constraint firstItem="fdw-Za-Cgt" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="Adm-Ev-LQ4"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="B46-ce-nBi"/>
+                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="fdw-Za-Cgt" secondAttribute="bottom" id="FV4-Zx-Smy"/>
+                            <constraint firstItem="fdw-Za-Cgt" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leadingMargin" constant="-16" id="JWd-g0-FV6"/>
                             <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
-                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="U3M-KA-abK"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" id="o6B-3e-Pnx"/>
                         </constraints>
                         <variation key="widthClass=compact">
@@ -255,6 +282,8 @@
                     <navigationItem key="navigationItem" title="Find a Stop" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
+                        <outlet property="tableView" destination="fdw-Za-Cgt" id="AWV-Qg-Ruv"/>
+                        <outlet property="tableViewHeight" destination="8pV-B3-ssB" id="qR9-JQ-ZCN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
