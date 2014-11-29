@@ -10,12 +10,21 @@ import UIKit
 import MapKit
 
 class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
-
-    private let EXPANDED_TABLE_VIEW_HEIGHT: CGFloat = 152
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UILabel!
     
+    // DON'T QUESTION MY METHODS
+    private let TABLE_VIEW_HEIGHT: CGFloat = {
+        let deviceHeight = UIScreen.mainScreen().bounds.height
+        var tableViewHeight = CGFloat(22.0)
+        while tableViewHeight / deviceHeight < 0.28 {
+            tableViewHeight += 44
+        }
+        return CGFloat(tableViewHeight)
+    }()
+    
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
     private var routesForStopSortedByArrivals: [BusRoute]?
@@ -48,7 +57,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.navigationItem.rightBarButtonItem = MKUserTrackingBarButtonItem(mapView: self.mapView)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -79,6 +87,12 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Map view delegate
     
     func refreshMap(sender: AnyObject) {
+        let authorization = CLLocationManager.authorizationStatus()
+        
+        self.locationButton.hidden =
+            authorization != .AuthorizedWhenInUse &&
+            authorization != .Authorized
+        
         CorvallisBusService.stops() { stops in
             // Opening the view while offline can prevent annotations from being added to the map
             if self.busAnnotations == nil {
@@ -141,6 +155,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         }
     }
     
+    @IBAction func goToUserLocation(sender: AnyObject) {
+        self.mapView.setCenterCoordinate(self.mapView.userLocation.location.coordinate, animated: true)
+    }
+    
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if let polyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyline)
@@ -178,8 +196,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func presentTableView() {
-        if self.tableViewHeight.constant != EXPANDED_TABLE_VIEW_HEIGHT {
-            self.tableViewHeight.constant = EXPANDED_TABLE_VIEW_HEIGHT
+        let tableViewHeight: CGFloat = self.TABLE_VIEW_HEIGHT
+        if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
+            self.tableViewHeight.constant = tableViewHeight
             UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
         }
     }
@@ -241,7 +260,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             self.tableView.reloadData()
             if self.routeListNeedsInitialization {
                 let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
-                self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .Bottom)
+                self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .None)
                 self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
                 
                 self.tableViewHeader.text = self.selectedAnnotation!.stop.name

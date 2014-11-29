@@ -237,25 +237,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="399"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="397"/>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Za-Cgt">
-                                <rect key="frame" x="0.0" y="399" width="600" height="152"/>
+                                <rect key="frame" x="0.0" y="397" width="600" height="154"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="152" id="8pV-B3-ssB"/>
+                                    <constraint firstAttribute="height" constant="154" id="8pV-B3-ssB"/>
                                 </constraints>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="JJx-xV-KDb" userLabel="Header">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wt-WX-vxD">
-                                            <rect key="frame" x="15" y="11" width="543" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1wt-WX-vxD" userLabel="Stop Name">
+                                            <rect key="frame" x="15" y="11" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-lF-qnY">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-lF-qnY" userLabel="Favorite Button">
                                             <rect key="frame" x="566" y="11" width="22" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="22" id="h8U-6U-dyf"/>
@@ -274,8 +274,8 @@
                                     <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="1wt-WX-vxD" secondAttribute="bottom" constant="12" id="FXf-jN-M25"/>
-                                        <constraint firstItem="GC3-lF-qnY" firstAttribute="leading" secondItem="1wt-WX-vxD" secondAttribute="trailing" constant="8" id="Ktt-NS-EWf"/>
-                                        <constraint firstAttribute="trailing" secondItem="GC3-lF-qnY" secondAttribute="trailing" constant="12" id="MdT-09-lxC"/>
+                                        <constraint firstAttribute="trailing" secondItem="GC3-lF-qnY" secondAttribute="trailing" constant="12" id="J3k-FY-gSB"/>
+                                        <constraint firstItem="GC3-lF-qnY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1wt-WX-vxD" secondAttribute="trailing" constant="8" id="Ktt-NS-EWf"/>
                                         <constraint firstItem="1wt-WX-vxD" firstAttribute="leading" secondItem="JJx-xV-KDb" secondAttribute="leading" constant="15" id="Vjf-bs-Ee4"/>
                                         <constraint firstAttribute="bottom" secondItem="GC3-lF-qnY" secondAttribute="bottom" constant="11" id="WfP-b0-gnC"/>
                                         <constraint firstItem="1wt-WX-vxD" firstAttribute="top" secondItem="JJx-xV-KDb" secondAttribute="top" constant="11" id="XHK-Zv-ndQ"/>
@@ -292,7 +292,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KnT-tI-vyq" id="8wJ-6x-Ra9">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qcS-aJ-dpQ">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qcS-aJ-dpQ" userLabel="Route Arrival Times">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -303,16 +303,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbP-lW-cIu" userLabel="Location Button">
+                                <rect key="frame" x="540" y="345" width="44" height="44"/>
+                                <color key="tintColor" red="0.49019607843137253" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
+                                <connections>
+                                    <action selector="goToUserLocation:" destination="Rfu-K7-Css" eventType="touchUpInside" id="0LI-kh-BpX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="fdw-Za-Cgt" secondAttribute="trailing" constant="-16" id="1XN-2b-eiD"/>
+                            <constraint firstAttribute="trailing" secondItem="fdw-Za-Cgt" secondAttribute="trailing" id="1XN-2b-eiD"/>
                             <constraint firstItem="fdw-Za-Cgt" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="Adm-Ev-LQ4"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="B46-ce-nBi"/>
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="fdw-Za-Cgt" secondAttribute="bottom" id="FV4-Zx-Smy"/>
-                            <constraint firstItem="fdw-Za-Cgt" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leadingMargin" constant="-16" id="JWd-g0-FV6"/>
+                            <constraint firstItem="fdw-Za-Cgt" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="JWd-g0-FV6"/>
                             <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
-                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" constant="-20" id="o6B-3e-Pnx"/>
+                            <constraint firstItem="QbP-lW-cIu" firstAttribute="trailing" secondItem="GSn-ny-dvK" secondAttribute="trailingMargin" id="Zms-uH-PZK"/>
+                            <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="top" constant="-20" id="o6B-3e-Pnx"/>
+                            <constraint firstItem="fdw-Za-Cgt" firstAttribute="top" secondItem="QbP-lW-cIu" secondAttribute="bottom" constant="8" id="uI0-mQ-4kg"/>
                         </constraints>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
@@ -323,6 +333,7 @@
                     <navigationItem key="navigationItem" title="Find a Stop" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="favoriteButton" destination="GC3-lF-qnY" id="s8X-dB-CJm"/>
+                        <outlet property="locationButton" destination="QbP-lW-cIu" id="SJb-sx-3T9"/>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
                         <outlet property="tableView" destination="fdw-Za-Cgt" id="AWV-Qg-Ruv"/>
                         <outlet property="tableViewHeader" destination="1wt-WX-vxD" id="ipZ-mc-pVf"/>
@@ -361,6 +372,8 @@
     <resources>
         <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="28" height="28"/>
+        <image name="currentlocation" width="30" height="30"/>
+        <image name="currentlocation-background" width="44" height="44"/>
         <image name="favorite" width="44" height="44"/>
         <image name="settings" width="22" height="22"/>
     </resources>
