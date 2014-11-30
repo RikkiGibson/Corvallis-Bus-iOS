@@ -24,6 +24,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         return CGFloat(tableViewHeight)
     }()
     
+    let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
+    
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
     
@@ -49,14 +51,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
+            span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
+        
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        
         
         self.tableViewHeight.constant = 0
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -72,16 +75,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         super.viewWillAppear(animated)
         
         self.refreshMap(self)
-        
-        // Gives the map a default position when location is disabled
-        let authorization = CLLocationManager.authorizationStatus()
-        if !self.initializedMapLocation &&
-            authorization != .AuthorizedWhenInUse &&
-            authorization != .Authorized {
-            self.mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2DMake(44.56802, -123.27926),
-                span: MKCoordinateSpanMake(0.028, 0.028)), animated: false)
-            self.initializedMapLocation = true
-        }
     }
     
     // MARK - Map view delegate
@@ -122,7 +115,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             if let annotation = self.busAnnotations?.first({ $0.stop.id == self.initialStop!.id }) {
                 
                 self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
-                    span: self.defaultSpan), animated: false)
+                    span: self.defaultSpan), animated: true)
                 
                 // prevents wonky appearance if this annotation was already selected, but the map was in a different position
                 self.mapView.deselectAnnotation(annotation, animated: true)
@@ -149,8 +142,11 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         if !self.initializedMapLocation {
-            self.mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate,
-                span: self.defaultSpan), animated: false)
+            // If the user is more than roughly 20 miles from Corvallis, don't go to their location
+            if userLocation.location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
+                self.mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate,
+                    span: self.defaultSpan), animated: true)
+            }
             self.initializedMapLocation = true
         }
     }
@@ -195,11 +191,14 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         return annotationView
     }
     
-    func presentTableView() {
-        let tableViewHeight: CGFloat = self.TABLE_VIEW_HEIGHT
+    func presentTableView(#animated: Bool) {
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
-            self.tableViewHeight.constant = tableViewHeight
-            UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
+            self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
+            if animated {
+                UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
+            } else {
+                self.view.layoutIfNeeded()
+            }
         }
     }
     
@@ -219,9 +218,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         jumps the annotation to the front.
     */
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
+            
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
+            
+            self.favoriteButton.selected = self.selectedAnnotation!.isFavorite
+            self.tableViewHeader.text = self.selectedAnnotation!.stop.name
+            self.presentTableView(animated: true)
         }
         self.routeListNeedsInitialization = true
         self.updateArrivalTime(view)
@@ -252,22 +257,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func updateTableView() {
-        if self.selectedAnnotation != nil {
-            self.favoriteButton.selected = self.selectedAnnotation!.isFavorite
+        // TODO: select the row containing the route that was selected before
+        // reloading to preserve consistency between the map and table view.
+        self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        if self.routeListNeedsInitialization {
+            let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
+            self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .None)
+            self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
             
-            // TODO: select the row containing the route that was selected before
-            // reloading to preserve consistency between the map and table view.
-            self.tableView.reloadData()
-            if self.routeListNeedsInitialization {
-                let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
-                self.tableView.selectRowAtIndexPath(firstIndex, animated: false, scrollPosition: .None)
-                self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
-                
-                self.tableViewHeader.text = self.selectedAnnotation!.stop.name
-                
-                self.presentTableView()
-                self.routeListNeedsInitialization = false
-            }
+            self.routeListNeedsInitialization = false
         }
     }
     
@@ -276,17 +274,20 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     */
     func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
         if self.selectedAnnotation != nil {
-            self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
-            view.layer.zPosition = self.selectedAnnotation!.isFavorite ? 2 : 1
+            let isFavorite = self.selectedAnnotation!.isFavorite
+            self.selectedAnnotation = nil
+            self.updateStyleForBusAnnotationView(view, favorited: isFavorite)
+            view.layer.zPosition = isFavorite ? 2 : 1
         } else {
             view.layer.zPosition = 1
         }
-        self.selectedAnnotation = nil
+        self.routesForStopSortedByArrivals = nil
         self.mapView.removeOverlays(self.mapView.overlays)
         
         dispatch_after(50, dispatch_get_main_queue()) {
             if self.selectedAnnotation == nil {
                 self.dismissTableView()
+                self.tableView.reloadData()
             }
         }
     }
@@ -336,9 +337,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         
         view.layer.zPosition = favorited || isSelected ? 2 : 1
         if favorited {
-            view.image = self.goldOvalImage
+            view.image = isSelected ? self.goldOvalHighlightedImage : self.goldOvalImage
         } else {
-            view.image = self.greenOvalImage
+            view.image = isSelected ? self.greenOvalHighlightedImage : self.greenOvalImage
         }
     }
     
