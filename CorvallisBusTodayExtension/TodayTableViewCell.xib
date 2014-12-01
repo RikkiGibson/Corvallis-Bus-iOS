@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLocWhite" translatesAutoresizingMaskIntoConstraints="NO" id="8Nv-Hd-d8A">
-                        <rect key="frame" x="287" y="27" width="15" height="15"/>
+                        <rect key="frame" x="287" y="30" width="15" height="15"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gi-Q2-uci">
                         <rect key="frame" x="267" y="49" width="45" height="13.5"/>
@@ -43,7 +43,7 @@
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bLm-c5-i9G" secondAttribute="trailing" id="P4T-8i-u3y"/>
                     <constraint firstAttribute="bottomMargin" secondItem="3gi-Q2-uci" secondAttribute="bottom" constant="-1" id="QEa-y3-fgV"/>
                     <constraint firstItem="bLm-c5-i9G" firstAttribute="leading" secondItem="lzx-Ft-Gnj" secondAttribute="leading" id="VdD-qF-UhW"/>
-                    <constraint firstAttribute="centerY" secondItem="8Nv-Hd-d8A" secondAttribute="centerY" id="dhR-P0-Cdv"/>
+                    <constraint firstAttribute="centerY" secondItem="8Nv-Hd-d8A" secondAttribute="centerY" constant="-2.75" id="dhR-P0-Cdv"/>
                     <constraint firstItem="bLm-c5-i9G" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="-3" id="eb2-Kj-58v"/>
                     <constraint firstItem="bLm-c5-i9G" firstAttribute="leading" secondItem="Igl-iX-BVv" secondAttribute="leadingMargin" id="pk5-MK-Xxk"/>
                     <constraint firstItem="lzx-Ft-Gnj" firstAttribute="top" secondItem="Igl-iX-BVv" secondAttribute="topMargin" constant="18" id="r2D-Jg-Gp9"/>

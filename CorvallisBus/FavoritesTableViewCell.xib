@@ -30,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="SNg-Q2-Vm4">
-                        <rect key="frame" x="287" y="28" width="15" height="15"/>
+                        <rect key="frame" x="287" y="30" width="15" height="15"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEd-bl-rad">
                         <rect key="frame" x="267" y="49" width="45" height="13.5"/>
@@ -44,7 +44,7 @@
                     <constraint firstItem="kEd-bl-rad" firstAttribute="trailing" secondItem="Kmo-me-aJ5" secondAttribute="trailingMargin" id="6MK-nT-dIv"/>
                     <constraint firstAttribute="bottomMargin" secondItem="kEd-bl-rad" secondAttribute="bottom" constant="-1" id="Bw8-CC-agn"/>
                     <constraint firstItem="DYg-IM-hVq" firstAttribute="top" secondItem="Kmo-me-aJ5" secondAttribute="topMargin" constant="18" id="G6m-A2-H4w"/>
-                    <constraint firstAttribute="centerY" secondItem="SNg-Q2-Vm4" secondAttribute="centerY" id="JdF-HK-PvX"/>
+                    <constraint firstAttribute="centerY" secondItem="SNg-Q2-Vm4" secondAttribute="centerY" constant="-2.75" id="JdF-HK-PvX"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="Kmo-me-aJ5" secondAttribute="leadingMargin" constant="2" id="ajf-kz-8wg"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="DYg-IM-hVq" secondAttribute="leading" id="fMM-ag-U8V"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="top" secondItem="Kmo-me-aJ5" secondAttribute="topMargin" constant="-3" id="jFP-Yp-TNG"/>
