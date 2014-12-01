@@ -14,12 +14,19 @@ struct CorvallisBusService {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
     
+    private static var _callqueue = Array<[BusStop] -> Void>()
     private static var _stops: [BusStop]?
     /**
         Executes a callback using the list of stops from the Corvallis Bus server.
     */
     static func stops(callback: [BusStop] -> Void) -> Void {
-        if _stops == nil {
+        if _stops != nil {
+            callback(self._stops!)
+        } else if _callqueue.any() {
+            _callqueue.append(callback)
+        } else {
+            _callqueue.append(callback)
+            
             let session = NSURLSession.sharedSession()
             
             var stopsJson: [[String : AnyObject]]?
@@ -29,7 +36,9 @@ struct CorvallisBusService {
                 if stopsJson != nil && routesJson != nil {
                     self._routes = routesJson!.mapUnwrap() { toBusRoute($0) }
                     self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
-                    callback(self._stops!)
+                    for callback in self._callqueue {
+                        callback(self._stops!)
+                    }
                 }
             }
             
@@ -74,9 +83,6 @@ struct CorvallisBusService {
             }.resume()
             
             
-        }
-        else {
-            callback(self._stops!)
         }
     }
     
