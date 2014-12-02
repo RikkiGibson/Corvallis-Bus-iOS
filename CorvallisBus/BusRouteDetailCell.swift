@@ -19,9 +19,8 @@ class BusRouteDetailCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.labelRouteName.layer.cornerRadius = 5
+        self.labelRouteName.layer.cornerRadius = 8
         self.labelRouteName.clipsToBounds = true
-        self.labelRouteName.layoutMargins = UIEdgeInsets(top: 20, left: 30, bottom: 20, right: 30)
         // Initialization code
     }
 }
