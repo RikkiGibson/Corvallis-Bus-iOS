@@ -17,7 +17,7 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
         if let busArrivalJson = value as? [[String : AnyObject]] {
             if let intKey = key.toInt() {
                 let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
-                    .distinct(==)
+                    //.distinct(==)
                     .sorted() { $0.arrivalTime.compare($1.arrivalTime) == NSComparisonResult.OrderedAscending }
                 return (intKey, busArrivals)
             }
@@ -79,7 +79,9 @@ class BusArrival {
             case 0...60: return "less than 1 minute"
             case 60...1800: // 1 minute - 30 minutes from now
                 let minutesDescription = String(format: "%0.0f", etaInSeconds / 60)
-                return minutesDescription + (etaInSeconds < 120 ? " minute" : " minutes")
+
+                // the format string is rounding to the nearest integer, so < 90 rounds to 1
+                return minutesDescription + (etaInSeconds < 90 ? " minute" : " minutes")
             default: // just show the arrival time
                 return self.formatter.stringFromDate(self.arrivalTime)
             }
@@ -127,7 +129,8 @@ let arrivalsSummary: [BusArrival] -> String = {
         switch difference {
         case 1700.0...1900.0: return "Every 30 minutes until \(formatter.stringFromDate(lastTime))"
         case 3500.0...3700.0: return "Hourly until \(formatter.stringFromDate(lastTime))"
-        default: return ""
+        default:
+            return ""
         }
     }
 }()

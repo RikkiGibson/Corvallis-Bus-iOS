@@ -40,6 +40,22 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     private var busAnnotations: [BusStopAnnotation]?
     private var selectedAnnotation: BusStopAnnotation?
     
+    private var _selectedRoute: BusRoute?
+    private var selectedRoute: BusRoute? {
+        get {
+            return _selectedRoute
+        }
+        set(newRoute) {
+            if newRoute == nil {
+                self.mapView.removeOverlays(self.mapView.overlays)
+            } else if newRoute != _selectedRoute {
+                self.mapView.removeOverlays(self.mapView.overlays)
+                self.mapView.addOverlay(newRoute!.polyline)
+            }
+            _selectedRoute = newRoute
+        }
+    }
+    
     private let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
     private let greenOvalImage = UIImage(named: "greenoval")
     private let greenOvalHighlightedImage = UIImage(named: "greenoval-highlighted")
@@ -266,6 +282,12 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
             
             self.routeListNeedsInitialization = false
+        } else if self.routesForStopSortedByArrivals != nil && self.selectedRoute != nil {
+            if let index = find(self.routesForStopSortedByArrivals!, self.selectedRoute!) {
+                let indexPath = NSIndexPath(forRow: index, inSection: 0)
+                self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+                self.tableView(self.tableView, didSelectRowAtIndexPath: indexPath)
+            }
         }
     }
     
@@ -282,10 +304,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             view.layer.zPosition = 1
         }
         self.routesForStopSortedByArrivals = nil
-        self.mapView.removeOverlays(self.mapView.overlays)
         
         dispatch_after(50, dispatch_get_main_queue()) {
             if self.selectedAnnotation == nil {
+                self.selectedRoute = nil
                 self.dismissTableView()
                 self.tableView.reloadData()
             }
@@ -371,13 +393,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Table view delegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.routesForStopSortedByArrivals != nil {
-            self.mapView.addOverlay(self.routesForStopSortedByArrivals![indexPath.row].polyline)
-        }
-    }
-    
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        self.mapView.removeOverlays(self.mapView.overlays)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.selectedRoute = self.routesForStopSortedByArrivals?[indexPath.row]
     }
 }

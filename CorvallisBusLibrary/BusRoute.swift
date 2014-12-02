@@ -44,7 +44,11 @@ private func parseColor(obj: AnyObject?) -> UIColor? {
     return nil
 }
 
-class BusRoute {
+func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
+    return lhs.name == rhs.name
+}
+
+class BusRoute : Equatable {
     let name: String
     let additionalName: String
     let color: UIColor
