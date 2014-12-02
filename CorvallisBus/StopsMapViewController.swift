@@ -34,6 +34,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     @IBOutlet weak var mapView: MKMapView!
     
+    let webViewController = UIViewController()
+    
     var initialStop: BusStop?
     
     private var initializedMapLocation = false
@@ -67,12 +69,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
+        self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
+        
         self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
             span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
-        
+                
         self.tableViewHeight.constant = 0
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -376,15 +381,22 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BusArrivalCell") as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("BusRouteDetailCell") as BusRouteDetailCell
         
         if self.arrivals != nil && self.routesForStopSortedByArrivals != nil {
             let currentRoute = self.routesForStopSortedByArrivals![indexPath.row]
             let arrivalsForRoute = self.arrivals!.filter() { $0.route == currentRoute.name }
             let arrivalsDescription = friendlyMapArrivals(arrivalsForRoute)
+
+            cell.labelRouteName.text = currentRoute.name
+            cell.labelRouteName.backgroundColorActual = currentRoute.color
             
-            cell.textLabel.text = "\(currentRoute.name): \(arrivalsDescription)"
-            cell.detailTextLabel?.text = arrivalsSummary(arrivalsForRoute)
+            cell.labelEstimate.text = arrivalsDescription
+            cell.labelSchedule.text = arrivalsSummary(arrivalsForRoute)
+        }
+        
+        if let button = cell.accessoryView as? UIButton {
+            button.addTarget(self, action: "openWebView:", forControlEvents: .TouchUpInside)
         }
         
         return cell

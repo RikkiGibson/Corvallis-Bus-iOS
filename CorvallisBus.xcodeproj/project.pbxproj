@@ -30,6 +30,10 @@
 		5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937D719CFCB82009A2FB2 /* Main.storyboard */; };
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
+		5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */; };
+		5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */; };
+		5C635D561A2E63CF00F1C2E5 /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */; };
+		5C635D571A2E63CF00F1C2E5 /* BusWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C635D551A2E63CF00F1C2E5 /* BusWebViewController.xib */; };
 		5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */; };
 		5C7612731A09C75E001F9DBE /* libCorvallisBusLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */; };
 		5C76169E1A0AC223008E4A57 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616961A0AC223008E4A57 /* BusArrival.swift */; };
@@ -160,6 +164,10 @@
 		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937E819CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
+		5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRouteDetailCell.swift; sourceTree = "<group>"; };
+		5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusRouteDetailCell.xib; sourceTree = "<group>"; };
+		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
+		5C635D551A2E63CF00F1C2E5 /* BusWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusWebViewController.xib; sourceTree = "<group>"; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
 		5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertTableViewCell.swift; sourceTree = "<group>"; };
 		5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCorvallisBusLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +271,8 @@
 				5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */,
 				5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */,
 				5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */,
+				5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */,
+				5C635D551A2E63CF00F1C2E5 /* BusWebViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -309,6 +319,8 @@
 				5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */,
 				5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */,
 				5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */,
+				5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */,
+				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -578,7 +590,9 @@
 			files = (
 				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
+				5C635D571A2E63CF00F1C2E5 /* BusWebViewController.xib in Resources */,
 				5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */,
+				5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,11 +666,13 @@
 				5C7616A71A0AC239008E4A57 /* BusRoute.swift in Sources */,
 				5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */,
 				5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */,
+				5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */,
 				5C7616B11A0AC249008E4A57 /* Utils.swift in Sources */,
 				5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */,
 				5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */,
 				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
 				5C7616AF1A0AC246008E4A57 /* FavoriteStopTableViewCell.swift in Sources */,
+				5C635D561A2E63CF00F1C2E5 /* BusWebViewController.swift in Sources */,
 				5C7616AB1A0AC240008E4A57 /* CorvallisBusLocationManagerDelegate.swift in Sources */,
 				5C7616A91A0AC23D008E4A57 /* BusStop.swift in Sources */,
 				5C9608221A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */,
