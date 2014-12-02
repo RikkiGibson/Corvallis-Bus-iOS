@@ -359,10 +359,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         if self.arrivals != nil && self.routesForStopSortedByArrivals != nil {
             let currentRoute = self.routesForStopSortedByArrivals![indexPath.row]
             let arrivalsForRoute = self.arrivals!.filter() { $0.route == currentRoute.name }
-            let arrivalsDescription = arrivalsForRoute.any() ?
-                ", ".join(arrivalsForRoute.map() { $0.friendlyEta }) : "No arrivals!"
+            let arrivalsDescription = friendlyMapArrivals(arrivalsForRoute)
             
             cell.textLabel.text = "\(currentRoute.name): \(arrivalsDescription)"
+            cell.detailTextLabel?.text = arrivalsSummary(arrivalsForRoute)
         }
         
         return cell

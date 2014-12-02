@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-func toBusStop(data: [String : AnyObject], withRoutes routes: [BusRoute]) -> BusStop? {
+func toBusStop(data: [String : AnyObject], withRoutes routes: () -> [BusRoute]) -> BusStop? {
     let id = data["ID"] as? Int
     if id == nil { return nil }
     
@@ -36,11 +36,10 @@ class BusStop : Equatable {
     let road: String
     let location: CLLocation
     
-    private var _routes: [BusRoute]?
+    private var _routes: () -> [BusRoute]
     lazy var routes: [BusRoute] = {
         if self._routes != nil {
-            let applicableRoutes = self._routes!.filter() { $0.path.any() { $0 == self.id } }
-            self._routes = nil
+            let applicableRoutes = self._routes().filter() { $0.path.any() { $0 == self.id } }
             return applicableRoutes
         }
         return [BusRoute]()
@@ -48,7 +47,7 @@ class BusStop : Equatable {
     var distanceFromUser: CLLocationDistance?
     var isNearestStop = false
     
-    private init(id: Int, name: String, road: String, location: CLLocation, routes: [BusRoute]) {
+    private init(id: Int, name: String, road: String, location: CLLocation, routes: () -> [BusRoute]) {
         self.id = id
         self.name = name
         self.road = road

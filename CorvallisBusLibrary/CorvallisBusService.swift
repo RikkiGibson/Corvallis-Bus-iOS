@@ -34,7 +34,13 @@ struct CorvallisBusService {
             
             let finally = { () -> Void in
                 if stopsJson != nil && routesJson != nil {
-                    self._routes = routesJson!.mapUnwrap() { toBusRoute($0) }
+                    var routesCache: [BusRoute]?
+                    self._routes = {
+                        if routesCache == nil {
+                            routesCache = routesJson!.mapUnwrap() { toBusRoute($0) }
+                        }
+                        return routesCache!
+                    }
                     self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
                     for callback in self._callqueue {
                         callback(self._stops!)
@@ -89,41 +95,15 @@ struct CorvallisBusService {
     /**
         Executes a callback using the list of routes from the Corvallis Bus server.
     */
-    private static var _routes: [BusRoute]?
+    private static var _routes: (() -> [BusRoute])?
     static func routes(callback: ([BusRoute]) -> Void) -> Void {
-        if _routes == nil {
-            var session = NSURLSession.sharedSession()
-            var url = NSURL(string: "\(rootUrl)/routes?stops=true")
-            
-            if url == nil {
-                println("NSURL did not instantiate properly")
-                return
+        if self._routes != nil {
+            callback(self._routes!())
+        } else {
+            // I know this is screwed up, sheddap
+            CorvallisBusService.stops() { stops in
+                callback(self._routes!())
             }
-            
-            session.dataTaskWithURL(url!,
-                completionHandler: {
-                    (data, response, error) -> Void in
-                    if (error != nil) {
-                        println(error.description)
-                        return
-                    }
-                    
-                    var jsonError: NSError?
-                    var stopJson = NSJSONSerialization.JSONObjectWithData(data,
-                        options: .AllowFragments,
-                        error: &jsonError)?.objectForKey("routes") as NSArray as [[String : AnyObject]]
-                    
-                    if (jsonError != nil) {
-                        println(jsonError!.description)
-                        return
-                    }
-                    
-                    self._routes = stopJson.mapUnwrap() { toBusRoute($0) }
-                    callback(self._routes!)
-            }).resume()
-        }
-        else {
-            callback(self._routes!)
         }
     }
     

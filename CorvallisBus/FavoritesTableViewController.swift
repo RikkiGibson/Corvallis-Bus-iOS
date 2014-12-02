@@ -66,10 +66,14 @@ class FavoritesTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
+                }
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                    // Causes routes to get deserialized. This takes several seconds on old phones.
+                    CorvallisBusService.routes() { routes in }
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             }
-        } else {
+        } else { // this shouldn't happen
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         }
     }

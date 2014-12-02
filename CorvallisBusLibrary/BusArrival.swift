@@ -17,12 +17,19 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
         if let busArrivalJson = value as? [[String : AnyObject]] {
             if let intKey = key.toInt() {
                 let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
+                    .distinct(==)
                     .sorted() { $0.arrivalTime.compare($1.arrivalTime) == NSComparisonResult.OrderedAscending }
                 return (intKey, busArrivals)
             }
         }
         return nil
     }
+}
+
+// two bus arrivals for the same route within one minute
+// of each other are considered redundant-- the API is buggy
+func == (lhs: BusArrival, rhs: BusArrival) -> Bool {
+    return lhs.route == rhs.route && lhs.arrivalTime.timeIntervalSinceDate(rhs.arrivalTime) < 60
 }
 
 private let toNSDate = { () -> (AnyObject? -> NSDate?) in
@@ -58,11 +65,24 @@ class BusArrival {
         self.arrivalTime = arrivalTime
     }
     
+    private let formatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .NoStyle
+        formatter.timeStyle = .ShortStyle
+        return formatter
+    }()
+    
     var friendlyEta: String {
         get {
-            let etaInMinutes = self.arrivalTime.timeIntervalSinceDate(NSDate()) / 60
-            return etaInMinutes < 1 ? "less than 1 minute" :
-                String(format: "%0.0f", etaInMinutes) + " minutes"
+            let etaInSeconds = self.arrivalTime.timeIntervalSinceNow
+            switch etaInSeconds {
+            case 0...60: return "less than 1 minute"
+            case 60...1800: // 1 minute - 30 minutes from now
+                let minutesDescription = String(format: "%0.0f", etaInSeconds / 60)
+                return minutesDescription + (etaInSeconds < 120 ? " minute" : " minutes")
+            default: // just show the arrival time
+                return self.formatter.stringFromDate(self.arrivalTime)
+            }
         }
     }
     
@@ -82,3 +102,32 @@ func friendlyArrivals(arrivals: [BusArrival]) -> String {
     }
     return arrivals.count > 0 ? arrivals[0].description : "No arrivals!"
 }
+
+func friendlyMapArrivals(arrivals: [BusArrival]) -> String {
+    if arrivals.count >= 2 {
+        return arrivals[0].friendlyEta + ", " + arrivals[1].friendlyEta
+    }
+    return arrivals.count > 0 ? arrivals[0].friendlyEta : "No arrivals!"
+}
+
+let arrivalsSummary: [BusArrival] -> String = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .NoStyle
+    formatter.timeStyle = .ShortStyle
+    
+    return { arrivals in
+        if arrivals.count <= 2 {
+            return ""
+        }
+        let secondToLastTime = arrivals[arrivals.count - 2].arrivalTime
+        let lastTime = arrivals[arrivals.count - 1].arrivalTime
+        
+        let difference = lastTime.timeIntervalSinceDate(secondToLastTime)
+        
+        switch difference {
+        case 1700.0...1900.0: return "Every 30 minutes until \(formatter.stringFromDate(lastTime))"
+        case 3500.0...3700.0: return "Hourly until \(formatter.stringFromDate(lastTime))"
+        default: return ""
+        }
+    }
+}()
