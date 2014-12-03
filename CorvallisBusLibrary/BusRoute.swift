@@ -28,8 +28,14 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     let color = parseColor(data["Color"])
     if color == nil { return nil }
     
+    var URL: NSURL?
+    if let urlString = data["URL"] as? String {
+        URL = NSURL(string: urlString)
+    }
+    if URL == nil { return nil }
+    
     return BusRoute(name: name!, additionalName: additionalName!, color: color!,
-        routeDescription: description!, polyline: polyline!, path: path)
+        routeDescription: description!, polyline: polyline!, path: path, url: URL!)
 }
 
 private func parseColor(obj: AnyObject?) -> UIColor? {
@@ -54,6 +60,7 @@ class BusRoute : Equatable {
     let color: UIColor
     let routeDescription: String
     let polyline: MKPolyline
+    let url: NSURL
     private var _path: [[String: AnyObject]]?
     lazy var path: [Int] = {
         if self._path != nil {
@@ -65,12 +72,13 @@ class BusRoute : Equatable {
     }()
     
     private init(name: String, additionalName: String, color: UIColor,
-        routeDescription: String, polyline: MKPolyline, path: [[String: AnyObject]]?) {
+        routeDescription: String, polyline: MKPolyline, path: [[String: AnyObject]]?, url: NSURL) {
             self.name = name
             self.additionalName = additionalName
             self.color = color
             self.routeDescription = routeDescription
             self.polyline = polyline
             self._path = path
+            self.url = url
     }
 }

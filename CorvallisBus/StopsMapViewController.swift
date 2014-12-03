@@ -9,7 +9,8 @@
 import UIKit
 import MapKit
 
-class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class StopsMapViewController: UIViewController, MKMapViewDelegate,
+        UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UILabel!
@@ -68,6 +69,12 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let webView = UIWebView()
+        webView.delegate = self
+        self.webViewController.view = webView
+        self.webViewController.navigationItem.rightBarButtonItem =
+            UIBarButtonItem(title: "Open in Safari", style: .Plain, target: self, action: "openInBrowser:")
         
         let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
@@ -216,7 +223,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
             if animated {
-                UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
+                UIView.animateWithDuration(0.2, animations: {
+                    self.navigationController?.navigationBarHidden = true
+                    self.view.layoutIfNeeded()
+                    }) { success in }
             } else {
                 self.view.layoutIfNeeded()
             }
@@ -228,7 +238,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             self.tableViewHeight.constant = 0
             
             UIView.animateWithDuration(0.2,
-                animations: { self.view.layoutIfNeeded() },
+                animations: {
+                    self.navigationController?.navigationBarHidden = false
+                    self.view.layoutIfNeeded()
+                },
                 completion: { success in self.tableView.reloadData() })
         }
     }
@@ -314,7 +327,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             if self.selectedAnnotation == nil {
                 self.selectedRoute = nil
                 self.dismissTableView()
-                self.tableView.reloadData()
             }
         }
     }
@@ -395,10 +407,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             cell.labelSchedule.text = arrivalsSummary(arrivalsForRoute)
         }
         
-        if let button = cell.accessoryView as? UIButton {
-            button.addTarget(self, action: "openWebView:", forControlEvents: .TouchUpInside)
-        }
-        
         return cell
     }
     
@@ -407,4 +415,46 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedRoute = self.routesForStopSortedByArrivals?[indexPath.row]
     }
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        if self.routesForStopSortedByArrivals != nil {
+            let routeURL = self.routesForStopSortedByArrivals![indexPath.row].url
+            if let webView = self.webViewController.view as? UIWebView {
+                webView.loadRequest(NSURLRequest(URL: routeURL))
+                self.navigationController?.navigationBarHidden = false
+                self.navigationController?.pushViewController(self.webViewController, animated: true)
+//                self.webViewController.navigationItem.leftBarButtonItem.
+            }
+        }
+    }
+    
+    // MARK - Web view delegate
+    
+    func openInBrowser(sender: AnyObject) {
+        if let webView = self.webViewController.view as? UIWebView {
+            if let url = webView.request?.URL {
+                UIApplication.sharedApplication().openURL(url)
+            }
+        }
+    }
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType != .LinkClicked || webView.request?.URL.query == request.URL.query {
+            return true
+        } else {
+            UIApplication.sharedApplication().openURL(request.URL)
+            return false
+        }
+    }
+    
+    // this can cause the table view to become unresponsive on iPhone 6
+//    func webViewDidFinishLoad(webView: UIWebView) {
+//        let javascript = "$(function() {" +
+//                "$('#show-route-schedules').trigger('click');" +
+//                "$('#stop-all').trigger('click');" +
+//                "$('html, body').stop();" +
+//                "$('html, body').animate({scrollTop: ($('#cts-schedules-top').offset().top)},0);" +
+//            "});"
+//        webView.stringByEvaluatingJavaScriptFromString(javascript)
+//    }
 }

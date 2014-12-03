@@ -137,7 +137,7 @@
         <!--Browse-->
         <scene sceneID="fcL-ir-ckt">
             <objects>
-                <navigationController storyboardIdentifier="Stops" title="Browse" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9H0-PB-c8c" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Stops" title="Browse" automaticallyAdjustsScrollViewInsets="NO" hidesBarsWhenVerticallyCompact="YES" id="9H0-PB-c8c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
