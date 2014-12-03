@@ -63,6 +63,28 @@ extension Array {
         }
         return result
     }
+    
+    func all(predicate: T -> Bool) -> Bool {
+        for t in self {
+            if !predicate(t) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    /**
+        Maps a function using the corresponding elements of two arrays.
+        I can't think of a better name for this.
+    */
+    func mapTwice<U>(otherArray: [T], transform: (T, T) -> U) -> [U] {
+        var result = [U]()
+        let size = self.count < otherArray.count ? self.count : otherArray.count
+        for var i = 0; i < size; i++ {
+            result.append(transform(self[i], otherArray[i]))
+        }
+        return result
+    }
 }
 
 extension Dictionary {

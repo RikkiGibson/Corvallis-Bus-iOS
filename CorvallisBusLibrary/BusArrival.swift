@@ -121,16 +121,25 @@ let arrivalsSummary: [BusArrival] -> String = {
         if arrivals.count <= 2 {
             return ""
         }
-        let secondToLastTime = arrivals[arrivals.count - 2].arrivalTime
-        let lastTime = arrivals[arrivals.count - 1].arrivalTime
+        if arrivals.count == 3 {
+            let lastTime = arrivals[2].arrivalTime
+            return "Last arrival at \(formatter.stringFromDate(lastTime))"
+        }
         
-        let difference = lastTime.timeIntervalSinceDate(secondToLastTime)
+        let lastTwoArrivals = Array(arrivals[arrivals.count-3..<arrivals.count])
+        let secondToLastArrivals = Array(arrivals[arrivals.count-4..<arrivals.count-1])
         
-        switch difference {
-        case 1700.0...1900.0: return "Every 30 minutes until \(formatter.stringFromDate(lastTime))"
-        case 3500.0...3700.0: return "Hourly until \(formatter.stringFromDate(lastTime))"
-        default:
-            return ""
+        let differences = lastTwoArrivals.mapTwice(secondToLastArrivals) { firstArrival, secondArrival in
+            firstArrival.arrivalTime.timeIntervalSinceDate(secondArrival.arrivalTime)
+        }
+        
+        let lastTime = formatter.stringFromDate(arrivals.last!.arrivalTime)
+        if differences.all({ $0 > 1200 && $0 < 2400 }) {
+            return "Every 30 minutes until \(lastTime)"
+        } else if differences.all({ $0 > 3000 && $0 < 4200}) {
+            return "Hourly until \(lastTime)"
+        } else {
+            return "Last arrival at \(lastTime)"
         }
     }
 }()

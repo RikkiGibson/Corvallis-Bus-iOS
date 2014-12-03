@@ -14,12 +14,6 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     let name = data["Name"] as? String
     if name == nil { return nil }
     
-    let additionalName = data["AdditionalName"] as? String
-    if additionalName == nil { return nil }
-    
-    let description = data["Description"] as? String
-    if description == nil { return nil }
-    
     let path = data["Path"] as? [[String: AnyObject]]
     
     let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String)
@@ -34,8 +28,7 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     }
     if URL == nil { return nil }
     
-    return BusRoute(name: name!, additionalName: additionalName!, color: color!,
-        routeDescription: description!, polyline: polyline!, path: path, url: URL!)
+    return BusRoute(name: name!, color: color!, polyline: polyline!, path: path, url: URL!)
 }
 
 private func parseColor(obj: AnyObject?) -> UIColor? {
@@ -56,9 +49,7 @@ func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
 
 class BusRoute : Equatable {
     let name: String
-    let additionalName: String
     let color: UIColor
-    let routeDescription: String
     let polyline: MKPolyline
     let url: NSURL
     private var _path: [[String: AnyObject]]?
@@ -71,12 +62,9 @@ class BusRoute : Equatable {
         return [Int]()
     }()
     
-    private init(name: String, additionalName: String, color: UIColor,
-        routeDescription: String, polyline: MKPolyline, path: [[String: AnyObject]]?, url: NSURL) {
+    private init(name: String, color: UIColor, polyline: MKPolyline, path: [[String: AnyObject]]?, url: NSURL) {
             self.name = name
-            self.additionalName = additionalName
             self.color = color
-            self.routeDescription = routeDescription
             self.polyline = polyline
             self._path = path
             self.url = url

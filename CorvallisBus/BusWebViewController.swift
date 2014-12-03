@@ -12,25 +12,43 @@ class BusWebViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
-    var initialRequest: NSURLRequest?
+    var initialURL: NSURL?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.webView.delegate = self
-        self.navigationItem.rightBarButtonItem =
-            UIBarButtonItem(title: "Open in Safari", style: .Plain, target: self, action: "openInBrowser:")
-        
+        self.webView.delegate = self
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
-        if self.initialRequest != nil {
-            self.webView.loadRequest(self.initialRequest!)
+        super.viewWillAppear(animated)
+        
+        // necessary if the user begins popping the view controller then pushes it back on
+        UIView.animateWithDuration(0.2) {
+            self.navigationController?.navigationBarHidden = false
+            return
+        }
+        
+        if self.initialURL != nil {
+            self.webView.loadRequest(NSURLRequest(URL: self.initialURL!))
         }
     }
     
-    func openInBrowser(sender: AnyObject) {
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIView.animateWithDuration(0.2) {
+            self.navigationController?.navigationBarHidden = true
+            return
+        }
+    }
+    
+    @IBAction func openInBrowser(sender: AnyObject) {
         if let url = self.webView.request?.URL {
             UIApplication.sharedApplication().openURL(url)
         }
@@ -41,6 +59,26 @@ class BusWebViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if navigationType != .LinkClicked || webView.request?.URL.query == request.URL.query {
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            return true
+        } else {
+            UIApplication.sharedApplication().openURL(request.URL)
+            return false
+        }
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        let javascript = "$(function() {" +
+                "$('#show-route-schedules').trigger('click');" +
+                "$('#stop-all').trigger('click');" +
+                "$('html, body').stop();" +
+                "$('html, body').animate({scrollTop: ($('#cts-schedules-top').offset().top)}, 0);" +
+            "});"
+        webView.stringByEvaluatingJavaScriptFromString(javascript)
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
     
     /*
     // MARK: - Navigation

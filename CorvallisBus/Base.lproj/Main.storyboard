@@ -137,7 +137,7 @@
         <!--Browse-->
         <scene sceneID="fcL-ir-ckt">
             <objects>
-                <navigationController storyboardIdentifier="Stops" title="Browse" automaticallyAdjustsScrollViewInsets="NO" hidesBarsWhenVerticallyCompact="YES" id="9H0-PB-c8c" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Stops" title="Browse" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="9H0-PB-c8c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Browse" image="bus_toolbar_icon" id="3EM-pA-Tx3"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="qz2-0c-KPt"/>
@@ -322,6 +322,7 @@
                         <outlet property="tableView" destination="fdw-Za-Cgt" id="AWV-Qg-Ruv"/>
                         <outlet property="tableViewHeader" destination="1wt-WX-vxD" id="ipZ-mc-pVf"/>
                         <outlet property="tableViewHeight" destination="8pV-B3-ssB" id="qR9-JQ-ZCN"/>
+                        <segue destination="LTL-5N-aNi" kind="show" identifier="BusWebSegue" id="ouR-5R-7DY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GMH-ui-dX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -332,6 +333,46 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1920" y="-624"/>
+        </scene>
+        <!--Bus Web View Controller-->
+        <scene sceneID="Hm0-VL-40j">
+            <objects>
+                <viewController id="zbp-RX-Eyo" customClass="BusWebViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gHk-xG-Afc"/>
+                        <viewControllerLayoutGuide type="bottom" id="UxN-Vq-b1g"/>
+                    </layoutGuides>
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Aqe-H5-rmJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Rv-2S-Iy5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="7Rv-2S-Iy5" secondAttribute="bottom" id="GBP-8D-IeZ"/>
+                            <constraint firstAttribute="trailing" secondItem="7Rv-2S-Iy5" secondAttribute="trailing" id="TO6-BG-sq9"/>
+                            <constraint firstItem="7Rv-2S-Iy5" firstAttribute="top" secondItem="Aqe-H5-rmJ" secondAttribute="top" id="kCS-im-uz5"/>
+                            <constraint firstItem="7Rv-2S-Iy5" firstAttribute="leading" secondItem="Aqe-H5-rmJ" secondAttribute="leading" id="yPb-m9-zDH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="93S-6f-2bv">
+                        <barButtonItem key="rightBarButtonItem" title="Open in Safari" id="HBp-a7-djW">
+                            <connections>
+                                <action selector="openInBrowser:" destination="zbp-RX-Eyo" id="jaf-I6-vBO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="7Rv-2S-Iy5" id="gC1-Fd-gg7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RvA-Yo-hNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3414" y="-627"/>
         </scene>
         <!--Preferences-->
         <scene sceneID="ygG-FP-nZf">
@@ -351,6 +392,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAo-xt-Bhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1107" y="52"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lCG-Bc-A57">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LTL-5N-aNi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="U7O-bL-8kF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zbp-RX-Eyo" kind="relationship" relationship="rootViewController" id="S3B-ii-cke"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6lx-05-lCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2598" y="-624"/>
         </scene>
     </scenes>
     <resources>
