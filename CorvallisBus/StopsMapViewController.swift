@@ -62,7 +62,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     private let goldOvalImage = UIImage(named: "goldoval")
     private let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
     
-    private let favoriteImage = UIImage(named: "favorite")
+    private let favorite = UIImage(named: "favorite")
+    private let favoriteColor = UIColor(red: 236/255, green: 238/255, blue: 171/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,6 +232,14 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         }
     }
     
+    func setFavoriteButtonState(#favorited: Bool) {
+        UIView.animateWithDuration(0.2) {
+            self.favoriteButton.tintColor = favorited ? self.favoriteColor : UIColor.whiteColor()
+            self.favoriteButton.selected = favorited
+            return
+        }
+    }
+    
     private var routeListNeedsInitialization = false
     /**
         Displays the current arrival time on the annotation's callout, updates the favorited state and
@@ -243,7 +252,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
             
-            self.favoriteButton.selected = self.selectedAnnotation!.isFavorite
+            self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
             self.presentTableView(animated: true)
         }
@@ -334,7 +343,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 CorvallisBusService.setFavorites(favorites)
                 dispatch_async(dispatch_get_main_queue()) {
                     self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
-                    self.favoriteButton.selected = addedFavorite
+                    self.setFavoriteButtonState(favorited: addedFavorite)
                 }
             }
         }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -239,6 +238,14 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="397"/>
                             </mapView>
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbP-lW-cIu" userLabel="Location Button">
+                                <rect key="frame" x="552" y="345" width="44" height="44"/>
+                                <color key="tintColor" red="0.49019607843137253" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
+                                <connections>
+                                    <action selector="goToUserLocation:" destination="Rfu-K7-Css" eventType="touchUpInside" id="0LI-kh-BpX"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fdw-Za-Cgt">
                                 <rect key="frame" x="0.0" y="397" width="600" height="154"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -255,15 +262,16 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-lF-qnY" userLabel="Favorite Button">
-                                            <rect key="frame" x="566" y="11" width="22" height="22"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GC3-lF-qnY" userLabel="Favorite Button">
+                                            <rect key="frame" x="556" y="11" width="36" height="22"/>
+                                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="22" id="h8U-6U-dyf"/>
-                                                <constraint firstAttribute="width" secondItem="GC3-lF-qnY" secondAttribute="height" multiplier="1:1" id="y1n-r0-5JK"/>
+                                                <constraint firstAttribute="width" constant="36" id="h8U-6U-dyf"/>
                                             </constraints>
-                                            <color key="tintColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" image="favorite"/>
                                             <state key="selected" image="favorite"/>
+                                            <state key="highlighted" title="foo"/>
                                             <connections>
                                                 <action selector="buttonPush:" destination="Rfu-K7-Css" eventType="touchUpInside" id="Ndr-sK-nYg"/>
                                             </connections>
@@ -274,7 +282,7 @@
                                     <gestureRecognizers/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="1wt-WX-vxD" secondAttribute="bottom" constant="12" id="FXf-jN-M25"/>
-                                        <constraint firstAttribute="trailing" secondItem="GC3-lF-qnY" secondAttribute="trailing" constant="12" id="J3k-FY-gSB"/>
+                                        <constraint firstAttribute="trailing" secondItem="GC3-lF-qnY" secondAttribute="trailing" constant="8" id="J3k-FY-gSB"/>
                                         <constraint firstItem="GC3-lF-qnY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1wt-WX-vxD" secondAttribute="trailing" constant="8" id="Ktt-NS-EWf"/>
                                         <constraint firstItem="1wt-WX-vxD" firstAttribute="leading" secondItem="JJx-xV-KDb" secondAttribute="leading" constant="15" id="Vjf-bs-Ee4"/>
                                         <constraint firstAttribute="bottom" secondItem="GC3-lF-qnY" secondAttribute="bottom" constant="11" id="WfP-b0-gnC"/>
@@ -287,14 +295,6 @@
                                 </view>
                                 <sections/>
                             </tableView>
-                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbP-lW-cIu" userLabel="Location Button">
-                                <rect key="frame" x="552" y="345" width="44" height="44"/>
-                                <color key="tintColor" red="0.49019607843137253" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
-                                <connections>
-                                    <action selector="goToUserLocation:" destination="Rfu-K7-Css" eventType="touchUpInside" id="0LI-kh-BpX"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -417,7 +417,7 @@
         <image name="bus_toolbar_icon" width="28" height="28"/>
         <image name="currentlocation" width="30" height="30"/>
         <image name="currentlocation-background" width="44" height="44"/>
-        <image name="favorite" width="44" height="44"/>
+        <image name="favorite" width="36" height="22"/>
         <image name="settings" width="22" height="22"/>
     </resources>
 </document>
