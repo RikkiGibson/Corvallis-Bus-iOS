@@ -75,9 +75,8 @@ extension Array {
     
     /**
         Maps a function using the corresponding elements of two arrays.
-        I can't think of a better name for this.
     */
-    func mapTwice<U>(otherArray: [T], transform: (T, T) -> U) -> [U] {
+    func mapPairs<U>(otherArray: [T], transform: (T, T) -> U) -> [U] {
         var result = [U]()
         let size = self.count < otherArray.count ? self.count : otherArray.count
         for var i = 0; i < size; i++ {
