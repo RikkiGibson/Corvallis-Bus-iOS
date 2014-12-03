@@ -126,8 +126,8 @@ let arrivalsSummary: [BusArrival] -> String = {
             return "Last arrival at \(formatter.stringFromDate(lastTime))"
         }
         
-        let latterArrivals = Array(arrivals[3..<arrivals.count])
-        let formerArrivals = Array(arrivals[2..<arrivals.count-1])
+        let latterArrivals = Array(arrivals[2..<arrivals.count])
+        let formerArrivals = Array(arrivals[1..<arrivals.count-1])
         
         let differences = latterArrivals.mapPairs(formerArrivals) { firstArrival, secondArrival in
             firstArrival.arrivalTime.timeIntervalSinceDate(secondArrival.arrivalTime)

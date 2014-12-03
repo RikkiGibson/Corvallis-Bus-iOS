@@ -61,7 +61,7 @@ class ServiceAlertsViewController: UITableViewController, UIWebViewDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as UITableViewCell
         let item = self.items[indexPath.row]
-        cell.textLabel.text = item.title
+        cell.textLabel?.text = item.title
         cell.detailTextLabel?.text = item.date == nil ? "" : self.dateFormatter.stringFromDate(item.date)
         
         return cell
