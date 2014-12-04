@@ -52,7 +52,11 @@ struct CorvallisBusService {
             session.dataTaskWithURL(stopsURL) {
                     (data, response, error) -> Void in
                     if (error != nil) {
-                        println(error.description)
+                        let empty = [BusStop]()
+                        for callback in self._callqueue {
+                            callback(empty)
+                        }
+                        self._callqueue = Array<[BusStop] -> Void>()
                         return
                     }
                     
@@ -72,7 +76,11 @@ struct CorvallisBusService {
             session.dataTaskWithURL(routesURL) {
                 (data, response, error) -> Void in
                 if (error != nil) {
-                    println(error.description)
+                    let empty = [BusStop]()
+                    for callback in self._callqueue {
+                        callback(empty)
+                    }
+                    self._callqueue = Array<[BusStop] -> Void>()
                     return
                 }
                 
@@ -102,7 +110,7 @@ struct CorvallisBusService {
         } else {
             // I know this is screwed up, sheddap
             CorvallisBusService.stops() { stops in
-                callback(self._routes!())
+                callback(self._routes?() ?? [BusRoute]())
             }
         }
     }
@@ -129,7 +137,7 @@ struct CorvallisBusService {
         session.dataTaskWithURL(url!, completionHandler: {
             data, response, error in
             if (error != nil) {
-                println(error.description)
+                callback([Int : [BusArrival]]())
                 return
             }
             
@@ -187,7 +195,7 @@ struct CorvallisBusService {
     */
     private static var _updatedLocation: Bool = false
     private static var _userLocation: CLLocation?
-    static func favorites(callback: ([BusStop]) -> Void) -> Void {
+    static func favorites(callback: [BusStop] -> Void) -> Void {
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
         if defaults == nil {
             println("NSUserDefaults did not instantiate properly in CorvallisBusService")
@@ -202,6 +210,9 @@ struct CorvallisBusService {
         }
         
         self.stops() { stops in
+            if !stops.any() {
+                callback(stops)
+            }
             self._getSortedFavorites(favoriteIds, callback)
         }
     }

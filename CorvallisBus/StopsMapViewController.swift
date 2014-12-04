@@ -63,7 +63,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     private let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
     
     private let favorite = UIImage(named: "favorite")
-    private let favoriteColor = UIColor(red: 236/255, green: 238/255, blue: 171/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,18 +105,22 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             authorization != .AuthorizedWhenInUse &&
             authorization != .Authorized
         
-        CorvallisBusService.stops() { stops in
-            // Opening the view while offline can prevent annotations from being added to the map
-            if self.busAnnotations == nil {
-                self.busAnnotations = stops.map() { BusStopAnnotation(stop: $0) }
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.mapView.addAnnotations(self.busAnnotations)
-                    self.updateFavoritedStateForAllAnnotations()
+        CorvallisBusService.stops(initializeStops)
+    }
+    
+    func initializeStops(stops: [BusStop]?) {
+        // Opening the view while offline can prevent annotations from being added to the map
+        if self.busAnnotations == nil && stops != nil {
+            self.busAnnotations = stops!.map() { BusStopAnnotation(stop: $0) }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.mapView.addAnnotations(self.busAnnotations)
+                self.updateFavoritedStateForAllAnnotationsWithCallback() {
                     self.displayInitialStop()
                 }
-            } else {
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.updateFavoritedStateForAllAnnotations()
+            }
+        } else {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.updateFavoritedStateForAllAnnotationsWithCallback() {
                     if self.initialStop == nil {
                         self.updateArrivalTimeForSelectedAnnotationView()
                     } else {
@@ -133,7 +136,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         if self.initialStop != nil {
             
             if let annotation = self.busAnnotations?.first({ $0.stop.id == self.initialStop!.id }) {
-                
                 self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
                     span: self.defaultSpan), animated: true)
                 
@@ -147,7 +149,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         }
     }
     
-    func updateFavoritedStateForAllAnnotations() {
+    func updateFavoritedStateForAllAnnotationsWithCallback(callback: () -> Void) {
         CorvallisBusService.favorites() { favorites in
             let favorites = favorites.filter() { !$0.isNearestStop }
             dispatch_async(dispatch_get_main_queue()) {
@@ -156,6 +158,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                         self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
                     }
                 }
+                callback()
             }
         }
     }
@@ -234,7 +237,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     func setFavoriteButtonState(#favorited: Bool) {
         UIView.animateWithDuration(0.2) {
-            self.favoriteButton.tintColor = favorited ? self.favoriteColor : UIColor.whiteColor()
             self.favoriteButton.selected = favorited
             return
         }
@@ -249,9 +251,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
-            
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
-            
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
             self.presentTableView(animated: true)
@@ -282,11 +282,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 dispatch_async(dispatch_get_main_queue(), self.updateTableView)
             }
         }
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
+            selector: "clearTableView", userInfo: nil, repeats: false)
+    }
+    
+    func clearTableView() {
+        if self.routesForStopSortedByArrivals == nil {
+            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        }
     }
     
     func updateTableView() {
-        // TODO: select the row containing the route that was selected before
-        // reloading to preserve consistency between the map and table view.
         self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
         if self.routeListNeedsInitialization {
             let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
@@ -308,6 +314,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     */
     func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
         self.arrivals = nil
+        self.routesForStopSortedByArrivals = nil
         
         if self.selectedAnnotation != nil {
             let isFavorite = self.selectedAnnotation!.isFavorite
@@ -317,7 +324,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         } else {
             view.layer.zPosition = 1
         }
-        self.routesForStopSortedByArrivals = nil
         
         dispatch_after(50, dispatch_get_main_queue()) {
             if self.selectedAnnotation == nil {
@@ -424,5 +430,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 destination.initialURL = selectedRoute.url
             }
         }
+    }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) {
+        // the unwind needs to be invoked for the presenting view controller
+        // to remain responsive when it appears again
     }
 }

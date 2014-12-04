@@ -42,6 +42,7 @@ class BusWebViewController: UIViewController, UIWebViewDelegate {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        self.performSegueWithIdentifier("unwindMap", sender: self)
         UIView.animateWithDuration(0.2) {
             self.navigationController?.navigationBarHidden = true
             return
@@ -79,7 +80,6 @@ class BusWebViewController: UIViewController, UIWebViewDelegate {
         webView.stringByEvaluatingJavaScriptFromString(javascript)
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
-    
     /*
     // MARK: - Navigation
     
