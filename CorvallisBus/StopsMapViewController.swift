@@ -163,7 +163,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Map view delegate
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
-        self.mapView.viewForAnnotation(userLocation).canShowCallout = false
+        if let view = self.mapView.viewForAnnotation(userLocation) {
+            view.canShowCallout = false
+        }
         if !self.initializedMapLocation {
             // If the user is more than roughly 20 miles from Corvallis, don't go to their location
             if userLocation.location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
@@ -435,5 +437,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 destination.initialURL = selectedRoute.url
             }
         }
+    }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) {
+        
     }
 }

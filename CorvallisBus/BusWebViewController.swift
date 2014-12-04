@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate {
+class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -17,6 +17,10 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        let edgePanRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "didPanFromEdge:")
+        edgePanRecognizer.edges = .Left
+        edgePanRecognizer.delegate = self
+        self.view.addGestureRecognizer(edgePanRecognizer)
     }
     
     override func viewDidLoad() {
@@ -107,6 +111,14 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
             "});"
         webView.stringByEvaluatingJavaScriptFromString(javascript)
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @IBAction func didPanFromEdge(sender: AnyObject) {
+        self.performSegueWithIdentifier("unwind", sender: sender)
     }
     /*
     // MARK: - Navigation

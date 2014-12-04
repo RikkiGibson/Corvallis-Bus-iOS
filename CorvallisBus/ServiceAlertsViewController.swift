@@ -70,4 +70,8 @@ class ServiceAlertsViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) {
+        
+    }
 }
