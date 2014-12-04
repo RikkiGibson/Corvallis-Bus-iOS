@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServiceAlertsViewController: UITableViewController, UIWebViewDelegate {
+class ServiceAlertsViewController: UITableViewController, UIWebViewDelegate, UIActionSheetDelegate {
     let webViewController = UIViewController()
     let dateFormatter = NSDateFormatter()
     let feedParser = ServiceAlertsFeedParserDelegate()
@@ -75,15 +75,37 @@ class ServiceAlertsViewController: UITableViewController, UIWebViewDelegate {
         }
     }
     
+    private var leadingRequest: NSURLRequest?
     /**
         Causes Safari to be opened if a link is tapped.
     */
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if navigationType == .LinkClicked {
-            UIApplication.sharedApplication().openURL(request.URL)
+            if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
+                    UIApplication.sharedApplication().openURL(request.URL); return
+                })
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
+                self.presentViewController(alertController, animated: true) { }
+            } else {
+                let actionSheet = UIActionSheet(title: nil, delegate: self,
+                    cancelButtonTitle: nil, destructiveButtonTitle: nil)
+                actionSheet.addButtonWithTitle("Open in Safari")
+                actionSheet.addButtonWithTitle("Cancel")
+                actionSheet.cancelButtonIndex = 1
+                self.leadingRequest = request
+                actionSheet.showInView(self.webViewController.view)
+            }
             return false
         }
         return true
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if self.leadingRequest != nil && buttonIndex == 0 {
+            UIApplication.sharedApplication().openURL(self.leadingRequest!.URL)
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

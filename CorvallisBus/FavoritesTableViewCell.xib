@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -43,6 +43,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="SNg-Q2-Vm4" secondAttribute="trailing" constant="10" id="4lI-Hz-36z"/>
                     <constraint firstItem="kEd-bl-rad" firstAttribute="trailing" secondItem="Kmo-me-aJ5" secondAttribute="trailingMargin" id="6MK-nT-dIv"/>
                     <constraint firstAttribute="bottomMargin" secondItem="kEd-bl-rad" secondAttribute="bottom" constant="-1" id="Bw8-CC-agn"/>
+                    <constraint firstItem="kEd-bl-rad" firstAttribute="top" secondItem="SNg-Q2-Vm4" secondAttribute="bottom" constant="4" id="C6x-nw-H4o"/>
                     <constraint firstItem="DYg-IM-hVq" firstAttribute="top" secondItem="Kmo-me-aJ5" secondAttribute="topMargin" constant="18" id="G6m-A2-H4w"/>
                     <constraint firstAttribute="centerY" secondItem="SNg-Q2-Vm4" secondAttribute="centerY" constant="-2.75" id="JdF-HK-PvX"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="Kmo-me-aJ5" secondAttribute="leadingMargin" constant="2" id="ajf-kz-8wg"/>

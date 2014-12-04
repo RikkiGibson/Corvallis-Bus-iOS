@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusWebViewController: UIViewController, UIWebViewDelegate {
+class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -60,13 +60,36 @@ class BusWebViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    private var leadingRequest: NSURLRequest?
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if navigationType != .LinkClicked || webView.request?.URL.query == request.URL.query {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             return true
         } else {
-            UIApplication.sharedApplication().openURL(request.URL)
+            // iOS 8
+            if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
+                    UIApplication.sharedApplication().openURL(request.URL); return
+                })
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
+                self.presentViewController(alertController, animated: true) { }
+            } else { // iOS 7
+                self.leadingRequest = request
+                let actionSheet = UIActionSheet(title: nil, delegate: self,
+                    cancelButtonTitle: nil, destructiveButtonTitle: nil)
+                actionSheet.addButtonWithTitle("Open in Safari")
+                actionSheet.addButtonWithTitle("Cancel")
+                actionSheet.cancelButtonIndex = 1
+                actionSheet.showInView(self.view)
+            }
             return false
+        }
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if leadingRequest != nil && buttonIndex == 0 {
+            UIApplication.sharedApplication().openURL(leadingRequest!.URL)
         }
     }
     
