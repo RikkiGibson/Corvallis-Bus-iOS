@@ -47,7 +47,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ut-go-K1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="925.5" y="-1298"/>
+            <point key="canvasLocation" x="1287" y="-1376"/>
         </scene>
         <!--Service Alerts-->
         <scene sceneID="n01-MQ-IPU">
@@ -78,6 +78,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="zbp-RX-Eyo" kind="show" id="wPI-vj-9Rj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -89,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qUZ-f9-fKA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1636" y="-1298"/>
+            <point key="canvasLocation" x="2228" y="-1376"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="Z3a-y9-BCI">
@@ -360,7 +363,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="93S-6f-2bv">
-                        <barButtonItem key="backBarButtonItem" title="Browse" id="SXz-uC-pc1"/>
                         <barButtonItem key="rightBarButtonItem" title="Open in Safari" id="HBp-a7-djW">
                             <connections>
                                 <action selector="openInBrowser:" destination="zbp-RX-Eyo" id="jaf-I6-vBO"/>
@@ -369,11 +371,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="webView" destination="7Rv-2S-Iy5" id="gC1-Fd-gg7"/>
-                        <segue destination="Jtx-5q-2d2" kind="unwind" identifier="unwindMap" unwindAction="unwind:" id="Hu1-dO-eh5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvA-Yo-hNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Jtx-5q-2d2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3414" y="-627"/>
         </scene>
@@ -401,6 +401,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LTL-5N-aNi" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="y1q-cP-IJ3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="U7O-bL-8kF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -426,4 +427,7 @@
         <image name="favorite" width="22" height="22"/>
         <image name="settings" width="22" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="wPI-vj-9Rj"/>
+    </inferredMetricsTieBreakers>
 </document>

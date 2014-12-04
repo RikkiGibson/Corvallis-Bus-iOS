@@ -13,6 +13,7 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     @IBOutlet weak var webView: UIWebView!
     
     var initialURL: NSURL?
+    var alwaysShowNavigationBar = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +28,6 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         // necessary if the user begins popping the view controller then pushes it back on
         UIView.animateWithDuration(0.2) {
             self.navigationController?.navigationBarHidden = false
@@ -42,10 +42,11 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.performSegueWithIdentifier("unwindMap", sender: self)
-        UIView.animateWithDuration(0.2) {
-            self.navigationController?.navigationBarHidden = true
-            return
+        if !alwaysShowNavigationBar {
+            UIView.animateWithDuration(0.2) {
+                self.navigationController?.navigationBarHidden = true
+                return
+            }
         }
     }
     
@@ -53,6 +54,10 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
         if let url = self.webView.request?.URL {
             UIApplication.sharedApplication().openURL(url)
         }
+    }
+    
+    @IBAction func triggerUnwind(sender: AnyObject) {
+        self.performSegueWithIdentifier("unwindToMap", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,7 +73,7 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
         } else {
             // iOS 8
             if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
-                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                let alertController = UIAlertController(title: request.URL.absoluteString, message: nil, preferredStyle: .ActionSheet)
                 alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
                     UIApplication.sharedApplication().openURL(request.URL); return
                 })

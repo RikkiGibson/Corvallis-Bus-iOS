@@ -39,6 +39,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     private var initializedMapLocation = false
     private var busAnnotations: [BusStopAnnotation]?
     private var selectedAnnotation: BusStopAnnotation?
+    private var timer: NSTimer?
     
     private var _selectedRoute: BusRoute?
     private var selectedRoute: BusRoute? {
@@ -82,8 +83,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
-        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "refreshMap:",
-            userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
+            selector: "refreshMap:", userInfo: nil, repeats: true)
     }
     
     deinit {
@@ -96,8 +97,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.refreshMap(self)
     }
     
-    // MARK - Map view delegate
-    
     func refreshMap(sender: AnyObject) {
         let authorization = CLLocationManager.authorizationStatus()
         
@@ -105,28 +104,26 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             authorization != .AuthorizedWhenInUse &&
             authorization != .Authorized
         
-        CorvallisBusService.stops(initializeStops)
-    }
-    
-    func initializeStops(stops: [BusStop]?) {
-        // Opening the view while offline can prevent annotations from being added to the map
-        if self.busAnnotations == nil && stops != nil {
-            self.busAnnotations = stops!.map() { BusStopAnnotation(stop: $0) }
-            dispatch_async(dispatch_get_main_queue()) {
-                self.mapView.addAnnotations(self.busAnnotations)
-                self.updateFavoritedStateForAllAnnotationsWithCallback() {
+        if self.busAnnotations == nil {
+            CorvallisBusService.stops(initializeStops)
+        } else {
+            self.updateFavoritedStateForAllAnnotationsWithCallback() {
+                if self.initialStop == nil {
+                    self.updateArrivalTimeForSelectedAnnotationView()
+                } else {
                     self.displayInitialStop()
                 }
             }
-        } else {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.updateFavoritedStateForAllAnnotationsWithCallback() {
-                    if self.initialStop == nil {
-                        self.updateArrivalTimeForSelectedAnnotationView()
-                    } else {
-                        self.displayInitialStop()
-                    }
-                }
+        }
+    }
+    
+    func initializeStops(stops: [BusStop]) {
+        // Opening the view while offline can prevent annotations from being added to the map
+        self.busAnnotations = stops.map() { BusStopAnnotation(stop: $0) }
+        dispatch_async(dispatch_get_main_queue()) {
+            self.mapView.addAnnotations(self.busAnnotations)
+            self.updateFavoritedStateForAllAnnotationsWithCallback() {
+                self.displayInitialStop()
             }
         }
     }
@@ -162,6 +159,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             }
         }
     }
+    
+    // MARK - Map view delegate
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         if !self.initializedMapLocation {
@@ -248,9 +247,13 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         jumps the annotation to the front.
     */
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        UIView.animateWithDuration(0.3, animations: {
+            view.frame = CGRect(x: view.frame.origin.x + 8, y: view.frame.origin.y + 8, width: view.frame.width - 16, height: view.frame.height - 16)
+        })
         
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
+            
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
@@ -274,11 +277,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         if let annotation = view.annotation as? BusStopAnnotation {
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
                 self.arrivals = arrivals[annotation.stop.id]
-                if self.arrivals != nil {
-                    self.routesForStopSortedByArrivals = annotation.stop.routesSortedByArrivals(self.arrivals!)
-                } else {
-                    self.routesForStopSortedByArrivals = nil
-                }
+                self.routesForStopSortedByArrivals = self.arrivals == nil ?
+                    nil : annotation.stop.routesSortedByArrivals(self.arrivals!)
                 dispatch_async(dispatch_get_main_queue(), self.updateTableView)
             }
         }
@@ -430,10 +430,5 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 destination.initialURL = selectedRoute.url
             }
         }
-    }
-    
-    @IBAction func unwind(segue: UIStoryboardSegue) {
-        // the unwind needs to be invoked for the presenting view controller
-        // to remain responsive when it appears again
     }
 }
