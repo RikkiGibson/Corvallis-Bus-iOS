@@ -417,7 +417,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Table view delegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedRoute = self.routesForStopSortedByArrivals?[indexPath.row]
+        if self.routesForStopSortedByArrivals != nil &&
+            self.routesForStopSortedByArrivals!.count > indexPath.row {
+                self.selectedRoute = self.routesForStopSortedByArrivals?[indexPath.row]
+        }
     }
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
