@@ -163,6 +163,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     // MARK - Map view delegate
     
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+        self.mapView.viewForAnnotation(userLocation).canShowCallout = false
         if !self.initializedMapLocation {
             // If the user is more than roughly 20 miles from Corvallis, don't go to their location
             if userLocation.location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
@@ -247,12 +248,13 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         jumps the annotation to the front.
     */
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        UIView.animateWithDuration(0.3, animations: {
-            view.frame = CGRect(x: view.frame.origin.x + 8, y: view.frame.origin.y + 8, width: view.frame.width - 16, height: view.frame.height - 16)
-        })
-        
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
+            let frame = view.frame
+            UIView.animateWithDuration(0.3, animations: {
+                view.frame = CGRect(x: frame.origin.x + 8, y: frame.origin.y + 8,
+                    width: frame.width - 16, height: frame.height - 16)
+                })
             
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
