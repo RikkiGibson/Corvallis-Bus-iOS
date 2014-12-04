@@ -252,11 +252,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
-            let frame = view.frame
-            UIView.animateWithDuration(0.3, animations: {
-                view.frame = CGRect(x: frame.origin.x + 8, y: frame.origin.y + 8,
-                    width: frame.width - 16, height: frame.height - 16)
-                })
+            UIView.animateWithDuration(0.1, animations: {
+                view.transform = CGAffineTransformMakeScale(1.3, 1.3)
+            })
             
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
@@ -321,6 +319,10 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.routesForStopSortedByArrivals = nil
         
         if self.selectedAnnotation != nil {
+            UIView.animateWithDuration(0.1, animations: {
+                view.transform = CGAffineTransformIdentity
+            })
+            
             let isFavorite = self.selectedAnnotation!.isFavorite
             self.selectedAnnotation = nil
             self.updateStyleForBusAnnotationView(view, favorited: isFavorite)
