@@ -17,7 +17,7 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
         if let busArrivalJson = value as? [[String : AnyObject]] {
             if let intKey = key.toInt() {
                 let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
-                    //.distinct(==)
+                    .distinct(==)
                     .sorted() { $0.arrivalTime.compare($1.arrivalTime) == NSComparisonResult.OrderedAscending }
                 return (intKey, busArrivals)
             }
@@ -29,7 +29,7 @@ func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
 // two bus arrivals for the same route within one minute
 // of each other are considered redundant-- the API is buggy
 func == (lhs: BusArrival, rhs: BusArrival) -> Bool {
-    return lhs.route == rhs.route && lhs.arrivalTime.timeIntervalSinceDate(rhs.arrivalTime) < 60
+    return lhs.route == rhs.route && abs(lhs.arrivalTime.timeIntervalSinceDate(rhs.arrivalTime)) < 60
 }
 
 private let toNSDate = { () -> (AnyObject? -> NSDate?) in

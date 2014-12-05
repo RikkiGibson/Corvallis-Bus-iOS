@@ -25,4 +25,10 @@ class CorvallisBusLibraryTests : XCTestCase {
         // This is an example of a functional test case.
         XCTAssert(true, "Pass")
     }
+    
+    func testDistinct() {
+        let array = [2,3,4,4,5]
+        let result = array.distinct(==)
+        XCTAssert(result == [2,3,4,5], "Didn't distinct properly")
+    }
 }

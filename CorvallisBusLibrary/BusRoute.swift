@@ -24,7 +24,7 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     if let urlString = data["URL"] as? String {
         URL = NSURL(string: urlString)
     }
-    URL = URL ?? NSURL()
+    URL = URL ?? NSURL(string: "http://www.corvallisoregon.gov/index.aspx?page=167")
     
     return BusRoute(name: name!, color: color, polyline: polyline, path: path, url: URL!)
 }
