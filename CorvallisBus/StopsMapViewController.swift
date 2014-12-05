@@ -220,7 +220,14 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
             if animated {
-                UIView.animateWithDuration(0.2) { self.view.layoutIfNeeded() }
+                UIView.animateWithDuration(0.2, animations: { self.view.layoutIfNeeded() }) { success in
+                    if self.selectedAnnotation != nil {
+                        let annotations = self.mapView.annotationsInMapRect(self.mapView.visibleMapRect)
+                        if !annotations.containsObject(self.selectedAnnotation!) {
+                            self.mapView.setCenterCoordinate(self.selectedAnnotation!.coordinate, animated: true)
+                        }
+                    }
+                }
             } else {
                 self.view.layoutIfNeeded()
             }
@@ -295,6 +302,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func updateTableView() {
+        
         self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
         if self.routeListNeedsInitialization {
             let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
