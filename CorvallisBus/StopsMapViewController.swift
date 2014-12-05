@@ -18,7 +18,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     private let TABLE_VIEW_HEIGHT: CGFloat = {
         let deviceHeight = UIScreen.mainScreen().bounds.height
         var tableViewHeight = CGFloat(22.0)
-        while tableViewHeight / deviceHeight < 0.28 {
+        while tableViewHeight / deviceHeight < 0.3 {
             tableViewHeight += 44
         }
         return CGFloat(tableViewHeight)
@@ -263,7 +263,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 view.transform = CGAffineTransformMakeScale(1.3, 1.3)
             })
             
-            self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite)
+            self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite, isSelected: true)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
             self.presentTableView(animated: true)
@@ -333,7 +333,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             
             let isFavorite = self.selectedAnnotation!.isFavorite
             self.selectedAnnotation = nil
-            self.updateStyleForBusAnnotationView(view, favorited: isFavorite)
+            self.updateStyleForBusAnnotationView(view, favorited: isFavorite, isSelected: false)
             view.layer.zPosition = isFavorite ? 2 : 1
         } else {
             view.layer.zPosition = 1
@@ -379,9 +379,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         }
     }
     
-    /**
-        Updates the appearance of an annotation view to indicate whether it's a favorite.
-    */
     func updateStyleForBusAnnotationView(view: MKAnnotationView, favorited: Bool) {
         var isSelected = false
         if self.selectedAnnotation != nil {
@@ -389,7 +386,14 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
                 isSelected = self.selectedAnnotation!.stop.id == annotationToUpdate.stop.id
             }
         }
-        
+        updateStyleForBusAnnotationView(view, favorited: favorited, isSelected: isSelected)
+    }
+    
+    /**
+        Updates the appearance of an annotation view to indicate whether it's a favorite.
+    */
+    func updateStyleForBusAnnotationView(view: MKAnnotationView, favorited: Bool, isSelected: Bool) {
+        view.layer.anchorPoint = CGPoint(x: 0.5, y: 0.6)
         view.layer.zPosition = favorited || isSelected ? 2 : 1
         if favorited {
             view.image = isSelected ? self.goldOvalHighlightedImage : self.goldOvalImage

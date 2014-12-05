@@ -72,7 +72,7 @@ struct CorvallisBusService {
                     finally()
             }.resume()
             
-            let routesURL = NSURL(string: "\(rootUrl)/routes")!
+            let routesURL = NSURL(string: "\(rootUrl)/routes?stops=true")!
             session.dataTaskWithURL(routesURL) {
                 (data, response, error) -> Void in
                 if (error != nil) {
