@@ -16,19 +16,17 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     
     let path = data["Path"] as? [[String: AnyObject]]
     
-    let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String)
-    if polyline == nil { return nil }
+    let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
     
-    let color = parseColor(data["Color"])
-    if color == nil { return nil }
+    let color = parseColor(data["Color"]) ?? UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
     
     var URL: NSURL?
     if let urlString = data["URL"] as? String {
         URL = NSURL(string: urlString)
     }
-    if URL == nil { return nil }
+    URL = URL ?? NSURL()
     
-    return BusRoute(name: name!, color: color!, polyline: polyline!, path: path, url: URL!)
+    return BusRoute(name: name!, color: color, polyline: polyline, path: path, url: URL!)
 }
 
 private func parseColor(obj: AnyObject?) -> UIColor? {
