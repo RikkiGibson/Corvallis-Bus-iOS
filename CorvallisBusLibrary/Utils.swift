@@ -84,14 +84,27 @@ extension Array {
         }
         return result
     }
+    
+    func tryGet(index: Int) -> T? {
+        return self.count > index ? self[index] : nil
+    }
+    
+    func toDictionary<Key, Value>(transform: T -> (Key, Value)) -> [Key : Value] {
+        var result = [Key : Value]()
+        for t in self {
+            let tuple = transform(t)
+            result[tuple.0] = tuple.1
+        }
+        return result
+    }
 }
 
 extension Dictionary {
-    func map<Key2,Value2>(transform: (Key, Value) -> (key: Key2, value: Value2)) -> [Key2 : Value2] {
+    func map<Key2,Value2>(transform: (Key, Value) -> (Key2, Value2)) -> [Key2 : Value2] {
         var resultDictionary = [Key2 : Value2]()
         for (key, value) in self {
             let resultPair = transform(key, value)
-            resultDictionary[resultPair.key] = resultPair.value
+            resultDictionary[resultPair.0] = resultPair.1
         }
         return resultDictionary
     }
@@ -104,5 +117,9 @@ extension Dictionary {
             }
         }
         return resultDictionary
+    }
+    
+    func tryGet(key: Key?) -> Value? {
+        return key == nil ? nil : self[key!]
     }
 }

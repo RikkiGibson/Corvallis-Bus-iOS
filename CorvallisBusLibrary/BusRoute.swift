@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 
+let DEFAULT_ROUTE_COLOR = UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
 func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     
     let name = data["Name"] as? String
@@ -18,7 +19,7 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     
     let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
     
-    let color = parseColor(data["Color"]) ?? UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
+    let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
     
     var URL: NSURL?
     if let urlString = data["URL"] as? String {

@@ -11,7 +11,8 @@ import MapKit
 
 class FavoritesTableViewController: UITableViewController {
     var favorites: [BusStop]?
-    var arrivals: [Int : String]?
+    var arrivals: [Int : [BusArrival]]?
+    var colors: [String : UIColor]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,19 +32,10 @@ class FavoritesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    // Called when switching to this tab, not when reopening the app or
-    // bringing focus back after dismissing Notification Center, for instance.
-    // Since DidBecomeActiveNotification fires on launch, we avoid
-    // redundant network requests with the finishedLoading flag.
-    private var finishedLoading = false
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        if self.finishedLoading {
-            self.updateFavorites(self)
-        } else {
-            self.finishedLoading = true
-        }
+        self.updateFavorites(self)
     }
     
     deinit {
@@ -62,19 +54,31 @@ class FavoritesTableViewController: UITableViewController {
     func updateArrivals() {
         if self.favorites != nil {
             CorvallisBusService.arrivals(self.favorites!.map() { $0.id }) {
-                self.arrivals = $0.map() { (key, value) in (key, friendlyArrivals(value)) }
+                self.arrivals = $0
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     // Causes routes to get deserialized. This takes several seconds on old phones.
-                    CorvallisBusService.routes() { routes in }
+                    CorvallisBusService.routes() { routes in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.colorLabelsWithRoutes(routes)
+                        }
+                    }
+                    
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             }
         } else { // this shouldn't happen
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        }
+    }
+    
+    func colorLabelsWithRoutes(routes: [BusRoute]) {
+        if self.colors == nil {
+            self.colors = routes.toDictionary({ ($0.name, $0.color) })
+            self.tableView.reloadData()
         }
     }
 
@@ -91,12 +95,23 @@ class FavoritesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as FavoriteStopTableViewCell
         
         if let currentStop = self.favorites?[indexPath.row] {
-            cell.labelRouteName.text = currentStop.name
+            cell.labelStopName.text = currentStop.name
             
             if let busArrivals = self.arrivals?[currentStop.id] {
-                cell.labelArrivals.text = busArrivals
+                let routeNames = busArrivals.map({$0.route}).distinct(==)
+                
+                let arrivalsForFirst = routeNames.count > 0 ?
+                    busArrivals.filter({$0.route == routeNames[0]}) : [BusArrival]()
+                
+                let arrivalsForSecond = routeNames.count > 1 ?
+                    busArrivals.filter({$0.route == routeNames[1]}) : [BusArrival]()
+                
+                let firstColor = self.colors?.tryGet(routeNames.tryGet(0))
+                let secondColor = self.colors?.tryGet(routeNames.tryGet(1))
+                
+                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor, fallbackToGrayColor: true)
+                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor)
             }
-            
             // Only the nearest stop should display the location icon
             cell.locationImage.hidden = !currentStop.isNearestStop
             

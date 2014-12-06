@@ -34,6 +34,8 @@
 		5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */; };
 		5C57FA861A300D510027C1B1 /* UIAlertControllerWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */; };
 		5C635D561A2E63CF00F1C2E5 /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */; };
+		5C6F8C491A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
+		5C6F8C4A1A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
 		5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */; };
 		5C7612731A09C75E001F9DBE /* libCorvallisBusLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */; };
 		5C76169E1A0AC223008E4A57 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616961A0AC223008E4A57 /* BusArrival.swift */; };
@@ -168,6 +170,7 @@
 		5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusRouteDetailCell.xib; sourceTree = "<group>"; };
 		5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertControllerWorkaround.m; sourceTree = "<group>"; };
 		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
+		5C6F8C481A327936006227BE /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRouteLabel.swift; path = CorvallisBusLibrary/BusRouteLabel.swift; sourceTree = SOURCE_ROOT; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
 		5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertTableViewCell.swift; sourceTree = "<group>"; };
 		5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCorvallisBusLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,12 +353,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5C7612691A09C75E001F9DBE /* CorvallisBusLibrary */ = {
+		5C6F8C4B1A328367006227BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				5C7616961A0AC223008E4A57 /* BusArrival.swift */,
 				5C7616971A0AC223008E4A57 /* BusRoute.swift */,
 				5C7616981A0AC223008E4A57 /* BusStop.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		5C7612691A09C75E001F9DBE /* CorvallisBusLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				5C6F8C4B1A328367006227BE /* Models */,
+				5C6F8C481A327936006227BE /* BusRouteLabel.swift */,
 				5C7616991A0AC223008E4A57 /* Corvallis, OR.gpx */,
 				5C76169A1A0AC223008E4A57 /* CorvallisBusLocationManagerDelegate.swift */,
 				5C76169B1A0AC223008E4A57 /* CorvallisBusService.swift */,
@@ -678,6 +690,7 @@
 				5C9608221A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */,
 				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
 				5C7616A51A0AC236008E4A57 /* BusArrival.swift in Sources */,
+				5C6F8C491A327936006227BE /* BusRouteLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,6 +740,7 @@
 				5C9608261A0B2F2200DA9F5B /* BusRoute.swift in Sources */,
 				5CF192B019EF513100CB21EC /* TodayViewController.swift in Sources */,
 				5C7616B21A0AC249008E4A57 /* Utils.swift in Sources */,
+				5C6F8C4A1A327936006227BE /* BusRouteLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
