@@ -8,7 +8,7 @@
 
 import UIKit
 
-let GRAY_ROUTE_COLOR = UIColor.grayColor()
+let GRAY_ROUTE_COLOR = UIColor.lightGrayColor()
 let CLEAR_COLOR = UIColor.clearColor()
 
 class FavoriteStopTableViewCell: UITableViewCell {

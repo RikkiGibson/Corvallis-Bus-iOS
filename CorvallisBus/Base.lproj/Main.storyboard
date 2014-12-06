@@ -371,12 +371,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="93S-6f-2bv">
-                        <barButtonItem key="leftBarButtonItem" title="Back" style="done" id="2A4-v7-kTg">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="2A4-v7-kTg">
                             <connections>
                                 <segue destination="aSk-Dq-kvb" kind="unwind" identifier="unwind" unwindAction="unwind:" id="p4l-hh-7sw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Open in Safari" id="HBp-a7-djW">
+                        <barButtonItem key="rightBarButtonItem" title="Open in Safari" style="done" id="HBp-a7-djW">
                             <connections>
                                 <action selector="openInBrowser:" destination="zbp-RX-Eyo" id="jaf-I6-vBO"/>
                             </connections>

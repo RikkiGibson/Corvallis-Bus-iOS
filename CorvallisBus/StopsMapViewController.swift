@@ -205,11 +205,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             MKAnnotationView(annotation: annotation, reuseIdentifier: identifier) ?? MKAnnotationView()
     
         if let annotation = annotation as? BusStopAnnotation {
-            if let height = self.greenOvalImage?.size.height {
-                // this tweak makes the bottom of the pin seem to touch the right spot
-                annotationView.centerOffset = CGPoint(x: 0, y: height / -3)
-            }
-            
+            annotationView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
             self.updateStyleForBusAnnotationView(annotationView, favorited: annotation.isFavorite)
         }
         
@@ -393,7 +389,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         Updates the appearance of an annotation view to indicate whether it's a favorite.
     */
     func updateStyleForBusAnnotationView(view: MKAnnotationView, favorited: Bool, isSelected: Bool) {
-        view.layer.anchorPoint = CGPoint(x: 0.5, y: 0.6)
         view.layer.zPosition = favorited || isSelected ? 2 : 1
         if favorited {
             view.image = isSelected ? self.goldOvalHighlightedImage : self.goldOvalImage
