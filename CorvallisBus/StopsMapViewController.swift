@@ -269,8 +269,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func updateArrivalTimeForSelectedAnnotationView() {
-        if let selectedAnnotation = self.mapView?.selectedAnnotations?.first as? BusStopAnnotation {
-            if let selectedView = self.mapView.viewForAnnotation(selectedAnnotation) {
+        if self.selectedAnnotation != nil {
+            if let selectedView = self.mapView.viewForAnnotation(self.selectedAnnotation!) {
+                setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
                 updateArrivalTime(selectedView)
             }
         }
@@ -344,21 +345,22 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     @IBAction func buttonPush(sender: AnyObject!) {
-        if let annotation = self.mapView.selectedAnnotations.first as? BusStopAnnotation {
+        
+        if self.selectedAnnotation != nil {
             CorvallisBusService.favorites() { favorites in
                 var favorites = favorites.filter() { !$0.isNearestStop }
                 var addedFavorite = false
                 // if this stop is in favorites, remove it
-                if favorites.any({ $0.id == annotation.stop.id }) {
-                    favorites = favorites.filter() { $0.id != annotation.stop.id }
+                if favorites.any({ $0.id == self.selectedAnnotation!.stop.id }) {
+                    favorites = favorites.filter() { $0.id != self.selectedAnnotation!.stop.id }
                 } else {
                     // if this stop isn't in favorites, add it
-                    favorites.append(annotation.stop)
+                    favorites.append(self.selectedAnnotation!.stop)
                     addedFavorite = true
                 }
                 CorvallisBusService.setFavorites(favorites)
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
+                    self.updateFavoritedStateForAnnotation(self.selectedAnnotation!, favorites: favorites)
                     self.setFavoriteButtonState(favorited: addedFavorite)
                 }
             }
