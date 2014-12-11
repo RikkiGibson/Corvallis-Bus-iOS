@@ -305,16 +305,36 @@
                                 </view>
                                 <sections/>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Enter an address or street" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-jy-vTM">
+                                <rect key="frame" x="16" y="28" width="568" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Rfu-K7-Css" id="36c-t4-cAf"/>
+                                </connections>
+                            </searchBar>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
+                                <rect key="frame" x="552" y="28" width="44" height="44"/>
+                                <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="UIButtonBarSearch" backgroundImage="currentlocation-background"/>
+                                <connections>
+                                    <action selector="searchButtonPressed:" destination="Rfu-K7-Css" eventType="touchUpInside" id="oKv-xP-f1t"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="rVi-jy-vTM" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" constant="8" id="02t-yn-ugj"/>
                             <constraint firstAttribute="trailing" secondItem="fdw-Za-Cgt" secondAttribute="trailing" id="1XN-2b-eiD"/>
+                            <constraint firstItem="Guw-oB-wzY" firstAttribute="centerY" secondItem="rVi-jy-vTM" secondAttribute="centerY" id="6dv-y2-OCB"/>
+                            <constraint firstItem="rVi-jy-vTM" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" constant="16" id="7tK-cE-DF3"/>
                             <constraint firstItem="fdw-Za-Cgt" firstAttribute="top" secondItem="eQ2-qE-Euo" secondAttribute="bottom" id="Adm-Ev-LQ4"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="B46-ce-nBi"/>
+                            <constraint firstItem="Guw-oB-wzY" firstAttribute="trailing" secondItem="QbP-lW-cIu" secondAttribute="trailing" id="DTi-GB-PG3"/>
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="fdw-Za-Cgt" secondAttribute="bottom" id="FV4-Zx-Smy"/>
                             <constraint firstItem="fdw-Za-Cgt" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="JWd-g0-FV6"/>
                             <constraint firstAttribute="trailing" secondItem="eQ2-qE-Euo" secondAttribute="trailing" id="Lfj-Ge-O3N"/>
                             <constraint firstAttribute="trailing" secondItem="QbP-lW-cIu" secondAttribute="trailingMargin" constant="12" id="Zms-uH-PZK"/>
+                            <constraint firstAttribute="trailing" secondItem="rVi-jy-vTM" secondAttribute="trailing" constant="16" id="dlV-63-f1A"/>
                             <constraint firstItem="eQ2-qE-Euo" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="top" constant="-20" id="o6B-3e-Pnx"/>
                             <constraint firstItem="fdw-Za-Cgt" firstAttribute="top" secondItem="QbP-lW-cIu" secondAttribute="bottom" constant="8" id="uI0-mQ-4kg"/>
                         </constraints>
@@ -329,6 +349,11 @@
                         <outlet property="favoriteButton" destination="GC3-lF-qnY" id="s8X-dB-CJm"/>
                         <outlet property="locationButton" destination="QbP-lW-cIu" id="SJb-sx-3T9"/>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
+                        <outlet property="searchBar" destination="rVi-jy-vTM" id="QYl-db-jED"/>
+                        <outlet property="searchBarButton" destination="Guw-oB-wzY" id="O4O-dW-uvj"/>
+                        <outlet property="searchBarLeftMargin" destination="7tK-cE-DF3" id="QSh-3t-76B"/>
+                        <outlet property="searchBarRightMargin" destination="dlV-63-f1A" id="QqU-nz-fdk"/>
+                        <outlet property="searchDisplayController" destination="57G-UC-EAU" id="Dga-0f-8Bj"/>
                         <outlet property="tableView" destination="fdw-Za-Cgt" id="AWV-Qg-Ruv"/>
                         <outlet property="tableViewHeader" destination="1wt-WX-vxD" id="ipZ-mc-pVf"/>
                         <outlet property="tableViewHeight" destination="8pV-B3-ssB" id="qR9-JQ-ZCN"/>
@@ -341,6 +366,14 @@
                         <action selector="buttonPush:" destination="Rfu-K7-Css" id="uJj-bN-vLo"/>
                     </connections>
                 </tapGestureRecognizer>
+                <searchDisplayController id="57G-UC-EAU">
+                    <connections>
+                        <outlet property="delegate" destination="Rfu-K7-Css" id="hca-xm-ZOz"/>
+                        <outlet property="searchContentsController" destination="Rfu-K7-Css" id="czf-sZ-90Q"/>
+                        <outlet property="searchResultsDataSource" destination="Rfu-K7-Css" id="qNd-0Y-S66"/>
+                        <outlet property="searchResultsDelegate" destination="Rfu-K7-Css" id="oag-6v-tte"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1920" y="-624"/>
         </scene>
@@ -435,6 +468,7 @@
     </scenes>
     <resources>
         <image name="ListCurrentLoc" width="15" height="15"/>
+        <image name="UIButtonBarSearch" width="30" height="30"/>
         <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="28" height="28"/>
         <image name="currentlocation" width="30" height="30"/>

@@ -9,10 +9,15 @@
 import UIKit
 import MapKit
 
-class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UILabel!
+    
+    @IBOutlet weak var searchBarButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchBarLeftMargin: NSLayoutConstraint!
+    @IBOutlet weak var searchBarRightMargin: NSLayoutConstraint!
     
     // DON'T QUESTION MY METHODS
     private let TABLE_VIEW_HEIGHT: CGFloat = {
@@ -68,14 +73,17 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
-        self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
+        self.searchBar.layer.cornerRadius = 6
+        self.searchBar.clipsToBounds = true
         
         self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
             span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
         
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
+        
+        let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
+        self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
                 
         self.tableViewHeight.constant = 0
         self.tableView.delegate = self
@@ -195,48 +203,67 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if annotation is MKUserLocation {
-            // causes default view to be used for user location
-            return nil
-        }
         
-        let identifier = "MKAnnotationView"
-        let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) ??
-            MKAnnotationView(annotation: annotation, reuseIdentifier: identifier) ?? MKAnnotationView()
-    
         if let annotation = annotation as? BusStopAnnotation {
+            let identifier = "MKAnnotationView"
+            let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) ??
+                MKAnnotationView(annotation: annotation, reuseIdentifier: identifier) ?? MKAnnotationView()
+            
             annotationView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
             self.updateStyleForBusAnnotationView(annotationView, favorited: annotation.isFavorite)
+            
+            return annotationView
         }
         
-        return annotationView
+        return nil
     }
     
-    func presentTableView(#animated: Bool) {
+    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+        if let pin = views.first({ $0 is MKPinAnnotationView }) as? MKPinAnnotationView {
+            pin.pinColor = .Purple
+            pin.canShowCallout = false
+            pin.animatesDrop = true
+        }
+    }
+    
+    func presentTableView() {
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
-            if animated {
-                UIView.animateWithDuration(0.2, animations: { self.view.layoutIfNeeded() }) { success in
-                    if self.selectedAnnotation != nil {
-                        let annotations = self.mapView.annotationsInMapRect(self.mapView.visibleMapRect)
-                        if !annotations.containsObject(self.selectedAnnotation!) {
-                            self.mapView.setCenterCoordinate(self.selectedAnnotation!.coordinate, animated: true)
-                        }
+            self.searchBar.removeConstraint(self.searchBarRightMargin)
+            self.searchBarLeftMargin.constant = UIScreen.mainScreen().bounds.width
+            self.searchBar.resignFirstResponder()
+        
+            UIView.animateWithDuration(0.2, animations: {
+                self.searchBarButton.alpha = 0.85
+                self.view.layoutIfNeeded()
+            }) { success in
+                if self.selectedAnnotation != nil {
+                    let annotations = self.mapView.annotationsInMapRect(self.mapView.visibleMapRect)
+                    if !annotations.containsObject(self.selectedAnnotation!) {
+                        self.mapView.setCenterCoordinate(self.selectedAnnotation!.coordinate, animated: true)
                     }
                 }
-            } else {
-                self.view.layoutIfNeeded()
             }
         }
     }
     
     func dismissTableView() {
         if self.tableViewHeight.constant != 0 {
+            self.searchBarLeftMargin.constant = 16
             self.tableViewHeight.constant = 0
             
             UIView.animateWithDuration(0.2,
-                animations: { self.view.layoutIfNeeded() },
-                completion: { success in self.tableView.reloadData() })
+                animations: {
+                    self.searchBarButton.alpha = 0
+                    self.view.layoutIfNeeded()
+                },
+                completion: { success in
+                    if self.searchBarShouldBecomeFirstResponder {
+                        self.searchBar.becomeFirstResponder()
+                        self.searchBarShouldBecomeFirstResponder = false
+                    }
+                    self.tableView.reloadData()
+            })
         }
     }
     
@@ -262,7 +289,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             self.updateStyleForBusAnnotationView(view, favorited: self.selectedAnnotation!.isFavorite, isSelected: true)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
-            self.presentTableView(animated: true)
+            self.presentTableView()
         }
         self.routeListNeedsInitialization = true
         self.updateArrivalTime(view)
@@ -299,7 +326,6 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     func updateTableView() {
-        
         self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
         if self.routeListNeedsInitialization {
             let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
@@ -412,18 +438,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BusRouteDetailCell") as BusRouteDetailCell
         
-        if self.arrivals != nil && self.routesForStopSortedByArrivals != nil {
-            let currentRoute = self.routesForStopSortedByArrivals![indexPath.row]
-            let arrivalsForRoute = self.arrivals!.filter() { $0.route == currentRoute.name }
-            let arrivalsDescription = friendlyMapArrivals(arrivalsForRoute)
-
-            cell.labelRouteName.text = currentRoute.name
-            cell.labelRouteName.backgroundColorActual = currentRoute.color
-            
-            cell.labelEstimate.text = arrivalsDescription
-            cell.labelSchedule.text = arrivalsSummary(arrivalsForRoute)
+        if let currentRoute = self.routesForStopSortedByArrivals?.tryGet(indexPath.row) {
+            if let arrivalsForRoute = self.arrivals?.filter({ $0.route == currentRoute.name })  {
+                cell.labelRouteName.text = currentRoute.name
+                cell.labelRouteName.backgroundColorActual = currentRoute.color
+                
+                cell.labelEstimate.text = friendlyMapArrivals(arrivalsForRoute)
+                cell.labelSchedule.text = arrivalsSummary(arrivalsForRoute)
+            }
         }
-        
         return cell
     }
     
@@ -447,6 +470,70 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
             if let selectedRoute = sender as? BusRoute {
                 destination.initialURL = selectedRoute.url
             }
+        }
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        self.searchBar.resignFirstResponder()
+    }
+    
+    var searchBarShouldBecomeFirstResponder = false
+    @IBAction func searchButtonPressed(sender: AnyObject) {
+        self.searchBarShouldBecomeFirstResponder = true
+        searchBarShouldBeginEditing(searchBar)
+    }
+    
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        if let annotation = self.selectedAnnotation {
+            self.mapView.deselectAnnotation(annotation, animated: true)
+        }
+        return true
+    }
+    
+    func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
+        searchBar.resignFirstResponder()
+        return true
+    }
+    
+    func presentNotFoundAlert() {
+        if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+            let alertController = UIAlertController(title: "Not found", message: "No Corvallis location with that name was found.", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
+            self.presentViewController(alertController, animated: true) { }
+        } else {
+            let alertView = UIAlertView(title: "Not found", message: "No Corvallis location with that name was found.", delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
+            alertView.show()
+        }
+    }
+    
+    let zipCodes = ["97330", "97331", "97333", "97339"]
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.mapView.removeAnnotations(self.mapView.annotations.filter({$0 is MKPlacemark}))
+        searchBarShouldEndEditing(searchBar)
+        
+        CLGeocoder().geocodeAddressString(searchBar.text + " Corvallis, Oregon") { placemarks, error in
+            if error != nil {
+                self.presentNotFoundAlert()
+                return
+            }
+            
+            let typedPlacemarks = placemarks.mapUnwrap({ $0 as? CLPlacemark })
+            if let placemark = typedPlacemarks.first({ contains(self.zipCodes, $0.postalCode) }) {
+                let annotation = MKPlacemark(placemark: placemark)
+                searchBar.text = annotation.title
+                self.mapView.addAnnotation(annotation)
+                self.mapView.setRegion(MKCoordinateRegion(center: annotation.location.coordinate,
+                    span: self.defaultSpan), animated: true)
+                self.mapView.selectAnnotation(annotation, animated: true)
+            } else {
+                self.presentNotFoundAlert()
+            }
+        }
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.mapView.removeAnnotations(self.mapView.annotations.filter({$0 is MKPlacemark}))
         }
     }
     
