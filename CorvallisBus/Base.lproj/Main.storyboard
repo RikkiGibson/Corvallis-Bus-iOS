@@ -246,8 +246,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eQ2-qE-Euo">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="397"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Rfu-K7-Css" id="elf-kY-8Nj"/>
+                                </connections>
                             </mapView>
                             <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbP-lW-cIu" userLabel="Location Button">
                                 <rect key="frame" x="552" y="345" width="44" height="44"/>
@@ -304,14 +307,11 @@
                                     </connections>
                                 </view>
                                 <sections/>
-                            </tableView>
-                            <searchBar contentMode="redraw" placeholder="Enter an address or street" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-jy-vTM">
-                                <rect key="frame" x="16" y="28" width="568" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="Rfu-K7-Css" id="36c-t4-cAf"/>
+                                    <outlet property="dataSource" destination="Rfu-K7-Css" id="iAA-fX-TNu"/>
+                                    <outlet property="delegate" destination="Rfu-K7-Css" id="XY5-XC-7Zb"/>
                                 </connections>
-                            </searchBar>
+                            </tableView>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
                                 <rect key="frame" x="552" y="28" width="44" height="44"/>
                                 <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -320,6 +320,14 @@
                                     <action selector="searchButtonPressed:" destination="Rfu-K7-Css" eventType="touchUpInside" id="oKv-xP-f1t"/>
                                 </connections>
                             </button>
+                            <searchBar alpha="0.90000000000000002" contentMode="redraw" placeholder="Search or enter an address" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-jy-vTM">
+                                <rect key="frame" x="16" y="28" width="568" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Rfu-K7-Css" id="36c-t4-cAf"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -347,6 +355,7 @@
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="favoriteButton" destination="GC3-lF-qnY" id="s8X-dB-CJm"/>
+                        <outlet property="favoriteButtonBottomMargin" destination="uI0-mQ-4kg" id="9Nz-V4-tPc"/>
                         <outlet property="locationButton" destination="QbP-lW-cIu" id="SJb-sx-3T9"/>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
                         <outlet property="searchBar" destination="rVi-jy-vTM" id="QYl-db-jED"/>

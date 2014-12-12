@@ -19,6 +19,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     @IBOutlet weak var searchBarLeftMargin: NSLayoutConstraint!
     @IBOutlet weak var searchBarRightMargin: NSLayoutConstraint!
     
+    @IBOutlet weak var favoriteButtonBottomMargin: NSLayoutConstraint!
+    
     // DON'T QUESTION MY METHODS
     private let TABLE_VIEW_HEIGHT: CGFloat = {
         let deviceHeight = UIScreen.mainScreen().bounds.height
@@ -73,21 +75,20 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        
+        self.searchBar.layer.borderWidth = 2.0
+        self.searchBar.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.searchBar.layer.cornerRadius = 6
         self.searchBar.clipsToBounds = true
         
         self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
             span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
         
-        self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
-        
         let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
                 
         self.tableViewHeight.constant = 0
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshMap:",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
@@ -185,6 +186,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     }
     
     @IBAction func goToUserLocation(sender: AnyObject) {
+        self.searchBar.resignFirstResponder()
         self.mapView.setCenterCoordinate(self.mapView.userLocation.location.coordinate, animated: true)
     }
     
@@ -229,8 +231,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     func presentTableView() {
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
-            self.searchBar.removeConstraint(self.searchBarRightMargin)
             self.searchBarLeftMargin.constant = UIScreen.mainScreen().bounds.width
+            self.searchBarRightMargin.constant = -UIScreen.mainScreen().bounds.width
             self.searchBar.resignFirstResponder()
         
             UIView.animateWithDuration(0.2, animations: {
@@ -250,6 +252,7 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     func dismissTableView() {
         if self.tableViewHeight.constant != 0 {
             self.searchBarLeftMargin.constant = 16
+            self.searchBarRightMargin.constant = 16
             self.tableViewHeight.constant = 0
             
             UIView.animateWithDuration(0.2,
@@ -477,6 +480,19 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.searchBar.resignFirstResponder()
     }
     
+    func keyboardWillChangeFrame(notification: NSNotification) {
+        if let frame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
+            let keyboardHeight = view.frame.height - frame.origin.y
+            self.favoriteButtonBottomMargin.constant = keyboardHeight + 8
+            if keyboardHeight > 0.0 {
+                self.favoriteButtonBottomMargin.constant -= self.tabBarController?.tabBar.frame.height ?? 0
+            }
+            UIView.animateWithDuration(0.2) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
     var searchBarShouldBecomeFirstResponder = false
     @IBAction func searchButtonPressed(sender: AnyObject) {
         self.searchBarShouldBecomeFirstResponder = true
@@ -511,20 +527,23 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
         self.mapView.removeAnnotations(self.mapView.annotations.filter({$0 is MKPlacemark}))
         searchBarShouldEndEditing(searchBar)
         
-        CLGeocoder().geocodeAddressString(searchBar.text + " Corvallis, Oregon") { placemarks, error in
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = searchBar.text
+        request.region = MKCoordinateRegionMakeWithDistance(mapView.centerCoordinate, 32000, 32000)
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.startWithCompletionHandler() { response, error in
             if error != nil {
                 self.presentNotFoundAlert()
                 return
             }
-            
-            let typedPlacemarks = placemarks.mapUnwrap({ $0 as? CLPlacemark })
-            if let placemark = typedPlacemarks.first({ contains(self.zipCodes, $0.postalCode) }) {
-                let annotation = MKPlacemark(placemark: placemark)
-                searchBar.text = annotation.title
-                self.mapView.addAnnotation(annotation)
-                self.mapView.setRegion(MKCoordinateRegion(center: annotation.location.coordinate,
+            let typedItems = response.mapItems.mapUnwrap({ $0 as? MKMapItem })
+            if let mapItem = typedItems.first({ contains(self.zipCodes, $0.placemark.postalCode) }) {
+                self.searchBar.text = mapItem.name
+                self.mapView.addAnnotation(mapItem.placemark)
+                self.mapView.setRegion(MKCoordinateRegion(center: mapItem.placemark.location.coordinate,
                     span: self.defaultSpan), animated: true)
-                self.mapView.selectAnnotation(annotation, animated: true)
             } else {
                 self.presentNotFoundAlert()
             }
