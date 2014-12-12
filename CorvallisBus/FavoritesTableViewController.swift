@@ -24,8 +24,6 @@ class FavoritesTableViewController: UITableViewController {
         self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
         
         // This observer causes updateFavorites to be called without further intervention
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites:",
-            name: UIApplicationDidBecomeActiveNotification, object: UIApplication.sharedApplication())
         NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites:",
             userInfo: nil, repeats: true)
 
@@ -34,11 +32,13 @@ class FavoritesTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites:",
+            name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         self.updateFavorites(self)
     }
     
-    deinit {
+    override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
