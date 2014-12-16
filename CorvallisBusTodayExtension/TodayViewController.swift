@@ -48,9 +48,6 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
                 let firstColor = self.colors?.tryGet(routeNames.tryGet(0))
                 let secondColor = self.colors?.tryGet(routeNames.tryGet(1))
                 
-                cell.labelFirstRoute.alpha = 0.75
-                cell.labelSecondRoute.alpha = 0.75
-                
                 cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor, fallbackToGrayColor: false)
                 cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor)
             }

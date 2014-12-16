@@ -34,6 +34,9 @@ struct CorvallisBusService {
             
             let finally = { () -> Void in
                 if stopsJson != nil && routesJson != nil {
+                    
+                    // The work to create the route objects is deferred
+                    // by wrapping it in a closure.
                     var routesCache: [BusRoute]?
                     self._routes = {
                         if routesCache == nil {
@@ -41,6 +44,7 @@ struct CorvallisBusService {
                         }
                         return routesCache!
                     }
+                    
                     self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
                     for callback in self._callqueue {
                         callback(self._stops!)
@@ -49,7 +53,10 @@ struct CorvallisBusService {
             }
             
             let stopsURL = NSURL(string: "\(rootUrl)/stops")!
-            session.dataTaskWithURL(stopsURL) {
+            let stopsRequest = NSURLRequest(URL: stopsURL, cachePolicy: .ReloadIgnoringLocalCacheData,
+                timeoutInterval: 10.0)
+            
+            session.dataTaskWithRequest(stopsRequest) {
                     (data, response, error) -> Void in
                     if (error != nil) {
                         let empty = [BusStop]()
@@ -73,7 +80,10 @@ struct CorvallisBusService {
             }.resume()
             
             let routesURL = NSURL(string: "\(rootUrl)/routes?stops=true")!
-            session.dataTaskWithURL(routesURL) {
+            let routesRequest = NSURLRequest(URL: routesURL, cachePolicy: .ReloadIgnoringLocalCacheData,
+                timeoutInterval: 10.0)
+            
+            session.dataTaskWithRequest(routesRequest) {
                 (data, response, error) -> Void in
                 if (error != nil) {
                     let empty = [BusStop]()
@@ -127,14 +137,14 @@ struct CorvallisBusService {
         }
         
         var joinedStops = ",".join(stops.map() { String($0) })
-        var url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")
-        if url == nil {
-            println("NSURL did not instantiate properly")
-            return
-        }
         
         let session = NSURLSession.sharedSession()
-        session.dataTaskWithURL(url!, completionHandler: {
+        
+        let url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")!
+        let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData,
+            timeoutInterval: 10.0)
+        
+        session.dataTaskWithRequest(request, completionHandler: {
             data, response, error in
             if (error != nil) {
                 callback([Int : [BusArrival]]())

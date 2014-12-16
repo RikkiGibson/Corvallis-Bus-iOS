@@ -23,7 +23,6 @@ class FavoritesTableViewController: UITableViewController {
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
         
-        // This observer causes updateFavorites to be called without further intervention
         NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites:",
             userInfo: nil, repeats: true)
 
@@ -62,8 +61,10 @@ class FavoritesTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     // Causes routes to get deserialized. This takes several seconds on old phones.
                     CorvallisBusService.routes() { routes in
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.colorLabelsWithRoutes(routes)
+                        if routes.any() {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.colorLabelsWithRoutes(routes)
+                            }
                         }
                     }
                     

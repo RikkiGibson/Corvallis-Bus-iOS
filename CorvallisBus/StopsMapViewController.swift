@@ -9,7 +9,8 @@
 import UIKit
 import MapKit
 
-class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class StopsMapViewController: UIViewController, MKMapViewDelegate,
+        UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeader: UILabel!
@@ -482,12 +483,15 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate, UITableViewDa
     
     func keyboardWillChangeFrame(notification: NSNotification) {
         if let frame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-            let keyboardHeight = view.frame.height - frame.origin.y
+            
+            let keyboardHeight = UIScreen.mainScreen().bounds.height - frame.origin.y
             self.favoriteButtonBottomMargin.constant = keyboardHeight + 8
             if keyboardHeight > 0.0 {
                 self.favoriteButtonBottomMargin.constant -= self.tabBarController?.tabBar.frame.height ?? 0
             }
-            UIView.animateWithDuration(0.2) {
+        }
+        if let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
+            UIView.animateWithDuration(duration) {
                 self.view.layoutIfNeeded()
             }
         }

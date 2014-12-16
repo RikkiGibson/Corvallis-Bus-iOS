@@ -355,7 +355,7 @@
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="favoriteButton" destination="GC3-lF-qnY" id="s8X-dB-CJm"/>
-                        <outlet property="favoriteButtonBottomMargin" destination="uI0-mQ-4kg" id="9Nz-V4-tPc"/>
+                        <outlet property="favoriteButtonBottomMargin" destination="uI0-mQ-4kg" id="dfd-pb-Ab4"/>
                         <outlet property="locationButton" destination="QbP-lW-cIu" id="SJb-sx-3T9"/>
                         <outlet property="mapView" destination="eQ2-qE-Euo" id="tSN-85-VfE"/>
                         <outlet property="searchBar" destination="rVi-jy-vTM" id="QYl-db-jED"/>
