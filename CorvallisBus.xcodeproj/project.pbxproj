@@ -36,7 +36,6 @@
 		5C635D561A2E63CF00F1C2E5 /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */; };
 		5C6F8C491A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
 		5C6F8C4A1A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
-		5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */; };
 		5C7612731A09C75E001F9DBE /* libCorvallisBusLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */; };
 		5C76169E1A0AC223008E4A57 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616961A0AC223008E4A57 /* BusArrival.swift */; };
 		5C76169F1A0AC223008E4A57 /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616971A0AC223008E4A57 /* BusRoute.swift */; };
@@ -172,7 +171,6 @@
 		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5C6F8C481A327936006227BE /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRouteLabel.swift; path = CorvallisBusLibrary/BusRouteLabel.swift; sourceTree = SOURCE_ROOT; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
-		5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertTableViewCell.swift; sourceTree = "<group>"; };
 		5C7612681A09C75E001F9DBE /* libCorvallisBusLibrary.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCorvallisBusLibrary.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7612721A09C75E001F9DBE /* CorvallisBusLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7612781A09C75E001F9DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				5C1E467419D8E69400B95798 /* View Controllers */,
 				5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */,
 				5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */,
-				5C7612621A0973F4001F9DBE /* ServiceAlertTableViewCell.swift */,
 				5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */,
 				5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */,
 				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
@@ -674,7 +671,6 @@
 				5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */,
 				5C7616AD1A0AC243008E4A57 /* CorvallisBusService.swift in Sources */,
 				5C57FA861A300D510027C1B1 /* UIAlertControllerWorkaround.m in Sources */,
-				5C7612631A0973F4001F9DBE /* ServiceAlertTableViewCell.swift in Sources */,
 				5C7616A71A0AC239008E4A57 /* BusRoute.swift in Sources */,
 				5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */,
 				5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */,
@@ -873,7 +869,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -898,7 +894,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
