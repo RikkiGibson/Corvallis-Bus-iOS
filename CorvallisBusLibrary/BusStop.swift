@@ -37,6 +37,10 @@ class BusStop : Equatable {
     let location: CLLocation
     
     private var _routes: () -> [BusRoute]
+    
+    /**
+        Returns the routes applicable to this stop. Computed on demand.
+    */
     lazy var routes: [BusRoute] = {
         if self._routes != nil {
             let applicableRoutes = self._routes().filter() { $0.path.any() { $0 == self.id } }
@@ -55,6 +59,9 @@ class BusStop : Equatable {
         self._routes = routes
     }
     
+    /**
+        Returns the routes applicable to this stop, sorted with the routes arriving soonest at the top.
+    */
     func routesSortedByArrivals(arrivals: [BusArrival]) -> [BusRoute] {
         return self.routes.sorted() { firstRoute, secondRoute in
             let firstArrival = arrivals.first() { $0.route == firstRoute.name }

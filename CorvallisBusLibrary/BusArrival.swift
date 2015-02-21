@@ -95,16 +95,6 @@ class BusArrival {
     }
 }
 
-/**
-    Converts an array of bus arrivals to a friendly informational string.
-*/
-func friendlyArrivals(arrivals: [BusArrival]) -> String {
-    if arrivals.count >= 2 {
-        return arrivals[0].description + "\n" + arrivals[1].description
-    }
-    return arrivals.count > 0 ? arrivals[0].description : "No arrivals!"
-}
-
 func friendlyMapArrivals(arrivals: [BusArrival]) -> String {
     if arrivals.count >= 2 {
         return arrivals[0].friendlyEta + ", " + arrivals[1].friendlyEta

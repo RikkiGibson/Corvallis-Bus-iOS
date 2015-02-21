@@ -18,10 +18,14 @@ struct CorvallisBusService {
     private static var _stops: [BusStop]?
     /**
         Executes a callback using the list of stops from the Corvallis Bus server.
+        Since stops need to have route info baked in, requests for stops and routes are sent in parallel--
+        thus, when this function calls back, it can be assumed that both stops and routes are cached.
     */
     static func stops(callback: [BusStop] -> Void) -> Void {
+        // If data is in the cache, call back immediately.
         if _stops != nil {
             callback(self._stops!)
+            // Calls being in the queue already implies the task has started already.
         } else if _callqueue.any() {
             _callqueue.append(callback)
         } else {
@@ -112,13 +116,15 @@ struct CorvallisBusService {
     
     /**
         Executes a callback using the list of routes from the Corvallis Bus server.
+        The first time this is called, the route data is deserialized.
     */
     private static var _routes: (() -> [BusRoute])?
     static func routes(callback: ([BusRoute]) -> Void) -> Void {
         if self._routes != nil {
             callback(self._routes!())
         } else {
-            // I know this is screwed up, sheddap
+            // Stops have route information baked in. Therefore a callback by stops() guarantees that
+            // either route data is in the cache or an error occurred.
             CorvallisBusService.stops() { stops in
                 callback(self._routes?() ?? [BusRoute]())
             }
@@ -198,13 +204,15 @@ struct CorvallisBusService {
         }
     }
     
+    /// This ensures that a new location is obtained before sorting and calling back with favorite stops.
+    private static var _updatedLocation: Bool = false
+    private static var _userLocation: CLLocation?
+    
     /**
-        Executes a callback using a list of the user's favorite stop objects.
+        Executes a callback using a list of the user's favorite stops.
         Asynchronously obtains the user's location and the user's list of favorite stops.
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
-    private static var _updatedLocation: Bool = false
-    private static var _userLocation: CLLocation?
     static func favorites(callback: [BusStop] -> Void) -> Void {
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
         if defaults == nil {
@@ -249,6 +257,7 @@ struct CorvallisBusService {
                 let nearestStop = self._stops!.reduce(self._stops!.first!) {
                     $0.distanceFromUser < $1.distanceFromUser ? $0 : $1
                 }
+                // Mark as nearest stop only if it's not already a favorite stop
                 if !favorites.any({ $0.id == nearestStop.id }) {
                     nearestStop.isNearestStop = true
                     favorites.append(nearestStop)

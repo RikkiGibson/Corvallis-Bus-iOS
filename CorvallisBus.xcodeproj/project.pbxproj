@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2937D6037F1A68D9C6268221 /* libPods-CorvallisBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F1926E13E2CA796C2D375B /* libPods-CorvallisBus.a */; };
-		5C07B47A1A07045800F5928E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4781A07045800F5928E /* Bolts.framework */; };
-		5C07B47B1A07045800F5928E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4791A07045800F5928E /* Parse.framework */; };
 		5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47C1A07048400F5928E /* AudioToolbox.framework */; };
 		5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47E1A07048C00F5928E /* CFNetwork.framework */; };
 		5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4801A07049400F5928E /* CoreGraphics.framework */; };
@@ -141,8 +139,6 @@
 /* Begin PBXFileReference section */
 		54F1926E13E2CA796C2D375B /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
-		5C07B4781A07045800F5928E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		5C07B4791A07045800F5928E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		5C07B47C1A07048400F5928E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5C07B47E1A07048C00F5928E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5C07B4801A07049400F5928E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -216,8 +212,6 @@
 				5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */,
 				5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */,
 				5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */,
-				5C07B47B1A07045800F5928E /* Parse.framework in Frameworks */,
-				5C07B47A1A07045800F5928E /* Bolts.framework in Frameworks */,
 				2937D6037F1A68D9C6268221 /* libPods-CorvallisBus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,8 +274,6 @@
 		5C4937C319CFCB82009A2FB2 = {
 			isa = PBXGroup;
 			children = (
-				5C07B4781A07045800F5928E /* Bolts.framework */,
-				5C07B4791A07045800F5928E /* Parse.framework */,
 				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E619CFCB82009A2FB2 /* CorvallisBusTests */,
 				5CF192AC19EF513100CB21EC /* CorvallisBusTodayExtension */,
