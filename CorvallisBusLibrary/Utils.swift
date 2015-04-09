@@ -8,6 +8,34 @@
 
 import Foundation
 
+/// Maps a function using the corresponding elements of two sequences.
+func mapPairs<S: SequenceType, T: SequenceType, U>(seq1: S, seq2: T,
+    transform: (S.Generator.Element, T.Generator.Element) -> U) -> [U] {
+        var result = [U]()
+        var generator1 = seq1.generate()
+        var generator2 = seq2.generate()
+        while let element1 = generator1.next() {
+            if let element2 = generator2.next() {
+                result.append(transform(element1, element2))
+            } else {
+                break
+            }
+        }
+        return result
+}
+
+func mapAdjacentElements<S: SequenceType, U>(seq: S,
+    transform: (S.Generator.Element, S.Generator.Element) -> U) -> [U] {
+        var result = [U]()
+        var generator = seq.generate()
+        var prev = generator.next()
+        while let current = generator.next() where prev != nil {
+            result.append(transform(prev!, current))
+            prev = current
+        }
+        return result
+}
+
 extension Array {
     /**
         Indicates whether there are any elements in self that satisfy the predicate.
@@ -51,13 +79,13 @@ extension Array {
     }
     
     /**
-        Takes an equality comparer and returns a new array containing all the distinct elemnts.
+        Takes an equality comparer and returns a new array containing all the distinct elements.
     */
     func distinct(comparer: (T, T) -> Bool) -> [T] {
         var result = [T]()
         for t in self {
             // if there are no elements in the result set equal to this element, add it
-            if !result.any({ comparer($0, t) }) {
+            if !result.any(predicate: { comparer($0, t) }) {
                 result.append(t)
             }
         }
@@ -81,6 +109,16 @@ extension Array {
         let size = self.count < otherArray.count ? self.count : otherArray.count
         for var i = 0; i < size; i++ {
             result.append(transform(self[i], otherArray[i]))
+        }
+        return result
+    }
+    
+    /// Returns an array of function applications to all pairs of elements.
+    /// The size of the resulting array is 1 less than the size of the input array.
+    func mapAdjacentElements<U>(transform: (T, T) -> U) -> [U] {
+        var result = [U]()
+        for i in 0..<(self.count - 1) {
+            result.append(transform(self[i], self[i + 1]))
         }
         return result
     }

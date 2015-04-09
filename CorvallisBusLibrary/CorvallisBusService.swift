@@ -16,11 +16,10 @@ struct CorvallisBusService {
     
     private static var _callqueue = Array<[BusStop] -> Void>()
     private static var _stops: [BusStop]?
-    /**
-        Executes a callback using the list of stops from the Corvallis Bus server.
-        Since stops need to have route info baked in, requests for stops and routes are sent in parallel--
-        thus, when this function calls back, it can be assumed that both stops and routes are cached.
-    */
+    
+    /// Executes a callback using the list of stops from the Corvallis Bus server.
+    /// Since stops need to have route info baked in, requests for stops and routes are sent in parallel.
+    /// Thus, when this function calls back, it can be assumed that both stops and routes are cached.
     static func stops(callback: [BusStop] -> Void) -> Void {
         // If data is in the cache, call back immediately.
         if _stops != nil {
@@ -38,7 +37,6 @@ struct CorvallisBusService {
             
             let finally = { () -> Void in
                 if stopsJson != nil && routesJson != nil {
-                    
                     // The work to create the route objects is deferred
                     // by wrapping it in a closure.
                     var routesCache: [BusRoute]?
@@ -74,7 +72,7 @@ struct CorvallisBusService {
                     var jsonError: NSError?
                     stopsJson = (NSJSONSerialization.JSONObjectWithData(data,
                         options: .AllowFragments,
-                        error: &jsonError)?.objectForKey("stops") as NSArray as [[String : AnyObject]])
+                        error: &jsonError)?.objectForKey("stops") as! [[String : AnyObject]])
                     
                     if (jsonError != nil) {
                         println(jsonError!.description)
@@ -101,7 +99,7 @@ struct CorvallisBusService {
                 var jsonError: NSError?
                 routesJson = (NSJSONSerialization.JSONObjectWithData(data,
                     options: .AllowFragments,
-                    error: &jsonError)?.objectForKey("routes") as NSArray as [[String : AnyObject]])
+                    error: &jsonError)?.objectForKey("routes") as! [[String : AnyObject]])
                 
                 if (jsonError != nil) {
                     println(jsonError!.description)
@@ -114,11 +112,10 @@ struct CorvallisBusService {
         }
     }
     
-    /**
-        Executes a callback using the list of routes from the Corvallis Bus server.
-        The first time this is called, the route data is deserialized.
-    */
     private static var _routes: (() -> [BusRoute])?
+    
+    /// Executes a callback using the list of routes from the Corvallis Bus server.
+    /// The first time this is called, the route data is deserialized.
     static func routes(callback: ([BusRoute]) -> Void) -> Void {
         if self._routes != nil {
             callback(self._routes!())
@@ -131,9 +128,7 @@ struct CorvallisBusService {
         }
     }
     
-    /**
-        Executes a callback using the arrival information for the provided list of stop IDs.
-    */
+    /// Executes a callback using the arrival information for the provided list of stop IDs.
     static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
         // no point in getting arrival times for 0 bus stops
         // especially when doing so crashes the app
@@ -158,7 +153,7 @@ struct CorvallisBusService {
             }
             
             var jsonError: NSError?
-            let arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as NSDictionary as [String: AnyObject]
+            let arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as! [String: AnyObject]
             
             if (jsonError != nil) {
                 println(jsonError!.description)
@@ -171,36 +166,26 @@ struct CorvallisBusService {
     private static let nearestStopKey = "shouldShowNearestStop"
     static var shouldShowNearestStop: Bool {
         get {
-            if let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus") {
-                if let preference = defaults.objectForKey(nearestStopKey) as? Bool {
-                    return preference
-                }
-            }
-            return true // default
+            let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+            return defaults.objectForKey(nearestStopKey) as? Bool ?? true // default
         }
         set {
-            if let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus") {
-                defaults.setObject(newValue, forKey: nearestStopKey)
-                defaults.synchronize()
-            }
+            let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+            defaults.setObject(newValue, forKey: nearestStopKey)
+            defaults.synchronize()
         }
     }
     
     private static let todayViewItemCountKey = "todayViewItemCount"
     static var todayViewItemCount: Int {
         get {
-            if let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus") {
-                if let preference = defaults.objectForKey(todayViewItemCountKey) as? Int {
-                    return preference
-                }
-            }
-            return 7 // default
+            let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+            return defaults.objectForKey(todayViewItemCountKey) as? Int ?? 7 // default
         }
-        set {
-            if let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus") {
-                defaults.setObject(newValue, forKey: todayViewItemCountKey)
-                defaults.synchronize()
-            }
+        set(value) {
+            let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+            defaults.setObject(value, forKey: todayViewItemCountKey)
+            defaults.synchronize()
         }
     }
     
@@ -214,24 +199,20 @@ struct CorvallisBusService {
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
     static func favorites(callback: [BusStop] -> Void) -> Void {
-        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")
-        if defaults == nil {
-            println("NSUserDefaults did not instantiate properly in CorvallisBusService")
-            return
-        }
-        let favoriteIds = defaults!.objectForKey("Favorites") as? NSArray ?? NSArray()
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+        let favoriteIds = defaults.objectForKey("Favorites") as? NSArray ?? NSArray()
         
         locationManagerDelegate.userLocation() {
             self._updatedLocation = true
             self._userLocation = $0
-            self._getSortedFavorites(favoriteIds, callback)
+            self._getSortedFavorites(favoriteIds, callback: callback)
         }
         
         self.stops() { stops in
             if !stops.any() {
                 callback(stops)
             }
-            self._getSortedFavorites(favoriteIds, callback)
+            self._getSortedFavorites(favoriteIds, callback: callback)
         }
     }
     
@@ -258,7 +239,7 @@ struct CorvallisBusService {
                     $0.distanceFromUser < $1.distanceFromUser ? $0 : $1
                 }
                 // Mark as nearest stop only if it's not already a favorite stop
-                if !favorites.any({ $0.id == nearestStop.id }) {
+                if !favorites.any(predicate: { $0.id == nearestStop.id }) {
                     nearestStop.isNearestStop = true
                     favorites.append(nearestStop)
                 }
@@ -283,11 +264,10 @@ struct CorvallisBusService {
     }
     
     static func setFavorites(favorites: [BusStop]) -> Void {
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
         let favoriteIds = NSArray(array: favorites.map() { $0.id })
-        if let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus") {
-            defaults.setObject(favoriteIds, forKey: "Favorites")
-            defaults.synchronize()
-        }
+        defaults.setObject(favoriteIds, forKey: "Favorites")
+        defaults.synchronize()
     }
     
 }

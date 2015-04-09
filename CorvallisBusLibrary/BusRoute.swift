@@ -11,35 +11,35 @@ import MapKit
 
 let DEFAULT_ROUTE_COLOR = UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
 func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
-    
-    let name = data["Name"] as? String
-    if name == nil { return nil }
-    
-    let path = data["Path"] as? [[String: AnyObject]]
-    
-    let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
-    
-    let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
-    
-    var URL: NSURL?
-    if let urlString = data["URL"] as? String {
-        URL = NSURL(string: urlString)
+    if let name = data["Name"] as? String {
+        let path = data["Path"] as? [[String: AnyObject]]
+        let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
+        let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
+        
+        let URL: NSURL
+        if let urlString = data["URL"] as? String, let maybeURL = NSURL(string: urlString) {
+            URL = maybeURL
+        } else {
+            URL = NSURL(string: "http://www.corvallisoregon.gov/index.aspx?page=167")!
+        }
+        
+        return BusRoute(name: name, color: color, polyline: polyline, path: path, url: URL)
+    } else {
+        return nil
     }
-    URL = URL ?? NSURL(string: "http://www.corvallisoregon.gov/index.aspx?page=167")
     
-    return BusRoute(name: name!, color: color, polyline: polyline, path: path, url: URL!)
 }
 
 private func parseColor(obj: AnyObject?) -> UIColor? {
-    if let string = obj as? String {
-        if countElements(string) != 6 { return nil }
+    if let colorString = obj as? String where count(colorString) == 6 {
         var colorHex: UInt32 = 0
-        NSScanner(string: string).scanHexInt(&colorHex)
+        NSScanner(string: colorString).scanHexInt(&colorHex)
         return UIColor(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,
             green: CGFloat(colorHex >> 8 & 0xFF) / 255.0,
             blue: CGFloat(colorHex & 0xFF) / 255.0, alpha: 1.0)
+    } else {
+        return nil
     }
-    return nil
 }
 
 func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
@@ -53,12 +53,12 @@ class BusRoute : Equatable {
     let url: NSURL
     private var _path: [[String: AnyObject]]?
     lazy var path: [Int] = {
-        if self._path != nil {
-            let result = self._path!.mapUnwrap() { $0["ID"] as? Int }
+        if let stopIDs = self._path?.mapUnwrap({ $0["ID"] as? Int }) {
             self._path = nil // causes deallocation
-            return result
+            return stopIDs
+        } else {
+            return [Int]()
         }
-        return [Int]()
     }()
     
     private init(name: String, color: UIColor, polyline: MKPolyline, path: [[String: AnyObject]]?, url: NSURL) {

@@ -93,13 +93,13 @@ class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as FavoriteStopTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as! FavoriteStopTableViewCell
         
         if let currentStop = self.favorites?[indexPath.row] {
             cell.labelStopName.text = currentStop.name
             
             if let busArrivals = self.arrivals?[currentStop.id] {
-                let routeNames = busArrivals.map({$0.route}).distinct(==)
+                let routeNames = busArrivals.map({$0.route}).distinct(==) as [String]
                 
                 let arrivalsForFirst = routeNames.count > 0 ?
                     busArrivals.filter({$0.route == routeNames[0]}) : [BusArrival]()
@@ -132,14 +132,12 @@ class FavoritesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if editingStyle == .Delete {
+        if editingStyle == .Delete && self.favorites != nil {
             // Delete the row from the data source
-            if self.favorites != nil {
-                self.favorites!.removeAtIndex(indexPath.row)
-                CorvallisBusService.setFavorites(self.favorites!.filter() { !$0.isNearestStop })
-                
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            }
+            self.favorites!.removeAtIndex(indexPath.row)
+            CorvallisBusService.setFavorites(self.favorites!.filter() { !$0.isNearestStop })
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
     

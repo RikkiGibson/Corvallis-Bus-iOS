@@ -71,15 +71,16 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     
     private var leadingRequest: NSURLRequest?
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if navigationType != .LinkClicked || webView.request?.URL.query == request.URL.query {
+        
+        if navigationType != .LinkClicked || webView.request?.URL?.query == request.URL?.query {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             return true
         } else {
             // iOS 8
-            if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
-                let alertController = UIAlertController(title: request.URL.absoluteString, message: nil, preferredStyle: .ActionSheet)
+            if let url = request.URL where UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+                let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
                 alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
-                    UIApplication.sharedApplication().openURL(request.URL); return
+                    UIApplication.sharedApplication().openURL(url); return
                 })
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
                 self.presentViewController(alertController, animated: true) { }
@@ -97,8 +98,8 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     }
     
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if leadingRequest != nil && buttonIndex == 0 {
-            UIApplication.sharedApplication().openURL(leadingRequest!.URL)
+        if let url = leadingRequest?.URL where buttonIndex == 0 {
+            UIApplication.sharedApplication().openURL(url)
         }
     }
     

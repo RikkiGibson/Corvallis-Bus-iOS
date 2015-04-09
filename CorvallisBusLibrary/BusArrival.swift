@@ -14,13 +14,11 @@ import Foundation
 */
 func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
     return data.mapUnwrap() { (key, value) in
-        if let busArrivalJson = value as? [[String : AnyObject]] {
-            if let intKey = key.toInt() {
-                let busArrivals = busArrivalJson.mapUnwrap() { toBusArrival($0) }
-                    .distinct(==)
-                    .sorted() { $0.arrivalTime.compare($1.arrivalTime) == NSComparisonResult.OrderedAscending }
-                return (intKey, busArrivals)
-            }
+        if let intKey = key.toInt(), let busArrivalsJson = value as? [[String : AnyObject]] {
+            let sortedArrivals = busArrivalsJson.mapUnwrap(toBusArrival)
+                .distinct(==)
+                .sorted({ $0.arrivalTime.compare($1.arrivalTime) == .OrderedAscending })
+            return (intKey, sortedArrivals)
         }
         return nil
     }
@@ -33,28 +31,33 @@ func == (lhs: BusArrival, rhs: BusArrival) -> Bool {
 }
 
 private let toNSDate = { () -> (AnyObject? -> NSDate?) in
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateFormat = "dd MMM yy HH:mm ZZZ"
+    let dateParser = NSDateFormatter()
+    dateParser.dateFormat = "dd MMM yy HH:mm ZZZ"
     
     return { obj in
         if let string = obj as? String {
-            return dateFormatter.dateFromString(string)
+            return dateParser.dateFromString(string)
+        } else {
+            return nil
         }
-        return nil
     }
 }()
 
 func toBusArrival(data: [String : AnyObject]) -> BusArrival? {
-    let route = data["Route"] as? String
-    if route == nil { return nil }
-    
-    if let expected = toNSDate(data["Expected"]) {
-        return BusArrival(route: route!, arrivalTime: expected)
-    } else if let scheduled = toNSDate(data["Expected"]) {
-        return BusArrival(route: route!, arrivalTime: scheduled)
+    if let route = data["Route"] as? String,
+        let arrivalTime = toNSDate(data["Expected"]) ?? toNSDate(data["Scheduled"]) {
+        return BusArrival(route: route, arrivalTime: arrivalTime)
+    } else {
+        return nil
     }
-    return nil
 }
+
+let arrivalFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .NoStyle
+    formatter.timeStyle = .ShortStyle
+    return formatter
+}()
 
 class BusArrival {
     let route: String
@@ -64,13 +67,6 @@ class BusArrival {
         self.route = route
         self.arrivalTime = arrivalTime
     }
-    
-    private let formatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .NoStyle
-        formatter.timeStyle = .ShortStyle
-        return formatter
-    }()
     
     var friendlyEta: String {
         get {
@@ -83,7 +79,7 @@ class BusArrival {
                 // the format string is rounding to the nearest integer, so < 90 rounds to 1
                 return minutesDescription + (etaInSeconds < 90 ? " minute" : " minutes")
             default: // just show the arrival time
-                return self.formatter.stringFromDate(self.arrivalTime)
+                return arrivalFormatter.stringFromDate(self.arrivalTime)
             }
         }
     }
@@ -96,34 +92,25 @@ class BusArrival {
 }
 
 func friendlyMapArrivals(arrivals: [BusArrival]) -> String {
-    if arrivals.count >= 2 {
-        return arrivals[0].friendlyEta + ", " + arrivals[1].friendlyEta
+    switch arrivals.count {
+    case 0: return "No arrivals!"
+    case 1: return arrivals[0].friendlyEta
+    default: return arrivals[0].friendlyEta + ", " + arrivals[1].friendlyEta
     }
-    return arrivals.count > 0 ? arrivals[0].friendlyEta : "No arrivals!"
 }
 
-let arrivalsSummary: [BusArrival] -> String = {
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = .NoStyle
-    formatter.timeStyle = .ShortStyle
-    
-    return { arrivals in
-        if arrivals.count <= 2 {
-            return ""
+func arrivalsSummary(arrivals: [BusArrival]) -> String {
+    switch arrivals.count {
+    case 0...2:
+        return ""
+    case 3:
+        let lastTime = arrivals[2].arrivalTime
+        return "Last arrival at \(arrivalFormatter.stringFromDate(lastTime))"
+    default:
+        let differences = mapAdjacentElements(arrivals[1..<arrivals.count]) { firstArrival, secondArrival in
+            secondArrival.arrivalTime.timeIntervalSinceDate(firstArrival.arrivalTime)
         }
-        if arrivals.count == 3 {
-            let lastTime = arrivals[2].arrivalTime
-            return "Last arrival at \(formatter.stringFromDate(lastTime))"
-        }
-        
-        let latterArrivals = Array(arrivals[2..<arrivals.count])
-        let formerArrivals = Array(arrivals[1..<arrivals.count-1])
-        
-        let differences = latterArrivals.mapPairs(formerArrivals) { firstArrival, secondArrival in
-            firstArrival.arrivalTime.timeIntervalSinceDate(secondArrival.arrivalTime)
-        }
-        
-        let lastTime = formatter.stringFromDate(arrivals.last!.arrivalTime)
+        let lastTime = arrivalFormatter.stringFromDate(arrivals.last!.arrivalTime)
         if differences.all({ $0 >= 1200 && $0 <= 2400 }) {
             return "Every 30 minutes until \(lastTime)"
         } else if differences.all({ $0 >= 3000 && $0 <= 4200}) {
@@ -132,4 +119,4 @@ let arrivalsSummary: [BusArrival] -> String = {
             return "Last arrival at \(lastTime)"
         }
     }
-}()
+}

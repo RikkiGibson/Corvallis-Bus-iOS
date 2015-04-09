@@ -10,58 +10,37 @@ import Foundation
 import CoreLocation
 
 func toBusStop(data: [String : AnyObject], withRoutes routes: () -> [BusRoute]) -> BusStop? {
-    let id = data["ID"] as? Int
-    if id == nil { return nil }
-    
-    let name = data["Name"] as? String
-    if name == nil { return nil }
-    
-    let road = data["Road"] as? String
-    if road == nil { return nil }
-    
-    let lat = data["Lat"] as? Double
-    if lat == nil { return nil }
-    
-    let long = data["Long"] as? Double
-    if long == nil { return nil }
-    
-    // Use all the routes where the route's path contains this stop
-    return BusStop(id: id!, name: name!, road: road!,
-        location: CLLocation(latitude: lat!, longitude: long!), routes: routes)
+    if let id = data["ID"] as? Int,
+        let name = data["Name"] as? String,
+        let lat = data["Lat"] as? Double,
+        let long = data["Long"] as? Double {
+        return BusStop(id: id, name: name, location: CLLocation(latitude: lat, longitude: long),
+            routes: routes)
+    }
+    return nil
 }
 
 class BusStop : Equatable {
     let id: Int
     let name: String
-    let road: String
     let location: CLLocation
     
     private var _routes: () -> [BusRoute]
     
-    /**
-        Returns the routes applicable to this stop. Computed on demand.
-    */
-    lazy var routes: [BusRoute] = {
-        if self._routes != nil {
-            let applicableRoutes = self._routes().filter() { $0.path.any() { $0 == self.id } }
-            return applicableRoutes
-        }
-        return [BusRoute]()
-    }()
+    /// Returns the routes applicable to this stop. Computed on demand.
+    lazy var routes: [BusRoute] = self._routes().filter() { $0.path.any() { $0 == self.id } }
+    
     var distanceFromUser: CLLocationDistance?
     var isNearestStop = false
     
-    private init(id: Int, name: String, road: String, location: CLLocation, routes: () -> [BusRoute]) {
+    private init(id: Int, name: String, location: CLLocation, routes: () -> [BusRoute]) {
         self.id = id
         self.name = name
-        self.road = road
         self.location = location
         self._routes = routes
     }
     
-    /**
-        Returns the routes applicable to this stop, sorted with the routes arriving soonest at the top.
-    */
+    /// Returns the routes applicable to this stop, sorted with the routes arriving soonest at the top.
     func routesSortedByArrivals(arrivals: [BusArrival]) -> [BusRoute] {
         return self.routes.sorted() { firstRoute, secondRoute in
             let firstArrival = arrivals.first() { $0.route == firstRoute.name }
@@ -72,19 +51,20 @@ class BusStop : Equatable {
                 return true
             } else {
                 return firstArrival!.arrivalTime.compare(
-                    secondArrival!.arrivalTime) == NSComparisonResult.OrderedAscending
+                    secondArrival!.arrivalTime) == .OrderedAscending
             }
         }
     }
     
+    let MILES_PER_METER = 0.000621371
     var friendlyDistance: String {
         get {
-            if self.distanceFromUser != nil {
-                let metersToMiles = 0.000621371
-                let distanceInMiles = String(format: "%1.1f", self.distanceFromUser! * metersToMiles)
-                return distanceInMiles + " miles"
+            if let distanceInMeters = self.distanceFromUser {
+                let distanceInMiles = distanceInMeters * MILES_PER_METER
+                return String(format: "%1.1f miles", distanceInMiles)
+            } else {
+                return ""
             }
-            return ""
         }
     }
 }

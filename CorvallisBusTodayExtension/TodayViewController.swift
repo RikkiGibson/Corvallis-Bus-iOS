@@ -31,13 +31,13 @@ class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as FavoriteStopTableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell!
         
         if let currentStop = self.favoriteStops?[indexPath.row] {
             cell.labelStopName.text = currentStop.name
             
             if let busArrivals = self.arrivals?[currentStop.id] {
-                let routeNames = busArrivals.map({$0.route}).distinct(==)
+                let routeNames = busArrivals.map({$0.route}).distinct(==) as [String]
                 
                 let arrivalsForFirst = routeNames.count > 0 ?
                     busArrivals.filter({$0.route == routeNames[0]}) : [BusArrival]()
