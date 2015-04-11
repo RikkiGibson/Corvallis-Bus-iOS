@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class FavoritesTableViewController: UITableViewController {
+final class FavoritesTableViewController: UITableViewController {
     var favorites: [BusStop]?
     var arrivals: [Int : [BusArrival]]?
     var colors: [String : UIColor]?

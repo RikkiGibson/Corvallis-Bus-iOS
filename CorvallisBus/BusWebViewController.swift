@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate {
+final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -20,7 +20,15 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
         let edgePanRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "didPanFromEdge:")
         edgePanRecognizer.edges = .Left
         edgePanRecognizer.delegate = self
+        
         self.view.addGestureRecognizer(edgePanRecognizer)
+        
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: "didTouch:")
+        touchRecognizer.numberOfTapsRequired = 1
+        touchRecognizer.numberOfTouchesRequired = 1
+        touchRecognizer.delegate = self
+        
+        self.view.addGestureRecognizer(touchRecognizer)
     }
     
     override func viewDidLoad() {
@@ -69,6 +77,8 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
         // Dispose of any resources that can be recreated.
     }
     
+    // An instance variable is needed to keep track of the URL request
+    // between creation of the UIActionSheet and the callback invocation.
     private var leadingRequest: NSURLRequest?
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
@@ -76,6 +86,9 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             return true
         } else {
+            let rect = CGRectMake(self.lastTouchLocation?.x ?? self.view.bounds.size.width / 2.0,
+                self.lastTouchLocation?.y ?? self.view.bounds.size.height / 2.0, 1.0, 1.0)
+            
             // iOS 8
             if let url = request.URL where UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
                 let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
@@ -83,15 +96,18 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
                     UIApplication.sharedApplication().openURL(url); return
                 })
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
+                alertController.popoverPresentationController?.sourceView = self.view
+                alertController.popoverPresentationController?.sourceRect = rect
                 self.presentViewController(alertController, animated: true) { }
             } else { // iOS 7
                 self.leadingRequest = request
-                let actionSheet = UIActionSheet(title: nil, delegate: self,
+                let actionSheet = UIActionSheet(title: request.URL?.absoluteString, delegate: self,
                     cancelButtonTitle: nil, destructiveButtonTitle: nil)
                 actionSheet.addButtonWithTitle("Open in Safari")
                 actionSheet.addButtonWithTitle("Cancel")
                 actionSheet.cancelButtonIndex = 1
-                actionSheet.showInView(self.view)
+                
+                actionSheet.showFromRect(rect, inView: self.view, animated: true)
             }
             return false
         }
@@ -120,6 +136,11 @@ class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDe
     
     @IBAction func didPanFromEdge(sender: AnyObject) {
         self.performSegueWithIdentifier("unwind", sender: sender)
+    }
+    
+    var lastTouchLocation: CGPoint?
+    func didTouch(sender: UITapGestureRecognizer) {
+        lastTouchLocation = sender.locationInView(self.view)
     }
     /*
     // MARK: - Navigation

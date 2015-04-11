@@ -46,7 +46,7 @@ func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
     return lhs.name == rhs.name
 }
 
-class BusRoute : Equatable {
+final class BusRoute : Equatable {
     let name: String
     let color: UIColor
     let polyline: MKPolyline

@@ -9,7 +9,7 @@
 import UIKit
 import NotificationCenter
 
-class TodayViewController: UITableViewController, NCWidgetProviding {
+final class TodayViewController: UITableViewController, NCWidgetProviding {
     var favoriteStops: [BusStop]?
     var arrivals: [Int : [BusArrival]]?
     var colors: [String : UIColor]?

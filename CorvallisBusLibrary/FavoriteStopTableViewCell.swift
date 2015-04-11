@@ -11,7 +11,7 @@ import UIKit
 let GRAY_ROUTE_COLOR = UIColor.lightGrayColor()
 let CLEAR_COLOR = UIColor.clearColor()
 
-class FavoriteStopTableViewCell: UITableViewCell {
+final class FavoriteStopTableViewCell: UITableViewCell {
     @IBOutlet weak var labelStopName: UILabel!
     
     @IBOutlet weak var labelFirstRoute: BusRouteLabel!

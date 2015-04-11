@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusRouteDetailCell: UITableViewCell {
+final class BusRouteDetailCell: UITableViewCell {
     
     @IBOutlet weak var labelRouteName: BusRouteLabel!
     

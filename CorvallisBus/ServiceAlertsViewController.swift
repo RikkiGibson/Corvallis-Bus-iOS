@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ServiceAlertsViewController: UITableViewController {
+final class ServiceAlertsViewController: UITableViewController {
     let dateFormatter = NSDateFormatter()
     let feedParser = ServiceAlertsFeedParserDelegate()
     var items = [MWFeedItem]()

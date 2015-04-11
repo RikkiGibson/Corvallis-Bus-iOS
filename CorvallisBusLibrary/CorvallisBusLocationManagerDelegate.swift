@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-internal class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
+final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
     private var _callback: CLLocation? -> Void = { loc in }
     

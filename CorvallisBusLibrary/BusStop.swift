@@ -20,7 +20,7 @@ func toBusStop(data: [String : AnyObject], withRoutes routes: () -> [BusRoute]) 
     return nil
 }
 
-class BusStop : Equatable {
+final class BusStop : Equatable {
     let id: Int
     let name: String
     let location: CLLocation

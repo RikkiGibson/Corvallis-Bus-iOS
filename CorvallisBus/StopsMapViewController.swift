@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class StopsMapViewController: UIViewController, MKMapViewDelegate,
+final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -88,6 +88,8 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
         
         let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
+        
+        self.tableView.contentInset = UIEdgeInsetsZero
                 
         self.tableViewHeight.constant = 0
         
@@ -194,10 +196,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
         if let polyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyline)
-            if let selectedIndex = self.tableView.indexPathsForSelectedRows()?.first as? NSIndexPath {
-                if let currentRoute = self.routesForStopSortedByArrivals?[selectedIndex.row] {
+            if let selectedIndex = self.tableView.indexPathsForSelectedRows()?.first as? NSIndexPath,
+                let currentRoute = self.routesForStopSortedByArrivals?[selectedIndex.row] {
                     renderer.strokeColor = currentRoute.color
-                }
             }
             renderer.lineWidth = 5
             return renderer
@@ -232,21 +233,26 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func presentTableView() {
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
+            
+            // Declaring this reference prevents the constraint from being
+            // deallocated by ARC when it's removed from the view.
+            let leftMargin = self.searchBarLeftMargin
+            self.searchBar.superview?.removeConstraint(leftMargin)
             self.searchBarLeftMargin.constant = UIScreen.mainScreen().bounds.width
             self.searchBarRightMargin.constant = -UIScreen.mainScreen().bounds.width
+            self.searchBar.superview?.addConstraint(leftMargin)
             self.searchBar.resignFirstResponder()
         
             UIView.animateWithDuration(0.2, animations: {
                 self.searchBarButton.alpha = 0.85
                 self.view.layoutIfNeeded()
-            }) { success in
-                if self.selectedAnnotation != nil {
+            }, completion: { success in
+                if let selectedAnnotation = self.selectedAnnotation,
                     let annotations = self.mapView.annotationsInMapRect(self.mapView.visibleMapRect)
-                    if !annotations.contains(self.selectedAnnotation!) {
-                        self.mapView.setCenterCoordinate(self.selectedAnnotation!.coordinate, animated: true)
-                    }
+                    where !annotations.contains(selectedAnnotation) {
+                        self.mapView.setCenterCoordinate(selectedAnnotation.coordinate, animated: true)
                 }
-            }
+            })
         }
     }
     
@@ -375,22 +381,21 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     @IBAction func buttonPush(sender: AnyObject!) {
-        
-        if self.selectedAnnotation != nil {
+        if let selectedAnnotation = self.selectedAnnotation {
             CorvallisBusService.favorites() { favorites in
                 var favorites = favorites.filter() { !$0.isNearestStop }
                 var addedFavorite = false
                 // if this stop is in favorites, remove it
-                if favorites.any(predicate: { $0.id == self.selectedAnnotation!.stop.id }) {
-                    favorites = favorites.filter() { $0.id != self.selectedAnnotation!.stop.id }
+                if favorites.any(predicate: { $0.id == selectedAnnotation.stop.id }) {
+                    favorites = favorites.filter() { $0.id != selectedAnnotation.stop.id }
                 } else {
                     // if this stop isn't in favorites, add it
-                    favorites.append(self.selectedAnnotation!.stop)
+                    favorites.append(selectedAnnotation.stop)
                     addedFavorite = true
                 }
                 CorvallisBusService.setFavorites(favorites)
                 dispatch_async(dispatch_get_main_queue()) {
-                    self.updateFavoritedStateForAnnotation(self.selectedAnnotation!, favorites: favorites)
+                    self.updateFavoritedStateForAnnotation(selectedAnnotation, favorites: favorites)
                     self.setFavoriteButtonState(favorited: addedFavorite)
                 }
             }
@@ -441,14 +446,13 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BusRouteDetailCell") as! BusRouteDetailCell
         
-        if let currentRoute = self.routesForStopSortedByArrivals?.tryGet(indexPath.row) {
-            if let arrivalsForRoute = self.arrivals?.filter({ $0.route == currentRoute.name })  {
+        if let currentRoute = self.routesForStopSortedByArrivals?.tryGet(indexPath.row),
+            let arrivalsForRoute = self.arrivals?.filter({ $0.route == currentRoute.name }) {
                 cell.labelRouteName.text = currentRoute.name
                 cell.labelRouteName.backgroundColorActual = currentRoute.color
                 
                 cell.labelEstimate.text = friendlyMapArrivals(arrivalsForRoute)
                 cell.labelSchedule.text = arrivalsSummary(arrivalsForRoute)
-            }
         }
         return cell
     }
@@ -469,10 +473,9 @@ class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? BusWebViewController ??
-            segue.destinationViewController.childViewControllers.first as? BusWebViewController {
-            if let selectedRoute = sender as? BusRoute {
+                segue.destinationViewController.childViewControllers.first as? BusWebViewController,
+            let selectedRoute = sender as? BusRoute {
                 destination.initialURL = selectedRoute.url
-            }
         }
     }
     

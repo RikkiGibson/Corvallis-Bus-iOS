@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreferencesViewController: UIViewController {
+final class PreferencesViewController: UIViewController {
     @IBOutlet weak var labelTodayItems: UILabel!
     @IBOutlet weak var stepperTodayItems: UIStepper!
     @IBOutlet weak var counterTodayItems: UITextField!

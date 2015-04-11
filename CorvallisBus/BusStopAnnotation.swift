@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class BusStopAnnotation: NSObject, MKAnnotation {
+final class BusStopAnnotation: NSObject, MKAnnotation {
     let stop: BusStop
     
     var title: String { get { return stop.name } }

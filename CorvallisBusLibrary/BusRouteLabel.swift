@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusRouteLabel: UILabel {
+final class BusRouteLabel: UILabel {
     private var canChangeBackgroundColor = false
     
     override var backgroundColor: UIColor? {

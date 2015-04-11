@@ -59,7 +59,7 @@ let arrivalFormatter: NSDateFormatter = {
     return formatter
 }()
 
-class BusArrival {
+final class BusArrival {
     let route: String
     let arrivalTime: NSDate
     
