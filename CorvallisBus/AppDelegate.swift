@@ -18,22 +18,28 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    /// Selects the map tab in the tab controller and returns the map view controller.
+    private func getViewPreparedForStop() -> StopsMapViewController {
+        let tabController = self.window!.rootViewController as! UITabBarController
+        tabController.selectedIndex = 1 // selects map tab
+        return (tabController.selectedViewController as? StopsMapViewController ?? tabController.selectedViewController?.childViewControllers.last as? StopsMapViewController)!
+    }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         CorvallisBusService.stops() { stops in
-            dispatch_async(dispatch_get_main_queue()) {
-                // Some really gnarly conditional bindings in here.
-                if let tabController = self.window?.rootViewController as? UITabBarController {
-                    tabController.selectedIndex = 1 // selects map tab
-                    
-                    // before the ?? is for iOS 7. After the ?? is for iOS 8
-                    if let viewController = tabController.selectedViewController as? StopsMapViewController ?? tabController.selectedViewController?.childViewControllers.last as? StopsMapViewController {
-                        if let id = url.query?.toInt() {
-                            viewController.initialStop = stops.first() { $0.id == id }
-                        }
+            switch stops {
+            case .Success(let stopsBox):
+                dispatch_async(dispatch_get_main_queue()) {
+                    if let id = url.query?.toInt() {
+                        let mapView = self.getViewPreparedForStop()
+                        mapView.initialStop = stopsBox.value.first() { $0.id == id }
                     }
                 }
+            case .Error(let error):
+                // display an error
+                break
             }
+            
         }
         return true
     }

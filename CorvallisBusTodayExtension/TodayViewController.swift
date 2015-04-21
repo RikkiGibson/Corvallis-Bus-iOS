@@ -85,8 +85,18 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     func updateFavoriteStops(completionHandler: NCUpdateResult -> Void) {
         CorvallisBusService.favorites() { result in
-            let todayItemCount = CorvallisBusService.todayViewItemCount
-            self.favoriteStops = result.count < todayItemCount ? result : Array(result[0..<todayItemCount])
+            switch result {
+            case .Success(let box):
+                let favorites = box.value
+                let todayItemCount = CorvallisBusService.todayViewItemCount
+                self.favoriteStops = favorites.count < todayItemCount ?
+                    favorites : Array(favorites[0..<todayItemCount])
+                break
+            case .Error(let error):
+                self.favoriteStops = nil
+                break
+            }
+            
             self.updateArrivals(completionHandler)
         }
     }
@@ -106,8 +116,13 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
     
-    func updateColors(routes: [BusRoute]) {
-        self.colors = routes.toDictionary({ ($0.name, $0.color) })
+    func updateColors(routes: Failable<[BusRoute]>) {
+        switch routes {
+        case .Success(let box):
+            self.colors = box.value.toDictionary({ ($0.name, $0.color) })
+        case .Error:
+            break
+        }
         dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
     }
 }

@@ -6,8 +6,21 @@
 //  Copyright (c) 2014 Rikki Gibson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
+extension UIViewController {
+    func presentAlert(#title: String, message: String) {
+        if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
+            self.presentViewController(alertController, animated: true) { }
+        } else {
+            let alertView = UIAlertView(title: title, message: message,
+                delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
+            alertView.show()
+        }
+    }
+}
 /// Maps a function using the corresponding elements of two sequences.
 func mapPairs<S: SequenceType, T: SequenceType, U>(seq1: S, seq2: T,
     transform: (S.Generator.Element, T.Generator.Element) -> U) -> [U] {

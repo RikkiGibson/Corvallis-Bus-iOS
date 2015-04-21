@@ -129,15 +129,22 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         }
     }
     
-    func initializeStops(stops: [BusStop]) {
+    func initializeStops(stops: Failable<[BusStop]>) {
         // Opening the view while offline can prevent annotations from being added to the map
-        self.busAnnotations = stops.map() { BusStopAnnotation(stop: $0) }
-        dispatch_async(dispatch_get_main_queue()) {
-            self.mapView.addAnnotations(self.busAnnotations)
-            self.updateFavoritedStateForAllAnnotationsWithCallback() {
-                self.displayInitialStop()
+        
+        switch stops {
+        case .Success(let stopsBox):
+            self.busAnnotations = stopsBox.value.map() { BusStopAnnotation(stop: $0) }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.mapView.addAnnotations(self.busAnnotations)
+                self.updateFavoritedStateForAllAnnotationsWithCallback(self.displayInitialStop)
             }
+            break
+        case .Error(let error):
+            presentAlert(title: "Fuck", message: "Something broke :(")
+            break
         }
+        
     }
     
     func displayInitialStop() {
@@ -160,15 +167,23 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     func updateFavoritedStateForAllAnnotationsWithCallback(callback: () -> Void) {
         CorvallisBusService.favorites() { favorites in
-            let favorites = favorites.filter() { !$0.isNearestStop }
-            dispatch_async(dispatch_get_main_queue()) {
-                for annotation in self.mapView.annotations {
-                    if let annotation = annotation as? BusStopAnnotation {
-                        self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
+            switch favorites {
+            case .Success(let favoritesBox):
+                let favorites = favoritesBox.value.filter() { !$0.isNearestStop }
+                dispatch_async(dispatch_get_main_queue()) {
+                    for annotation in self.mapView.annotations {
+                        if let annotation = annotation as? BusStopAnnotation {
+                            self.updateFavoritedStateForAnnotation(annotation, favorites: favorites)
+                        }
                     }
+                    callback()
                 }
-                callback()
+                break
+            case .Error(let error):
+                break
             }
+            
+            
         }
     }
     
@@ -381,9 +396,11 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     @IBAction func buttonPush(sender: AnyObject!) {
-        if let selectedAnnotation = self.selectedAnnotation {
-            CorvallisBusService.favorites() { favorites in
-                var favorites = favorites.filter() { !$0.isNearestStop }
+        let selectedAnnotation = self.selectedAnnotation!
+        CorvallisBusService.favorites() { favorites in
+            switch favorites {
+            case .Success(let favoritesBox):
+                var favorites = favoritesBox.value.filter() { !$0.isNearestStop }
                 var addedFavorite = false
                 // if this stop is in favorites, remove it
                 if favorites.any(predicate: { $0.id == selectedAnnotation.stop.id }) {
@@ -398,6 +415,9 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                     self.updateFavoritedStateForAnnotation(selectedAnnotation, favorites: favorites)
                     self.setFavoriteButtonState(favorited: addedFavorite)
                 }
+                break
+            case .Error(let error):
+                break
             }
         }
     }
@@ -518,14 +538,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     func presentNotFoundAlert() {
-        if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
-            let alertController = UIAlertController(title: "Not found", message: "No Corvallis location with that name was found.", preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
-            self.presentViewController(alertController, animated: true) { }
-        } else {
-            let alertView = UIAlertView(title: "Not found", message: "No Corvallis location with that name was found.", delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
-            alertView.show()
-        }
+        self.presentAlert(title: "Not found",
+            message: "No Corvallis location with that name was found.")
     }
     
     let zipCodes = ["97330", "97331", "97333", "97339"]

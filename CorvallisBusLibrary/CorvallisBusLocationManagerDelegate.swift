@@ -11,7 +11,7 @@ import CoreLocation
 
 final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
-    private var _callback: CLLocation? -> Void = { loc in }
+    private var _callback: Failable<CLLocation> -> Void = { loc in }
     
     override init() {
         super.init()
@@ -25,21 +25,20 @@ final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDel
         self._locationManager.delegate = self
     }
     
-    func userLocation(callback: CLLocation? -> Void) {
+    func userLocation(callback: Failable<CLLocation> -> Void) {
         self._callback = callback
         _locationManager.startUpdatingLocation()
     }
     
     internal func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         _locationManager.stopUpdatingLocation()
-        if let location = locations.last as? CLLocation {
-            _callback(location)
-        } else {
-            _callback(nil)
-        }
+        
+        let location = locations.last as! CLLocation
+        _callback(.Success(Box(location)))
+        
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        _callback(nil)
+        _callback(.Error(error))
     }
 }

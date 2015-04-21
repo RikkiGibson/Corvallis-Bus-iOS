@@ -10,20 +10,20 @@ import Foundation
 import UIKit
 import CoreLocation
 
-struct CorvallisBusService {
+final class CorvallisBusService {
     private static let rootUrl = "http://www.corvallis-bus.appspot.com"
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
     
-    private static var _callqueue = Array<[BusStop] -> Void>()
+    private static var _callqueue = Array<Failable<[BusStop]> -> Void>()
     private static var _stops: [BusStop]?
     
     /// Executes a callback using the list of stops from the Corvallis Bus server.
     /// Since stops need to have route info baked in, requests for stops and routes are sent in parallel.
     /// Thus, when this function calls back, it can be assumed that both stops and routes are cached.
-    static func stops(callback: [BusStop] -> Void) -> Void {
+    static func stops(callback: Failable<[BusStop]> -> Void) -> Void {
         // If data is in the cache, call back immediately.
         if _stops != nil {
-            callback(self._stops!)
+            callback(.Success(Box(self._stops!)))
             // Calls being in the queue already implies the task has started already.
         } else if _callqueue.any() {
             _callqueue.append(callback)
@@ -49,7 +49,7 @@ struct CorvallisBusService {
                     
                     self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
                     for callback in self._callqueue {
-                        callback(self._stops!)
+                        callback(.Success(Box(self._stops!)))
                     }
                 }
             }
@@ -61,11 +61,11 @@ struct CorvallisBusService {
             session.dataTaskWithRequest(stopsRequest) {
                     (data, response, error) -> Void in
                     if (error != nil) {
-                        let empty = [BusStop]()
+                        let error = Failable<[BusStop]>.Error(error)
                         for callback in self._callqueue {
-                            callback(empty)
+                            callback(error)
                         }
-                        self._callqueue = Array<[BusStop] -> Void>()
+                        self._callqueue = Array<Failable<[BusStop]> -> Void>()
                         return
                     }
                     
@@ -88,11 +88,11 @@ struct CorvallisBusService {
             session.dataTaskWithRequest(routesRequest) {
                 (data, response, error) -> Void in
                 if (error != nil) {
-                    let empty = [BusStop]()
+                    let error = Failable<[BusStop]>.Error(error)
                     for callback in self._callqueue {
-                        callback(empty)
+                        callback(error)
                     }
-                    self._callqueue = Array<[BusStop] -> Void>()
+                    self._callqueue = Array<Failable<[BusStop]> -> Void>()
                     return
                 }
                 
@@ -107,8 +107,6 @@ struct CorvallisBusService {
                 }
                 finally()
             }.resume()
-            
-            
         }
     }
     
@@ -116,14 +114,19 @@ struct CorvallisBusService {
     
     /// Executes a callback using the list of routes from the Corvallis Bus server.
     /// The first time this is called, the route data is deserialized.
-    static func routes(callback: ([BusRoute]) -> Void) -> Void {
+    static func routes(callback: (Failable<[BusRoute]>) -> Void) -> Void {
         if self._routes != nil {
-            callback(self._routes!())
+            callback(.Success(Box(self._routes!())))
         } else {
             // Stops have route information baked in. Therefore a callback by stops() guarantees that
             // either route data is in the cache or an error occurred.
             CorvallisBusService.stops() { stops in
-                callback(self._routes?() ?? [BusRoute]())
+                switch stops {
+                case .Success(let value):
+                    callback(.Success(Box(self._routes!())))
+                case .Error(let error):
+                    callback(.Error(error))
+                }
             }
         }
     }
@@ -189,78 +192,79 @@ struct CorvallisBusService {
         }
     }
     
-    /// This ensures that a new location is obtained before sorting and calling back with favorite stops.
-    private static var _updatedLocation: Bool = false
-    private static var _userLocation: CLLocation?
-    
     /**
         Executes a callback using a list of the user's favorite stops.
         Asynchronously obtains the user's location and the user's list of favorite stops.
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
-    static func favorites(callback: [BusStop] -> Void) -> Void {
-        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
-        let favoriteIds = defaults.objectForKey("Favorites") as? NSArray ?? NSArray()
-        
-        locationManagerDelegate.userLocation() {
-            self._updatedLocation = true
-            self._userLocation = $0
-            self._getSortedFavorites(favoriteIds, callback: callback)
-        }
-        
-        self.stops() { stops in
-            if !stops.any() {
-                callback(stops)
+    static func favorites(callback: Failable<[BusStop]> -> Void) -> Void {
+        self.locationManagerDelegate.userLocation() { maybeLocation in
+            self.stops() { maybeStops in
+                switch maybeStops {
+                case .Error(let error):
+                    // no stops is a showstopper heh!
+                    callback(maybeStops)
+                    break
+                case .Success(let box):
+                    let stops = box.value
+                    switch maybeLocation {
+                    case .Error:
+                        // have stops, but no location
+                        let favorites = self._filterDownToFavorites(stops)
+                        self._resetStopDistances(favorites, location: nil)
+                        callback(.Success(Box(favorites)))
+                        return
+                    case .Success(let locationBox):
+                        // both location and stops
+                        let sortedFavorites = self._sortFavorites(stops, location: locationBox.value)
+                        callback(.Success(Box(sortedFavorites)))
+                        break
+                    }
+                    break
+                }
             }
-            self._getSortedFavorites(favoriteIds, callback: callback)
         }
     }
     
-    /**
-        Finally executes the client's callback with the favorites list.
-        If location is enabled, favorites are sorted by proximity.
-        If location and show nearest stop is enabled, includes the nearest stop
-        marked with isNearestStop = true, if the nearest stop is not already in favorites.
-    */
-    private static func _getSortedFavorites(favoriteIds: NSArray, callback: [BusStop] -> Void) -> Void {
-        if self._stops == nil || self._stops!.count < 1 || !self._updatedLocation {
-            return
+    private static func _filterDownToFavorites(allStops: [BusStop]) -> [BusStop] {
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+        let favoriteIds = defaults.objectForKey("Favorites") as? NSArray ?? NSArray()
+        return allStops.filter({ favoriteIds.containsObject($0.id) })
+    }
+    
+    private static func _resetStopDistances(stops: [BusStop], location: CLLocation?) -> [BusStop] {
+        for stop in stops {
+            stop.distanceFromUser = location?.distanceFromLocation(stop.location)
+            stop.isNearestStop = false
         }
-        // location disabled: return just the filtered list of favorites, with no location in
-        // location enabled: return the filtered list of favorites, plus potentially the nearest stop
-        var favorites = self._stops!.filter() { favoriteIds.containsObject($0.id) }
-        if self._userLocation != nil {
-            if self.shouldShowNearestStop {
-                for stop in self._stops! {
-                    stop.distanceFromUser = stop.location.distanceFromLocation(self._userLocation!)
-                    stop.isNearestStop = false
-                }
-                let nearestStop = self._stops!.reduce(self._stops!.first!) {
-                    $0.distanceFromUser < $1.distanceFromUser ? $0 : $1
-                }
-                // Mark as nearest stop only if it's not already a favorite stop
-                if !favorites.any(predicate: { $0.id == nearestStop.id }) {
-                    nearestStop.isNearestStop = true
-                    favorites.append(nearestStop)
-                }
-            } else {
-                for stop in favorites {
-                    stop.distanceFromUser = stop.location.distanceFromLocation(self._userLocation!)
-                    stop.isNearestStop = false
-                }
-            }
-            favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
-            self._userLocation = nil
-        } else {
-            // location is not available
-            for stop in favorites {
-                stop.distanceFromUser = nil
-                stop.isNearestStop = false
-            }
+        return stops
+    }
+    
+    private static func _sortFavorites(stops: [BusStop], location: CLLocation) -> [BusStop] {
+        // Sorting an empty list is easy
+        if !stops.any() {
+            return stops
         }
         
-        self._updatedLocation = false
-        callback(favorites)
+        var favorites = _filterDownToFavorites(stops)
+        if self.shouldShowNearestStop {
+            // Finding the nearest stop requires calculating distance from all stops
+            self._resetStopDistances(stops, location: location)
+            let nearestStop = stops.reduce(stops.first!) {
+                $0.distanceFromUser < $1.distanceFromUser ? $0 : $1
+            }
+            // Mark as nearest stop only if it's not already a favorite stop
+            if !favorites.any(predicate: { $0.id == nearestStop.id }) {
+                nearestStop.isNearestStop = true
+                favorites.append(nearestStop)
+            }
+        } else {
+            // If nearest stop is undesired, only favorite stops need to have their location calculated
+            self._resetStopDistances(favorites, location: location)
+        }
+        
+        favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
+        return favorites
     }
     
     static func setFavorites(favorites: [BusStop]) -> Void {

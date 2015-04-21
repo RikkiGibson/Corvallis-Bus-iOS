@@ -43,10 +43,17 @@ final class FavoritesTableViewController: UITableViewController {
     
     func updateFavorites(sender: AnyObject) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        CorvallisBusService.favorites() {
-            self.favorites = $0
-            dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
-            self.updateArrivals()
+        CorvallisBusService.favorites() { favorites in
+            switch favorites {
+            case .Success(let favoritesBox):
+                self.favorites = favoritesBox.value
+                dispatch_async(dispatch_get_main_queue(), self.tableView.reloadData)
+                self.updateArrivals()
+                break
+            case .Error(let error):
+                // handle the error
+                break
+            }
         }
     }
     
@@ -61,10 +68,19 @@ final class FavoritesTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     // Causes routes to get deserialized. This takes several seconds on old phones.
                     CorvallisBusService.routes() { routes in
-                        if routes.any() {
-                            dispatch_async(dispatch_get_main_queue()) {
-                                self.colorLabelsWithRoutes(routes)
+                        switch routes {
+                        case .Success(let routesBox):
+                            let routes = routesBox.value
+                            if routes.any() {
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.colorLabelsWithRoutes(routes)
+                                }
                             }
+                            break
+                            
+                        case .Error(let error):
+                            // handle the error
+                            break
                         }
                     }
                     
