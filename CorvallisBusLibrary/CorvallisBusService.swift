@@ -17,6 +17,15 @@ final class CorvallisBusService {
     private static var _callqueue = Array<Failable<[BusStop]> -> Void>()
     private static var _stops: [BusStop]?
     
+    /// Calls all the callbacks in the queue with the given error and empties the queue.
+    private static func _failWithError(error: NSError) {
+        let error = Failable<[BusStop]>.Error(error)
+        for callback in _callqueue {
+            callback(error)
+        }
+        _callqueue.removeAll()
+    }
+    
     /// Executes a callback using the list of stops from the Corvallis Bus server.
     /// Since stops need to have route info baked in, requests for stops and routes are sent in parallel.
     /// Thus, when this function calls back, it can be assumed that both stops and routes are cached.
@@ -61,11 +70,7 @@ final class CorvallisBusService {
             session.dataTaskWithRequest(stopsRequest) {
                     (data, response, error) -> Void in
                     if (error != nil) {
-                        let error = Failable<[BusStop]>.Error(error)
-                        for callback in self._callqueue {
-                            callback(error)
-                        }
-                        self._callqueue = Array<Failable<[BusStop]> -> Void>()
+                        self._failWithError(error)
                         return
                     }
                     
@@ -75,7 +80,7 @@ final class CorvallisBusService {
                         error: &jsonError)?.objectForKey("stops") as! [[String : AnyObject]])
                     
                     if (jsonError != nil) {
-                        println(jsonError!.description)
+                        self._failWithError(jsonError!)
                         return
                     }
                     finally()
@@ -88,11 +93,7 @@ final class CorvallisBusService {
             session.dataTaskWithRequest(routesRequest) {
                 (data, response, error) -> Void in
                 if (error != nil) {
-                    let error = Failable<[BusStop]>.Error(error)
-                    for callback in self._callqueue {
-                        callback(error)
-                    }
-                    self._callqueue = Array<Failable<[BusStop]> -> Void>()
+                    self._failWithError(error)
                     return
                 }
                 
@@ -102,7 +103,7 @@ final class CorvallisBusService {
                     error: &jsonError)?.objectForKey("routes") as! [[String : AnyObject]])
                 
                 if (jsonError != nil) {
-                    println(jsonError!.description)
+                    self._failWithError(jsonError!)
                     return
                 }
                 finally()
@@ -132,11 +133,11 @@ final class CorvallisBusService {
     }
     
     /// Executes a callback using the arrival information for the provided list of stop IDs.
-    static func arrivals(stops: [Int], callback: [Int : [BusArrival]] -> Void) -> Void {
+    static func arrivals(stops: [Int], callback: Failable<[Int : [BusArrival]]> -> Void) -> Void {
         // no point in getting arrival times for 0 bus stops
         // especially when doing so crashes the app
         if !stops.any() {
-            callback([Int : [BusArrival]]())
+            callback(.Success(Box([Int : [BusArrival]]())))
             return
         }
         
@@ -151,7 +152,7 @@ final class CorvallisBusService {
         session.dataTaskWithRequest(request, completionHandler: {
             data, response, error in
             if (error != nil) {
-                callback([Int : [BusArrival]]())
+                callback(.Error(error))
                 return
             }
             
@@ -159,10 +160,10 @@ final class CorvallisBusService {
             let arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as! [String: AnyObject]
             
             if (jsonError != nil) {
-                println(jsonError!.description)
+                callback(.Error(jsonError!))
                 return
             }
-            callback(toStopArrivals(arrivalJson))
+            callback(.Success(Box(toStopArrivals(arrivalJson))))
         }).resume()
     }
     

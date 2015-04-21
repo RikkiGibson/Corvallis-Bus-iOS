@@ -10,6 +10,5 @@
 #define CorvallisBus_CorvallisBusLibrary_BridgingHeader_h
 
 #include "MKPolyline+GMEncodedString.h"
-#include "UIAlertControllerWorkaround.m"
 
 #endif

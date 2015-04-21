@@ -19,10 +19,6 @@ enum Failable<T> {
     case Success(Box<T>)
     case Error(NSError)
     
-    func MakeSuccess(value: T) -> Failable<T> {
-        return .Success(Box(value))
-    }
-    
     func map<U>(transform: T -> Failable<U>) -> Failable<U> {
         switch self {
         case Success(let value):
@@ -38,6 +34,17 @@ enum Failable<T> {
             return .Success(Box(transform(box.value)))
         case Error(let error):
             return .Error(error)
+        }
+    }
+    
+    /// Converts the Failable<T> to an Optional<T> such that Success(T) converts to Some(T)
+    /// and Error converts to None.
+    func toOptional() -> T? {
+        switch self {
+        case .Success(let box):
+            return box.value
+        default:
+            return nil
         }
     }
 }

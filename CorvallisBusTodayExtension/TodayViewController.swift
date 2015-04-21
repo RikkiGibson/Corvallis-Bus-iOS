@@ -85,18 +85,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     func updateFavoriteStops(completionHandler: NCUpdateResult -> Void) {
         CorvallisBusService.favorites() { result in
-            switch result {
-            case .Success(let box):
-                let favorites = box.value
-                let todayItemCount = CorvallisBusService.todayViewItemCount
-                self.favoriteStops = favorites.count < todayItemCount ?
-                    favorites : Array(favorites[0..<todayItemCount])
-                break
-            case .Error(let error):
-                self.favoriteStops = nil
-                break
-            }
-            
+            self.favoriteStops = result.toOptional()?.limit(CorvallisBusService.todayViewItemCount)            
             self.updateArrivals(completionHandler)
         }
     }
@@ -104,8 +93,9 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     func updateArrivals(completionHandler: NCUpdateResult -> Void) {
         if self.favoriteStops != nil {
             let favIds = self.favoriteStops!.map() { $0.id }
-            CorvallisBusService.arrivals(favIds) {
-                self.arrivals = $0
+            CorvallisBusService.arrivals(favIds) { arrivals in
+                self.arrivals = arrivals.toOptional()
+                
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.preferredContentSize = self.tableView.contentSize

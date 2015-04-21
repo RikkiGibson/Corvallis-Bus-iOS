@@ -26,20 +26,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        let mapView = self.getViewPreparedForStop()
         CorvallisBusService.stops() { stops in
-            switch stops {
-            case .Success(let stopsBox):
-                dispatch_async(dispatch_get_main_queue()) {
-                    if let id = url.query?.toInt() {
-                        let mapView = self.getViewPreparedForStop()
-                        mapView.initialStop = stopsBox.value.first() { $0.id == id }
-                    }
-                }
-            case .Error(let error):
-                // display an error
-                break
+            if let stops = stops.toOptional(),
+                let id = url.query?.toInt() {
+                    mapView.initialStop = stops.first() { $0.id == id }
             }
-            
         }
         return true
     }

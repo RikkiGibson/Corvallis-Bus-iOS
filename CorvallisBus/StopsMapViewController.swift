@@ -141,7 +141,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
             }
             break
         case .Error(let error):
-            presentAlert(title: "Fuck", message: "Something broke :(")
+            self.presentError(error)
             break
         }
         
@@ -180,6 +180,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 }
                 break
             case .Error(let error):
+                self.presentError(error)
                 break
             }
             
@@ -334,7 +335,13 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         
         if let annotation = view.annotation as? BusStopAnnotation {
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
-                self.arrivals = arrivals[annotation.stop.id]
+                switch arrivals {
+                case .Success(let arrivalsBox):
+                    self.arrivals = arrivalsBox.value[annotation.stop.id]
+                case .Error(let error):
+                    self.arrivals = nil
+                    self.presentError(error)
+                }
                 self.routesForStopSortedByArrivals = self.arrivals == nil ?
                     nil : annotation.stop.routesSortedByArrivals(self.arrivals!)
                 dispatch_async(dispatch_get_main_queue(), self.updateTableView)
@@ -417,6 +424,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 }
                 break
             case .Error(let error):
+                self.presentError(error)
                 break
             }
         }
@@ -578,5 +586,25 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
         
+    }
+}
+
+extension UIViewController {
+    func presentAlert(#title: String, message: String) {
+        if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
+            self.presentViewController(alertController, animated: true) { }
+        } else {
+            let alertView = UIAlertView(title: title, message: message,
+                delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
+            alertView.show()
+        }
+    }
+    
+    func presentError(error: NSError) {
+        let userInfo = error.userInfo as! [String : AnyObject]
+        let description = userInfo[NSLocalizedDescriptionKey] as! String
+        presentAlert(title: "Error", message: description ?? "A problem occurred. Please try again later.")
     }
 }

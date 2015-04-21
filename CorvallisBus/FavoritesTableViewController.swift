@@ -51,7 +51,12 @@ final class FavoritesTableViewController: UITableViewController {
                 self.updateArrivals()
                 break
             case .Error(let error):
-                // handle the error
+                let userInfo = error.userInfo as! [String: AnyObject]
+                print(userInfo)
+                let description = userInfo[NSLocalizedDescriptionKey] as? String
+                self.presentAlert(title: "Network Error",
+                    message: description ?? "Check your network settings and try again.")
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 break
             }
         }
@@ -59,8 +64,8 @@ final class FavoritesTableViewController: UITableViewController {
     
     func updateArrivals() {
         if self.favorites != nil {
-            CorvallisBusService.arrivals(self.favorites!.map() { $0.id }) {
-                self.arrivals = $0
+            CorvallisBusService.arrivals(self.favorites!.map() { $0.id }) { arrivals in
+                self.arrivals = arrivals.toOptional()
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
@@ -68,19 +73,10 @@ final class FavoritesTableViewController: UITableViewController {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                     // Causes routes to get deserialized. This takes several seconds on old phones.
                     CorvallisBusService.routes() { routes in
-                        switch routes {
-                        case .Success(let routesBox):
-                            let routes = routesBox.value
-                            if routes.any() {
-                                dispatch_async(dispatch_get_main_queue()) {
-                                    self.colorLabelsWithRoutes(routes)
-                                }
+                        if let routes = routes.toOptional() where routes.any() {
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.colorLabelsWithRoutes(routes)
                             }
-                            break
-                            
-                        case .Error(let error):
-                            // handle the error
-                            break
                         }
                     }
                     
