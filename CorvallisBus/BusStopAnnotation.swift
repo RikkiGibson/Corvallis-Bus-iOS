@@ -18,6 +18,10 @@ final class BusStopAnnotation: NSObject, MKAnnotation {
     var subtitle: String { get { return stop.id.description } }
     var isFavorite = false
     
+    /// Causes the annotation view to be de-emphasized.
+    /// Set to false when no route is selected.
+    var isDeemphasized = false
+    
     init(stop: BusStop) {
         self.stop = stop
     }

@@ -61,11 +61,47 @@ final class BusRoute : Equatable {
         }
     }()
     
-    private init(name: String, color: UIColor, polyline: MKPolyline, path: [[String: AnyObject]]?, url: NSURL) {
+    private init(name: String, color: UIColor, polyline: MKPolyline,
+        path: [[String: AnyObject]]?, url: NSURL) {
             self.name = name
             self.color = color
             self.polyline = polyline
             self._path = path
             self.url = url
+            
+    }
+    
+    lazy var arrows: [ArrowAnnotation] = {
+        var arrows = [ArrowAnnotation]()
+        
+        var pointer = self.polyline.points()
+        
+        for var i = 0; i < self.polyline.pointCount - 1; i += 10 {
+            let firstPoint = pointer[i]
+            let secondPoint = pointer[i+1]
+            
+            let dy = secondPoint.y - firstPoint.y
+            let dx = secondPoint.x - firstPoint.x
+            
+            let angle = atan2(dy, dx) + M_PI / 4
+            arrows.append(ArrowAnnotation(mapPoint: firstPoint, angle: angle))
+        }
+        
+        return arrows
+    }()
+}
+
+final class ArrowAnnotation : NSObject, MKAnnotation {
+    var angle: CGFloat
+    var coordinate: CLLocationCoordinate2D
+    
+    override init() {
+        angle = 0.0
+        coordinate = CLLocationCoordinate2D()
+    }
+    
+    init(mapPoint: MKMapPoint, angle: Double) {
+        self.coordinate = MKCoordinateForMapPoint(mapPoint)
+        self.angle = CGFloat(angle)
     }
 }

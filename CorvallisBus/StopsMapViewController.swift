@@ -45,7 +45,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     var initialStop: BusStop?
     
     private var initializedMapLocation = false
-    private var busAnnotations: [BusStopAnnotation]?
+    private var busAnnotations = [Int : BusStopAnnotation]()
     private var selectedAnnotation: BusStopAnnotation?
     private var timer: NSTimer?
     
@@ -55,21 +55,55 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
             return _selectedRoute
         }
         set(newRoute) {
-            if newRoute == nil {
+            if newRoute == _selectedRoute { return }
+            
+            if _selectedRoute != nil {
+                for annotation in self.getNonRouteStopAnnotations(self._selectedRoute!) {
+                    annotation.isDeemphasized = false
+                    if let view = self.mapView.viewForAnnotation(annotation) {
+                        updateStyleForBusAnnotationView(view, annotation: annotation)
+                    }
+                }
+                
                 self.mapView.removeOverlays(self.mapView.overlays)
-            } else if newRoute != _selectedRoute {
-                self.mapView.removeOverlays(self.mapView.overlays)
+                self.mapView.removeAnnotations(_selectedRoute?.arrows)
+            }
+            
+            if newRoute != nil {
+                for annotation in self.getNonRouteStopAnnotations(newRoute!) {
+                    annotation.isDeemphasized = true
+                    if let view = self.mapView.viewForAnnotation(annotation) {
+                        updateStyleForBusAnnotationView(view, annotation: annotation)
+                    }
+                }
+                
                 self.mapView.addOverlay(newRoute!.polyline)
+                self.mapView.addAnnotations(newRoute!.arrows)
             }
             _selectedRoute = newRoute
         }
     }
     
+    private var routeNonStopAnnotations = [String : [BusStopAnnotation]]()
+    
+    private func getNonRouteStopAnnotations(route: BusRoute) -> [BusStopAnnotation] {
+            if routeNonStopAnnotations[route.name] == nil {
+                let routeAnnotationSet = Set(route.path.mapUnwrap( { self.busAnnotations[$0] }))
+                
+                routeNonStopAnnotations[route.name] = Array(self.busAnnotations.values.filter() {
+                    !routeAnnotationSet.contains($0)
+                })
+            }
+            return routeNonStopAnnotations[route.name]!
+    }
+    
     private let defaultSpan = MKCoordinateSpanMake(0.01, 0.01)
     private let greenOvalImage = UIImage(named: "greenoval")
     private let greenOvalHighlightedImage = UIImage(named: "greenoval-highlighted")
+    private let greenOvalDeemphasizedImage = UIImage(named: "greenoval-deemphasized")
     private let goldOvalImage = UIImage(named: "goldoval")
     private let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
+    private let goldOvalDeemphasizedImage = UIImage(named: "goldoval-deemphasized")
     
     private let favorite = UIImage(named: "favorite")
     
@@ -116,7 +150,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
             authorization != .AuthorizedWhenInUse &&
             authorization != .AuthorizedAlways
         
-        if self.busAnnotations == nil {
+        if self.busAnnotations.count == 0 {
             CorvallisBusService.stops(initializeStops)
         } else {
             self.updateFavoritedStateForAllAnnotationsWithCallback() {
@@ -134,9 +168,11 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         
         switch stops {
         case .Success(let stopsBox):
-            self.busAnnotations = stopsBox.value.map() { BusStopAnnotation(stop: $0) }
+            self.busAnnotations = stopsBox.value.toDictionary({ ($0.id, BusStopAnnotation(stop: $0)) })
             dispatch_async(dispatch_get_main_queue()) {
-                self.mapView.addAnnotations(self.busAnnotations)
+                for (id, annotation) in self.busAnnotations {
+                    self.mapView.addAnnotation(annotation)
+                }
                 self.updateFavoritedStateForAllAnnotationsWithCallback(self.displayInitialStop)
             }
             break
@@ -151,8 +187,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         // initialStop is injected by another view in order to display a particular stop on the map
         if self.initialStop != nil {
             
-            if let annotation = self.busAnnotations?.first(predicate: { $0.stop.id == self.initialStop!.id }) {
-                self.mapView.setRegion(MKCoordinateRegion(center: self.initialStop!.location.coordinate,
+            if let annotation = self.busAnnotations.tryGet(self.initialStop?.id) {
+                self.mapView.setRegion(MKCoordinateRegion(center: annotation.stop.location.coordinate,
                     span: self.defaultSpan), animated: true)
                 
                 // prevents wonky appearance if this annotation was already selected, but the map was in a different position
@@ -230,8 +266,15 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 MKAnnotationView(annotation: annotation, reuseIdentifier: identifier) ?? MKAnnotationView()
             
             annotationView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
-            self.updateStyleForBusAnnotationView(annotationView, isFavorite: annotation.isFavorite)
+            self.updateStyleForBusAnnotationView(annotationView, annotation: annotation)
             
+            return annotationView
+        } else if let annotation = annotation as? ArrowAnnotation {
+            let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier("foo") ??
+                MKAnnotationView(annotation: annotation, reuseIdentifier: "foo") ?? MKAnnotationView()
+            annotationView.image = UIImage(named: "ListCurrentLoc")
+            let transform = CGAffineTransformMakeRotation(annotation.angle)
+            annotationView.transform = transform
             return annotationView
         }
         
@@ -312,7 +355,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 view.transform = CGAffineTransformMakeScale(1.3, 1.3)
             })
             
-            self.updateStyleForBusAnnotationView(view, isFavorite: self.selectedAnnotation!.isFavorite, isSelected: true)
+            self.updateStyleForBusAnnotationView(view,
+                annotation: self.selectedAnnotation!, isSelected: true)
             self.setFavoriteButtonState(favorited: self.selectedAnnotation!.isFavorite)
             self.tableViewHeader.text = self.selectedAnnotation!.stop.name
             self.presentTableView()
@@ -331,8 +375,6 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     func updateArrivalTime(view: MKAnnotationView) {
-        view.layer.zPosition = 2
-        
         if let annotation = view.annotation as? BusStopAnnotation {
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
                 switch arrivals {
@@ -381,16 +423,15 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         self.arrivals = nil
         self.routesForStopSortedByArrivals = nil
         
-        if self.selectedAnnotation != nil {
+        if let annotation = self.selectedAnnotation {
+            self.selectedAnnotation = nil
             UIView.animateWithDuration(0.1, animations: {
                 view.transform = CGAffineTransformIdentity
             })
             
-            let isFavorite = self.selectedAnnotation!.isFavorite
-            self.selectedAnnotation = nil
-            self.updateStyleForBusAnnotationView(view, isFavorite: isFavorite, isSelected: false)
-            view.layer.zPosition = isFavorite ? 2 : 1
+            self.updateStyleForBusAnnotationView(view, annotation: annotation, isSelected: false)
         } else {
+            println("no annotation was selected during deselection event")
             view.layer.zPosition = 1
         }
         
@@ -410,7 +451,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 var favorites = favoritesBox.value.filter() { !$0.isNearestStop }
                 var addedFavorite = false
                 // if this stop is in favorites, remove it
-                if favorites.any(predicate: { $0.id == selectedAnnotation.stop.id }) {
+                if contains(favorites, selectedAnnotation.stop) {
                     favorites = favorites.filter() { $0.id != selectedAnnotation.stop.id }
                 } else {
                     // if this stop isn't in favorites, add it
@@ -434,31 +475,34 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         Updates the state of an annotation to indicate whether it's a favorite.
     */
     func updateFavoritedStateForAnnotation(annotation: BusStopAnnotation, favorites: [BusStop]) {
-        annotation.isFavorite = favorites.any() { $0.id == annotation.stop.id }
+        annotation.isFavorite = contains(favorites, annotation.stop)
         if let view = self.mapView.viewForAnnotation(annotation) {
-            self.updateStyleForBusAnnotationView(view, isFavorite: annotation.isFavorite)
+            self.updateStyleForBusAnnotationView(view, annotation: annotation)
         }
     }
     
-    func updateStyleForBusAnnotationView(view: MKAnnotationView, isFavorite: Bool) {
-        var isSelected = false
-        if let annotationToUpdate = view.annotation as? BusStopAnnotation
-            where self.selectedAnnotation != nil {
-            isSelected = self.selectedAnnotation!.stop.id == annotationToUpdate.stop.id
-        }
-        updateStyleForBusAnnotationView(view, isFavorite: isFavorite, isSelected: isSelected)
+    func updateStyleForBusAnnotationView(view: MKAnnotationView, annotation: BusStopAnnotation) {
+        let isSelected = self.selectedAnnotation?.stop.id == annotation.stop.id
+        updateStyleForBusAnnotationView(view, annotation: annotation, isSelected: isSelected)
     }
     
     /**
         Updates the appearance of an annotation view to indicate whether it's a favorite.
     */
-    func updateStyleForBusAnnotationView(view: MKAnnotationView, isFavorite: Bool, isSelected: Bool) {
-        view.layer.zPosition = isFavorite || isSelected ? 2 : 1
-        if isFavorite {
-            view.image = isSelected ? self.goldOvalHighlightedImage : self.goldOvalImage
-        } else {
-            view.image = isSelected ? self.greenOvalHighlightedImage : self.greenOvalImage
-        }
+    func updateStyleForBusAnnotationView(view: MKAnnotationView, annotation: BusStopAnnotation,
+        isSelected: Bool) {
+            let isFavorite = annotation.isFavorite
+            let isDeemphasized = annotation.isDeemphasized
+            if isSelected {
+                view.layer.zPosition = 5
+                view.image = isFavorite ? self.goldOvalHighlightedImage : self.greenOvalHighlightedImage
+            } else if isDeemphasized {
+                view.layer.zPosition = isFavorite ? 2 : 1
+                view.image = isFavorite ? self.goldOvalDeemphasizedImage : self.greenOvalDeemphasizedImage
+            } else {
+                view.layer.zPosition = isFavorite ? 4 : 3
+                view.image = isFavorite ? self.goldOvalImage : self.greenOvalImage
+            }
     }
     
     // MARK - Table view data source
