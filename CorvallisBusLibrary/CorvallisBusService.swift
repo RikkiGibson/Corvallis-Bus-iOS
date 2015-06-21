@@ -11,7 +11,7 @@ import UIKit
 import CoreLocation
 
 final class CorvallisBusService {
-    private static let rootUrl = "http://www.corvallis-bus.appspot.com"
+    private static let rootUrl = "http://www.corvallis-bus-dev.appspot.com"
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
     
     private static var _callqueue = Array<Failable<[BusStop]> -> Void>()
@@ -51,7 +51,7 @@ final class CorvallisBusService {
                     var routesCache: [BusRoute]?
                     self._routes = {
                         if routesCache == nil {
-                            routesCache = routesJson!.mapUnwrap() { toBusRoute($0) }
+                            routesCache = routesJson!.mapUnwrap(toBusRoute)
                         }
                         return routesCache!
                     }

@@ -12,7 +12,7 @@ import MapKit
 let DEFAULT_ROUTE_COLOR = UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
 func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     if let name = data["Name"] as? String {
-        let path = data["Path"] as? [[String: AnyObject]]
+        let path = data["Path"] as? [AnyObject]
         let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
         let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
         
@@ -51,9 +51,9 @@ final class BusRoute : Equatable {
     let color: UIColor
     let polyline: MKPolyline
     let url: NSURL
-    private var _path: [[String: AnyObject]]?
+    private var _path: [AnyObject]?
     lazy var path: [Int] = {
-        if let stopIDs = self._path?.mapUnwrap({ $0["ID"] as? Int }) {
+        if let stopIDs = self._path?.mapUnwrap({ $0 as? Int }) {
             self._path = nil // causes deallocation
             return stopIDs
         } else {
@@ -62,7 +62,7 @@ final class BusRoute : Equatable {
     }()
     
     private init(name: String, color: UIColor, polyline: MKPolyline,
-        path: [[String: AnyObject]]?, url: NSURL) {
+        path: [AnyObject]?, url: NSURL) {
             self.name = name
             self.color = color
             self.polyline = polyline
