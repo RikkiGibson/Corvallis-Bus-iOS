@@ -73,7 +73,6 @@ final class CorvallisBusService {
                         self._failWithError(error)
                         return
                     }
-                    
                     var jsonError: NSError?
                     stopsJson = (NSJSONSerialization.JSONObjectWithData(data,
                         options: .AllowFragments,
@@ -199,6 +198,7 @@ final class CorvallisBusService {
         Invokes a private function that only executes the user's callback once both operations have completed.
     */
     static func favorites(callback: Failable<[BusStop]> -> Void) -> Void {
+        
         self.locationManagerDelegate.userLocation() { maybeLocation in
             self.stops() { maybeStops in
                 switch maybeStops {

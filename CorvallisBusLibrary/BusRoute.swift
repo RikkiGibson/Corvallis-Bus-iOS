@@ -52,12 +52,12 @@ final class BusRoute : Equatable {
     let polyline: MKPolyline
     let url: NSURL
     private var _path: [AnyObject]?
-    lazy var path: [Int] = {
+    lazy var path: Set<Int> = {
         if let stopIDs = self._path?.mapUnwrap({ $0 as? Int }) {
             self._path = nil // causes deallocation
-            return stopIDs
+            return Set(stopIDs)
         } else {
-            return [Int]()
+            return Set()
         }
     }()
     
@@ -83,6 +83,8 @@ final class BusRoute : Equatable {
             let dy = secondPoint.y - firstPoint.y
             let dx = secondPoint.x - firstPoint.x
             
+            // M_PI / 4 is added because the arrow graphic is facing
+            // at that angle to the positive X axis to begin with
             let angle = atan2(dy, dx) + M_PI / 4
             arrows.append(ArrowAnnotation(mapPoint: firstPoint, angle: angle))
         }

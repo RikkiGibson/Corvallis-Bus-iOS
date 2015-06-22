@@ -28,7 +28,7 @@ final class BusStop : Equatable {
     private var _routes: () -> [BusRoute]
     
     /// Returns the routes applicable to this stop. Computed on demand.
-    lazy var routes: [BusRoute] = self._routes().filter() { $0.path.any() { $0 == self.id } }
+    lazy var routes: [BusRoute] = self._routes().filter() { $0.path.contains(self.id) }
     
     var distanceFromUser: CLLocationDistance?
     var isNearestStop = false

@@ -8,6 +8,16 @@
 
 import Foundation
 
+func memoize<T, Key : Hashable, Value>(f: T -> Value, getHash: T -> Key) -> (T -> Value) {
+    var memo = [Key : Value]()
+    return {
+        if memo[getHash($0)] == nil {
+            memo[getHash($0)] = f($0)
+        }
+        return memo[getHash($0)]!
+    }
+}
+
 /// Maps a function using the corresponding elements of two sequences.
 func mapPairs<S: SequenceType, T: SequenceType, U>(seq1: S, seq2: T,
     transform: (S.Generator.Element, T.Generator.Element) -> U) -> [U] {
@@ -34,6 +44,18 @@ func mapAdjacentElements<S: SequenceType, U>(seq: S,
             prev = current
         }
         return result
+}
+
+extension Set {
+    func mapUnwrap<U>(transform: T -> U?) -> Set<U> {
+        var result = Set<U>()
+        for t in self {
+            if let u = transform(t) {
+                result.insert(u)
+            }
+        }
+        return result
+    }
 }
 
 extension Array {

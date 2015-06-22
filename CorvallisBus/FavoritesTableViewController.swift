@@ -122,8 +122,8 @@ final class FavoritesTableViewController: UITableViewController {
                 let firstColor = self.colors?.tryGet(routeNames.tryGet(0))
                 let secondColor = self.colors?.tryGet(routeNames.tryGet(1))
                 
-                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor, fallbackToGrayColor: true)
-                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor)
+                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor ?? GRAY_ROUTE_COLOR)
+                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor ?? CLEAR_COLOR)
             }
             // Only the nearest stop should display the location icon
             cell.locationImage.hidden = !currentStop.isNearestStop

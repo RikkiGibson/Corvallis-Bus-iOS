@@ -40,27 +40,19 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func updateFirstRoute(named name: String?, arrivals: [BusArrival], color: UIColor?, fallbackToGrayColor: Bool) {
-        var color = color
-        if name == nil {
-            color = fallbackToGrayColor ? GRAY_ROUTE_COLOR : CLEAR_COLOR
-        } else { // if there is a route name but no color was provided, use the default instead of gray
-            color = color ?? DEFAULT_ROUTE_COLOR
-        }
+    func updateFirstRoute(named name: String?, arrivals: [BusArrival], color: UIColor) {
         
         UIView.animateWithDuration(0.2) {
-            self.labelFirstRoute.layer.backgroundColor = color?.CGColor
-            return
+            self.labelFirstRoute.layer.backgroundColor = color.CGColor
         }
         self.labelFirstRoute.text = name
         self.labelFirstArrival.text = friendlyMapArrivals(arrivals)
     }
     
-    func updateSecondRoute(named name: String?, arrivals: [BusArrival], color: UIColor?) {
+    func updateSecondRoute(named name: String?, arrivals: [BusArrival], color: UIColor) {
         
         UIView.animateWithDuration(0.2) {
-            self.labelSecondRoute.layer.backgroundColor = name == nil ? CLEAR_COLOR.CGColor :
-                color?.CGColor ?? DEFAULT_ROUTE_COLOR.CGColor
+            self.labelSecondRoute.layer.backgroundColor = color.CGColor
         }
         self.labelSecondRoute.text = name
         self.labelSecondArrival.text = name == nil ? "" : friendlyMapArrivals(arrivals)

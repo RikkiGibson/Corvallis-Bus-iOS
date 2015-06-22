@@ -88,7 +88,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     private func getNonRouteStopAnnotations(route: BusRoute) -> [BusStopAnnotation] {
             if routeNonStopAnnotations[route.name] == nil {
-                let routeAnnotationSet = Set(route.path.mapUnwrap( { self.busAnnotations[$0] }))
+                let routeAnnotationSet = route.path.mapUnwrap( { self.busAnnotations[$0] })
                 
                 routeNonStopAnnotations[route.name] = Array(self.busAnnotations.values.filter() {
                     !routeAnnotationSet.contains($0)
@@ -117,8 +117,12 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         self.searchBar.layer.cornerRadius = 6
         self.searchBar.clipsToBounds = true
         
-        self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
-            span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
+        // set the map to a default location when location service is disabled
+        if !CLLocationManager.locationServicesEnabled() {
+            self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
+                span: MKCoordinateSpanMake(0.04, 0.04)), animated: false)
+            self.mapView.hidden = false
+        }
         
         let cellNib = UINib(nibName: "BusRouteDetailCell", bundle: NSBundle.mainBundle())
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "BusRouteDetailCell")
@@ -230,13 +234,16 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         if let view = self.mapView.viewForAnnotation(userLocation) {
             view.canShowCallout = false
         }
-        if !self.initializedMapLocation {
+        if self.mapView.hidden {
             // If the user is more than roughly 20 miles from Corvallis, don't go to their location
             if userLocation.location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
                 self.mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate,
-                    span: self.defaultSpan), animated: true)
+                    span: self.defaultSpan), animated: false)
+            } else {
+                self.mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate,
+                    span: self.defaultSpan), animated:false)
             }
-            self.initializedMapLocation = true
+            self.mapView.hidden = false
         }
     }
     
@@ -292,7 +299,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func presentTableView() {
         if self.tableViewHeight.constant != self.TABLE_VIEW_HEIGHT {
             self.tableViewHeight.constant = self.TABLE_VIEW_HEIGHT
-            
+
             // Declaring this reference prevents the constraint from being
             // deallocated by ARC when it's removed from the view.
             let leftMargin = self.searchBarLeftMargin

@@ -19,6 +19,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
         
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 66, bottom: 0, right: 8)
+        
     }
     
     // MARK: Table view
@@ -31,7 +32,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell
         
         if let currentStop = self.favoriteStops?[indexPath.row] {
             cell.labelStopName.text = currentStop.name
@@ -48,8 +49,8 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
                 let firstColor = self.colors?.tryGet(routeNames.tryGet(0))
                 let secondColor = self.colors?.tryGet(routeNames.tryGet(1))
                 
-                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor, fallbackToGrayColor: false)
-                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor)
+                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor ?? CLEAR_COLOR)
+                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor ?? CLEAR_COLOR)
             }
             
             cell.locationImage.hidden = !currentStop.isNearestStop
@@ -80,17 +81,20 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        updateFavoriteStops(completionHandler)
+        completionHandler(.NewData)
+        
+        
+        updateFavoriteStops()
     }
     
-    func updateFavoriteStops(completionHandler: NCUpdateResult -> Void) {
+    func updateFavoriteStops() {
         CorvallisBusService.favorites() { result in
             self.favoriteStops = result.toOptional()?.limit(CorvallisBusService.todayViewItemCount)            
-            self.updateArrivals(completionHandler)
+            self.updateArrivals()
         }
     }
     
-    func updateArrivals(completionHandler: NCUpdateResult -> Void) {
+    func updateArrivals() {
         if self.favoriteStops != nil {
             let favIds = self.favoriteStops!.map() { $0.id }
             CorvallisBusService.arrivals(favIds) { arrivals in
@@ -99,7 +103,6 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
                 dispatch_async(dispatch_get_main_queue()) {
                     self.tableView.reloadData()
                     self.preferredContentSize = self.tableView.contentSize
-                    completionHandler(.NewData)
                 }
                 CorvallisBusService.routes(self.updateColors)
             }
@@ -113,6 +116,6 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         case .Error:
             break
         }
-        dispatch_async(dispatch_get_main_queue()) { self.tableView.reloadData() }
+        dispatch_async(dispatch_get_main_queue(), self.tableView.reloadData)
     }
 }
