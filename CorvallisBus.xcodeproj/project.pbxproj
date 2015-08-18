@@ -145,7 +145,6 @@
 		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5C6F8C481A327936006227BE /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRouteLabel.swift; path = CorvallisBusLibrary/BusRouteLabel.swift; sourceTree = SOURCE_ROOT; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
-		5C7612781A09C75E001F9DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C7616961A0AC223008E4A57 /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
 		5C7616971A0AC223008E4A57 /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		5C7616981A0AC223008E4A57 /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
@@ -156,8 +155,6 @@
 		5C76169D1A0AC223008E4A57 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsMapViewController.swift; sourceTree = "<group>"; };
 		5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusLibraryTests.swift; sourceTree = "<group>"; };
-		5C96081A1A0B2A9900DA9F5B /* Polyline.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Polyline.framework; path = "../../Library/Developer/Xcode/DerivedData/CorvallisBus-bfjswdxkiuwgahdtklberawovcri/Build/Products/Debug-iphoneos/Polyline.framework"; sourceTree = "<group>"; };
 		5C9608201A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKPolyline+GMEncodedString.h"; sourceTree = "<group>"; };
 		5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKPolyline+GMEncodedString.m"; sourceTree = "<group>"; };
 		5C9608271A0B2F9D00DA9F5B /* CorvallisBusLibrary-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorvallisBusLibrary-BridgingHeader.h"; sourceTree = "<group>"; };
@@ -240,7 +237,6 @@
 				5C4937E619CFCB82009A2FB2 /* CorvallisBusTests */,
 				5CF192AC19EF513100CB21EC /* CorvallisBusTodayExtension */,
 				5C7612691A09C75E001F9DBE /* CorvallisBusLibrary */,
-				5C7612761A09C75E001F9DBE /* CorvallisBusLibraryTests */,
 				5CF192A919EF513100CB21EC /* Frameworks */,
 				5C4937CD19CFCB82009A2FB2 /* Products */,
 				0474E4AE15962CBAD830843E /* Pods */,
@@ -330,27 +326,9 @@
 			path = CorvallisBusLibrary;
 			sourceTree = "<group>";
 		};
-		5C7612761A09C75E001F9DBE /* CorvallisBusLibraryTests */ = {
-			isa = PBXGroup;
-			children = (
-				5C7612771A09C75E001F9DBE /* Supporting Files */,
-				5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */,
-			);
-			path = CorvallisBusLibraryTests;
-			sourceTree = "<group>";
-		};
-		5C7612771A09C75E001F9DBE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				5C7612781A09C75E001F9DBE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		5CF192A919EF513100CB21EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5C96081A1A0B2A9900DA9F5B /* Polyline.framework */,
 				5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */,
 				5C07B48B1A0704CC00F5928E /* StoreKit.framework */,
 				5C07B4891A0704C600F5928E /* Security.framework */,

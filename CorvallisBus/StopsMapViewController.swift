@@ -396,6 +396,9 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 dispatch_async(dispatch_get_main_queue(), self.updateTableView)
             }
         }
+        
+        // Clearing the old data after a brief interval prevents
+        // miscommunication to the user and make things look snappier.
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
             selector: "clearTableView", userInfo: nil, repeats: false)
     }
