@@ -266,7 +266,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        
+
         if let annotation = annotation as? BusStopAnnotation {
             let identifier = "MKAnnotationView"
             let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) ??
@@ -289,7 +289,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
-        if let pin = views.first(predicate: { $0 is MKPinAnnotationView }) as? MKPinAnnotationView {
+        if let pin = views.first({ $0 is MKPinAnnotationView }) as? MKPinAnnotationView {
             pin.pinColor = .Purple
             pin.canShowCallout = false
             pin.animatesDrop = true
@@ -618,7 +618,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 return
             }
             let typedItems = response.mapItems.mapUnwrap({ $0 as? MKMapItem })
-            if let mapItem = typedItems.first(predicate: { contains(self.zipCodes, $0.placemark.postalCode) }) {
+            if let mapItem = typedItems.first({ contains(self.zipCodes, $0.placemark.postalCode) }) {
                 self.searchBar.text = mapItem.name
                 self.mapView.addAnnotation(mapItem.placemark)
                 self.mapView.setRegion(MKCoordinateRegion(center: mapItem.placemark.location.coordinate,

@@ -76,7 +76,7 @@ extension Array {
         Returns the first element in self that satisfies the given predicate,
         or the first element in the sequence if no predicate is provided.
     */
-    func first(predicate: T -> Bool = { t in true }) -> T? {
+    func first(_ predicate: T -> Bool = { t in true }) -> T? {
         for element in self {
             if predicate(element) {
                 return element

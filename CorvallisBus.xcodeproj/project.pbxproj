@@ -53,7 +53,6 @@
 		5C7616B41A0AC26C008E4A57 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C76169D1A0AC223008E4A57 /* Utils.swift */; };
 		5C79C1B51A035662002F7E58 /* StopsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79C1B41A035662002F7E58 /* StopsMapViewController.swift */; };
 		5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92400D1A0EBA3D00AC79D6 /* PreferencesViewController.swift */; };
-		5C92AC411A17254500A1C208 /* CorvallisBusLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92AC401A17254500A1C208 /* CorvallisBusLibraryTests.swift */; };
 		5C9608221A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608231A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */; };
 		5C9608261A0B2F2200DA9F5B /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616971A0AC223008E4A57 /* BusRoute.swift */; };
@@ -146,7 +145,6 @@
 		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5C6F8C481A327936006227BE /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRouteLabel.swift; path = CorvallisBusLibrary/BusRouteLabel.swift; sourceTree = SOURCE_ROOT; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
-		5C7612721A09C75E001F9DBE /* CorvallisBusLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7612781A09C75E001F9DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C7616961A0AC223008E4A57 /* BusArrival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
 		5C7616971A0AC223008E4A57 /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
@@ -196,13 +194,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5C4937E019CFCB82009A2FB2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5C76126F1A09C75E001F9DBE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -262,7 +253,6 @@
 				5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */,
 				5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */,
 				5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */,
-				5C7612721A09C75E001F9DBE /* CorvallisBusLibraryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -441,23 +431,6 @@
 			productReference = 5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5C7612711A09C75E001F9DBE /* CorvallisBusLibraryTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5C76127C1A09C75E001F9DBE /* Build configuration list for PBXNativeTarget "CorvallisBusLibraryTests" */;
-			buildPhases = (
-				5C76126E1A09C75E001F9DBE /* Sources */,
-				5C76126F1A09C75E001F9DBE /* Frameworks */,
-				5C7612701A09C75E001F9DBE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CorvallisBusLibraryTests;
-			productName = CorvallisBusLibraryTests;
-			productReference = 5C7612721A09C75E001F9DBE /* CorvallisBusLibraryTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5CF192B819EF513100CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusTodayExtension" */;
@@ -498,9 +471,6 @@
 						DevelopmentTeam = 6M3YNUD5R9;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
-					5C7612711A09C75E001F9DBE = {
-						CreatedOnToolsVersion = 6.1;
-					};
 					5CF192A719EF513100CB21EC = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
@@ -528,7 +498,6 @@
 				5C4937CB19CFCB82009A2FB2 /* CorvallisBus */,
 				5C4937E219CFCB82009A2FB2 /* CorvallisBusTests */,
 				5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */,
-				5C7612711A09C75E001F9DBE /* CorvallisBusLibraryTests */,
 			);
 		};
 /* End PBXProject section */
@@ -546,13 +515,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5C4937E119CFCB82009A2FB2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5C7612701A09C75E001F9DBE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -640,14 +602,6 @@
 				5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */,
 				5C1154A91AE5F98E0041B9BE /* UIAlertControllerWorkaround.m in Sources */,
 				5C7616B41A0AC26C008E4A57 /* Utils.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5C76126E1A09C75E001F9DBE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5C92AC411A17254500A1C208 /* CorvallisBusLibraryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,6 +729,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -799,7 +755,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -866,41 +822,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
-			};
-			name = Release;
-		};
-		5C76127D1A09C75E001F9DBE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CorvallisBusLibraryTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		5C76127E1A09C75E001F9DBE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = CorvallisBusLibraryTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -971,15 +892,6 @@
 			buildConfigurations = (
 				5C4937F119CFCB82009A2FB2 /* Debug */,
 				5C4937F219CFCB82009A2FB2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5C76127C1A09C75E001F9DBE /* Build configuration list for PBXNativeTarget "CorvallisBusLibraryTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5C76127D1A09C75E001F9DBE /* Debug */,
-				5C76127E1A09C75E001F9DBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

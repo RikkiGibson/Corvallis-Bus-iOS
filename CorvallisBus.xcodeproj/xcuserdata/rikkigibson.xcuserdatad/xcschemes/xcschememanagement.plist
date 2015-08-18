@@ -9,11 +9,6 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>CorvallisBusLibrary.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
-		</dict>
 		<key>CorvallisBusTodayExtension.xcscheme</key>
 		<dict>
 			<key>orderHint</key>

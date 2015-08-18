@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Swift 1.2 doesn't support enums with multiple payload sizes.
+// Just have to wait till Swift 2 to eliminate this.
 final class Box<T> {
     let value: T
     init(_ value: T) {
