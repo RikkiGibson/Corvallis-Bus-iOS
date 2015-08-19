@@ -52,7 +52,7 @@ final class ServiceAlertsViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell")!
         let item = self.items[indexPath.row]
         cell.textLabel?.text = item.title
         cell.detailTextLabel?.text = item.date == nil ? "" : self.dateFormatter.stringFromDate(item.date)
@@ -63,7 +63,7 @@ final class ServiceAlertsViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let destination = segue.destinationViewController as? BusWebViewController ??
             segue.destinationViewController.childViewControllers.first as? BusWebViewController,
-            let indexPath = self.tableView.indexPathForSelectedRow() {
+            let indexPath = self.tableView.indexPathForSelectedRow {
             destination.initialURL = NSURL(string: self.items[indexPath.row].link)
             destination.alwaysShowNavigationBar = true
         }

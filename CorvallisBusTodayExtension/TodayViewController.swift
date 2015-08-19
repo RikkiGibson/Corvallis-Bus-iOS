@@ -76,7 +76,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
             right: defaultMarginInsets.right)
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
@@ -111,8 +111,8 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     func updateColors(routes: Failable<[BusRoute]>) {
         switch routes {
-        case .Success(let box):
-            self.colors = box.value.toDictionary({ ($0.name, $0.color) })
+        case .Success(let value):
+            self.colors = value.toDictionary({ ($0.name, $0.color) })
         case .Error:
             break
         }

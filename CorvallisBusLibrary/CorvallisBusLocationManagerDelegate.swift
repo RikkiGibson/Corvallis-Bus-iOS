@@ -17,8 +17,7 @@ final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDel
         super.init()
         self._locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
-        // iOS 8 only
-        if self._locationManager.respondsToSelector("requestWhenInUseAuthorization") {
+        if #available(iOS 8.0, *) {
             self._locationManager.requestWhenInUseAuthorization()
         }
         
@@ -30,15 +29,14 @@ final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDel
         _locationManager.startUpdatingLocation()
     }
     
-    internal func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    internal func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         _locationManager.stopUpdatingLocation()
         
-        let location = locations.last as! CLLocation
-        _callback(.Success(Box(location)))
+        _callback(.Success(locations.last!))
         
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         _callback(.Error(error))
     }
 }

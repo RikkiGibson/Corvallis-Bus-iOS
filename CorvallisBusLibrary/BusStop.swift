@@ -42,7 +42,7 @@ final class BusStop : Equatable {
     
     /// Returns the routes applicable to this stop, sorted with the routes arriving soonest at the top.
     func routesSortedByArrivals(arrivals: [BusArrival]) -> [BusRoute] {
-        return self.routes.sorted() { firstRoute, secondRoute in
+        return self.routes.sort { firstRoute, secondRoute in
             let firstArrival = arrivals.first() { $0.route == firstRoute.name }
             let secondArrival = arrivals.first() { $0.route == secondRoute.name }
             if firstArrival == nil {

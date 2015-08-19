@@ -12,10 +12,10 @@ import MapKit
 final class BusStopAnnotation: NSObject, MKAnnotation {
     let stop: BusStop
     
-    var title: String { get { return stop.name } }
+    var title: String? { get { return stop.name } }
     var coordinate: CLLocationCoordinate2D { get { return stop.location.coordinate } }
     
-    var subtitle: String { get { return stop.id.description } }
+    var subtitle: String? { get { return stop.id.description } }
     var isFavorite = false
     
     /// Causes the annotation view to be de-emphasized.

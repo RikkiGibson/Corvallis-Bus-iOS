@@ -45,14 +45,13 @@ final class FavoritesTableViewController: UITableViewController {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         CorvallisBusService.favorites() { favorites in
             switch favorites {
-            case .Success(let favoritesBox):
-                self.favorites = favoritesBox.value
+            case .Success(let favorites):
+                self.favorites = favorites
                 dispatch_async(dispatch_get_main_queue(), self.tableView.reloadData)
                 self.updateArrivals()
                 break
             case .Error(let error):
                 let userInfo = error.userInfo as! [String: AnyObject]
-                print(userInfo)
                 let description = userInfo[NSLocalizedDescriptionKey] as? String
                 self.presentAlert(title: "Network Error",
                     message: description ?? "Check your network settings and try again.")

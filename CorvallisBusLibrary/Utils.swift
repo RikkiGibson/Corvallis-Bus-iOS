@@ -47,7 +47,7 @@ func mapAdjacentElements<S: SequenceType, U>(seq: S,
 }
 
 extension Set {
-    func mapUnwrap<U>(transform: T -> U?) -> Set<U> {
+    func mapUnwrap<U>(transform: Element -> U?) -> Set<U> {
         var result = Set<U>()
         for t in self {
             if let u = transform(t) {
@@ -63,7 +63,7 @@ extension Array {
         Indicates whether there are any elements in self that satisfy the predicate.
         If no predicate is supplied, indicates whether there are any elements in self.
     */
-    func any(predicate: T -> Bool = { t in true }) -> Bool {
+    func any(predicate: Element -> Bool = { t in true }) -> Bool {
         for element in self {
             if predicate(element) {
                 return true
@@ -76,7 +76,7 @@ extension Array {
         Returns the first element in self that satisfies the given predicate,
         or the first element in the sequence if no predicate is provided.
     */
-    func first(_ predicate: T -> Bool = { t in true }) -> T? {
+    func first(predicate: Element -> Bool = { t in true }) -> Element? {
         for element in self {
             if predicate(element) {
                 return element
@@ -89,7 +89,7 @@ extension Array {
         Takes a transform that returns an optional type and
         returns an array containing only the non-nil elements.
     */
-    func mapUnwrap<U>(transform: T -> U?) -> [U] {
+    func mapUnwrap<U>(transform: Element -> U?) -> [U] {
         var result = [U]()
         
         for t in self {
@@ -100,25 +100,25 @@ extension Array {
         return result
     }
     
-    func limit(exclusiveUpperBound: Int) -> [T] {
+    func limit(exclusiveUpperBound: Int) -> [Element] {
         return self.count < exclusiveUpperBound ? self : Array(self[0..<exclusiveUpperBound])
     }
     
     /**
         Takes an equality comparer and returns a new array containing all the distinct elements.
     */
-    func distinct(comparer: (T, T) -> Bool) -> [T] {
-        var result = [T]()
+    func distinct(comparer: (Element, Element) -> Bool) -> [Element] {
+        var result = [Element]()
         for t in self {
             // if there are no elements in the result set equal to this element, add it
-            if !result.any(predicate: { comparer($0, t) }) {
+            if !result.any({ comparer($0, t) }) {
                 result.append(t)
             }
         }
         return result
     }
     
-    func all(predicate: T -> Bool) -> Bool {
+    func all(predicate: Element -> Bool) -> Bool {
         for t in self {
             if !predicate(t) {
                 return false
@@ -130,7 +130,7 @@ extension Array {
     /**
         Maps a function using the corresponding elements of two arrays.
     */
-    func mapPairs<U>(otherArray: [T], transform: (T, T) -> U) -> [U] {
+    func mapPairs<U>(otherArray: [Element], transform: (Element, Element) -> U) -> [U] {
         var result = [U]()
         let size = self.count < otherArray.count ? self.count : otherArray.count
         for var i = 0; i < size; i++ {
@@ -141,7 +141,7 @@ extension Array {
     
     /// Returns an array of function applications to all pairs of elements.
     /// The size of the resulting array is 1 less than the size of the input array.
-    func mapAdjacentElements<U>(transform: (T, T) -> U) -> [U] {
+    func mapAdjacentElements<U>(transform: (Element, Element) -> U) -> [U] {
         var result = [U]()
         for i in 0..<(self.count - 1) {
             result.append(transform(self[i], self[i + 1]))
@@ -149,11 +149,11 @@ extension Array {
         return result
     }
     
-    func tryGet(index: Int) -> T? {
+    func tryGet(index: Int) -> Element? {
         return self.count > index ? self[index] : nil
     }
     
-    func toDictionary<Key, Value>(transform: T -> (Key, Value)) -> [Key : Value] {
+    func toDictionary<Key, Value>(transform: Element -> (Key, Value)) -> [Key : Value] {
         var result = [Key : Value]()
         for t in self {
             let tuple = transform(t)

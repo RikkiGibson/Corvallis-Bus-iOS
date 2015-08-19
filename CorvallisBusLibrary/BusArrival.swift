@@ -14,10 +14,10 @@ import Foundation
 */
 func toStopArrivals(data: [String : AnyObject]) -> [Int : [BusArrival]] {
     return data.mapUnwrap() { (key, value) in
-        if let intKey = key.toInt(), let busArrivalsJson = value as? [[String : AnyObject]] {
+        if let intKey = Int(key), let busArrivalsJson = value as? [[String : AnyObject]] {
             let sortedArrivals = busArrivalsJson.mapUnwrap(toBusArrival)
                 .distinct(==)
-                .sorted({ $0.arrivalTime.compare($1.arrivalTime) == .OrderedAscending })
+                .sort({ $0.arrivalTime.compare($1.arrivalTime) == .OrderedAscending })
             return (intKey, sortedArrivals)
         }
         return nil

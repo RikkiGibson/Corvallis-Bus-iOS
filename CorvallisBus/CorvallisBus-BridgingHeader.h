@@ -11,6 +11,5 @@
 
 #include <MWFeedParser/MWFeedParser.h>
 #include "MKPolyline+GMEncodedString.h"
-#include "UIAlertControllerWorkaround.m"
 
 #endif

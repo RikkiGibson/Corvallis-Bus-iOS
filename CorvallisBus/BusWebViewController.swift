@@ -89,17 +89,17 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
             let rect = CGRectMake(self.lastTouchLocation?.x ?? self.view.bounds.size.width / 2.0,
                 self.lastTouchLocation?.y ?? self.view.bounds.size.height / 2.0, 1.0, 1.0)
             
-            // iOS 8
-            if let url = request.URL where UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+            if #available(iOS 8.0, *) {
+                let url = request.URL!
                 let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
                 alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
                     UIApplication.sharedApplication().openURL(url); return
-                })
+                    })
                 alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
                 alertController.popoverPresentationController?.sourceView = self.view
                 alertController.popoverPresentationController?.sourceRect = rect
                 self.presentViewController(alertController, animated: true) { }
-            } else { // iOS 7
+            } else {
                 self.leadingRequest = request
                 let actionSheet = UIActionSheet(title: request.URL?.absoluteString, delegate: self,
                     cancelButtonTitle: nil, destructiveButtonTitle: nil)

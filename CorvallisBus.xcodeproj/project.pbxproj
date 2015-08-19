@@ -18,8 +18,6 @@
 		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
 		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
-		5C1154A91AE5F98E0041B9BE /* UIAlertControllerWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */; };
-		5C1154AA1AE5F98E0041B9BE /* UIAlertControllerWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */; };
 		5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22684019F1DF1300B8A694 /* FavoritesTableViewController.swift */; };
 		5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */; };
 		5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C284F341A00A01400871B97 /* ServiceAlertsViewController.swift */; };
@@ -32,7 +30,6 @@
 		5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */; };
 		5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */; };
 		5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */; };
-		5C57FA861A300D510027C1B1 /* UIAlertControllerWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */; };
 		5C635D561A2E63CF00F1C2E5 /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */; };
 		5C6F8C491A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
 		5C6F8C4A1A327936006227BE /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6F8C481A327936006227BE /* BusRouteLabel.swift */; };
@@ -141,7 +138,6 @@
 		5C4937E919CFCB82009A2FB2 /* CorvallisBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
 		5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRouteDetailCell.swift; sourceTree = "<group>"; };
 		5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusRouteDetailCell.xib; sourceTree = "<group>"; };
-		5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertControllerWorkaround.m; sourceTree = "<group>"; };
 		5C635D541A2E63CF00F1C2E5 /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5C6F8C481A327936006227BE /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusRouteLabel.swift; path = CorvallisBusLibrary/BusRouteLabel.swift; sourceTree = SOURCE_ROOT; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
@@ -268,7 +264,6 @@
 				5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */,
 				5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */,
 				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
-				5C57FA851A300D510027C1B1 /* UIAlertControllerWorkaround.m */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -432,7 +427,9 @@
 		5C4937C419CFCB82009A2FB2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Rikki Gibson";
 				TargetAttributes = {
 					5C4937CB19CFCB82009A2FB2 = {
@@ -552,7 +549,6 @@
 				5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */,
 				5CA64BFB1AE5D28A00D60658 /* Failable.swift in Sources */,
 				5C7616AD1A0AC243008E4A57 /* CorvallisBusService.swift in Sources */,
-				5C57FA861A300D510027C1B1 /* UIAlertControllerWorkaround.m in Sources */,
 				5C7616A71A0AC239008E4A57 /* BusRoute.swift in Sources */,
 				5C284F351A00A01400871B97 /* ServiceAlertsViewController.swift in Sources */,
 				5C92400E1A0EBA3D00AC79D6 /* PreferencesViewController.swift in Sources */,
@@ -578,7 +574,6 @@
 			files = (
 				5C7616B31A0AC263008E4A57 /* BusArrival.swift in Sources */,
 				5C4937EA19CFCB82009A2FB2 /* CorvallisBusTests.swift in Sources */,
-				5C1154A91AE5F98E0041B9BE /* UIAlertControllerWorkaround.m in Sources */,
 				5C7616B41A0AC26C008E4A57 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,7 +584,6 @@
 			files = (
 				5C7616B01A0AC246008E4A57 /* FavoriteStopTableViewCell.swift in Sources */,
 				5C7616AA1A0AC23E008E4A57 /* BusStop.swift in Sources */,
-				5C1154AA1AE5F98E0041B9BE /* UIAlertControllerWorkaround.m in Sources */,
 				5C7616AC1A0AC240008E4A57 /* CorvallisBusLocationManagerDelegate.swift in Sources */,
 				5C7616AE1A0AC244008E4A57 /* CorvallisBusService.swift in Sources */,
 				5C7616A61A0AC237008E4A57 /* BusArrival.swift in Sources */,
@@ -654,6 +648,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -668,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -704,11 +699,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -730,6 +725,7 @@
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
@@ -755,10 +751,12 @@
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Ounchecked";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -779,6 +777,7 @@
 				);
 				INFOPLIST_FILE = CorvallisBusTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
@@ -797,6 +796,7 @@
 				);
 				INFOPLIST_FILE = CorvallisBusTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
@@ -815,8 +815,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = CorvallisBusTodayExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -834,8 +835,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CorvallisBusTodayExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;

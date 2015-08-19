@@ -31,7 +31,7 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
 }
 
 private func parseColor(obj: AnyObject?) -> UIColor? {
-    if let colorString = obj as? String where count(colorString) == 6 {
+    if let colorString = obj as? String where colorString.characters.count == 6 {
         var colorHex: UInt32 = 0
         NSScanner(string: colorString).scanHexInt(&colorHex)
         return UIColor(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,

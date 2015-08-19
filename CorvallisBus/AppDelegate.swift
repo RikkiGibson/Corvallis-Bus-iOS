@@ -15,6 +15,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        CorvallisBusService.getFavoriteStops([11776], location: nil, callback: { foo in
+            switch (foo) {
+            case .Error(let error):
+                print(error)
+                break
+            case .Success(let value):
+                print(value)
+            }
+        })
+        
         return true
     }
     
@@ -25,11 +35,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return (tabController.selectedViewController as? StopsMapViewController ?? tabController.selectedViewController?.childViewControllers.last as? StopsMapViewController)!
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         let mapView = self.getViewPreparedForStop()
         CorvallisBusService.stops() { stops in
             if let stops = stops.toOptional(),
-                let id = url.query?.toInt() {
+                let query = url.query, let id = Int(query) {
                     mapView.initialStop = stops.first() { $0.id == id }
             }
         }

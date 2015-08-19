@@ -66,7 +66,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 }
                 
                 self.mapView.removeOverlays(self.mapView.overlays)
-                self.mapView.removeAnnotations(_selectedRoute?.arrows)
+                self.mapView.removeAnnotations(_selectedRoute?.arrows ?? [MKAnnotation]())
             }
             
             if newRoute != nil {
@@ -150,9 +150,14 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func refreshMap(sender: AnyObject) {
         let authorization = CLLocationManager.authorizationStatus()
         
-        self.locationButton.hidden =
-            authorization != .AuthorizedWhenInUse &&
-            authorization != .AuthorizedAlways
+        
+        if #available(iOS 8.0, *) {
+            self.locationButton.hidden =
+                authorization != .AuthorizedWhenInUse &&
+                authorization != .AuthorizedAlways
+        } else {
+            self.locationButton.hidden = authorization != .Authorized
+        }
         
         if self.busAnnotations.count == 0 {
             CorvallisBusService.stops(initializeStops)
@@ -171,10 +176,10 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         // Opening the view while offline can prevent annotations from being added to the map
         
         switch stops {
-        case .Success(let stopsBox):
-            self.busAnnotations = stopsBox.value.toDictionary({ ($0.id, BusStopAnnotation(stop: $0)) })
+        case .Success(let stops):
+            self.busAnnotations = stops.toDictionary({ ($0.id, BusStopAnnotation(stop: $0)) })
             dispatch_async(dispatch_get_main_queue()) {
-                for (id, annotation) in self.busAnnotations {
+                for (_, annotation) in self.busAnnotations {
                     self.mapView.addAnnotation(annotation)
                 }
                 self.updateFavoritedStateForAllAnnotationsWithCallback(self.displayInitialStop)
@@ -208,8 +213,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     func updateFavoritedStateForAllAnnotationsWithCallback(callback: () -> Void) {
         CorvallisBusService.favorites() { favorites in
             switch favorites {
-            case .Success(let favoritesBox):
-                let favorites = favoritesBox.value.filter() { !$0.isNearestStop }
+            case .Success(let favorites):
+                let favorites = favorites.filter() { !$0.isNearestStop }
                 dispatch_async(dispatch_get_main_queue()) {
                     for annotation in self.mapView.annotations {
                         if let annotation = annotation as? BusStopAnnotation {
@@ -230,13 +235,13 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     // MARK - Map view delegate
     
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         if let view = self.mapView.viewForAnnotation(userLocation) {
             view.canShowCallout = false
         }
         if self.mapView.hidden {
             // If the user is more than roughly 20 miles from Corvallis, don't go to their location
-            if userLocation.location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
+            if userLocation.location!.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
                 self.mapView.setRegion(MKCoordinateRegion(center: userLocation.coordinate,
                     span: self.defaultSpan), animated: false)
             } else {
@@ -249,23 +254,23 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     @IBAction func goToUserLocation(sender: AnyObject) {
         self.searchBar.resignFirstResponder()
-        self.mapView.setCenterCoordinate(self.mapView.userLocation.location.coordinate, animated: true)
+        self.mapView.setCenterCoordinate(self.mapView.userLocation.location!.coordinate, animated: true)
     }
     
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if let polyline = overlay as? MKPolyline {
             let renderer = MKPolylineRenderer(polyline: polyline)
-            if let selectedIndex = self.tableView.indexPathsForSelectedRows()?.first as? NSIndexPath,
+            if let selectedIndex = self.tableView.indexPathsForSelectedRows?.first,
                 let currentRoute = self.routesForStopSortedByArrivals?[selectedIndex.row] {
                     renderer.strokeColor = currentRoute.color
             }
             renderer.lineWidth = 5
             return renderer
         }
-        return nil
+        return MKOverlayRenderer(overlay: overlay)
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
         if let annotation = annotation as? BusStopAnnotation {
             let identifier = "MKAnnotationView"
@@ -288,7 +293,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         return nil
     }
     
-    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
         if let pin = views.first({ $0 is MKPinAnnotationView }) as? MKPinAnnotationView {
             pin.pinColor = .Purple
             pin.canShowCallout = false
@@ -313,9 +318,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 self.searchBarButton.alpha = 0.85
                 self.view.layoutIfNeeded()
             }, completion: { success in
-                if let selectedAnnotation = self.selectedAnnotation,
-                    let annotations = self.mapView.annotationsInMapRect(self.mapView.visibleMapRect)
-                    where !annotations.contains(selectedAnnotation) {
+                if let selectedAnnotation = self.selectedAnnotation
+                    where !self.mapView.annotationsInMapRect(self.mapView.visibleMapRect).contains(selectedAnnotation) {
                         self.mapView.setCenterCoordinate(selectedAnnotation.coordinate, animated: true)
                 }
             })
@@ -343,7 +347,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         }
     }
     
-    func setFavoriteButtonState(#favorited: Bool) {
+    func setFavoriteButtonState(favorited favorited: Bool) {
         UIView.animateWithDuration(0.2) {
             self.favoriteButton.selected = favorited
             return
@@ -355,7 +359,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         Displays the current arrival time on the annotation's callout, updates the favorited state and
         jumps the annotation to the front.
     */
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? BusStopAnnotation
         if self.selectedAnnotation != nil {
             UIView.animateWithDuration(0.1, animations: {
@@ -385,8 +389,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         if let annotation = view.annotation as? BusStopAnnotation {
             CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
                 switch arrivals {
-                case .Success(let arrivalsBox):
-                    self.arrivals = arrivalsBox.value[annotation.stop.id]
+                case .Success(let arrivals):
+                    self.arrivals = arrivals[annotation.stop.id]
                 case .Error(let error):
                     self.arrivals = nil
                     self.presentError(error)
@@ -418,7 +422,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
             
             self.routeListNeedsInitialization = false
         } else if self.routesForStopSortedByArrivals != nil && self.selectedRoute != nil {
-            if let index = find(self.routesForStopSortedByArrivals!, self.selectedRoute!) {
+            if let index = (self.routesForStopSortedByArrivals!).indexOf(self.selectedRoute!) {
                 let indexPath = NSIndexPath(forRow: index, inSection: 0)
                 self.tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
                 self.tableView(self.tableView, didSelectRowAtIndexPath: indexPath)
@@ -429,7 +433,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     /**
         When an annotation is deselected, it should jump to the back if it's not a favorite stop.
     */
-    func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         self.arrivals = nil
         self.routesForStopSortedByArrivals = nil
         
@@ -441,7 +445,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
             
             self.updateStyleForBusAnnotationView(view, annotation: annotation, isSelected: false)
         } else {
-            println("no annotation was selected during deselection event")
+            print("no annotation was selected during deselection event")
             view.layer.zPosition = 1
         }
         
@@ -457,11 +461,11 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         let selectedAnnotation = self.selectedAnnotation!
         CorvallisBusService.favorites() { favorites in
             switch favorites {
-            case .Success(let favoritesBox):
-                var favorites = favoritesBox.value.filter() { !$0.isNearestStop }
+            case .Success(let favorites):
+                var favorites = favorites.filter() { !$0.isNearestStop }
                 var addedFavorite = false
                 // if this stop is in favorites, remove it
-                if contains(favorites, selectedAnnotation.stop) {
+                if favorites.contains(selectedAnnotation.stop) {
                     favorites = favorites.filter() { $0.id != selectedAnnotation.stop.id }
                 } else {
                     // if this stop isn't in favorites, add it
@@ -485,7 +489,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         Updates the state of an annotation to indicate whether it's a favorite.
     */
     func updateFavoritedStateForAnnotation(annotation: BusStopAnnotation, favorites: [BusStop]) {
-        annotation.isFavorite = contains(favorites, annotation.stop)
+        annotation.isFavorite = favorites.contains(annotation.stop)
         if let view = self.mapView.viewForAnnotation(annotation) {
             self.updateStyleForBusAnnotationView(view, annotation: annotation)
         }
@@ -561,7 +565,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.searchBar.resignFirstResponder()
     }
     
@@ -620,11 +624,11 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                 self.presentNotFoundAlert()
                 return
             }
-            let typedItems = response.mapItems.mapUnwrap({ $0 as? MKMapItem })
-            if let mapItem = typedItems.first({ contains(self.zipCodes, $0.placemark.postalCode) }) {
+            let typedItems = response?.mapItems
+            if let mapItem = typedItems?.first({ self.zipCodes.contains($0.placemark.postalCode!) }) {
                 self.searchBar.text = mapItem.name
                 self.mapView.addAnnotation(mapItem.placemark)
-                self.mapView.setRegion(MKCoordinateRegion(center: mapItem.placemark.location.coordinate,
+                self.mapView.setRegion(MKCoordinateRegion(center: mapItem.placemark.location!.coordinate,
                     span: self.defaultSpan), animated: true)
             } else {
                 self.presentNotFoundAlert()
@@ -644,8 +648,8 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
 }
 
 extension UIViewController {
-    func presentAlert(#title: String, message: String) {
-        if UIAlertControllerWorkaround.deviceDoesSupportUIAlertController() {
+    func presentAlert(title title: String, message: String) {
+        if #available(iOS 8.0, *) {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
             alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
             self.presentViewController(alertController, animated: true) { }

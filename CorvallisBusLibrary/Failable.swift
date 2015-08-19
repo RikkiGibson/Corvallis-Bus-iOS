@@ -8,23 +8,14 @@
 
 import Foundation
 
-// Swift 1.2 doesn't support enums with multiple payload sizes.
-// Just have to wait till Swift 2 to eliminate this.
-final class Box<T> {
-    let value: T
-    init(_ value: T) {
-        self.value = value
-    }
-}
-
 enum Failable<T> {
-    case Success(Box<T>)
+    case Success(T)
     case Error(NSError)
     
     func map<U>(transform: T -> Failable<U>) -> Failable<U> {
         switch self {
         case Success(let value):
-            return transform(value.value)
+            return transform(value)
         case Error(let error):
             return .Error(error)
         }
@@ -32,8 +23,8 @@ enum Failable<T> {
     
     func map<U>(transform: T -> U) -> Failable<U> {
         switch self {
-        case Success(let box):
-            return .Success(Box(transform(box.value)))
+        case Success(let value):
+            return .Success(transform(value))
         case Error(let error):
             return .Error(error)
         }
@@ -43,8 +34,8 @@ enum Failable<T> {
     /// and Error converts to None.
     func toOptional() -> T? {
         switch self {
-        case .Success(let box):
-            return box.value
+        case .Success(let value):
+            return value
         default:
             return nil
         }

@@ -11,7 +11,8 @@ import UIKit
 import CoreLocation
 
 final class CorvallisBusService {
-    private static let rootUrl = "http://www.corvallis-bus-dev.appspot.com"
+    private static let BASE_URL = "http://corvallis-bus-dev.appspot.com" // TODO: use "http://corvallisbus.azurewebsites.net"
+
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
     
     private static var _callqueue = Array<Failable<[BusStop]> -> Void>()
@@ -26,13 +27,39 @@ final class CorvallisBusService {
         _callqueue.removeAll()
     }
     
+    static func getFavoriteStops(stopIds: [Int], location: CLLocationCoordinate2D?, callback: Failable<[BusStop]> -> Void) {
+        let session = NSURLSession.sharedSession()
+        
+        let stopsString = ",".join(stopIds.map({ String($0) }))
+        let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
+        let url = NSURL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
+        session.dataTaskWithURL(url, completionHandler: {
+            data, response, error in
+            guard error == nil else {
+                callback(.Error(error!))
+                return
+            }
+            
+            if (error != nil) {
+                callback(.Error(error!))
+                return
+            }
+            
+            do {
+                let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()) as? [[String : AnyObject]]
+            } catch {
+                print("Couldn't deserialize the JSON.")
+            }
+        }).resume()
+    }
+    
     /// Executes a callback using the list of stops from the Corvallis Bus server.
     /// Since stops need to have route info baked in, requests for stops and routes are sent in parallel.
     /// Thus, when this function calls back, it can be assumed that both stops and routes are cached.
     static func stops(callback: Failable<[BusStop]> -> Void) -> Void {
         // If data is in the cache, call back immediately.
         if _stops != nil {
-            callback(.Success(Box(self._stops!)))
+            callback(.Success(self._stops!))
             // Calls being in the queue already implies the task has started already.
         } else if _callqueue.any() {
             _callqueue.append(callback)
@@ -58,52 +85,54 @@ final class CorvallisBusService {
                     
                     self._stops = stopsJson!.mapUnwrap() { toBusStop($0, withRoutes: self._routes!) }
                     for callback in self._callqueue {
-                        callback(.Success(Box(self._stops!)))
+                        callback(.Success(self._stops!))
                     }
                 }
             }
             
-            let stopsURL = NSURL(string: "\(rootUrl)/stops")!
+            let stopsURL = NSURL(string: "\(BASE_URL)/stops")!
             let stopsRequest = NSURLRequest(URL: stopsURL, cachePolicy: .ReloadIgnoringLocalCacheData,
                 timeoutInterval: 10.0)
             
-            session.dataTaskWithRequest(stopsRequest) {
-                    (data, response, error) -> Void in
-                    if (error != nil) {
-                        self._failWithError(error)
-                        return
-                    }
-                    var jsonError: NSError?
-                    stopsJson = (NSJSONSerialization.JSONObjectWithData(data,
-                        options: .AllowFragments,
-                        error: &jsonError)?.objectForKey("stops") as! [[String : AnyObject]])
+            session.dataTaskWithRequest(stopsRequest, completionHandler: {
+                (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+                
+                if (error != nil) {
+                    self._failWithError(error!)
+                    return
+                }
+                
+                do {
+                    stopsJson = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments).objectForKey("stops") as? [[String : AnyObject]]
+                } catch let error as NSError {
+                    self._failWithError(error)
+                    return
+                } catch {
                     
-                    if (jsonError != nil) {
-                        self._failWithError(jsonError!)
-                        return
-                    }
-                    finally()
-            }.resume()
+                }
+                
+                finally()
+                
+            }).resume()
             
-            let routesURL = NSURL(string: "\(rootUrl)/routes?stops=true")!
+            let routesURL = NSURL(string: "\(BASE_URL)/routes?stops=true")!
             let routesRequest = NSURLRequest(URL: routesURL, cachePolicy: .ReloadIgnoringLocalCacheData,
                 timeoutInterval: 10.0)
             
             session.dataTaskWithRequest(routesRequest) {
                 (data, response, error) -> Void in
                 if (error != nil) {
-                    self._failWithError(error)
+                    self._failWithError(error!)
                     return
                 }
-                
-                var jsonError: NSError?
-                routesJson = (NSJSONSerialization.JSONObjectWithData(data,
-                    options: .AllowFragments,
-                    error: &jsonError)?.objectForKey("routes") as! [[String : AnyObject]])
-                
-                if (jsonError != nil) {
-                    self._failWithError(jsonError!)
+                do {
+                routesJson = try NSJSONSerialization.JSONObjectWithData(data!,
+                    options: .AllowFragments).objectForKey("routes") as? [[String : AnyObject]]
+                } catch let error as NSError {
+                    self._failWithError(error)
                     return
+                } catch {
+                    
                 }
                 finally()
             }.resume()
@@ -116,14 +145,14 @@ final class CorvallisBusService {
     /// The first time this is called, the route data is deserialized.
     static func routes(callback: (Failable<[BusRoute]>) -> Void) -> Void {
         if self._routes != nil {
-            callback(.Success(Box(self._routes!())))
+            callback(.Success(self._routes!()))
         } else {
             // Stops have route information baked in. Therefore a callback by stops() guarantees that
             // either route data is in the cache or an error occurred.
             CorvallisBusService.stops() { stops in
                 switch stops {
-                case .Success(let value):
-                    callback(.Success(Box(self._routes!())))
+                case .Success(_):
+                    callback(.Success(self._routes!()))
                 case .Error(let error):
                     callback(.Error(error))
                 }
@@ -136,33 +165,35 @@ final class CorvallisBusService {
         // no point in getting arrival times for 0 bus stops
         // especially when doing so crashes the app
         if !stops.any() {
-            callback(.Success(Box([Int : [BusArrival]]())))
+            callback(.Success([Int : [BusArrival]]()))
             return
         }
         
-        var joinedStops = ",".join(stops.map() { String($0) })
+        let joinedStops = ",".join(stops.map() { String($0) })
         
         let session = NSURLSession.sharedSession()
         
-        let url = NSURL(string: "\(rootUrl)/arrivals?stops=\(joinedStops)")!
+        let url = NSURL(string: "\(BASE_URL)/arrivals?stops=\(joinedStops)")!
         let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalCacheData,
             timeoutInterval: 10.0)
         
         session.dataTaskWithRequest(request, completionHandler: {
             data, response, error in
             if (error != nil) {
+                callback(.Error(error!))
+                return
+            }
+            
+            do {
+                let arrivalJson = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [String: AnyObject]
+                callback(.Success(toStopArrivals(arrivalJson)))
+            } catch let error as NSError {
                 callback(.Error(error))
                 return
+            } catch {
+                
             }
             
-            var jsonError: NSError?
-            let arrivalJson = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &jsonError) as! [String: AnyObject]
-            
-            if (jsonError != nil) {
-                callback(.Error(jsonError!))
-                return
-            }
-            callback(.Success(Box(toStopArrivals(arrivalJson))))
         }).resume()
     }
     
@@ -202,23 +233,23 @@ final class CorvallisBusService {
         self.locationManagerDelegate.userLocation() { maybeLocation in
             self.stops() { maybeStops in
                 switch maybeStops {
-                case .Error(let error):
+                case .Error(_):
                     // no stops is a showstopper heh!
                     callback(maybeStops)
                     break
-                case .Success(let box):
-                    let stops = box.value
+                case .Success(let value):
+                    let stops = value
                     switch maybeLocation {
                     case .Error:
                         // have stops, but no location
                         let favorites = self._filterDownToFavorites(stops)
                         self._resetStopDistances(favorites, location: nil)
-                        callback(.Success(Box(favorites)))
+                        callback(.Success(favorites))
                         return
-                    case .Success(let locationBox):
+                    case .Success(let location):
                         // both location and stops
-                        let sortedFavorites = self._sortFavorites(stops, location: locationBox.value)
-                        callback(.Success(Box(sortedFavorites)))
+                        let sortedFavorites = self._sortFavorites(stops, location: location)
+                        callback(.Success(sortedFavorites))
                         break
                     }
                     break
@@ -255,7 +286,7 @@ final class CorvallisBusService {
                 $0.distanceFromUser < $1.distanceFromUser ? $0 : $1
             }
             // Mark as nearest stop only if it's not already a favorite stop
-            if !favorites.any(predicate: { $0.id == nearestStop.id }) {
+            if !favorites.any({ $0.id == nearestStop.id }) {
                 nearestStop.isNearestStop = true
                 favorites.append(nearestStop)
             }
@@ -264,7 +295,7 @@ final class CorvallisBusService {
             self._resetStopDistances(favorites, location: location)
         }
         
-        favorites.sort() { $0.distanceFromUser < $1.distanceFromUser }
+        favorites.sortInPlace { $0.distanceFromUser < $1.distanceFromUser }
         return favorites
     }
     
