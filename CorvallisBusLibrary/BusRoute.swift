@@ -30,7 +30,7 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     
 }
 
-private func parseColor(obj: AnyObject?) -> UIColor? {
+func parseColor(obj: AnyObject?) -> UIColor? {
     if let colorString = obj as? String where colorString.characters.count == 6 {
         var colorHex: UInt32 = 0
         NSScanner(string: colorString).scanHexInt(&colorHex)

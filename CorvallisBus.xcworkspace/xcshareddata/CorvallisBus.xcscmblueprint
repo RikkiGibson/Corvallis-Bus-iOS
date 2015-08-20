@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "846B39FC32422E80F46CC6D18CCDE6F834224436",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "846B39FC32422E80F46CC6D18CCDE6F834224436" : 0,
+    "9540366943750F418CA1A28462EA7F786EC07683" : 0,
+    "49CDAB8249A689DD2FB684F10E837CD2D77E0BE3" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "80FE78D4-D285-4244-8168-481CD5E2AD25",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "846B39FC32422E80F46CC6D18CCDE6F834224436" : "CorvallisBus",
+    "9540366943750F418CA1A28462EA7F786EC07683" : "JSONHelper",
+    "49CDAB8249A689DD2FB684F10E837CD2D77E0BE3" : "Polyline"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CorvallisBus",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CorvallisBus.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/raphaelmor\/Polyline.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "49CDAB8249A689DD2FB684F10E837CD2D77E0BE3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/rikkigibson\/corvallisbus.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "846B39FC32422E80F46CC6D18CCDE6F834224436"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/isair\/JSONHelper.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9540366943750F418CA1A28462EA7F786EC07683"
+    }
+  ]
+}

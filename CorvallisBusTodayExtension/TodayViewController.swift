@@ -10,9 +10,7 @@ import UIKit
 import NotificationCenter
 
 final class TodayViewController: UITableViewController, NCWidgetProviding {
-    var favoriteStops: [BusStop]?
-    var arrivals: [Int : [BusArrival]]?
-    var colors: [String : UIColor]?
+    var favoriteStops = [FavoriteStopViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,44 +26,22 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favoriteStops?.count ?? 0
+        return favoriteStops.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell
         
-        if let currentStop = self.favoriteStops?[indexPath.row] {
-            cell.labelStopName.text = currentStop.name
-            
-            if let busArrivals = self.arrivals?[currentStop.id] {
-                let routeNames = busArrivals.map({$0.route}).distinct(==) as [String]
-                
-                let arrivalsForFirst = routeNames.count > 0 ?
-                    busArrivals.filter({$0.route == routeNames[0]}) : [BusArrival]()
-                
-                let arrivalsForSecond = routeNames.count > 1 ?
-                    busArrivals.filter({$0.route == routeNames[1]}) : [BusArrival]()
-                
-                let firstColor = self.colors?.tryGet(routeNames.tryGet(0))
-                let secondColor = self.colors?.tryGet(routeNames.tryGet(1))
-                
-                cell.updateFirstRoute(named: routeNames.tryGet(0), arrivals: arrivalsForFirst, color: firstColor ?? CLEAR_COLOR)
-                cell.updateSecondRoute(named: routeNames.tryGet(1), arrivals: arrivalsForSecond, color: secondColor ?? CLEAR_COLOR)
-            }
-            
-            cell.locationImage.hidden = !currentStop.isNearestStop
-            cell.labelDistance.text = currentStop.friendlyDistance
-        }
+        cell.update(favoriteStops[indexPath.row])
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if let currentStop = self.favoriteStops?[indexPath.row] {
-            if let url = NSURL(string: "CorvallisBus://?\(currentStop.id)") {
-                self.extensionContext?.openURL(url) { success in }
-            }
+        let currentStop = self.favoriteStops[indexPath.row]
+        if let url = NSURL(string: "CorvallisBus://?\(currentStop.stopId)") {
+            self.extensionContext?.openURL(url) { success in }
         }
     }
     
@@ -82,40 +58,16 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         completionHandler(.NewData)
-        
-        
-        updateFavoriteStops()
-    }
-    
-    func updateFavoriteStops() {
-        CorvallisBusService.favorites() { result in
-            self.favoriteStops = result.toOptional()?.limit(CorvallisBusService.todayViewItemCount)            
-            self.updateArrivals()
+        CorvallisBusService.getFavoriteStops { failable in
+            dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) }
         }
     }
     
-    func updateArrivals() {
-        if self.favoriteStops != nil {
-            let favIds = self.favoriteStops!.map() { $0.id }
-            CorvallisBusService.arrivals(favIds) { arrivals in
-                self.arrivals = arrivals.toOptional()
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.tableView.reloadData()
-                    self.preferredContentSize = self.tableView.contentSize
-                }
-                CorvallisBusService.routes(self.updateColors)
-            }
+    func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
+        favoriteStops = result.toOptional() ?? [FavoriteStopViewModel]()
+        self.tableView.reloadData()
+        if (preferredContentSize != tableView.contentSize) {
+            preferredContentSize = tableView.contentSize
         }
-    }
-    
-    func updateColors(routes: Failable<[BusRoute]>) {
-        switch routes {
-        case .Success(let value):
-            self.colors = value.toDictionary({ ($0.name, $0.color) })
-        case .Error:
-            break
-        }
-        dispatch_async(dispatch_get_main_queue(), self.tableView.reloadData)
     }
 }

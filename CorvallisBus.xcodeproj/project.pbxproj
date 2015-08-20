@@ -55,6 +55,8 @@
 		5C9608261A0B2F2200DA9F5B /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7616971A0AC223008E4A57 /* BusRoute.swift */; };
 		5CA64BFB1AE5D28A00D60658 /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA64BFA1AE5D28A00D60658 /* Failable.swift */; };
 		5CA64BFC1AE5D28A00D60658 /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA64BFA1AE5D28A00D60658 /* Failable.swift */; };
+		5CDE653A1B85940900386AA6 /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE65391B85940900386AA6 /* FavoriteStopViewModel.swift */; };
+		5CDE653B1B85940900386AA6 /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDE65391B85940900386AA6 /* FavoriteStopViewModel.swift */; };
 		5CEA85171A087E3800B7FBD9 /* TodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85161A087E3800B7FBD9 /* TodayTableViewCell.xib */; };
 		5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
@@ -155,6 +157,7 @@
 		5C9608211A0B2DA100DA9F5B /* MKPolyline+GMEncodedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKPolyline+GMEncodedString.m"; sourceTree = "<group>"; };
 		5C9608271A0B2F9D00DA9F5B /* CorvallisBusLibrary-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorvallisBusLibrary-BridgingHeader.h"; sourceTree = "<group>"; };
 		5CA64BFA1AE5D28A00D60658 /* Failable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Failable.swift; sourceTree = "<group>"; };
+		5CDE65391B85940900386AA6 /* FavoriteStopViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStopViewModel.swift; sourceTree = "<group>"; };
 		5CEA85161A087E3800B7FBD9 /* TodayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TodayTableViewCell.xib; sourceTree = "<group>"; };
 		5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
 		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -296,6 +299,7 @@
 		5C6F8C4B1A328367006227BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5CDE65391B85940900386AA6 /* FavoriteStopViewModel.swift */,
 				5C7616961A0AC223008E4A57 /* BusArrival.swift */,
 				5C7616971A0AC223008E4A57 /* BusRoute.swift */,
 				5C7616981A0AC223008E4A57 /* BusStop.swift */,
@@ -546,6 +550,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CDE653A1B85940900386AA6 /* FavoriteStopViewModel.swift in Sources */,
 				5C22684119F1DF1300B8A694 /* FavoritesTableViewController.swift in Sources */,
 				5CA64BFB1AE5D28A00D60658 /* Failable.swift in Sources */,
 				5C7616AD1A0AC243008E4A57 /* CorvallisBusService.swift in Sources */,
@@ -582,6 +587,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CDE653B1B85940900386AA6 /* FavoriteStopViewModel.swift in Sources */,
 				5C7616B01A0AC246008E4A57 /* FavoriteStopTableViewCell.swift in Sources */,
 				5C7616AA1A0AC23E008E4A57 /* BusStop.swift in Sources */,
 				5C7616AC1A0AC240008E4A57 /* CorvallisBusLocationManagerDelegate.swift in Sources */,
@@ -756,7 +762,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

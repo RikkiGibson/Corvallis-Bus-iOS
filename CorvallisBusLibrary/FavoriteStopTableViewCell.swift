@@ -1,5 +1,5 @@
 //
-//  TodayTableViewCell.swift
+//  FavoriteStopTableViewCell.swift
 //  CorvallisBus
 //
 //  Created by Rikki Gibson on 10/21/14.
@@ -26,6 +26,7 @@ final class FavoriteStopTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        // TODO: should the background color be set in the layer like this?
         self.labelFirstRoute.layer.backgroundColor = DEFAULT_ROUTE_COLOR.CGColor
         self.labelFirstRoute.layer.cornerRadius = 5
         self.labelFirstRoute.clipsToBounds = true
@@ -33,11 +34,6 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         self.labelSecondRoute.layer.backgroundColor = CLEAR_COLOR.CGColor
         self.labelSecondRoute.layer.cornerRadius = 5
         self.labelSecondRoute.clipsToBounds = true
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
     func updateFirstRoute(named name: String?, arrivals: [BusArrival], color: UIColor) {
@@ -57,4 +53,20 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         self.labelSecondRoute.text = name
         self.labelSecondArrival.text = name == nil ? "" : friendlyMapArrivals(arrivals)
     }
+    
+    func update(viewModel: FavoriteStopViewModel) {
+        labelStopName.text = viewModel.stopName
+        
+        labelFirstRoute.backgroundColorActual = viewModel.firstRouteColor
+        labelFirstRoute.text = viewModel.firstRouteName
+        labelFirstArrival.text = viewModel.firstRouteArrivals
+        
+        labelSecondRoute.backgroundColorActual = viewModel.secondRouteColor
+        labelSecondRoute.text = viewModel.secondRouteName
+        labelSecondArrival.text = viewModel.secondRouteArrivals
+        
+        locationImage.hidden = !viewModel.isNearestStop
+        labelDistance.text = viewModel.distanceFromUser
+    }
+    
 }

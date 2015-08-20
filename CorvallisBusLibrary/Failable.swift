@@ -40,4 +40,15 @@ enum Failable<T> {
             return nil
         }
     }
+    
+    /// Converts the Failable<T> to an Optional<T> such that Error(NSError) converts to Some(NSError)
+    /// and Error converts to None.
+    func toError() -> NSError? {
+        switch self {
+        case .Error(let error):
+            return error
+        default:
+            return nil
+        }
+    }
 }

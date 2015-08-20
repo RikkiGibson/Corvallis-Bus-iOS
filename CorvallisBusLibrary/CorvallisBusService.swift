@@ -27,12 +27,21 @@ final class CorvallisBusService {
         _callqueue.removeAll()
     }
     
-    static func getFavoriteStops(stopIds: [Int], location: CLLocationCoordinate2D?, callback: Failable<[BusStop]> -> Void) {
+    static func getFavoriteStops(callback: Failable<[FavoriteStopViewModel]> -> Void) {
+        let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+        let stopIds = defaults.arrayForKey("Favorites") as? [Int] ?? [Int]()
+        
+        locationManagerDelegate.userLocation { maybeLocation in
+            getFavoriteStops(stopIds, location: maybeLocation.toOptional()?.coordinate, callback: callback)
+        }
+    }
+    
+    private static func getFavoriteStops(stopIds: [Int], location: CLLocationCoordinate2D?, callback: Failable<[FavoriteStopViewModel]> -> Void) {
         let session = NSURLSession.sharedSession()
         
         let stopsString = ",".join(stopIds.map({ String($0) }))
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
-        let url = NSURL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
+        let url = NSURL(string: "http://corvallisbus.azurewebsites.net" + "/favorites?stops=\(stopsString)&location=\(locationString)")!
         session.dataTaskWithURL(url, completionHandler: {
             data, response, error in
             guard error == nil else {
@@ -47,6 +56,12 @@ final class CorvallisBusService {
             
             do {
                 let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()) as? [[String : AnyObject]]
+                
+                // todo: return some kind of error message saying we couldn't deserialize
+                // todo: always call back on the main thread to reduce wishful-thinking dispatch_asyncs strewn about
+                let viewModels = jsonObject?.mapUnwrap(toFavoriteStopViewModel) ?? [FavoriteStopViewModel]()
+                callback(.Success(viewModels))
+                return
             } catch {
                 print("Couldn't deserialize the JSON.")
             }

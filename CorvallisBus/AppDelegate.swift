@@ -15,16 +15,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        CorvallisBusService.getFavoriteStops([11776], location: nil, callback: { foo in
-            switch (foo) {
-            case .Error(let error):
-                print(error)
-                break
-            case .Success(let value):
-                print(value)
-            }
-        })
-        
         return true
     }
     

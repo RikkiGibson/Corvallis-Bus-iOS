@@ -9,16 +9,15 @@
 import UIKit
 
 final class BusRouteLabel: UILabel {
-    private var canChangeBackgroundColor = false
     
+    /// Overrides background color so that the system doesn't force it transparent when selecting a cell.
+    /// Don't use this to set the background color. Use backgroundColorActual.
     override var backgroundColor: UIColor? {
         get {
             return super.backgroundColor
         }
         set(value) {
-            if self.canChangeBackgroundColor {
-                super.backgroundColor = value
-            }
+            
         }
     }
     
@@ -27,12 +26,10 @@ final class BusRouteLabel: UILabel {
     */
     var backgroundColorActual: UIColor? {
         get {
-            return self.backgroundColor
+            return super.backgroundColor
         }
         set(value) {
-            self.canChangeBackgroundColor = true
-            self.backgroundColor = value
-            self.canChangeBackgroundColor = false
+            super.backgroundColor = value
         }
     }
 }
