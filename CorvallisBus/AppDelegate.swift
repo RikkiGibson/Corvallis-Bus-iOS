@@ -27,7 +27,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         let mapView = self.getViewPreparedForStop()
-        CorvallisBusService.stops() { stops in
+        CorvallisBusClient.stops() { stops in
             if let stops = stops.toOptional(),
                 let query = url.query, let id = Int(query) {
                     mapView.initialStop = stops.first() { $0.id == id }

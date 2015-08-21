@@ -10,7 +10,7 @@ import Foundation
 
 extension NSUserDefaults {
     
-    static func appUserDefaults() -> NSUserDefaults {
+    static func groupUserDefaults() -> NSUserDefaults {
         return NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
     }
     

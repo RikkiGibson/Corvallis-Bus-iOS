@@ -1,5 +1,5 @@
 //
-//  LookupList.swift
+//  CorvallisBusClient.swift
 //  CorvallisBus
 //
 //  Created by Rikki Gibson on 9/24/14.
@@ -7,10 +7,8 @@
 //
 
 import Foundation
-import UIKit
-import CoreLocation
 
-final class CorvallisBusService {
+final class CorvallisBusClient {
     private static let BASE_URL = "http://corvallis-bus-dev.appspot.com" // TODO: use "http://corvallisbus.azurewebsites.net"
 
     private static let locationManagerDelegate = CorvallisBusLocationManagerDelegate()
@@ -27,44 +25,29 @@ final class CorvallisBusService {
         _callqueue.removeAll()
     }
     
-    static func getFavoriteStops(callback: Failable<[FavoriteStopViewModel]> -> Void) {
+    static func getFavoriteStops(limit limit: Int?, fallbackToGrayColor: Bool, callback: Failable<[FavoriteStopViewModel]> -> Void) {
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
         let stopIds = defaults.arrayForKey("Favorites") as? [Int] ?? [Int]()
         
         locationManagerDelegate.userLocation { maybeLocation in
-            getFavoriteStops(stopIds, location: maybeLocation.toOptional()?.coordinate, callback: callback)
+            getFavoriteStops(stopIds, maybeLocation.toOptional()?.coordinate, limit, fallbackToGrayColor, callback)
         }
     }
     
-    private static func getFavoriteStops(stopIds: [Int], location: CLLocationCoordinate2D?, callback: Failable<[FavoriteStopViewModel]> -> Void) {
-        let callbackMain = { failable in dispatch_async(dispatch_get_main_queue()) { callback(failable) } }
-        
-        let stopsString = ",".join(stopIds.map({ String($0) }))
+    private static func getFavoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?,
+        _ limit: Int?, _ fallbackToGrayColor: Bool, _ callback: Failable<[FavoriteStopViewModel]> -> Void)
+    {
+        let stopsString = ",".join(stopIds.map{ String($0) })
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
         let url = NSURL(string: "http://corvallisbus.azurewebsites.net" + "/favorites?stops=\(stopsString)&location=\(locationString)")!
         
-        let session = NSURLSession.sharedSession()
-        session.dataTaskWithURL(url, completionHandler: {
-            data, response, error in
-            guard error == nil else {
-                callbackMain(.Error(error!))
-                return
+        NSURLSession.sharedSession().downloadJSONArray(url) { maybeJSON in
+            let maybeViewModels = maybeJSON.map{ json -> [FavoriteStopViewModel] in
+                let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: fallbackToGrayColor) }
+                return limit != nil ? viewModels.limit(limit!) : viewModels
             }
-            
-            do {
-                let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()) as? [[String : AnyObject]]
-                
-                // todo: return some kind of error message saying we couldn't deserialize
-                let viewModels = jsonObject?.mapUnwrap(toFavoriteStopViewModel) ?? [FavoriteStopViewModel]()
-                callbackMain(.Success(viewModels))
-                return
-            } catch let error as NSError {
-                callbackMain(.Error(error))
-                return
-            } catch {
-                // TODO: stop relying on NSError and come up with custom error enumeration
-            }
-        }).resume()
+            dispatch_async(dispatch_get_main_queue()) { callback(maybeViewModels) }
+        }
     }
     
     /// Executes a callback using the list of stops from the Corvallis Bus server.
@@ -163,7 +146,7 @@ final class CorvallisBusService {
         } else {
             // Stops have route information baked in. Therefore a callback by stops() guarantees that
             // either route data is in the cache or an error occurred.
-            CorvallisBusService.stops() { stops in
+            CorvallisBusClient.stops() { stops in
                 switch stops {
                 case .Success(_):
                     callback(.Success(self._routes!()))

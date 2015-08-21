@@ -19,9 +19,9 @@ final class FavoritesTableViewController: UITableViewController {
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "updateFavorites:", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: "updateFavorites", forControlEvents: .ValueChanged)
         
-        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites:",
+        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites",
             userInfo: nil, repeats: true)
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
@@ -29,22 +29,23 @@ final class FavoritesTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites:",
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        self.updateFavorites(self)
+        updateFavorites()
     }
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func updateFavorites(sender: AnyObject) {
+    func updateFavorites() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        CorvallisBusService.getFavoriteStops { failable in
-            dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) }
-        }
+        CorvallisBusClient.getFavoriteStops(limit: nil, fallbackToGrayColor: true, callback: onUpdate)
     }
     
     func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
@@ -76,7 +77,6 @@ final class FavoritesTableViewController: UITableViewController {
         
         return cell
     }
-
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let selectedStop = self.favorites[indexPath.row]
@@ -89,7 +89,7 @@ final class FavoritesTableViewController: UITableViewController {
             // Delete the row from the data source
             favorites.removeAtIndex(indexPath.row)
             
-            let userDefaults = NSUserDefaults.appUserDefaults()
+            let userDefaults = NSUserDefaults.groupUserDefaults()
             userDefaults.favoriteStopIds = favorites.filter{ !$0.isNearestStop }.map{ $0.stopId }
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)

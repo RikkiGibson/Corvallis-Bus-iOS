@@ -160,7 +160,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
         }
         
         if self.busAnnotations.count == 0 {
-            CorvallisBusService.stops(initializeStops)
+            CorvallisBusClient.stops(initializeStops)
         } else {
             self.updateFavoritedStateForAllAnnotationsWithCallback() {
                 if self.initialStop == nil {
@@ -211,7 +211,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     }
     
     func updateFavoritedStateForAllAnnotationsWithCallback(callback: () -> Void) {
-        CorvallisBusService.favorites() { favorites in
+        CorvallisBusClient.favorites() { favorites in
             switch favorites {
             case .Success(let favorites):
                 let favorites = favorites.filter() { !$0.isNearestStop }
@@ -387,7 +387,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     func updateArrivalTime(view: MKAnnotationView) {
         if let annotation = view.annotation as? BusStopAnnotation {
-            CorvallisBusService.arrivals([annotation.stop.id]) { arrivals in
+            CorvallisBusClient.arrivals([annotation.stop.id]) { arrivals in
                 switch arrivals {
                 case .Success(let arrivals):
                     self.arrivals = arrivals[annotation.stop.id]
@@ -459,7 +459,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
     
     @IBAction func buttonPush(sender: AnyObject!) {
         let selectedAnnotation = self.selectedAnnotation!
-        CorvallisBusService.favorites() { favorites in
+        CorvallisBusClient.favorites() { favorites in
             switch favorites {
             case .Success(let favorites):
                 var favorites = favorites.filter() { !$0.isNearestStop }
@@ -472,7 +472,7 @@ final class StopsMapViewController: UIViewController, MKMapViewDelegate,
                     favorites.append(selectedAnnotation.stop)
                     addedFavorite = true
                 }
-                CorvallisBusService.setFavorites(favorites)
+                CorvallisBusClient.setFavorites(favorites)
                 dispatch_async(dispatch_get_main_queue()) {
                     self.updateFavoritedStateForAnnotation(selectedAnnotation, favorites: favorites)
                     self.setFavoriteButtonState(favorited: addedFavorite)
@@ -661,8 +661,8 @@ extension UIViewController {
     }
     
     func presentError(error: NSError) {
-        let userInfo = error.userInfo as! [String : AnyObject]
-        let description = userInfo[NSLocalizedDescriptionKey] as! String
+        let userInfo = error.userInfo as? [String : AnyObject]
+        let description = userInfo?[NSLocalizedDescriptionKey] as? String
         presentAlert(title: "Error", message: description ?? "A problem occurred. Please try again later.")
     }
 }

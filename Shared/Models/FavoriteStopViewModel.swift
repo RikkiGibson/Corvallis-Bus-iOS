@@ -24,7 +24,7 @@ struct FavoriteStopViewModel {
     let secondRouteArrivals: String
 }
 
-func toFavoriteStopViewModel(json: [String: AnyObject]) -> FavoriteStopViewModel? {
+func toFavoriteStopViewModel(json: [String: AnyObject], fallbackToGrayColor: Bool) -> FavoriteStopViewModel? {
     guard let stopName = json["StopName"] as? String,
         let stopId = json["StopId"] as? Int,
         let distanceFromUser = json["DistanceFromUser"] as? String,
@@ -36,7 +36,7 @@ func toFavoriteStopViewModel(json: [String: AnyObject]) -> FavoriteStopViewModel
         return nil
     }
     
-    let firstRouteColor = parseColor(json["FirstRouteColor"]) ?? UIColor.clearColor()
+    let firstRouteColor = parseColor(json["FirstRouteColor"]) ?? (fallbackToGrayColor ? UIColor.lightGrayColor() : UIColor.clearColor())
     let secondRouteColor = parseColor(json["SecondRouteColor"]) ?? UIColor.clearColor()
     
     let result = FavoriteStopViewModel(stopName: stopName, stopId: stopId, distanceFromUser: distanceFromUser, isNearestStop: isNearestStop,

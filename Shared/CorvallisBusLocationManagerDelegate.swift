@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 
+/// Simplifies the process of getting the user's location. Not thread safe.
 final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
     private var _callback: Failable<CLLocation> -> Void = { loc in }
@@ -29,7 +30,8 @@ final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDel
         _locationManager.startUpdatingLocation()
     }
     
-    internal func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    // MARK - location manager delegate
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         _locationManager.stopUpdatingLocation()
         
         _callback(.Success(locations.last!))

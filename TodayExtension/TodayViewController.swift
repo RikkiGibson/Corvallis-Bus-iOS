@@ -58,9 +58,11 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
         completionHandler(.NewData)
-        CorvallisBusService.getFavoriteStops { failable in
-            dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) }
-        }
+        
+        // TODO: immediately populate view with data to prevent flashing.
+        // see http://stackoverflow.com/questions/26523460/today-extension-view-flashes-when-redrawing
+        let limit = NSUserDefaults.groupUserDefaults().todayViewItemCount
+        CorvallisBusClient.getFavoriteStops(limit: limit, fallbackToGrayColor: false, callback: onUpdate)
     }
     
     func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
