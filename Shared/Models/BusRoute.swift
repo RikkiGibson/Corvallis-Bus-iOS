@@ -13,7 +13,7 @@ let DEFAULT_ROUTE_COLOR = UIColor(red: 115/255, green: 160/255, blue: 160/255, a
 func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
     if let name = data["Name"] as? String {
         let path = data["Path"] as? [AnyObject]
-        let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String) ?? MKPolyline()
+        let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String ?? "")
         let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
         
         let URL: NSURL
@@ -28,18 +28,6 @@ func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
         return nil
     }
     
-}
-
-func parseColor(obj: AnyObject?) -> UIColor? {
-    if let colorString = obj as? String where colorString.characters.count == 6 {
-        var colorHex: UInt32 = 0
-        NSScanner(string: colorString).scanHexInt(&colorHex)
-        return UIColor(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,
-            green: CGFloat(colorHex >> 8 & 0xFF) / 255.0,
-            blue: CGFloat(colorHex & 0xFF) / 255.0, alpha: 1.0)
-    } else {
-        return nil
-    }
 }
 
 func == (lhs: BusRoute, rhs: BusRoute) -> Bool {

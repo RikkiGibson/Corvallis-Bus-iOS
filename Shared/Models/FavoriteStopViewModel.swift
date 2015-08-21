@@ -6,7 +6,7 @@
 //  Copyright © 2015 Rikki Gibson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct FavoriteStopViewModel {
     let stopName: String

@@ -87,9 +87,10 @@ final class FavoritesTableViewController: UITableViewController {
         
         if editingStyle == .Delete {
             // Delete the row from the data source
-            self.favorites.removeAtIndex(indexPath.row)
-            // TODO fix
-            //CorvallisBusService.setFavorites(self.favorites.filter { !$0.isNearestStop }.map { $0.stopId })
+            favorites.removeAtIndex(indexPath.row)
+            
+            let userDefaults = NSUserDefaults.appUserDefaults()
+            userDefaults.favoriteStopIds = favorites.filter{ !$0.isNearestStop }.map{ $0.stopId }
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }

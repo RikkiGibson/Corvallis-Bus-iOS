@@ -8,25 +8,42 @@
 
 import Foundation
 
-//static func setFavorites(favorites: [BusStop]) -> Void {
-//    let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
-//    let favoriteIds = NSArray(array: favorites.map() { $0.id })
-//    defaults.setObject(favoriteIds, forKey: "Favorites")
-//    defaults.synchronize()
-//}
-
 extension NSUserDefaults {
-    static let FAVORITES_KEY = "Favorites"
     
-    static func getAppUserDefaults() -> NSUserDefaults {
+    static func appUserDefaults() -> NSUserDefaults {
         return NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
     }
     
-    func getFavoriteStopIds() -> [Int] {
-        return arrayForKey(NSUserDefaults.FAVORITES_KEY) as? [Int] ?? [Int]()
+    private static let FAVORITES_KEY = "Favorites"
+    var favoriteStopIds: [Int] {
+        get {
+            return arrayForKey(NSUserDefaults.FAVORITES_KEY) as? [Int] ?? [Int]()
+        }
+        set {
+            setObject(newValue, forKey: NSUserDefaults.FAVORITES_KEY)
+            synchronize()
+        }
     }
     
-    func setFavoriteStopIds(stopIds: [Int]) {
-        setObject(stopIds, forKey: NSUserDefaults.FAVORITES_KEY)
+    private static let NEAREST_STOP_KEY = "shouldShowNearestStop"
+    var shouldShowNearestStop: Bool {
+        get {
+            return objectForKey(NSUserDefaults.NEAREST_STOP_KEY) as? Bool ?? true // default
+        }
+        set {
+            setObject(newValue, forKey: NSUserDefaults.NEAREST_STOP_KEY)
+            synchronize()
+        }
+    }
+    
+    private static let TODAY_VIEW_ITEM_COUNT_KEY = "todayViewItemCount"
+    var todayViewItemCount: Int {
+        get {
+            return objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 7 // default
+        }
+        set {
+            setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY)
+            synchronize()
+        }
     }
 }
