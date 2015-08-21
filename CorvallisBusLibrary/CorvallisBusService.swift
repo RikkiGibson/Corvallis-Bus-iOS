@@ -37,20 +37,17 @@ final class CorvallisBusService {
     }
     
     private static func getFavoriteStops(stopIds: [Int], location: CLLocationCoordinate2D?, callback: Failable<[FavoriteStopViewModel]> -> Void) {
-        let session = NSURLSession.sharedSession()
+        let callbackMain = { failable in dispatch_async(dispatch_get_main_queue()) { callback(failable) } }
         
         let stopsString = ",".join(stopIds.map({ String($0) }))
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
         let url = NSURL(string: "http://corvallisbus.azurewebsites.net" + "/favorites?stops=\(stopsString)&location=\(locationString)")!
+        
+        let session = NSURLSession.sharedSession()
         session.dataTaskWithURL(url, completionHandler: {
             data, response, error in
             guard error == nil else {
-                callback(.Error(error!))
-                return
-            }
-            
-            if (error != nil) {
-                callback(.Error(error!))
+                callbackMain(.Error(error!))
                 return
             }
             
@@ -58,12 +55,14 @@ final class CorvallisBusService {
                 let jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions()) as? [[String : AnyObject]]
                 
                 // todo: return some kind of error message saying we couldn't deserialize
-                // todo: always call back on the main thread to reduce wishful-thinking dispatch_asyncs strewn about
                 let viewModels = jsonObject?.mapUnwrap(toFavoriteStopViewModel) ?? [FavoriteStopViewModel]()
-                callback(.Success(viewModels))
+                callbackMain(.Success(viewModels))
+                return
+            } catch let error as NSError {
+                callbackMain(.Error(error))
                 return
             } catch {
-                print("Couldn't deserialize the JSON.")
+                // TODO: stop relying on NSError and come up with custom error enumeration
             }
         }).resume()
     }
