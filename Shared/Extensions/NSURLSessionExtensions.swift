@@ -9,35 +9,20 @@
 import Foundation
 
 extension NSURLSession {
-    func downloadJSON<T>(url: NSURL, callback: Failable<T> -> Void) {
-        dataTaskWithURL(url) {
-            data, response, error in
-            guard error == nil else {
-                callback(.Error(error!))
-                return
+    func downloadData(url: NSURL) -> Promise<NSData> {
+        let sanitizeAPI = { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Failable<NSData> in
+            if let error = error {
+                return .Error(error)
+            } else {
+                return .Success(data!)
             }
-            do {
-                if let data = data,
-                   let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as? T {
-                    callback(.Success(json))
-                    return
-                } else {
-                    // JSON wasn't of the right type
-                }
-            } catch let error as NSError {
-                callback(.Error(error))
-                return
-            } catch {
-                // can this ever happen?
-            }
-        }.resume()
-    }
-    
-    func downloadJSONArray(url: NSURL, callback: Failable<[[String : AnyObject]]> -> Void) {
-        downloadJSON(url, callback: callback)
-    }
-    
-    func downloadJSONDictionary(url: NSURL, callback: Failable<[String : AnyObject]> -> Void) {
-        downloadJSON(url, callback: callback)
+        }
+        
+        return Promise { (completionHandler: Failable<NSData> -> Void) in
+            self.dataTaskWithURL(url, completionHandler: {
+                let failable = sanitizeAPI($0, $1, $2)
+                completionHandler(failable)
+            }).resume()
+        }
     }
 }

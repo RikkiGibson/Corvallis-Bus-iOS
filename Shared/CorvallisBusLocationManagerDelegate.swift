@@ -9,7 +9,9 @@
 import UIKit
 import CoreLocation
 
+
 /// Simplifies the process of getting the user's location. Not thread safe.
+/// TODO: convert to promise
 final class CorvallisBusLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
     private var _callback: Failable<CLLocation> -> Void = { loc in }

@@ -45,13 +45,17 @@ final class FavoritesTableViewController: UITableViewController {
     func updateFavorites() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        CorvallisBusClient.getFavoriteStops(limit: nil, fallbackToGrayColor: true, callback: onUpdate)
+        let userDefaults = NSUserDefaults.groupUserDefaults()
+        let shouldShowNearestStop = userDefaults.shouldShowNearestStop
+        CorvallisBusManager.getFavoriteStops(userDefaults.favoriteStopIds)
+            .map{ (json: [[String : AnyObject]]) -> [FavoriteStopViewModel] in
+                let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true)}
+                return shouldShowNearestStop ? viewModels : viewModels.filter{ !$0.isNearestStop }
+            }.start { failable in dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) } }
     }
     
-    func onUpdate(result: Failable<[[String : AnyObject]]>) {
-        favoriteStops = result.map{ maybeJSON in
-            maybeJSON.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
-        }.toOptional() ?? [FavoriteStopViewModel]()
+    func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
+        favoriteStops = result.toOptional() ?? [FavoriteStopViewModel]()
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()
@@ -85,7 +89,7 @@ final class FavoritesTableViewController: UITableViewController {
         return !selectedStop.isNearestStop
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle,forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
             // Delete the row from the data source

@@ -65,13 +65,19 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         
         // TODO: immediately populate view with data to prevent flashing.
         // see http://stackoverflow.com/questions/26523460/today-extension-view-flashes-when-redrawing
-        let limit = NSUserDefaults.groupUserDefaults().todayViewItemCount
-        CorvallisBusClient.getFavoriteStops(limit: limit, fallbackToGrayColor: false, callback: onUpdate)
+        let userDefaults = NSUserDefaults.groupUserDefaults()
+        CorvallisBusManager.getFavoriteStops(userDefaults.favoriteStopIds)
+            .start{ failable in dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) } }
     }
     
     func onUpdate(result: Failable<[[String : AnyObject]]>) {
-        favoriteStops = result.map{ maybeJSON in
-            maybeJSON.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+        let userDefaults = NSUserDefaults.groupUserDefaults()
+        let shouldShowNearestStop = userDefaults.shouldShowNearestStop
+        let limit = userDefaults.todayViewItemCount
+        
+        favoriteStops = result.map{ (json: [[String : AnyObject]]) -> [FavoriteStopViewModel] in
+            let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+            return shouldShowNearestStop ? viewModels.limit(limit) : viewModels.filter{ !$0.isNearestStop }.limit(limit)
         }.toOptional() ?? [FavoriteStopViewModel]()
         self.tableView.reloadData()
         
@@ -79,9 +85,6 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
             preferredContentSize = tableView.contentSize
         }
         
-        let defaults = NSUserDefaults.groupUserDefaults()
-        if let json = result.toOptional() {
-            defaults.todayViewCache = json
-        }
+        userDefaults.todayViewCache = result.toOptional() ?? [[String : AnyObject]]()
     }
 }
