@@ -57,6 +57,10 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
+        let cache = NSUserDefaults.groupUserDefaults().todayViewCache
+        favoriteStops = cache.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+        tableView.reloadData()
+        
         completionHandler(.NewData)
         
         // TODO: immediately populate view with data to prevent flashing.
@@ -65,11 +69,19 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         CorvallisBusClient.getFavoriteStops(limit: limit, fallbackToGrayColor: false, callback: onUpdate)
     }
     
-    func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
-        favoriteStops = result.toOptional() ?? [FavoriteStopViewModel]()
+    func onUpdate(result: Failable<[[String : AnyObject]]>) {
+        favoriteStops = result.map{ maybeJSON in
+            maybeJSON.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+        }.toOptional() ?? [FavoriteStopViewModel]()
         self.tableView.reloadData()
+        
         if (preferredContentSize != tableView.contentSize) {
             preferredContentSize = tableView.contentSize
+        }
+        
+        let defaults = NSUserDefaults.groupUserDefaults()
+        if let json = result.toOptional() {
+            defaults.todayViewCache = json
         }
     }
 }

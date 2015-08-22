@@ -46,4 +46,15 @@ extension NSUserDefaults {
             synchronize()
         }
     }
+    
+    private static let TODAY_VIEW_CACHE_KEY = "todayViewCache"
+    var todayViewCache: [[String : AnyObject]] {
+        get {
+            return objectForKey(NSUserDefaults.TODAY_VIEW_CACHE_KEY) as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+        }
+        set {
+            setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_CACHE_KEY)
+            synchronize()
+        }
+    }
 }

@@ -25,7 +25,7 @@ final class CorvallisBusClient {
         _callqueue.removeAll()
     }
     
-    static func getFavoriteStops(limit limit: Int?, fallbackToGrayColor: Bool, callback: Failable<[FavoriteStopViewModel]> -> Void) {
+    static func getFavoriteStops(limit limit: Int?, fallbackToGrayColor: Bool, callback: Failable<[[String : AnyObject]]> -> Void) {
         let defaults = NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
         let stopIds = defaults.arrayForKey("Favorites") as? [Int] ?? [Int]()
         
@@ -35,18 +35,15 @@ final class CorvallisBusClient {
     }
     
     private static func getFavoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?,
-        _ limit: Int?, _ fallbackToGrayColor: Bool, _ callback: Failable<[FavoriteStopViewModel]> -> Void)
+        _ limit: Int?, _ fallbackToGrayColor: Bool, _ callback: Failable<[[String : AnyObject]]> -> Void)
     {
         let stopsString = ",".join(stopIds.map{ String($0) })
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
         let url = NSURL(string: "http://corvallisbus.azurewebsites.net" + "/favorites?stops=\(stopsString)&location=\(locationString)")!
         
         NSURLSession.sharedSession().downloadJSONArray(url) { maybeJSON in
-            let maybeViewModels = maybeJSON.map{ json -> [FavoriteStopViewModel] in
-                let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: fallbackToGrayColor) }
-                return limit != nil ? viewModels.limit(limit!) : viewModels
-            }
-            dispatch_async(dispatch_get_main_queue()) { callback(maybeViewModels) }
+            let maybeLimited = maybeJSON.map { limit != nil ? $0.limit(limit!) : $0 }
+            dispatch_async(dispatch_get_main_queue()) { callback(maybeLimited) }
         }
     }
     

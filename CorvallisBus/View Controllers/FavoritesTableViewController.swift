@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 final class FavoritesTableViewController: UITableViewController {
-    var favorites = [FavoriteStopViewModel]()
+    var favoriteStops = [FavoriteStopViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +48,10 @@ final class FavoritesTableViewController: UITableViewController {
         CorvallisBusClient.getFavoriteStops(limit: nil, fallbackToGrayColor: true, callback: onUpdate)
     }
     
-    func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
-        self.favorites = result.toOptional() ?? [FavoriteStopViewModel]()
+    func onUpdate(result: Failable<[[String : AnyObject]]>) {
+        favoriteStops = result.map{ maybeJSON in
+            maybeJSON.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+        }.toOptional() ?? [FavoriteStopViewModel]()
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()
@@ -67,19 +69,19 @@ final class FavoritesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favorites.count
+        return self.favoriteStops.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as! FavoriteStopTableViewCell
         
-        cell.update(favorites[indexPath.row])
+        cell.update(favoriteStops[indexPath.row])
         
         return cell
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        let selectedStop = self.favorites[indexPath.row]
+        let selectedStop = self.favoriteStops[indexPath.row]
         return !selectedStop.isNearestStop
     }
     
@@ -87,10 +89,10 @@ final class FavoritesTableViewController: UITableViewController {
         
         if editingStyle == .Delete {
             // Delete the row from the data source
-            favorites.removeAtIndex(indexPath.row)
+            favoriteStops.removeAtIndex(indexPath.row)
             
             let userDefaults = NSUserDefaults.groupUserDefaults()
-            userDefaults.favoriteStopIds = favorites.filter{ !$0.isNearestStop }.map{ $0.stopId }
+            userDefaults.favoriteStopIds = favoriteStops.filter{ !$0.isNearestStop }.map{ $0.stopId }
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
