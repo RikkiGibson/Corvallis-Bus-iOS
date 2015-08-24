@@ -27,7 +27,7 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         // TODO: should the background color be set in the layer like this?
-        self.labelFirstRoute.layer.backgroundColor = DEFAULT_ROUTE_COLOR.CGColor
+        self.labelFirstRoute.layer.backgroundColor = GRAY_ROUTE_COLOR.CGColor
         self.labelFirstRoute.layer.cornerRadius = 5
         self.labelFirstRoute.clipsToBounds = true
         

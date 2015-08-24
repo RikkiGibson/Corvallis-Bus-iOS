@@ -47,13 +47,13 @@ extension NSUserDefaults {
         }
     }
     
-    private static let TODAY_VIEW_CACHE_KEY = "todayViewCache"
-    var todayViewCache: [[String : AnyObject]] {
+    private static let CACHED_FAVORITE_STOPS_KEY = "cachedFavoriteStops"
+    var cachedFavoriteStops: [[String : AnyObject]] {
         get {
-            return objectForKey(NSUserDefaults.TODAY_VIEW_CACHE_KEY) as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+            return objectForKey(NSUserDefaults.CACHED_FAVORITE_STOPS_KEY) as? [[String : AnyObject]] ?? [[String : AnyObject]]()
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_CACHE_KEY)
+            setObject(newValue, forKey: NSUserDefaults.CACHED_FAVORITE_STOPS_KEY)
             synchronize()
         }
     }

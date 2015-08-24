@@ -30,6 +30,15 @@ enum Failable<T> {
         }
     }
     
+    func unwrap() throws -> T {
+        switch self {
+        case Success(let value):
+            return value
+        case Error(let error):
+            throw error
+        }
+    }
+    
     /// Converts the Failable<T> to an Optional<T> such that Success(T) converts to Some(T)
     /// and Error converts to None.
     func toOptional() -> T? {

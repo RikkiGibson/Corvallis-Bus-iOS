@@ -8,6 +8,7 @@
 
 import UIKit
 
+// rename to RouteDetailCell?
 final class BusRouteDetailCell: UITableViewCell {
     
     @IBOutlet weak var labelRouteName: BusRouteLabel!
@@ -22,5 +23,12 @@ final class BusRouteDetailCell: UITableViewCell {
         self.labelRouteName.layer.cornerRadius = 8
         self.labelRouteName.clipsToBounds = true
         // Initialization code
+    }
+    
+    func update(viewModel: RouteDetailViewModel) {
+        labelRouteName.text = viewModel.routeName
+        labelRouteName.backgroundColor = viewModel.routeColor
+        //labelEstimate.text = ???
+        //labelSchedule.text = ???
     }
 }

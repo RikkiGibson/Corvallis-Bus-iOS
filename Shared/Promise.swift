@@ -24,6 +24,12 @@ class Promise<T> {
         self.operation(completion)
     }
     
+    func startOnMainThread(completion: CompletionHandler) {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.operation(completion)
+        }
+    }
+    
     func map<U>(transform: T -> U) -> Promise<U> {
         return Promise<U> { completionHandler in
             self.start { failable in

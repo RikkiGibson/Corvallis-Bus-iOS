@@ -7,56 +7,33 @@
 //
 
 import Foundation
-import MapKit
-
-let DEFAULT_ROUTE_COLOR = UIColor(red: 115/255, green: 160/255, blue: 160/255, alpha: 1)
-func toBusRoute(data: [String: AnyObject]) -> BusRoute? {
-    if let name = data["Name"] as? String {
-        let path = data["Path"] as? [AnyObject]
-        let polyline = MKPolyline(GMEncodedString: data["Polyline"] as? String ?? "")
-        let color = parseColor(data["Color"]) ?? DEFAULT_ROUTE_COLOR
-        
-        let URL: NSURL
-        if let urlString = data["URL"] as? String, let maybeURL = NSURL(string: urlString) {
-            URL = maybeURL
-        } else {
-            URL = NSURL(string: "http://www.corvallisoregon.gov/index.aspx?page=167")!
-        }
-        
-        return BusRoute(name: name, color: color, polyline: polyline, path: path, url: URL)
-    } else {
-        return nil
-    }
-    
-}
-
-func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
-    return lhs.name == rhs.name
-}
 
 final class BusRoute : Equatable {
     let name: String
     let color: UIColor
     let polyline: MKPolyline
     let url: NSURL
-    private var _path: [AnyObject]?
-    lazy var path: Set<Int> = {
-        if let stopIDs = self._path?.mapUnwrap({ $0 as? Int }) {
-            self._path = nil // causes deallocation
-            return Set(stopIDs)
-        } else {
-            return Set()
-        }
-    }()
+    let path: [Int]
     
-    private init(name: String, color: UIColor, polyline: MKPolyline,
-        path: [AnyObject]?, url: NSURL) {
-            self.name = name
-            self.color = color
-            self.polyline = polyline
-            self._path = path
-            self.url = url
-            
+    init(name: String, color: UIColor, polyline: MKPolyline, path: [Int], url: NSURL) {
+        self.name = name
+        self.color = color
+        self.polyline = polyline
+        self.path = path
+        self.url = url
+    }
+    
+    static func fromDictionary(data: [String : AnyObject]) -> BusRoute? {
+        guard let name = data["Name"] as? String,
+            let path = data["Path"] as? [Int],
+            let polylineString = data["Polyline"] as? String,
+            let polyline = MKPolyline(GMEncodedString: polylineString),
+            let color = parseColor(data["Color"]),
+            let urlString = data["Url"] as? String,
+            let url = NSURL(string: urlString) else {
+                return nil
+        }
+        return BusRoute(name: name, color: color, polyline: polyline, path: path, url: url)
     }
     
     lazy var arrows: [ArrowAnnotation] = {
@@ -79,6 +56,10 @@ final class BusRoute : Equatable {
         
         return arrows
     }()
+}
+
+func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
+    return lhs.name == rhs.name
 }
 
 final class ArrowAnnotation : NSObject, MKAnnotation {

@@ -26,19 +26,23 @@ final class PreferencesViewController: UIViewController {
         counterTodayItems.hidden = !canUseTodayExtension
     }
     override func viewWillAppear(animated: Bool) {
-        let todayItemCount = CorvallisBusClient.todayViewItemCount
+        let defaults = NSUserDefaults.groupUserDefaults()
+        
+        let todayItemCount = defaults.todayViewItemCount
         stepperTodayItems.value = Double(todayItemCount)
         counterTodayItems.text = todayItemCount.description
         
-        sliderShowNearestStop.on = CorvallisBusClient.shouldShowNearestStop
+        sliderShowNearestStop.on = defaults.shouldShowNearestStop
     }
     
     @IBAction func switchedShouldShowNearestStop(sender: UISwitch) {
-        CorvallisBusClient.shouldShowNearestStop = sender.on
+        let defaults = NSUserDefaults.groupUserDefaults()
+        defaults.shouldShowNearestStop = sender.on
     }
     
     @IBAction func todayViewItemCountChanged(sender: UIStepper) {
-        CorvallisBusClient.todayViewItemCount = Int(sender.value)
+        let defaults = NSUserDefaults.groupUserDefaults()
+        defaults.todayViewItemCount = Int(sender.value)
         counterTodayItems.text = Int(sender.value).description
     }
 }

@@ -8,6 +8,9 @@
 
 import Foundation
 
+typealias RouteSchedules = [String : [Int]]
+typealias StopSchedules = [Int : RouteSchedules]
+
 /**
     A stop arrival is a key-value pair in a dictionary where a stop ID can be provided
     to receive a list of bus arrival times for that stop.

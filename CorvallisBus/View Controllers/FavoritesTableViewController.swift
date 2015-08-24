@@ -47,7 +47,7 @@ final class FavoritesTableViewController: UITableViewController {
         
         let userDefaults = NSUserDefaults.groupUserDefaults()
         let shouldShowNearestStop = userDefaults.shouldShowNearestStop
-        CorvallisBusManager.getFavoriteStops(userDefaults.favoriteStopIds)
+        CorvallisBusFavoritesManager.favoriteStops(userDefaults.favoriteStopIds)
             .map{ (json: [[String : AnyObject]]) -> [FavoriteStopViewModel] in
                 let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true)}
                 return shouldShowNearestStop ? viewModels : viewModels.filter{ !$0.isNearestStop }
@@ -103,7 +103,7 @@ final class FavoritesTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) { // TODO fix
-//        if let map = self.tabBarController?.viewControllers?[1].childViewControllers.first as? StopsMapViewController {
+//        if let map = self.tabBarController?.viewControllers?[1].childViewControllers.first as? BrowseViewController {
 //            map.initialStop = self.favorites[indexPath.row]
 //            self.tabBarController?.selectedIndex = 1
 //        }
