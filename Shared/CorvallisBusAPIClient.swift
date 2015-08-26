@@ -28,5 +28,17 @@ final class CorvallisBusAPIClient {
             .map(NSJSONSerialization.parseJSONObject)
     }
     
-    // TODO: static func schedule(stopIds: [Int]) -> Promise<StopSchedule>
+    static func schedule(stopIds: [Int]) -> Promise<[String : AnyObject]> {
+        guard stopIds.count != 0 else {
+            return Promise { completionHandler in
+                completionHandler(.Success([:]))
+            }
+        }
+        let joinedStops = ",".join(stopIds.map{ String($0) })
+        let url = NSURL(string: BASE_URL + "/schedule/" + joinedStops)!
+        let session = NSURLSession.sharedSession()
+        return session.downloadData(url)
+            .map(NSJSONSerialization.parseJSONObject)
+        
+    }
 }

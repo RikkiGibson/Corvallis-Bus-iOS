@@ -19,8 +19,7 @@ final class StopDetailViewController : UITableViewController {
     
     weak var delegate: StopDetailViewControllerDelegate?
     
-    private var viewModel = StopDetailViewModel(stopName: "", stopID: 0,
-        routeDetails: [RouteDetailViewModel](), isFavorite: false)
+    private var viewModel = StopDetailViewModel(stopName: "", stopID: 0, routeDetails: [], isFavorite: false)
     
     let CELL_IDENTIFIER = "BusRouteDetailCell"
     override func viewDidLoad() {
@@ -30,7 +29,10 @@ final class StopDetailViewController : UITableViewController {
         tableView.contentInset = UIEdgeInsetsZero
     }
     
-    func update(viewModel: StopDetailViewModel) {
+    func update(viewModel: Failable<StopDetailViewModel>) {
+        guard let viewModel = viewModel.toOptional() else {
+            return
+        }
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
         buttonFavorite.highlighted = viewModel.isFavorite

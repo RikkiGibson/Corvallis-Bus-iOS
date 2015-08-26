@@ -28,7 +28,7 @@ final class BusRouteDetailCell: UITableViewCell {
     func update(viewModel: RouteDetailViewModel) {
         labelRouteName.text = viewModel.routeName
         labelRouteName.backgroundColor = viewModel.routeColor
-        //labelEstimate.text = ???
-        //labelSchedule.text = ???
+        labelEstimate.text = viewModel.arrivalsSummary
+        labelSchedule.text = viewModel.scheduleSummary
     }
 }

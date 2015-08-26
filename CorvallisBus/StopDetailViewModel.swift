@@ -11,7 +11,8 @@ import Foundation
 struct RouteDetailViewModel {
     let routeName: String
     let routeColor: UIColor
-    let arrivalTimes: [Int]
+    let arrivalsSummary: String
+    let scheduleSummary: String
 }
 
 struct StopDetailViewModel {

@@ -11,6 +11,29 @@ import Foundation
 typealias RouteSchedules = [String : [Int]]
 typealias StopSchedules = [Int : RouteSchedules]
 
+func parseRouteSchedule(json: [String : AnyObject]) -> RouteSchedules {
+    return json.mapUnwrap{ (key: String, value: AnyObject) -> (String, [Int])? in
+        if let value = value as? [Int] {
+            return (key, value)
+        } else {
+            return nil
+        }
+    }
+}
+
+func parseSchedule(json: [String : AnyObject]) -> StopSchedules {
+    guard let json = json as? [String : [String : AnyObject]] else {
+        return StopSchedules()
+    }
+    return json.mapUnwrap{ (key: String, value: [String : AnyObject]) -> (Int, RouteSchedules)? in
+        if let key = Int(key) {
+            return (key, parseRouteSchedule(value))
+        } else {
+            return nil
+        }
+    }
+}
+
 /**
     A stop arrival is a key-value pair in a dictionary where a stop ID can be provided
     to receive a list of bus arrival times for that stop.

@@ -9,8 +9,8 @@
 import UIKit
 import MapKit
 
-final class BrowseViewController: UIViewController, MKMapViewDelegate,
-        UITableViewDelegate, UISearchBarDelegate {
+final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapViewControllerDelegate {
+    let manager = CorvallisBusManager()
     
     var busMapViewController: BusMapViewController?
     var stopDetailViewController: StopDetailViewController?
@@ -52,6 +52,47 @@ final class BrowseViewController: UIViewController, MKMapViewDelegate,
     private var busAnnotations = [Int : BusStopAnnotation]()
     private var selectedAnnotation: BusStopAnnotation?
     private var timer: NSTimer?
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case "StopDetailEmbed":
+            stopDetailViewController = segue.getContentViewController()
+            // TODO: assign delegate
+            break
+        case "BusMapEmbed":
+            busMapViewController = segue.getContentViewController()
+            busMapViewController!.dataSource = manager
+            busMapViewController!.delegate = self
+            break
+        case "BusWebSegue":
+            if let destination: BusWebViewController = segue.getContentViewController(),
+                let selectedRoute = sender as? BusRoute {
+                    destination.initialURL = selectedRoute.url
+            }
+        default: break
+        }
+        
+        if let destination = segue.destinationViewController as? BusWebViewController ??
+            segue.destinationViewController.childViewControllers.first as? BusWebViewController,
+            let selectedRoute = sender as? BusRoute { // TODO: sending a model as though a model can be a sender is wrong.
+                destination.initialURL = selectedRoute.url
+        }
+    }
+    
+    func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
+        // cause table to show data for this stop
+        if let stopDetailViewController = stopDetailViewController {
+            manager.stopDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.update)
+        }
+    }
+    
+    func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {
+        
+    }
     
 //    private var _selectedRoute: BusRoute?
 //    private var selectedRoute: BusRoute? {
@@ -557,35 +598,6 @@ final class BrowseViewController: UIViewController, MKMapViewDelegate,
 //    }
 
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        guard let identifier = segue.identifier else {
-//            return
-//        }
-//        
-//        switch identifier {
-//        case "StopDetailEmbed":
-//            stopDetailViewController = segue.getContentViewController()
-//            // TODO: assign delegate
-//            break
-//        case "BusMapEmbed":
-//            busMapViewController = segue.getContentViewController()
-//            // TODO: assign delegate
-//            break
-//        case "BusWebSegue":
-//            if let destination: BusWebViewController = segue.getContentViewController(),
-//               let selectedRoute = sender as? BusRoute {
-//                destination.initialURL = selectedRoute.url
-//            }
-//            
-//            break
-//        }
-//        
-//        if let destination = segue.destinationViewController as? BusWebViewController ??
-//                segue.destinationViewController.childViewControllers.first as? BusWebViewController,
-//            let selectedRoute = sender as? BusRoute { // TODO: sending a model as though a model can be a sender is wrong.
-//                destination.initialURL = selectedRoute.url
-//        }
-//    }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.searchBar.resignFirstResponder()
