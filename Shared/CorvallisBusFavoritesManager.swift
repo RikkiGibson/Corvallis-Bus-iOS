@@ -10,10 +10,10 @@ import Foundation
 
 class CorvallisBusFavoritesManager {
     static let delegate = PromiseLocationManagerDelegate()
-    static func favoriteStops(stopIds: [Int]) -> Promise<[[String : AnyObject]]> {
+    static func favoriteStops(stopIds: [Int]) -> Promise<[[String : AnyObject]], BusError> {
         return Promise { completionHandler in
             delegate.userLocation(completionHandler)
-        }.map { (location: Failable<CLLocation>) in
+        }.map { (location: Failable<CLLocation, BusError>) in
             CorvallisBusAPIClient.favoriteStops(stopIds, location.toOptional()?.coordinate)
         }
     }

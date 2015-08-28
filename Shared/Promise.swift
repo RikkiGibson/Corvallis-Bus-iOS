@@ -10,8 +10,8 @@
 
 import Foundation
 
-class Promise<T> {
-    typealias CompletionHandler = Failable<T> -> Void
+class Promise<T, E: ErrorType> {
+    typealias CompletionHandler = Failable<T, E> -> Void
     typealias AsyncOperation = (CompletionHandler) -> Void
     
     let operation: AsyncOperation
@@ -32,16 +32,16 @@ class Promise<T> {
         }
     }
     
-    func map<U>(transform: T -> U) -> Promise<U> {
-        return Promise<U> { completionHandler in
+    func map<U>(transform: T -> U) -> Promise<U, E> {
+        return Promise<U, E> { completionHandler in
             self.start { failable in
                 completionHandler(failable.map(transform))
             }
         }
     }
     
-    func map<U>(transform: T -> Promise<U>) -> Promise<U> {
-        return Promise<U> { completionHandler in
+    func map<U>(transform: T -> Promise<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { completionHandler in
             self.start { failable in
                 switch failable {
                 case .Success(let t):
@@ -53,14 +53,14 @@ class Promise<T> {
         }
     }
     
-    func map<U>(transform: Failable<T> -> Promise<U>) -> Promise<U> {
-        return Promise<U> { completionHandler in
+    func map<U>(transform: Failable<T, E> -> Promise<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { completionHandler in
             self.start { failable in transform(failable).start(completionHandler) }
         }
     }
     
-    func map<U>(transform: T -> Failable<U>) -> Promise<U> {
-        return Promise<U> { completionHandler in
+    func map<U>(transform: T -> Failable<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { completionHandler in
             self.start { failable in completionHandler(failable.map(transform)) }
         }
     }

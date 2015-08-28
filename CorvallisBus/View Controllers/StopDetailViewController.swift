@@ -29,7 +29,7 @@ final class StopDetailViewController : UITableViewController {
         tableView.contentInset = UIEdgeInsetsZero
     }
     
-    func update(viewModel: Failable<StopDetailViewModel>) {
+    func update(viewModel: Failable<StopDetailViewModel, BusError>) {
         guard let viewModel = viewModel.toOptional() else {
             return
         }

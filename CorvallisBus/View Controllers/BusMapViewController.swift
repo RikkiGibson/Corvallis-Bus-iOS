@@ -14,7 +14,7 @@ protocol BusMapViewControllerDelegate : class {
 }
 
 protocol BusMapViewControllerDataSource : class {
-    func busStopAnnotations() -> Promise<[Int : BusStopAnnotation]>
+    func busStopAnnotations() -> Promise<[Int : BusStopAnnotation], BusError>
 }
 
 let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
@@ -39,7 +39,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         // give map view everything it needs to get started
     }
     
-    func populateMap(failable: Failable<[Int : BusStopAnnotation]>) {
+    func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
         if let annotations = failable.toOptional() {
             for (_, annotation) in annotations {
                 mapView.addAnnotation(annotation)

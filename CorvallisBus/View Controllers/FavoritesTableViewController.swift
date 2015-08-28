@@ -54,17 +54,20 @@ final class FavoritesTableViewController: UITableViewController {
             }.start { failable in dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) } }
     }
     
-    func onUpdate(result: Failable<[FavoriteStopViewModel]>) {
+    func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
         favoriteStops = result.toOptional() ?? [FavoriteStopViewModel]()
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
-        if let error = result.toError() {
-            self.presentError(error)
+        switch result {
+        case .Error(.Message(let message)):
+            self.presentError(message)
+            break
+        default:
+            break
         }
-        
     }
     
     // MARK: - Table view data source

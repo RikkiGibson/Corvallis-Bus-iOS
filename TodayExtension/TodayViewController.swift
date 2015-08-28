@@ -68,7 +68,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
             .startOnMainThread(onUpdate)
     }
     
-    func onUpdate(result: Failable<[[String : AnyObject]]>) {
+    func onUpdate(result: Failable<[[String : AnyObject]], BusError>) {
         let userDefaults = NSUserDefaults.groupUserDefaults()
         let shouldShowNearestStop = userDefaults.shouldShowNearestStop
         let limit = userDefaults.todayViewItemCount

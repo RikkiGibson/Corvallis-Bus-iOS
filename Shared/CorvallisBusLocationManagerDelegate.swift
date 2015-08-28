@@ -11,7 +11,7 @@ import CoreLocation
 
 final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
-    private var _callback: Failable<CLLocation> -> Void = { loc in }
+    private var _callback: Failable<CLLocation, BusError> -> Void = { loc in }
     
     override init() {
         super.init()
@@ -24,7 +24,7 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
         self._locationManager.delegate = self
     }
     
-    func userLocation(callback: Failable<CLLocation> -> Void) {
+    func userLocation(callback: Failable<CLLocation, BusError> -> Void) {
         self._callback = callback
         _locationManager.startUpdatingLocation()
     }
@@ -38,6 +38,6 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        _callback(.Error(error))
+        _callback(.Error(BusError.fromNSError(error)))
     }
 }

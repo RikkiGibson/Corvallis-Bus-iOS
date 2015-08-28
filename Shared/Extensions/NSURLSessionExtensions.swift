@@ -9,16 +9,16 @@
 import Foundation
 
 extension NSURLSession {
-    func downloadData(url: NSURL) -> Promise<NSData> {
-        let sanitizeAPI = { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Failable<NSData> in
+    func downloadData(url: NSURL) -> Promise<NSData, BusError> {
+        let sanitizeAPI = { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Failable<NSData, BusError> in
             if let error = error {
-                return .Error(error)
+                return .Error(BusError.fromNSError(error))
             } else {
                 return .Success(data!)
             }
         }
         
-        return Promise { (completionHandler: Failable<NSData> -> Void) in
+        return Promise { (completionHandler: Failable<NSData, BusError> -> Void) in
             self.dataTaskWithURL(url, completionHandler: {
                 let failable = sanitizeAPI($0, $1, $2)
                 completionHandler(failable)

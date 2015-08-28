@@ -11,8 +11,8 @@ import Foundation
 final class CorvallisBusAPIClient {
     private static let BASE_URL = "http://corvallisbus.azurewebsites.net"
     
-    static func favoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]]> {
-        let stopsString = ",".join(stopIds.map{ String($0) })
+    static func favoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]], BusError> {
+        let stopsString = stopIds.map{ String($0) }.joinWithSeparator(",")
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
         let url = NSURL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
         
@@ -21,20 +21,20 @@ final class CorvallisBusAPIClient {
             .map(NSJSONSerialization.parseJSONArray)
     }
     
-    static func staticData() -> Promise<[String : AnyObject]> {
+    static func staticData() -> Promise<[String : AnyObject], BusError> {
         let url = NSURL(string: BASE_URL + "/static")!
         let session = NSURLSession.sharedSession()
         return session.downloadData(url)
             .map(NSJSONSerialization.parseJSONObject)
     }
     
-    static func schedule(stopIds: [Int]) -> Promise<[String : AnyObject]> {
+    static func schedule(stopIds: [Int]) -> Promise<[String : AnyObject], BusError> {
         guard stopIds.count != 0 else {
             return Promise { completionHandler in
                 completionHandler(.Success([:]))
             }
         }
-        let joinedStops = ",".join(stopIds.map{ String($0) })
+        let joinedStops = stopIds.map{ String($0) }.joinWithSeparator(",")
         let url = NSURL(string: BASE_URL + "/schedule/" + joinedStops)!
         let session = NSURLSession.sharedSession()
         return session.downloadData(url)

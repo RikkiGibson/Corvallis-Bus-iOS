@@ -687,9 +687,7 @@ extension UIViewController {
         }
     }
     
-    func presentError(error: NSError) {
-        let userInfo = error.userInfo as? [String : AnyObject]
-        let description = userInfo?[NSLocalizedDescriptionKey] as? String
-        presentAlert(title: "Error", message: description ?? "A problem occurred. Please try again later.")
+    func presentError(message: String) {
+        presentAlert(title: "Error", message: message)
     }
 }

@@ -9,25 +9,20 @@
 import Foundation
 
 extension NSJSONSerialization {
-    private static func parseJSON<T>(data: NSData) -> Failable<T> {
-        do {
-            if let json = try JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as? T {
-                return .Success(json)
-            } else {
-                return .Error(NSError(domain: "CorvallisBus", code: 0, userInfo: nil))
-            }
-        } catch let error as NSError {
-            return .Error(error)
-        } catch {
-            return .Error(NSError(domain: "CorvallisBus", code: 0, userInfo: nil))
+    private static func parseJSON<T>(data: NSData) -> Failable<T, BusError> {
+        if let json = try? JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)),
+            let typedJSON = json as? T {
+            return Failable<T, BusError>.Success(typedJSON)
+        } else {
+            return .Error(.NonNotify)
         }
     }
     
-    static func parseJSONArray(data: NSData) -> Failable<[[String : AnyObject]]> {
+    static func parseJSONArray(data: NSData) -> Failable<[[String : AnyObject]], BusError> {
         return parseJSON(data)
     }
     
-    static func parseJSONObject(data: NSData) -> Failable<[String : AnyObject]> {
+    static func parseJSONObject(data: NSData) -> Failable<[String : AnyObject], BusError> {
         return parseJSON(data)
     }
 }

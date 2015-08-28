@@ -8,11 +8,33 @@
 
 import Foundation
 
-enum Failable<T> {
-    case Success(T)
-    case Error(NSError)
+enum BusError : ErrorType {
+    case Message(String)
+    case NonNotify
     
-    func map<U>(transform: T -> Failable<U>) -> Failable<U> {
+    func getMessage() -> String? {
+        switch self {
+        case .Message(let message):
+            return message
+        default:
+            return nil
+        }
+    }
+    
+    static func fromNSError(error: NSError) -> BusError {
+        if let message = error.userInfo[NSLocalizedDescriptionKey] as? String {
+            return .Message(message)
+        } else {
+            return .NonNotify
+        }
+    }
+}
+
+enum Failable<T, E: ErrorType> {
+    case Success(T)
+    case Error(E)
+    
+    func map<U>(transform: T -> Failable<U, E>) -> Failable<U, E> {
         switch self {
         case Success(let value):
             return transform(value)
@@ -21,10 +43,10 @@ enum Failable<T> {
         }
     }
     
-    func map<U>(transform: T -> U) -> Failable<U> {
+    func map<U>(transform: T -> U) -> Failable<U, E> {
         switch self {
         case Success(let value):
-            return .Success(transform(value))
+            return Failable<U, E>.Success(transform(value))
         case Error(let error):
             return .Error(error)
         }
@@ -52,7 +74,7 @@ enum Failable<T> {
     
     /// Converts the Failable<T> to an Optional<T> such that Error(NSError) converts to Some(NSError)
     /// and Error converts to None.
-    func toError() -> NSError? {
+    func toError() -> E? {
         switch self {
         case .Error(let error):
             return error
