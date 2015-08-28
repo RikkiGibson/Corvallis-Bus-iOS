@@ -24,7 +24,7 @@ final class BusRoute : Equatable {
     }
     
     static func fromDictionary(data: [String : AnyObject]) -> BusRoute? {
-        guard let name = data["Name"] as? String,
+        guard let name = data["RouteNo"] as? String,
             let path = data["Path"] as? [Int],
             let polylineString = data["Polyline"] as? String,
             let polyline = MKPolyline(GMEncodedString: polylineString),

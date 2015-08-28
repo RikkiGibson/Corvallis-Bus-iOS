@@ -35,7 +35,7 @@ final class StopDetailViewController : UITableViewController {
         }
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
-        buttonFavorite.highlighted = viewModel.isFavorite
+        setFavoriteButtonState(favorited: viewModel.isFavorite)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
     }
     
@@ -62,7 +62,13 @@ final class StopDetailViewController : UITableViewController {
     
     @IBAction func buttonFavoriteTouched() {
         viewModel.isFavorite = !viewModel.isFavorite
-        buttonFavorite.highlighted = viewModel.isFavorite
+        setFavoriteButtonState(favorited: viewModel.isFavorite)
         delegate?.stopDetailViewController(self, didSetFavoritedState: viewModel.isFavorite, forStopID: viewModel.stopID)
+    }
+    
+    func setFavoriteButtonState(favorited favorited: Bool) {
+        UIView.animateWithDuration(0.2) {
+            self.buttonFavorite.selected = favorited
+        }
     }
 }

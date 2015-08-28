@@ -25,8 +25,10 @@ class Promise<T> {
     }
     
     func startOnMainThread(completion: CompletionHandler) {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.operation(completion)
+        self.start{ result in
+            dispatch_async(dispatch_get_main_queue()) {
+                completion(result)
+            }
         }
     }
     

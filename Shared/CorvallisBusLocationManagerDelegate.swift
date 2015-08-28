@@ -9,9 +9,6 @@
 import UIKit
 import CoreLocation
 
-
-/// Simplifies the process of getting the user's location. Not thread safe.
-/// TODO: convert to promise
 final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
     private var _callback: Failable<CLLocation> -> Void = { loc in }
@@ -42,14 +39,5 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         _callback(.Error(error))
-    }
-}
-
-extension CLLocationManager {
-    static func userLocation() -> Promise<CLLocation> {
-        let delegate = PromiseLocationManagerDelegate()
-        return Promise { completionHandler in
-            delegate.userLocation(completionHandler)
-        }
     }
 }

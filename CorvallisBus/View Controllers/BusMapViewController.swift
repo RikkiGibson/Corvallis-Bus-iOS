@@ -68,11 +68,24 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
         
         delegate?.busMapViewController(self, didSelectStopWithID: annotation.stop.id)
+        
+        UIView.animateWithDuration(0.1, animations: {
+            view.transform = CGAffineTransformMakeScale(1.3, 1.3)
+        })
+        
+        view.updateWithBusStopAnnotation(annotation, isSelected: true)
     }
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
-        if view.annotation is BusStopAnnotation {
-            delegate?.busMapViewControllerDidClearSelection(self)
+        guard let annotation = view.annotation as? BusStopAnnotation else {
+            return
         }
+        delegate?.busMapViewControllerDidClearSelection(self)
+        
+        UIView.animateWithDuration(0.1, animations: {
+            view.transform = CGAffineTransformIdentity
+        })
+        
+        view.updateWithBusStopAnnotation(annotation, isSelected: false)
     }
 }

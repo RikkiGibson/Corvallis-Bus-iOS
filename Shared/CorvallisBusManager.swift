@@ -73,16 +73,42 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     }
     
     func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel> {
-        return Promise { completionHandler in
-            completionHandler(.Success(StopDetailViewModel(stopName: "Test", stopID: 0, routeDetails: [], isFavorite: true)))
-        }
-
-        var foo = CorvallisBusAPIClient.schedule([stopID])
-            .map{ schedule in parseSchedule(schedule) }
-            .map{ (schedule: StopSchedules) -> Promise<(BusStaticData, StopSchedules)> in
+        return CorvallisBusAPIClient.schedule([stopID]).map{ schedule in
+            parseSchedule(schedule)
+        }.map{ (schedule: StopSchedules) -> Promise<(BusStaticData, StopSchedules)> in
             return self.staticData().map{ staticData in (staticData, schedule) }
+        }.map{ (staticData: BusStaticData, schedules: StopSchedules) -> Failable<StopDetailViewModel> in
+            return self.toStopDetailsViewModel(stopID, staticData: staticData, schedules: schedules)
         }
-        // TODO: get static data and schedule, use them to produce a stopdetailviewmodel.
-        // how can promises be augmented to concurrently request two resources and continue when both resources come back?
+    }
+    
+    private func toSortedRouteDetailsViewModels(routes: [BusRoute], routeSchedule: RouteSchedules) -> [RouteDetailViewModel] {
+        return routes.mapUnwrap{ (route: BusRoute) -> (route: BusRoute, arrivalTimes: [Int])? in
+            if let schedule = routeSchedule[route.name] {
+                return (route, schedule)
+            } else {
+                return nil
+            }
+        }.sort { first, second in
+            first.arrivalTimes.reduce(Int.max, combine: min) <
+            second.arrivalTimes.reduce(Int.max, combine: min)
+        }.map{ routeTuple in
+            let arrivalsSummary = ",".join(routeTuple.arrivalTimes.limit(2).map(arrivalTimeDescription))
+            return RouteDetailViewModel(routeName: routeTuple.route.name, routeColor: routeTuple.route.color,
+                arrivalsSummary: arrivalsSummary, scheduleSummary: toArrivalsSummary(routeTuple.arrivalTimes))
+        }
+        
+    }
+    
+    private func toStopDetailsViewModel(stopID: Int, staticData: BusStaticData, schedules: StopSchedules) -> Failable<StopDetailViewModel> {
+        guard let stop = staticData.stops[stopID],
+            let routeSchedules = schedules[stopID] else {
+                return .Error(NSError(domain: "foo", code: 0, userInfo: nil))
+        }
+        
+        let isFavorite = NSUserDefaults.groupUserDefaults().favoriteStopIds.contains(stopID)
+        
+        let routeDetails = toSortedRouteDetailsViewModels(Array(staticData.routes.values), routeSchedule: routeSchedules)
+        return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetails, isFavorite: isFavorite))
     }
 }

@@ -36,24 +36,6 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         self.labelSecondRoute.clipsToBounds = true
     }
     
-    func updateFirstRoute(named name: String?, arrivals: [BusArrival], color: UIColor) {
-        
-        UIView.animateWithDuration(0.2) {
-            self.labelFirstRoute.layer.backgroundColor = color.CGColor
-        }
-        self.labelFirstRoute.text = name
-        self.labelFirstArrival.text = friendlyMapArrivals(arrivals)
-    }
-    
-    func updateSecondRoute(named name: String?, arrivals: [BusArrival], color: UIColor) {
-        
-        UIView.animateWithDuration(0.2) {
-            self.labelSecondRoute.layer.backgroundColor = color.CGColor
-        }
-        self.labelSecondRoute.text = name
-        self.labelSecondArrival.text = name == nil ? "" : friendlyMapArrivals(arrivals)
-    }
-    
     func update(viewModel: FavoriteStopViewModel) {
         labelStopName.text = viewModel.stopName
         

@@ -41,8 +41,8 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     @IBOutlet weak var locationButton: UIButton!
 //    @IBOutlet weak var favoriteButton: UIButton!
     
-    private var routesForStopSortedByArrivals: [BusRoute]?
-    private var arrivals: [BusArrival]?
+//    private var routesForStopSortedByArrivals: [BusRoute]?
+//    private var arrivals: [BusArrival]?
     
 //    @IBOutlet weak var mapView: MKMapView!
     
@@ -386,13 +386,6 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
 //            })
 //        }
     }
-    
-//    func setFavoriteButtonState(favorited favorited: Bool) {
-//        UIView.animateWithDuration(0.2) {
-//            self.favoriteButton.selected = favorited
-//            return
-//        }
-//    }
     
 //    private var routeListNeedsInitialization = false
     /**
