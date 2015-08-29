@@ -41,11 +41,22 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     
     func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
         if let annotations = failable.toOptional() {
-            for (_, annotation) in annotations {
+            viewModel.stops = annotations
+            for annotation in annotations.values {
                 mapView.addAnnotation(annotation)
             }
         }
     }
+    
+    func setFavoriteState(isFavorite: Bool, forStopID stopID: Int) {
+        if let annotation = viewModel.stops[stopID], let view = mapView.viewForAnnotation(annotation) {
+            annotation.isFavorite = isFavorite
+            let isSelected = viewModel.selectedStop?.stop.id == stopID
+            view.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+        }
+    }
+    
+    // MARK: MKMapViewDelegate
     
     let ANNOTATION_VIEW_IDENTIFIER = "MKAnnotationView"
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -67,6 +78,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
             return
         }
         
+        viewModel.selectedStop = annotation
         delegate?.busMapViewController(self, didSelectStopWithID: annotation.stop.id)
         
         UIView.animateWithDuration(0.1, animations: {
@@ -80,6 +92,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         guard let annotation = view.annotation as? BusStopAnnotation else {
             return
         }
+        viewModel.selectedStop = nil
         delegate?.busMapViewControllerDidClearSelection(self)
         
         UIView.animateWithDuration(0.1, animations: {

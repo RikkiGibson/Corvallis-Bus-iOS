@@ -13,46 +13,44 @@ struct BusStaticData {
     let routes: [String : BusRoute]
 }
 
-class CorvallisBusManager : BusMapViewControllerDataSource {
-    
-    private var staticDataCache: BusStaticData?
-    
-    private func staticData() -> Promise<BusStaticData, BusError> {
-        if let staticData = staticDataCache {
-            return Promise { completionHandler in
-                completionHandler(.Success(staticData))
-            }
-        }
-        return CorvallisBusAPIClient.staticData()
-            .map(populateStaticData)
+private func parseStaticData(json: [String : AnyObject]) -> Failable<BusStaticData, BusError> {
+    guard let stopsJSON = json["Stops"] as? [String : [String : AnyObject]],
+        let routesJSON = json["Routes"] as? [String : [String : AnyObject]] else {
+            return .Error(.NonNotify)
     }
     
-    private func populateStaticData(json: [String : AnyObject]) -> Failable<BusStaticData, BusError> {
-        guard let stopsJSON = json["Stops"] as? [String : [String : AnyObject]],
-            let routesJSON = json["Routes"] as? [String : [String : AnyObject]] else {
-                return .Error(.NonNotify)
+    let stops = stopsJSON.mapUnwrap {
+        (key: String, value: [String : AnyObject]) -> (Int, BusStop)? in
+        if let key = Int(key), let stop = BusStop.fromDictionary(value) {
+            return (key, stop)
         }
-        
-        let stops = stopsJSON.mapUnwrap {
-            (key: String, value: [String : AnyObject]) -> (Int, BusStop)? in
-            if let key = Int(key), let stop = BusStop.fromDictionary(value) {
-                return (key, stop)
-            }
+        return nil
+    }
+    
+    let routes = routesJSON.mapUnwrap {
+        (key: String, value: [String : AnyObject]) -> (String, BusRoute)? in
+        if let route = BusRoute.fromDictionary(value) {
+            return (key, route)
+        } else {
             return nil
         }
-        
-        let routes = routesJSON.mapUnwrap {
-            (key: String, value: [String : AnyObject]) -> (String, BusRoute)? in
-            if let route = BusRoute.fromDictionary(value) {
-                return (key, route)
-            } else {
-                return nil
-            }
-        }
-        
-        staticDataCache = BusStaticData(stops: stops, routes: routes)
-        return .Success(staticDataCache!)
     }
+    
+    return .Success(BusStaticData(stops: stops, routes: routes))
+}
+
+private var staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
+
+class CorvallisBusManager : BusMapViewControllerDataSource {
+    
+    func staticData() -> Promise<BusStaticData, BusError> {
+        if case .Finished(.Error) = staticDataCache.state {
+            staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
+        }
+        return staticDataCache
+    }
+    
+    // MARK: BusMapViewControllerDataSource
     
     func busStopAnnotations() -> Promise<[Int : BusStopAnnotation], BusError> {
         let favoriteIds = NSUserDefaults.groupUserDefaults().favoriteStopIds
@@ -72,6 +70,8 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
 
         }
     }
+    
+    // MARK: StopDetailsViewController support
     
     func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
         return CorvallisBusAPIClient.schedule([stopID]).map(parseSchedule)

@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapViewControllerDelegate {
+final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapViewControllerDelegate, StopDetailViewControllerDelegate {
     let manager = CorvallisBusManager()
     
     var busMapViewController: BusMapViewController?
@@ -61,7 +61,7 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         switch identifier {
         case "StopDetailEmbed":
             stopDetailViewController = segue.getContentViewController()
-            // TODO: assign delegate
+            stopDetailViewController!.delegate = self
             break
         case "BusMapEmbed":
             busMapViewController = segue.getContentViewController()
@@ -83,6 +83,8 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         }
     }
     
+    // MARK: BusMapViewControllerDelegate
+    
     func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
         // cause table to show data for this stop
         if let stopDetailViewController = stopDetailViewController {
@@ -92,6 +94,24 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     
     func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {
         
+    }
+    
+    // MARK: StopDetailViewControllerDelegate
+    
+    func stopDetailViewController(viewController: StopDetailViewController, didSelectRouteNamed routeName: String) {
+        
+    }
+    
+    func stopDetailViewController(viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int) {
+        // Call map VC to say favorited state for stop ID 12345 is now True or whatever
+        busMapViewController?.setFavoriteState(favorite, forStopID: stopID)
+        
+        let userDefaults = NSUserDefaults.groupUserDefaults()
+        if favorite {
+            userDefaults.favoriteStopIds = userDefaults.favoriteStopIds + [stopID]
+        } else {
+            userDefaults.favoriteStopIds = userDefaults.favoriteStopIds.filter{ $0 != stopID }
+        }
     }
     
 //    private var _selectedRoute: BusRoute?

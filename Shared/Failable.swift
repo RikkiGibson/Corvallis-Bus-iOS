@@ -83,3 +83,13 @@ enum Failable<T, E: ErrorType> {
         }
     }
 }
+
+extension Optional {
+    func toFailable() -> Failable<Wrapped, BusError> {
+        if let value = self {
+            return .Success(value)
+        } else {
+            return .Error(.NonNotify)
+        }
+    }
+}

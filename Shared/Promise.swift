@@ -10,18 +10,45 @@
 
 import Foundation
 
+enum PromiseState<T, E: ErrorType> {
+    case Created
+    case Started
+    case Finished(Failable<T, E>)
+}
+
 class Promise<T, E: ErrorType> {
     typealias CompletionHandler = Failable<T, E> -> Void
     typealias AsyncOperation = (CompletionHandler) -> Void
     
     let operation: AsyncOperation
     
+    private(set) var state = PromiseState<T, E>.Created
+    private var completionHandlers = [CompletionHandler]()
+    
     init(_ operation: AsyncOperation) {
         self.operation = operation
     }
     
-    func start(completion: CompletionHandler) {
-        self.operation(completion)
+    func start(handler: CompletionHandler) {
+        switch state {
+        case .Created:
+            completionHandlers.append(handler)
+            start()
+        case .Started:
+            completionHandlers.append(handler)
+        case .Finished(let result):
+            handler(result)
+        }
+    }
+    
+    private func start() {
+        self.state = .Started
+        self.operation { result in
+            self.state = .Finished(result)
+            for handler in self.completionHandlers {
+                handler(result)
+            }
+        }
     }
     
     func startOnMainThread(completion: CompletionHandler) {
