@@ -8,10 +8,6 @@
 
 import Foundation
 
-// called by view controller
-// gets user defaults, location, calls webclient, and optionally transforms results
-// is the existence of this thing justified?
-
 struct BusStaticData {
     let stops: [Int : BusStop]
     let routes: [String : BusRoute]
@@ -78,12 +74,11 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     }
     
     func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
-        return CorvallisBusAPIClient.schedule([stopID]).map{ schedule in
-            parseSchedule(schedule)
-        }.map{ schedules in
-            return self.staticData().map{ staticData in (staticData, schedules) }
+        return CorvallisBusAPIClient.schedule([stopID]).map(parseSchedule)
+        .map{ schedules in
+            self.staticData().map{ staticData in (staticData, schedules) }
         }.map{ (staticData, schedules) in
-            return self.toStopDetailsViewModel(stopID, staticData: staticData, schedules: schedules)
+            self.toStopDetailsViewModel(stopID, staticData: staticData, schedules: schedules)
         }
     }
     
@@ -98,9 +93,8 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
             first.arrivalTimes.reduce(Int.max, combine: min) <
             second.arrivalTimes.reduce(Int.max, combine: min)
         }.map{ routeTuple in
-            let arrivalsSummary = routeTuple.arrivalTimes.limit(2).map(arrivalTimeDescription).joinWithSeparator(",")
-            return RouteDetailViewModel(routeName: routeTuple.route.name, routeColor: routeTuple.route.color,
-                arrivalsSummary: arrivalsSummary, scheduleSummary: toArrivalsSummary(routeTuple.arrivalTimes))
+            RouteDetailViewModel(routeName: routeTuple.route.name, routeColor: routeTuple.route.color,
+                arrivalsSummary: toEstimateSummary(routeTuple.arrivalTimes), scheduleSummary: toScheduleSummary(routeTuple.arrivalTimes))
         }
         
     }
@@ -113,7 +107,8 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
         
         let isFavorite = NSUserDefaults.groupUserDefaults().favoriteStopIds.contains(stopID)
         
-        let routeDetails = toSortedRouteDetailsViewModels(Array(staticData.routes.values), routeSchedule: routeSchedules)
+        let sortedRoutes = staticData.routes.values.sort{ $0.name < $1.name }
+        let routeDetails = toSortedRouteDetailsViewModels(sortedRoutes, routeSchedule: routeSchedules)
         return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetails, isFavorite: isFavorite))
     }
 }

@@ -11,6 +11,8 @@ import Foundation
 typealias RouteSchedules = [String : [Int]]
 typealias StopSchedules = [Int : RouteSchedules]
 
+//MARK: Functions for producing schedules from JSON
+
 func parseRouteSchedule(json: [String : AnyObject]) -> RouteSchedules {
     return json.mapUnwrap{ (key: String, value: AnyObject) -> (String, [Int])? in
         if let value = value as? [Int] {
@@ -34,6 +36,15 @@ func parseSchedule(json: [String : AnyObject]) -> StopSchedules {
     }
 }
 
+// MARK: Support functions for rendering arrival times
+
+let arrivalFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .NoStyle
+    formatter.timeStyle = .ShortStyle
+    return formatter
+    }()
+
 func arrivalTimeDescription(minutes: Int) -> String {
     switch minutes {
     case 1:
@@ -46,28 +57,19 @@ func arrivalTimeDescription(minutes: Int) -> String {
     }
 }
 
-let arrivalFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = .NoStyle
-    formatter.timeStyle = .ShortStyle
-    return formatter
-}()
+// MARK: Interface for rendering arrival times
 
-func friendlyMapArrivals(arrivals: [Int]) -> String {
+func toEstimateSummary(arrivals: [Int]) -> String {
     switch arrivals.count {
     case 0: return "No arrivals!"
     case 1:
-        let date = NSDate(timeIntervalSinceNow: NSTimeInterval(arrivals[0] * 60))
-        return arrivalFormatter.stringFromDate(date)
+        return arrivalTimeDescription(arrivals[0])
     default:
-        let firstDate = NSDate(timeIntervalSinceNow: NSTimeInterval(arrivals[0] * 60))
-        let secondDate = NSDate(timeIntervalSinceNow: NSTimeInterval(arrivals[1] * 60))
-        return arrivalFormatter.stringFromDate(firstDate) + ", " +
-            arrivalFormatter.stringFromDate(secondDate)
+        return arrivalTimeDescription(arrivals[0]) + ", " + arrivalTimeDescription(arrivals[1])
     }
 }
 
-func toArrivalsSummary(arrivalTimes: [Int]) -> String {
+func toScheduleSummary(arrivalTimes: [Int]) -> String {
     switch arrivalTimes.count {
     case 0...2:
         return ""
