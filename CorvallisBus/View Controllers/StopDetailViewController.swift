@@ -60,7 +60,7 @@ final class StopDetailViewController : UITableViewController {
         delegate?.stopDetailViewController(self, didSelectRouteNamed: routeName)
     }
     
-    @IBAction func buttonFavoriteTouched() {
+    @IBAction func toggleFavorite() {
         viewModel.isFavorite = !viewModel.isFavorite
         setFavoriteButtonState(favorited: viewModel.isFavorite)
         delegate?.stopDetailViewController(self, didSetFavoritedState: viewModel.isFavorite, forStopID: viewModel.stopID)

@@ -303,10 +303,10 @@
                             <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="LYN-63-vvr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Guw-oB-wzY" secondAttribute="trailing" constant="-16" id="NrC-Qw-s2K"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QbP-lW-cIu" secondAttribute="trailing" constant="-16" id="WJu-ey-4Tt"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leadingMargin" constant="-20" id="ZB4-oc-jK4"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="ZB4-oc-jK4"/>
                             <constraint firstItem="gKa-oo-gfD" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="c7w-uE-UOB"/>
                             <constraint firstAttribute="trailing" secondItem="rVi-jy-vTM" secondAttribute="trailing" constant="16" id="dlV-63-f1A"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gko-sg-FwP" secondAttribute="trailing" constant="-20" id="kI5-2d-U0t"/>
+                            <constraint firstAttribute="trailing" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="kI5-2d-U0t"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="1:2" id="kl8-Lg-dbZ"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="QbP-lW-cIu" secondAttribute="bottom" constant="8" id="skE-sJ-ytP"/>
                         </constraints>
@@ -398,10 +398,6 @@
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="favorite"/>
                                     <state key="selected" image="favorite"/>
-                                    <connections>
-                                        <action selector="buttonFavoriteTouched" destination="ha4-bl-X3Q" eventType="touchUpInside" id="J0Y-x3-po6"/>
-                                        <action selector="buttonPush:" destination="Rfu-K7-Css" eventType="touchUpInside" id="LUw-iv-cxX"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -416,6 +412,9 @@
                                 <constraint firstItem="RHK-4Z-quy" firstAttribute="leading" secondItem="Whg-cx-n84" secondAttribute="leading" constant="15" id="lJl-3K-58N"/>
                                 <constraint firstAttribute="trailing" secondItem="Zfy-Ip-or8" secondAttribute="trailing" constant="8" id="tU2-Ul-UAx"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="kZv-ny-ZKu" appends="YES" id="9n2-J6-JAO"/>
+                            </connections>
                         </view>
                         <connections>
                             <outlet property="dataSource" destination="ha4-bl-X3Q" id="G9g-jL-mpJ"/>
@@ -428,6 +427,11 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXW-4K-kZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="kZv-ny-ZKu">
+                    <connections>
+                        <action selector="toggleFavorite" destination="ha4-bl-X3Q" id="uqI-Ll-7Os"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2638" y="-437"/>
         </scene>
