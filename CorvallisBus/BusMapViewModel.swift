@@ -12,5 +12,5 @@ struct BusMapViewModel {
     var stops: [Int : BusStopAnnotation]
     var routeArrows: [ArrowAnnotation]
     var routePolyline: MKPolyline?
-    var selectedStop: BusStopAnnotation?
+    var selectedStopID: Int?
 }

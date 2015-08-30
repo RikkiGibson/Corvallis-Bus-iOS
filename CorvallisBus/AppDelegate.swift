@@ -13,7 +13,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
         // Populate static data cache
@@ -28,19 +27,22 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabController = self.window!.rootViewController as! UITabBarController
         // TODO: provide the browse view controller instance instead of selecting the index
         tabController.selectedIndex = 1 // selects map tab
-        return (tabController.selectedViewController as? BrowseViewController ?? tabController.selectedViewController?.childViewControllers.last as? BrowseViewController)!
+        return (tabController.selectedViewController as? BrowseViewController ??
+            tabController.selectedViewController?.childViewControllers.last as? BrowseViewController)!
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        // TODO: create a function in BrowseViewController that receives a stop ID and causes that stop to become selected in the map and table.
-        // This should be used both for the favorites table in the app and in the app extension.
-//        let mapView = self.getViewPreparedForStop()
-//        CorvallisBusAPIClient.stops() { stops in
-//            if let stops = stops.toOptional(),
-//                let query = url.query, let id = Int(query) {
-//                    mapView.initialStop = stops.first() { $0.id == id }
-//            }
-//        }
+        guard let query = url.query, stopID = Int(query) else {
+            return false
+        }
+        
+        let tabBarController = self.window!.rootViewController as! UITabBarController
+        guard let browseViewController: BrowseViewController = tabBarController.childViewController() else {
+            fatalError("Browse view controller not present as expected.")
+        }
+        browseViewController.externalStopID = stopID
+        tabBarController.selectedViewController = browseViewController.navigationController
+        
         return true
     }
     

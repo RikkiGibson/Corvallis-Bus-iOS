@@ -18,6 +18,7 @@
 		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
 		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
+		5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
 		5C1FEA911B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
 		5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */; };
@@ -145,6 +146,7 @@
 		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5C07B48B1A0704CC00F5928E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExtension.swift; sourceTree = "<group>"; };
 		5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionExtensions.swift; sourceTree = "<group>"; };
 		5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsFeedParserDelegate.swift; sourceTree = "<group>"; };
 		5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 			children = (
 				5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */,
 				5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */,
+				5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */,
 				5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */,
 				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
+				5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */,
 				5C8130FD1B88FFCF00A498AC /* NSJSONSerializationExtension.swift in Sources */,
 				5CECD4391B86DC50000F3E6C /* Failable.swift in Sources */,
 				5C2FC1311B8AC78300E909E1 /* BrowseViewController.swift in Sources */,

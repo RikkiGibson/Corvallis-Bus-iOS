@@ -20,23 +20,40 @@ protocol BusMapViewControllerDataSource : class {
 let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
 let DEFAULT_SPAN = MKCoordinateSpanMake(0.01, 0.01)
 class BusMapViewController : UIViewController, MKMapViewDelegate {
-    @IBOutlet weak var mapView: MKMapView!
     let locationManagerDelegate = PromiseLocationManagerDelegate()
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
     weak var delegate: BusMapViewControllerDelegate?
     weak var dataSource: BusMapViewControllerDataSource?
-    var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], routeArrows: [], routePolyline: nil, selectedStop: nil)
+    
+    var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], routeArrows: [], routePolyline: nil, selectedStopID: nil)
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectStopFromBackground",
+            name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
         mapView.delegate = self
+        
         Promise {
             self.locationManagerDelegate.userLocation($0)
         }.startOnMainThread { failable in
+            guard self.viewModel.selectedStopID == nil else { return }
             let location = failable.toOptional() ?? CORVALLIS_LOCATION
             self.mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN), animated: false)
         }
+        
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
-        // call our delegate to get viewmodel
-        // give map view everything it needs to get started
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Repeated selections of this stop allow external controllers to modify the selected stop
+        // and see results, as well as allowing listeners to our selection to update.
+        selectStop()
     }
     
     func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
@@ -46,14 +63,29 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
                 mapView.addAnnotation(annotation)
             }
         }
+        selectStop()
     }
     
     func setFavoriteState(isFavorite: Bool, forStopID stopID: Int) {
         if let annotation = viewModel.stops[stopID], let view = mapView.viewForAnnotation(annotation) {
             annotation.isFavorite = isFavorite
-            let isSelected = viewModel.selectedStop?.stop.id == stopID
+            let isSelected = viewModel.selectedStopID == stopID
             view.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
         }
+    }
+    
+    func selectStopFromBackground() {
+        dispatch_async(dispatch_get_main_queue(), selectStop)
+    }
+    
+    func selectStop() {
+        guard let selectedStopID = viewModel.selectedStopID, annotation = viewModel.stops[selectedStopID] else {
+            return
+        }
+        let region = MKCoordinateRegion(center: annotation.stop.location.coordinate, span: DEFAULT_SPAN)
+        self.mapView.setRegion(region, animated: true)
+        self.mapView.deselectAnnotation(annotation, animated: true)
+        self.mapView.selectAnnotation(annotation, animated: true)
     }
     
     // MARK: MKMapViewDelegate
@@ -67,7 +99,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(ANNOTATION_VIEW_IDENTIFIER) ??
             MKAnnotationView(annotation: annotation, reuseIdentifier: ANNOTATION_VIEW_IDENTIFIER) ?? MKAnnotationView()
         
-        let isSelected = viewModel.selectedStop?.stop.id == annotation.stop.id
+        let isSelected = viewModel.selectedStopID == annotation.stop.id
         annotationView.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
         
         return annotationView
@@ -78,7 +110,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
             return
         }
         
-        viewModel.selectedStop = annotation
+        viewModel.selectedStopID = annotation.stop.id
         delegate?.busMapViewController(self, didSelectStopWithID: annotation.stop.id)
         
         UIView.animateWithDuration(0.1, animations: {
@@ -92,7 +124,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         guard let annotation = view.annotation as? BusStopAnnotation else {
             return
         }
-        viewModel.selectedStop = nil
+        viewModel.selectedStopID = nil
         delegate?.busMapViewControllerDidClearSelection(self)
         
         UIView.animateWithDuration(0.1, animations: {

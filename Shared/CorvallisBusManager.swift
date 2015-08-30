@@ -63,14 +63,6 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
         }
     }
     
-    func mapViewModel() -> Promise<BusMapViewModel, BusError> {
-        return staticData().map { (staticData: BusStaticData) -> BusMapViewModel in
-            let annotations = staticData.stops.map{ ($0, BusStopAnnotation(stop: $1)) }
-            return BusMapViewModel(stops: annotations, routeArrows: [], routePolyline: nil, selectedStop: nil)
-
-        }
-    }
-    
     // MARK: StopDetailsViewController support
     
     func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {

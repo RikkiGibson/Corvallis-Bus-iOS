@@ -36,19 +36,10 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         return tableViewHeight
     }()
     
-    let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
-    
     @IBOutlet weak var locationButton: UIButton!
-//    @IBOutlet weak var favoriteButton: UIButton!
     
-//    private var routesForStopSortedByArrivals: [BusRoute]?
-//    private var arrivals: [BusArrival]?
+    var externalStopID: Int?
     
-//    @IBOutlet weak var mapView: MKMapView!
-    
-    var initialStop: BusStop?
-    
-    private var initializedMapLocation = false
     private var busAnnotations = [Int : BusStopAnnotation]()
     private var selectedAnnotation: BusStopAnnotation?
     private var timer: NSTimer?
@@ -67,13 +58,15 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
             busMapViewController = segue.getContentViewController()
             busMapViewController!.dataSource = manager
             busMapViewController!.delegate = self
+            busMapViewController!.viewModel.selectedStopID = externalStopID
             break
         case "BusWebSegue":
             if let destination: BusWebViewController = segue.getContentViewController(),
                 let selectedRoute = sender as? BusRoute {
                     destination.initialURL = selectedRoute.url
             }
-        default: break
+        default:
+            break
         }
         
         if let destination = segue.destinationViewController as? BusWebViewController ??
@@ -83,10 +76,16 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if let busMapViewController = busMapViewController, externalStopID = externalStopID {
+            busMapViewController.viewModel.selectedStopID = externalStopID
+            self.externalStopID = nil
+        }
+    }
+    
     // MARK: BusMapViewControllerDelegate
     
     func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
-        // cause table to show data for this stop
         if let stopDetailViewController = stopDetailViewController {
             manager.stopDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.update)
         }

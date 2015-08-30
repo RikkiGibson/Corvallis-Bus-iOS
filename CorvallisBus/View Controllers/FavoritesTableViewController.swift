@@ -105,10 +105,11 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) { // TODO fix
-//        if let map = self.tabBarController?.viewControllers?[1].childViewControllers.first as? BrowseViewController {
-//            map.initialStop = self.favorites[indexPath.row]
-//            self.tabBarController?.selectedIndex = 1
-//        }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let browseViewController: BrowseViewController = tabBarController!.childViewController() else {
+            fatalError("Browse view controller not present as expected")
+        }
+        browseViewController.externalStopID = favoriteStops[indexPath.row].stopId
+        tabBarController!.selectedViewController = browseViewController.navigationController
     }
 }
