@@ -38,7 +38,8 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     
     @IBOutlet weak var locationButton: UIButton!
     
-    var externalStopID: Int?
+    /// Temporary storage for the stop ID to display once the view controllers are ready to do so.
+    private var externalStopID: Int?
     
     private var busAnnotations = [Int : BusStopAnnotation]()
     private var selectedAnnotation: BusStopAnnotation?
@@ -58,7 +59,6 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
             busMapViewController = segue.getContentViewController()
             busMapViewController!.dataSource = manager
             busMapViewController!.delegate = self
-            busMapViewController!.viewModel.selectedStopID = externalStopID
             break
         case "BusWebSegue":
             if let destination: BusWebViewController = segue.getContentViewController(),
@@ -76,10 +76,21 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        if let busMapViewController = busMapViewController, externalStopID = externalStopID {
-            busMapViewController.viewModel.selectedStopID = externalStopID
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let externalStopID = externalStopID {
+            busMapViewController!.selectStopExternally(externalStopID)
             self.externalStopID = nil
+        }
+    }
+    
+    func selectStopExternally(stopID: Int) {
+        if let busMapViewController = busMapViewController {
+            busMapViewController.selectStopExternally(stopID)
+        } else {
+            // The child view controller isn't ready to
+            // receive data, so hold onto the data until then.
+            externalStopID = stopID
         }
     }
     

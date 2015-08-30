@@ -27,65 +27,64 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     weak var delegate: BusMapViewControllerDelegate?
     weak var dataSource: BusMapViewControllerDataSource?
     
+    /// Temporary storage for the stop ID to display once the view controller is ready to do so.
+    private var externalStopID: Int?
+    
     var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], routeArrows: [], routePolyline: nil, selectedStopID: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectStopFromBackground",
-            name: UIApplicationDidBecomeActiveNotification, object: nil)
-        
         mapView.delegate = self
-        
-        Promise {
-            self.locationManagerDelegate.userLocation($0)
-        }.startOnMainThread { failable in
-            guard self.viewModel.selectedStopID == nil else { return }
-            let location = failable.toOptional() ?? CORVALLIS_LOCATION
-            self.mapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN), animated: false)
+
+        locationManagerDelegate.userLocation { maybeLocation in
+            // Don't muck with the location if an annotation is selected right now
+            guard self.mapView.selectedAnnotations.isEmpty else { return }
+            let location = maybeLocation.toOptional() ?? CORVALLIS_LOCATION
+            let region = MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN)
+            self.mapView.setRegion(region, animated: false)
         }
         
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Repeated selections of this stop allow external controllers to modify the selected stop
-        // and see results, as well as allowing listeners to our selection to update.
-        selectStop()
-    }
-    
     func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
-        if let annotations = failable.toOptional() {
+        if case .Success(let annotations) = failable {
             viewModel.stops = annotations
             for annotation in annotations.values {
                 mapView.addAnnotation(annotation)
             }
+            if let externalStopID = externalStopID {
+                self.externalStopID = nil
+                selectStopExternally(externalStopID)
+            }
+        } else {
+            // The request failed. Try again.
+            dataSource?.busStopAnnotations().startOnMainThread(populateMap)
         }
-        selectStop()
     }
     
     func setFavoriteState(isFavorite: Bool, forStopID stopID: Int) {
-        if let annotation = viewModel.stops[stopID], let view = mapView.viewForAnnotation(annotation) {
+        if let annotation = viewModel.stops[stopID] {
             annotation.isFavorite = isFavorite
-            let isSelected = viewModel.selectedStopID == stopID
-            view.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+            // The annotation view only exists if it's visible
+            if let view = mapView.viewForAnnotation(annotation) {
+                let isSelected = viewModel.selectedStopID == stopID
+                view.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+            }
         }
     }
     
-    func selectStopFromBackground() {
-        dispatch_async(dispatch_get_main_queue(), selectStop)
-    }
-    
-    func selectStop() {
-        guard let selectedStopID = viewModel.selectedStopID, annotation = viewModel.stops[selectedStopID] else {
-            return
+    func selectStopExternally(stopID: Int) {
+        if let annotation = viewModel.stops[stopID] {
+            // select the annotation that currently exists
+            let region = MKCoordinateRegion(center: annotation.stop.location.coordinate, span: DEFAULT_SPAN)
+            mapView.setRegion(region, animated: true)
+            mapView.selectAnnotation(annotation, animated: true)
+        } else {
+            // select this stop once data is populated
+            externalStopID = stopID
         }
-        let region = MKCoordinateRegion(center: annotation.stop.location.coordinate, span: DEFAULT_SPAN)
-        self.mapView.setRegion(region, animated: true)
-        self.mapView.deselectAnnotation(annotation, animated: true)
-        self.mapView.selectAnnotation(annotation, animated: true)
     }
     
     // MARK: MKMapViewDelegate

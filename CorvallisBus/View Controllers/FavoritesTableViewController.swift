@@ -109,7 +109,7 @@ final class FavoritesTableViewController: UITableViewController {
         guard let browseViewController: BrowseViewController = tabBarController!.childViewController() else {
             fatalError("Browse view controller not present as expected")
         }
-        browseViewController.externalStopID = favoriteStops[indexPath.row].stopId
+        browseViewController.selectStopExternally(favoriteStops[indexPath.row].stopId)
         tabBarController!.selectedViewController = browseViewController.navigationController
     }
 }

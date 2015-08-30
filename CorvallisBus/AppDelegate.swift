@@ -40,8 +40,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let browseViewController: BrowseViewController = tabBarController.childViewController() else {
             fatalError("Browse view controller not present as expected.")
         }
-        browseViewController.externalStopID = stopID
         tabBarController.selectedViewController = browseViewController.navigationController
+        browseViewController.selectStopExternally(stopID)
         
         return true
     }
