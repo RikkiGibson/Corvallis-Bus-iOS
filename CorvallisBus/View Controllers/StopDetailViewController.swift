@@ -16,6 +16,8 @@ protocol StopDetailViewControllerDelegate : class {
 final class StopDetailViewController : UITableViewController {
     @IBOutlet weak var labelStopName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
+
+    var timer: NSTimer?
     
     weak var delegate: StopDetailViewControllerDelegate?
     
@@ -29,14 +31,32 @@ final class StopDetailViewController : UITableViewController {
         tableView.contentInset = UIEdgeInsetsZero
     }
     
-    func update(viewModel: Failable<StopDetailViewModel, BusError>) {
+    func updateStopDetails(viewModel: Failable<StopDetailViewModel, BusError>) {
         guard let viewModel = viewModel.toOptional() else {
             return
         }
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
         setFavoriteButtonState(favorited: viewModel.isFavorite)
+        
+        // This causes the route table to clear if the route details are being unresponsive.
+        // Can this be factored into the updateRouteDetails method? (it would have to consume a Promise)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
+            selector: "refreshTableIfEmpty", userInfo: nil, repeats: false)
+    }
+    
+    func updateRouteDetails(viewModel: Failable<[RouteDetailViewModel], BusError>) {
+        guard case .Success(let viewModel) = viewModel else {
+            return
+        }
+        self.viewModel.routeDetails = viewModel
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+    }
+    
+    func refreshTableIfEmpty() {
+        if viewModel.routeDetails.isEmpty {
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        }
     }
     
     // MARK: Table view data source

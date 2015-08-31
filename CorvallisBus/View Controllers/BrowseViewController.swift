@@ -98,7 +98,8 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     
     func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
         if let stopDetailViewController = stopDetailViewController {
-            manager.stopDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.update)
+            manager.stopDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.updateStopDetails)
+            manager.routeDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.updateRouteDetails)
         }
     }
     

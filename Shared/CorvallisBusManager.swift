@@ -65,12 +65,28 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     
     // MARK: StopDetailsViewController support
     
-    func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
+    // TODO: refactor this stuff and remove the stuff that doesn't depend on the instance from the class itself
+    func routeDetailsViewModel(stopID: Int) -> Promise<[RouteDetailViewModel], BusError> {
         return CorvallisBusAPIClient.schedule([stopID]).map(parseSchedule)
-        .map{ schedules in
+        .map{ (schedules: StopSchedules) in
             self.staticData().map{ staticData in (staticData, schedules) }
-        }.map{ (staticData, schedules) in
-            self.toStopDetailsViewModel(stopID, staticData: staticData, schedules: schedules)
+        }.map{ (staticData, schedules) -> Failable<[RouteDetailViewModel], BusError> in
+            guard let routeSchedules = schedules[stopID] else {
+                return .Error(.NonNotify)
+            }
+            let sortedRoutes = staticData.routes.values.sort { $0.name < $1.name }
+            return .Success(self.toSortedRouteDetailsViewModels(sortedRoutes, routeSchedule: routeSchedules))
+        }
+    }
+    
+    func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
+        let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
+        let isFavorite = favoriteStopIDs.contains(stopID)
+        return staticData().map { (staticData: BusStaticData) -> Failable<StopDetailViewModel, BusError> in
+            guard let stop = staticData.stops[stopID] else {
+                return .Error(.NonNotify)
+            }
+            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: [], isFavorite: isFavorite))
         }
     }
     

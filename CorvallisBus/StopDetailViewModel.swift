@@ -18,6 +18,6 @@ struct RouteDetailViewModel {
 struct StopDetailViewModel {
     let stopName: String
     let stopID: Int
-    let routeDetails: [RouteDetailViewModel]
+    var routeDetails: [RouteDetailViewModel]
     var isFavorite: Bool
 }
