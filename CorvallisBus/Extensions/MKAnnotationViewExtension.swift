@@ -15,6 +15,8 @@ let goldOvalImage = UIImage(named: "goldoval")
 let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
 let goldOvalDeemphasizedImage = UIImage(named: "goldoval-deemphasized")
 
+let arrowImage = UIImage(named: "ListCurrentLoc")
+
 extension MKAnnotationView {
     func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool) {
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
@@ -31,5 +33,10 @@ extension MKAnnotationView {
             layer.zPosition = isFavorite ? 4 : 3
             image = isFavorite ? goldOvalImage : greenOvalImage
         }
+    }
+    
+    func updateWithArrowAnnotation(annotation: ArrowAnnotation) {
+        image = arrowImage
+        transform = CGAffineTransformMakeRotation(annotation.angle)
     }
 }

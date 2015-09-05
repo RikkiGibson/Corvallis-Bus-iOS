@@ -49,6 +49,11 @@ final class StopDetailViewController : UITableViewController {
         
         viewModel.routeDetails.startOnMainThread { failable in
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            if case .Success(let routeDetails) = failable where !routeDetails.isEmpty {
+                let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
+                self.tableView.selectRowAtIndexPath(firstIndex, animated: true, scrollPosition: .Middle)
+                self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
+            }
         }
         
         // This causes the route table to clear if the route details are being unresponsive.

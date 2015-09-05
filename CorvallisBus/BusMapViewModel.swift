@@ -10,7 +10,6 @@ import Foundation
 
 struct BusMapViewModel {
     var stops: [Int : BusStopAnnotation]
-    var routeArrows: [ArrowAnnotation]
-    var routePolyline: MKPolyline?
+    var selectedRoute: BusRoute?
     var selectedStopID: Int?
 }

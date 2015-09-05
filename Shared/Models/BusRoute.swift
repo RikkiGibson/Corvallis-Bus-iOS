@@ -13,9 +13,9 @@ final class BusRoute : Equatable {
     let color: UIColor
     let polyline: MKPolyline
     let url: NSURL
-    let path: [Int]
+    let path: Set<Int>
     
-    init(name: String, color: UIColor, polyline: MKPolyline, path: [Int], url: NSURL) {
+    init(name: String, color: UIColor, polyline: MKPolyline, path: Set<Int>, url: NSURL) {
         self.name = name
         self.color = color
         self.polyline = polyline
@@ -33,7 +33,7 @@ final class BusRoute : Equatable {
             let url = NSURL(string: urlString) else {
                 return nil
         }
-        return BusRoute(name: name, color: color, polyline: polyline, path: path, url: url)
+        return BusRoute(name: name, color: color, polyline: polyline, path: Set(path), url: url)
     }
     
     lazy var arrows: [ArrowAnnotation] = {
@@ -63,13 +63,8 @@ func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
 }
 
 final class ArrowAnnotation : NSObject, MKAnnotation {
-    var angle: CGFloat
-    var coordinate: CLLocationCoordinate2D
-    
-    override init() {
-        angle = 0.0
-        coordinate = CLLocationCoordinate2D()
-    }
+    let angle: CGFloat
+    let coordinate: CLLocationCoordinate2D
     
     init(mapPoint: MKMapPoint, angle: Double) {
         self.coordinate = MKCoordinateForMapPoint(mapPoint)

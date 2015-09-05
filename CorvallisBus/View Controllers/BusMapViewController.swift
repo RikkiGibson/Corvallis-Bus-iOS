@@ -30,7 +30,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     /// Temporary storage for the stop ID to display once the view controller is ready to do so.
     private var externalStopID: Int?
     
-    var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], routeArrows: [], routePolyline: nil, selectedStopID: nil)
+    var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], selectedRoute: nil, selectedStopID: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,19 +98,59 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
     }
     
+    func clearDisplayedRoute() {
+        
+        if let polyline = viewModel.selectedRoute?.polyline {
+            mapView.removeOverlay(polyline)
+        }
+        if let arrows = viewModel.selectedRoute?.arrows {
+            mapView.removeAnnotations(arrows)
+        }
+        
+        for annotation in viewModel.stops.values {
+            annotation.isDeemphasized = false
+            if let view = mapView.viewForAnnotation(annotation) {
+                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id)
+            }
+        }
+        
+        viewModel.selectedRoute = nil
+    }
+    
+    func displayRoute(route: BusRoute) {
+        guard route.name != viewModel.selectedRoute?.name else {
+            return
+        }
+        // TODO: a few hundred iterations can be saved by factoring the reset of all the isDeemphasized
+        clearDisplayedRoute()
+        viewModel.selectedRoute = route
+        for (stopID, annotation) in viewModel.stops {
+            annotation.isDeemphasized = !route.path.contains(stopID)
+            if let view = mapView.viewForAnnotation(annotation) {
+                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id)
+            }
+        }
+        mapView.addOverlay(route.polyline)
+        mapView.addAnnotations(route.arrows)
+    }
+    
     // MARK: MKMapViewDelegate
     
     let ANNOTATION_VIEW_IDENTIFIER = "MKAnnotationView"
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? BusStopAnnotation else {
+        if annotation is MKUserLocation {
             return nil
         }
         
         let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(ANNOTATION_VIEW_IDENTIFIER) ??
             MKAnnotationView(annotation: annotation, reuseIdentifier: ANNOTATION_VIEW_IDENTIFIER) ?? MKAnnotationView()
         
-        let isSelected = viewModel.selectedStopID == annotation.stop.id
-        annotationView.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+        if let annotation = annotation as? BusStopAnnotation {
+            let isSelected = viewModel.selectedStopID == annotation.stop.id
+            annotationView.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+        } else if let annotation = annotation as? ArrowAnnotation {
+            annotationView.updateWithArrowAnnotation(annotation)
+        }
         
         return annotationView
     }
@@ -138,6 +178,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         
         dispatch_after(50, dispatch_get_main_queue()) {
             if self.mapView.selectedAnnotations.isEmpty {
+                self.clearDisplayedRoute()
                 self.delegate?.busMapViewControllerDidClearSelection(self)
             }
         }
@@ -147,5 +188,15 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         })
         
         view.updateWithBusStopAnnotation(annotation, isSelected: false)
+    }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let polyline = overlay as? MKPolyline, route = viewModel.selectedRoute else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.strokeColor = route.color
+        renderer.lineWidth = 5
+        return renderer
     }
 }

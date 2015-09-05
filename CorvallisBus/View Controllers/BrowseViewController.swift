@@ -103,7 +103,11 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     // MARK: StopDetailViewControllerDelegate
     
     func stopDetailViewController(viewController: StopDetailViewController, didSelectRouteNamed routeName: String) {
-        
+        manager.staticData().startOnMainThread { staticData in
+            if case .Success(let staticData) = staticData, let route = staticData.routes[routeName] {
+                self.busMapViewController?.displayRoute(route)
+            }
+        }
     }
     
     func stopDetailViewController(viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String) {
