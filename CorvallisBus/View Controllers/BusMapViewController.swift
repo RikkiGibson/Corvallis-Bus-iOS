@@ -49,6 +49,18 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
+        for annotation in viewModel.stops.values {
+            annotation.isFavorite = favoriteStopIDs.contains(annotation.stop.id)
+            if let view = mapView.viewForAnnotation(annotation) {
+                view.updateWithBusStopAnnotation(annotation, isSelected: annotation.stop.id == viewModel.selectedStopID)
+            }
+        }
+    }
+    
     @IBAction func goToUserLocation() {
         locationManagerDelegate.userLocation { maybeLocation in
             if case .Success(let location) = maybeLocation {
