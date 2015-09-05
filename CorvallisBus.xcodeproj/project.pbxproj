@@ -47,6 +47,7 @@
 		5CA303911B8AE307003E44ED /* StopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */; };
 		5CA303931B8AEAD2003E44ED /* BusMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */; };
 		5CC81EC81B8A79800037A190 /* StopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC81EC71B8A79800037A190 /* StopDetailViewController.swift */; };
+		5CCA12391B9B91A300701423 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		5CD640091B8C323D0099BBDD /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
 		5CD6400B1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
 		5CD6400C1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
@@ -171,6 +172,7 @@
 		5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewModel.swift; sourceTree = "<group>"; };
 		5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewModel.swift; sourceTree = "<group>"; };
 		5CC81EC71B8A79800037A190 /* StopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewController.swift; sourceTree = "<group>"; };
+		5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusFavoritesManager.swift; sourceTree = "<group>"; };
 		5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtension.swift; sourceTree = "<group>"; };
 		5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */,
 				5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */,
 				5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */,
+				5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				5CECD43B1B86DC50000F3E6C /* BusArrival.swift in Sources */,
 				5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */,
 				5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */,
+				5CCA12391B9B91A300701423 /* UIViewControllerExtension.swift in Sources */,
 				5CECD4351B86DC50000F3E6C /* MKPolyline+GMEncodedString.m in Sources */,
 				5CECD4411B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */,
 				5CECD4471B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */,

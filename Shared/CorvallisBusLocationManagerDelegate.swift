@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreLocation
 
 final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
@@ -15,17 +14,17 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     
     override init() {
         super.init()
-        self._locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         
         if #available(iOS 8.0, *) {
-            self._locationManager.requestWhenInUseAuthorization()
+            _locationManager.requestWhenInUseAuthorization()
         }
         
-        self._locationManager.delegate = self
+        _locationManager.delegate = self
     }
     
     func userLocation(callback: Failable<CLLocation, BusError> -> Void) {
-        self._callback = callback
+        _callback = callback
         _locationManager.startUpdatingLocation()
     }
     

@@ -20,6 +20,7 @@ let arrowImage = UIImage(named: "ListCurrentLoc")
 extension MKAnnotationView {
     func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool) {
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
+        enabled = true
         
         let isFavorite = annotation.isFavorite
         let isDeemphasized = annotation.isDeemphasized
@@ -37,6 +38,7 @@ extension MKAnnotationView {
     
     func updateWithArrowAnnotation(annotation: ArrowAnnotation) {
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        enabled = false
         image = arrowImage
         transform = CGAffineTransformMakeRotation(annotation.angle)
     }

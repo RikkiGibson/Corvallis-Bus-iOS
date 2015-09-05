@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapViewControllerDelegate, StopDetailViewControllerDelegate {
+final class BrowseViewController: UIViewController, BusMapViewControllerDelegate, StopDetailViewControllerDelegate {
     let manager = CorvallisBusManager()
     
     var busMapViewController: BusMapViewController?
@@ -30,12 +30,10 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
         case "StopDetailEmbed":
             stopDetailViewController = segue.getContentViewController()
             stopDetailViewController!.delegate = self
-            break
         case "BusMapEmbed":
             busMapViewController = segue.getContentViewController()
             busMapViewController!.dataSource = manager
             busMapViewController!.delegate = self
-            break
         case "BusWebSegue":
             if let destination: BusWebViewController = segue.getContentViewController() {
                 destination.initialURL = destinationURL
@@ -164,23 +162,5 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
         
-    }
-}
-
-extension UIViewController {
-    func presentAlert(title title: String, message: String) {
-        if #available(iOS 8.0, *) {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
-            self.presentViewController(alertController, animated: true) { }
-        } else {
-            let alertView = UIAlertView(title: title, message: message,
-                delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
-            alertView.show()
-        }
-    }
-    
-    func presentError(message: String) {
-        presentAlert(title: "Error", message: message)
     }
 }

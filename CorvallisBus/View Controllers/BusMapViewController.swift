@@ -67,6 +67,8 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
                 let span = self.mapView.region.span
                 let region = MKCoordinateRegion(center: location.coordinate, span: span)
                 self.mapView.setRegion(region, animated: true)
+            } else if case .Error(let error) = maybeLocation, let message = error.getMessage() {
+                self.presentError(message)
             }
         }
     }
@@ -171,6 +173,12 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
         
         return annotationView
+    }
+    
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+        if let view = mapView.viewForAnnotation(mapView.userLocation) {
+            view.enabled = false
+        }
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
