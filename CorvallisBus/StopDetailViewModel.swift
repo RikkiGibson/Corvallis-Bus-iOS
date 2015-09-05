@@ -17,7 +17,11 @@ struct RouteDetailViewModel {
 
 struct StopDetailViewModel {
     let stopName: String
-    let stopID: Int
+    let stopID: Int?
     var routeDetails: [RouteDetailViewModel]
     var isFavorite: Bool
+    
+    static func defaultViewModel() -> StopDetailViewModel {
+        return StopDetailViewModel(stopName: "", stopID: nil, routeDetails: [], isFavorite: false)
+    }
 }

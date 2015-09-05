@@ -48,6 +48,16 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
     }
     
+    @IBAction func goToUserLocation() {
+        locationManagerDelegate.userLocation { maybeLocation in
+            if case .Success(let location) = maybeLocation {
+                let span = self.mapView.region.span
+                let region = MKCoordinateRegion(center: location.coordinate, span: span)
+                self.mapView.setRegion(region, animated: true)
+            }
+        }
+    }
+    
     func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
         if case .Success(let annotations) = failable {
             viewModel.stops = annotations

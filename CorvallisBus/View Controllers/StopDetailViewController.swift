@@ -21,7 +21,7 @@ final class StopDetailViewController : UITableViewController {
     
     weak var delegate: StopDetailViewControllerDelegate?
     
-    private var viewModel = StopDetailViewModel(stopName: "", stopID: 0, routeDetails: [], isFavorite: false)
+    private var viewModel = StopDetailViewModel(stopName: "", stopID: nil, routeDetails: [], isFavorite: false)
     
     let CELL_IDENTIFIER = "BusRouteDetailCell"
     override func viewDidLoad() {
@@ -29,6 +29,7 @@ final class StopDetailViewController : UITableViewController {
         tableView.registerNib(cellNib, forCellReuseIdentifier: CELL_IDENTIFIER)
         
         tableView.contentInset = UIEdgeInsetsZero
+        updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
     }
     
     func updateStopDetails(viewModel: Failable<StopDetailViewModel, BusError>) {
@@ -38,6 +39,9 @@ final class StopDetailViewController : UITableViewController {
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
         setFavoriteButtonState(favorited: viewModel.isFavorite)
+        
+        // stopID being nil indicates no stop is selected
+        buttonFavorite.enabled = viewModel.stopID != nil
         
         // This causes the route table to clear if the route details are being unresponsive.
         // Can this be factored into the updateRouteDetails method? (it would have to consume a Promise)
@@ -81,9 +85,12 @@ final class StopDetailViewController : UITableViewController {
     }
     
     @IBAction func toggleFavorite() {
+        guard let stopID = viewModel.stopID else {
+            return
+        }
         viewModel.isFavorite = !viewModel.isFavorite
         setFavoriteButtonState(favorited: viewModel.isFavorite)
-        delegate?.stopDetailViewController(self, didSetFavoritedState: viewModel.isFavorite, forStopID: viewModel.stopID)
+        delegate?.stopDetailViewController(self, didSetFavoritedState: viewModel.isFavorite, forStopID: stopID)
     }
     
     func setFavoriteButtonState(favorited favorited: Bool) {

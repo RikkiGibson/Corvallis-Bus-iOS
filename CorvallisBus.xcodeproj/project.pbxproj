@@ -76,9 +76,7 @@
 		5CECD4471B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */; };
 		5CECD4481B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */; };
 		5CECD44C1B86DCA1000F3E6C /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD44A1B86DCA1000F3E6C /* CorvallisBusTests.swift */; };
-		5CECD44D1B86DCA1000F3E6C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD44B1B86DCA1000F3E6C /* Info.plist */; };
 		5CECD4551B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */; };
-		5CECD4571B86DCAA000F3E6C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4511B86DCAA000F3E6C /* Info.plist */; };
 		5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */; };
 		5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */; };
 		5CECD45A1B86DCAA000F3E6C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */; };
@@ -553,7 +551,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CECD44D1B86DCA1000F3E6C /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +558,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CECD4571B86DCAA000F3E6C /* Info.plist in Resources */,
 				5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */,
 				5C3992F21A05B30B00AF52E4 /* Images.xcassets in Resources */,
 				5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */,

@@ -254,28 +254,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbP-lW-cIu" userLabel="Location Button">
-                                <rect key="frame" x="552" y="315" width="44" height="44"/>
-                                <color key="tintColor" red="0.49019607843137253" green="0.70588235294117652" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
-                                <connections>
-                                    <action selector="goToUserLocation:" destination="Rfu-K7-Css" eventType="touchUpInside" id="0LI-kh-BpX"/>
-                                </connections>
-                            </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-sg-FwP">
-                                <rect key="frame" x="0.0" y="367" width="600" height="184"/>
-                                <connections>
-                                    <segue destination="ha4-bl-X3Q" kind="embed" identifier="StopDetailEmbed" id="pjr-J7-SNx"/>
-                                </connections>
-                            </containerView>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
-                                <rect key="frame" x="552" y="28" width="44" height="44"/>
-                                <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="UIButtonBarSearch" backgroundImage="currentlocation-background"/>
-                                <connections>
-                                    <action selector="searchButtonPressed:" destination="Rfu-K7-Css" eventType="touchUpInside" id="oKv-xP-f1t"/>
-                                </connections>
-                            </button>
                             <searchBar alpha="0.90000000000000002" contentMode="redraw" placeholder="Search or enter an address" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-jy-vTM">
                                 <rect key="frame" x="16" y="28" width="568" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -284,36 +262,92 @@
                                     <outlet property="delegate" destination="Rfu-K7-Css" id="36c-t4-cAf"/>
                                 </connections>
                             </searchBar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
+                                <rect key="frame" x="552" y="28" width="44" height="44"/>
+                                <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="UIButtonBarSearch" backgroundImage="currentlocation-background"/>
+                                <connections>
+                                    <action selector="searchButtonPressed:" destination="Rfu-K7-Css" eventType="touchUpInside" id="oKv-xP-f1t"/>
+                                </connections>
+                            </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
                                 <connections>
                                     <segue destination="hkZ-NO-D3u" kind="embed" identifier="BusMapEmbed" id="af2-OZ-6UP"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-sg-FwP">
+                                <rect key="frame" x="0.0" y="367" width="600" height="184"/>
+                                <connections>
+                                    <segue destination="ha4-bl-X3Q" kind="embed" identifier="StopDetailEmbed" id="pjr-J7-SNx"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rVi-jy-vTM" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" constant="8" id="02t-yn-ugj"/>
+                            <constraint firstItem="gKa-oo-gfD" firstAttribute="leading" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="1vP-sF-RLW"/>
+                            <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="3fO-eZ-OeB"/>
                             <constraint firstItem="Guw-oB-wzY" firstAttribute="centerY" secondItem="rVi-jy-vTM" secondAttribute="centerY" id="6dv-y2-OCB"/>
+                            <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="7nj-DH-8Nc"/>
                             <constraint firstItem="rVi-jy-vTM" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" constant="16" id="7tK-cE-DF3"/>
-                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="Gko-sg-FwP" secondAttribute="bottom" id="B5d-mw-MRb"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="B8v-OE-lMg"/>
-                            <constraint firstItem="Guw-oB-wzY" firstAttribute="trailing" secondItem="QbP-lW-cIu" secondAttribute="trailing" id="DTi-GB-PG3"/>
-                            <constraint firstItem="gKa-oo-gfD" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="Gmh-Jd-Xhp"/>
-                            <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="LYN-63-vvr"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="97B-xu-3dT"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="width" secondItem="gKa-oo-gfD" secondAttribute="width" multiplier="3:4" id="FLq-ra-O2Q"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="1:2" id="Ir3-gi-Jvn"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="JUN-Zb-RaO"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="MyA-8f-aLN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Guw-oB-wzY" secondAttribute="trailing" constant="-16" id="NrC-Qw-s2K"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QbP-lW-cIu" secondAttribute="trailing" constant="-16" id="WJu-ey-4Tt"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="ZB4-oc-jK4"/>
-                            <constraint firstItem="gKa-oo-gfD" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="c7w-uE-UOB"/>
+                            <constraint firstItem="gKa-oo-gfD" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="RuG-Mv-mDC"/>
+                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="Gko-sg-FwP" secondAttribute="bottom" id="W5f-eX-DiT"/>
+                            <constraint firstAttribute="trailing" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="cu4-yL-VQS"/>
                             <constraint firstAttribute="trailing" secondItem="rVi-jy-vTM" secondAttribute="trailing" constant="16" id="dlV-63-f1A"/>
-                            <constraint firstAttribute="trailing" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="kI5-2d-U0t"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="1:2" id="kl8-Lg-dbZ"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="QbP-lW-cIu" secondAttribute="bottom" constant="8" id="skE-sJ-ytP"/>
+                            <constraint firstItem="gKa-oo-gfD" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="hS0-31-tsR"/>
+                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="Gko-sg-FwP" secondAttribute="bottom" id="jDp-VS-jzz"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="m8V-fp-Lid"/>
+                            <constraint firstItem="gKa-oo-gfD" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="wOC-0O-O6t"/>
+                            <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="ykg-7Y-x5T"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1vP-sF-RLW"/>
+                                <exclude reference="7nj-DH-8Nc"/>
+                                <exclude reference="RuG-Mv-mDC"/>
+                                <exclude reference="hS0-31-tsR"/>
+                                <exclude reference="wOC-0O-O6t"/>
+                                <exclude reference="97B-xu-3dT"/>
+                                <exclude reference="FLq-ra-O2Q"/>
+                                <exclude reference="Ir3-gi-Jvn"/>
+                                <exclude reference="JUN-Zb-RaO"/>
+                                <exclude reference="cu4-yL-VQS"/>
+                                <exclude reference="m8V-fp-Lid"/>
+                                <exclude reference="W5f-eX-DiT"/>
+                                <exclude reference="ykg-7Y-x5T"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact">
+                            <mask key="constraints">
+                                <include reference="1vP-sF-RLW"/>
+                                <include reference="7nj-DH-8Nc"/>
+                                <include reference="wOC-0O-O6t"/>
+                                <include reference="FLq-ra-O2Q"/>
+                                <include reference="JUN-Zb-RaO"/>
+                                <include reference="m8V-fp-Lid"/>
+                                <include reference="W5f-eX-DiT"/>
+                                <include reference="ykg-7Y-x5T"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="constraints">
+                                <include reference="RuG-Mv-mDC"/>
+                                <include reference="hS0-31-tsR"/>
+                                <include reference="97B-xu-3dT"/>
+                                <include reference="Ir3-gi-Jvn"/>
+                                <include reference="cu4-yL-VQS"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
-                        <outlet property="locationButton" destination="QbP-lW-cIu" id="SJb-sx-3T9"/>
                         <outlet property="searchBar" destination="rVi-jy-vTM" id="QYl-db-jED"/>
                         <outlet property="searchBarButton" destination="Guw-oB-wzY" id="O4O-dW-uvj"/>
                         <outlet property="searchBarLeftMargin" destination="7tK-cE-DF3" id="QSh-3t-76B"/>
@@ -352,13 +386,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
-                                <rect key="frame" x="0.0" y="-20" width="600" height="387"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
                             </mapView>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-Uy-I1F" userLabel="Location Button">
+                                <rect key="frame" x="548" y="315" width="44" height="44"/>
+                                <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
+                                <connections>
+                                    <action selector="goToUserLocation" destination="hkZ-NO-D3u" eventType="touchUpInside" id="1A1-le-jOm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="l15-9R-kx3" firstAttribute="leading" secondItem="dWY-TY-igF" secondAttribute="leading" id="6sZ-AN-Orw"/>
-                            <constraint firstItem="l15-9R-kx3" firstAttribute="top" secondItem="PPP-JE-826" secondAttribute="bottom" constant="-20" id="FSL-wI-ldX"/>
+                            <constraint firstItem="A4J-Uy-I1F" firstAttribute="bottom" secondItem="l15-9R-kx3" secondAttribute="bottom" constant="-8" id="7e3-ZJ-g9j"/>
+                            <constraint firstItem="l15-9R-kx3" firstAttribute="top" secondItem="PPP-JE-826" secondAttribute="bottom" id="FSL-wI-ldX"/>
+                            <constraint firstAttribute="trailing" secondItem="A4J-Uy-I1F" secondAttribute="trailing" constant="8" id="cZj-zd-cas"/>
                             <constraint firstItem="Q2c-SB-vST" firstAttribute="top" secondItem="l15-9R-kx3" secondAttribute="bottom" id="dIZ-0x-Rnp"/>
                             <constraint firstAttribute="trailing" secondItem="l15-9R-kx3" secondAttribute="trailing" id="qcf-EC-26m"/>
                         </constraints>

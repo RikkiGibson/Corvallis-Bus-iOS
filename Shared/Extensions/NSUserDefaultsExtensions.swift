@@ -17,7 +17,7 @@ extension NSUserDefaults {
     private static let FAVORITES_KEY = "Favorites"
     var favoriteStopIds: [Int] {
         get {
-            return arrayForKey(NSUserDefaults.FAVORITES_KEY) as? [Int] ?? [Int]()
+            return arrayForKey(NSUserDefaults.FAVORITES_KEY) as? [Int] ?? []
         }
         set {
             setObject(newValue, forKey: NSUserDefaults.FAVORITES_KEY)
@@ -50,7 +50,7 @@ extension NSUserDefaults {
     private static let CACHED_FAVORITE_STOPS_KEY = "cachedFavoriteStops"
     var cachedFavoriteStops: [[String : AnyObject]] {
         get {
-            return objectForKey(NSUserDefaults.CACHED_FAVORITE_STOPS_KEY) as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+            return objectForKey(NSUserDefaults.CACHED_FAVORITE_STOPS_KEY) as? [[String : AnyObject]] ?? []
         }
         set {
             setObject(newValue, forKey: NSUserDefaults.CACHED_FAVORITE_STOPS_KEY)

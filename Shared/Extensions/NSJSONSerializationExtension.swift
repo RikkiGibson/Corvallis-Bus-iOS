@@ -10,7 +10,7 @@ import Foundation
 
 extension NSJSONSerialization {
     private static func parseJSON<T>(data: NSData) -> Failable<T, BusError> {
-        if let json = try? JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)),
+        if let json = try? JSONObjectWithData(data, options: []),
             let typedJSON = json as? T {
             return Failable<T, BusError>.Success(typedJSON)
         } else {

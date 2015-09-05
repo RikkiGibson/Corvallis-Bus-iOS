@@ -29,6 +29,12 @@ class Promise<T, E: ErrorType> {
         self.operation = operation
     }
     
+    init(result: T) {
+        self.operation = { completionHandler in
+            completionHandler(.Success(result))
+        }
+    }
+    
     func start(handler: CompletionHandler) {
         switch state {
         case .Created:

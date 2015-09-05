@@ -104,7 +104,7 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     }
     
     func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {
-        
+        stopDetailViewController?.updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
     }
     
     // MARK: StopDetailViewControllerDelegate
@@ -114,7 +114,6 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     }
     
     func stopDetailViewController(viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int) {
-        // Call map VC to say favorited state for stop ID 12345 is now True or whatever
         busMapViewController?.setFavoriteState(favorite, forStopID: stopID)
         
         let userDefaults = NSUserDefaults.groupUserDefaults()

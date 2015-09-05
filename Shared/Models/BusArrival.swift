@@ -43,14 +43,12 @@ let arrivalFormatter: NSDateFormatter = {
     formatter.dateStyle = .NoStyle
     formatter.timeStyle = .ShortStyle
     return formatter
-    }()
+}()
 
 func arrivalTimeDescription(minutes: Int) -> String {
     switch minutes {
-    case 1:
-        return "1 minute"
-    case 2...30:
-        return "\(minutes) minutes"
+    case 1: return "1 minute"
+    case 2...30: return "\(minutes) minutes"
     default:
         let date = NSDate(timeIntervalSinceNow: NSTimeInterval(minutes * 60))
         return arrivalFormatter.stringFromDate(date)
@@ -62,27 +60,24 @@ func arrivalTimeDescription(minutes: Int) -> String {
 func toEstimateSummary(arrivals: [Int]) -> String {
     switch arrivals.count {
     case 0: return "No arrivals!"
-    case 1:
-        return arrivalTimeDescription(arrivals[0])
-    default:
-        return arrivalTimeDescription(arrivals[0]) + ", " + arrivalTimeDescription(arrivals[1])
+    case 1: return arrivalTimeDescription(arrivals[0])
+    default: return arrivalTimeDescription(arrivals[0]) + ", " + arrivalTimeDescription(arrivals[1])
     }
 }
 
 func toScheduleSummary(arrivalTimes: [Int]) -> String {
     switch arrivalTimes.count {
-    case 0...2:
-        return ""
+    case 0...2: return ""
     case 3:
         let lastTime = NSDate(timeIntervalSinceNow: NSTimeInterval(arrivalTimes[2] * 60))
         return "Last arrival at \(arrivalFormatter.stringFromDate(lastTime))"
     default:
-        let differences = mapAdjacentElements(arrivalTimes[1..<arrivalTimes.count]) { $0 - $1 }
+        let differences = mapAdjacentElements(arrivalTimes[1..<arrivalTimes.count]) { abs($0 - $1) }
         let lastDate = NSDate(timeIntervalSinceNow: NSTimeInterval(arrivalTimes.last! * 60))
         let lastDateString = arrivalFormatter.stringFromDate(lastDate)
-        if differences.all({ $0 >= 1200 && $0 <= 2400 }) {
+        if differences.all({ $0 >= 20 && $0 <= 40 }) {
             return "Every 30 minutes until \(lastDateString)"
-        } else if differences.all({ $0 >= 3000 && $0 <= 4200}) {
+        } else if differences.all({ $0 >= 50 && $0 <= 70}) {
             return "Hourly until \(lastDateString)"
         } else {
             return "Last arrival at \(lastDateString)"
