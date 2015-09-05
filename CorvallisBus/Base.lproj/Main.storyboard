@@ -258,17 +258,11 @@
                                 <rect key="frame" x="16" y="28" width="568" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Rfu-K7-Css" id="36c-t4-cAf"/>
-                                </connections>
                             </searchBar>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
                                 <rect key="frame" x="552" y="28" width="44" height="44"/>
                                 <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="UIButtonBarSearch" backgroundImage="currentlocation-background"/>
-                                <connections>
-                                    <action selector="searchButtonPressed:" destination="Rfu-K7-Css" eventType="touchUpInside" id="oKv-xP-f1t"/>
-                                </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
@@ -308,6 +302,10 @@
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="ykg-7Y-x5T"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="rVi-jy-vTM"/>
+                                <exclude reference="Guw-oB-wzY"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="1vP-sF-RLW"/>
                                 <exclude reference="7nj-DH-8Nc"/>
@@ -348,10 +346,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
-                        <outlet property="searchBar" destination="rVi-jy-vTM" id="QYl-db-jED"/>
-                        <outlet property="searchBarButton" destination="Guw-oB-wzY" id="O4O-dW-uvj"/>
-                        <outlet property="searchBarLeftMargin" destination="7tK-cE-DF3" id="QSh-3t-76B"/>
-                        <outlet property="searchBarRightMargin" destination="dlV-63-f1A" id="QqU-nz-fdk"/>
                         <outlet property="searchDisplayController" destination="57G-UC-EAU" id="Dga-0f-8Bj"/>
                         <segue destination="LTL-5N-aNi" kind="show" identifier="BusWebSegue" id="ouR-5R-7DY"/>
                     </connections>

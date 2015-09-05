@@ -121,8 +121,14 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         guard route.name != viewModel.selectedRoute?.name else {
             return
         }
-        // TODO: a few hundred iterations can be saved by factoring the reset of all the isDeemphasized
-        clearDisplayedRoute()
+        
+        if let polyline = viewModel.selectedRoute?.polyline {
+            mapView.removeOverlay(polyline)
+        }
+        if let arrows = viewModel.selectedRoute?.arrows {
+            mapView.removeAnnotations(arrows)
+        }
+        
         viewModel.selectedRoute = route
         for (stopID, annotation) in viewModel.stops {
             annotation.isDeemphasized = !route.path.contains(stopID)

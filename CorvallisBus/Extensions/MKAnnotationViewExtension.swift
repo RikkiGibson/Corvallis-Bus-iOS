@@ -36,6 +36,7 @@ extension MKAnnotationView {
     }
     
     func updateWithArrowAnnotation(annotation: ArrowAnnotation) {
+        layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         image = arrowImage
         transform = CGAffineTransformMakeRotation(annotation.angle)
     }

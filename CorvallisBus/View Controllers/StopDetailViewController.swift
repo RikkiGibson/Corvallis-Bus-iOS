@@ -17,8 +17,6 @@ protocol StopDetailViewControllerDelegate : class {
 final class StopDetailViewController : UITableViewController {
     @IBOutlet weak var labelStopName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
-
-    var timer: NSTimer?
     
     weak var delegate: StopDetailViewControllerDelegate?
     
@@ -40,6 +38,14 @@ final class StopDetailViewController : UITableViewController {
         // If the previous route details are still pending, don't load them.
         self.viewModel.routeDetails.cancel()
         
+        // Indicates whether this is just a reload of the same stop or a different stop was selected.
+        let didSelectDifferentStop = self.viewModel.stopID != viewModel.stopID
+        var selectedRouteName: String? = nil
+        if case .Finished(.Success(let routeDetails)) = self.viewModel.routeDetails.state,
+            let indexPath = tableView.indexPathForSelectedRow {
+                selectedRouteName = routeDetails[indexPath.row].routeName
+        }
+        
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
         setFavoriteButtonState(favorited: viewModel.isFavorite)
@@ -50,16 +56,13 @@ final class StopDetailViewController : UITableViewController {
         viewModel.routeDetails.startOnMainThread { failable in
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
             if case .Success(let routeDetails) = failable where !routeDetails.isEmpty {
-                let firstIndex = NSIndexPath(forRow: 0, inSection: 0)
-                self.tableView.selectRowAtIndexPath(firstIndex, animated: true, scrollPosition: .Middle)
-                self.tableView(self.tableView, didSelectRowAtIndexPath: firstIndex)
+                let indexToSelect = didSelectDifferentStop
+                    ? NSIndexPath(forRow: 0, inSection: 0)
+                    : NSIndexPath(forRow: routeDetails.indexOf{ $0.routeName == selectedRouteName } ?? 0, inSection: 0)
+                self.tableView.selectRowAtIndexPath(indexToSelect, animated: true, scrollPosition: .None)
+                self.tableView(self.tableView, didSelectRowAtIndexPath: indexToSelect)
             }
         }
-        
-        // This causes the route table to clear if the route details are being unresponsive.
-        // Can this be factored into the updateRouteDetails method? (it would have to consume a Promise)
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
-            selector: "clearTableIfDataUnavailable", userInfo: nil, repeats: false)
     }
     
     func clearTableIfDataUnavailable() {
