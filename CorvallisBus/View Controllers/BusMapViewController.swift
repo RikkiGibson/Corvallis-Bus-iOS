@@ -36,6 +36,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         mapView.delegate = self
+        mapView.setRegion(MKCoordinateRegion(center: CORVALLIS_LOCATION.coordinate, span: DEFAULT_SPAN), animated: false)
 
         locationManagerDelegate.userLocation { maybeLocation in
             // Don't muck with the location if an annotation is selected right now
@@ -134,7 +135,12 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
             return
         }
         viewModel.selectedStopID = nil
-        delegate?.busMapViewControllerDidClearSelection(self)
+        
+        dispatch_after(50, dispatch_get_main_queue()) {
+            if self.mapView.selectedAnnotations.isEmpty {
+                self.delegate?.busMapViewControllerDidClearSelection(self)
+            }
+        }
         
         UIView.animateWithDuration(0.1, animations: {
             view.transform = CGAffineTransformIdentity

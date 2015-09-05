@@ -18,10 +18,10 @@ struct RouteDetailViewModel {
 struct StopDetailViewModel {
     let stopName: String
     let stopID: Int?
-    var routeDetails: [RouteDetailViewModel]
+    var routeDetails: Promise<[RouteDetailViewModel], BusError>
     var isFavorite: Bool
     
     static func defaultViewModel() -> StopDetailViewModel {
-        return StopDetailViewModel(stopName: "", stopID: nil, routeDetails: [], isFavorite: false)
+        return StopDetailViewModel(stopName: "", stopID: nil, routeDetails: Promise(result: []), isFavorite: false)
     }
 }

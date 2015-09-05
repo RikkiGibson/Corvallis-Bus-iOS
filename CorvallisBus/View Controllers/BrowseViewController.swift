@@ -45,6 +45,7 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     private var selectedAnnotation: BusStopAnnotation?
     private var timer: NSTimer?
     
+    var destinationURL: NSURL?
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let identifier = segue.identifier else {
             return
@@ -61,18 +62,11 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
             busMapViewController!.delegate = self
             break
         case "BusWebSegue":
-            if let destination: BusWebViewController = segue.getContentViewController(),
-                let selectedRoute = sender as? BusRoute {
-                    destination.initialURL = selectedRoute.url
+            if let destination: BusWebViewController = segue.getContentViewController() {
+                destination.initialURL = destinationURL
             }
         default:
             break
-        }
-        
-        if let destination = segue.destinationViewController as? BusWebViewController ??
-            segue.destinationViewController.childViewControllers.first as? BusWebViewController,
-            let selectedRoute = sender as? BusRoute { // TODO: sending a model as though a model can be a sender is wrong.
-                destination.initialURL = selectedRoute.url
         }
     }
     
@@ -99,7 +93,6 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
         if let stopDetailViewController = stopDetailViewController {
             manager.stopDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.updateStopDetails)
-            manager.routeDetailsViewModel(stopID).startOnMainThread(stopDetailViewController.updateRouteDetails)
         }
     }
     
@@ -111,6 +104,15 @@ final class BrowseViewController: UIViewController, UISearchBarDelegate, BusMapV
     
     func stopDetailViewController(viewController: StopDetailViewController, didSelectRouteNamed routeName: String) {
         
+    }
+    
+    func stopDetailViewController(viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String) {
+        manager.staticData().startOnMainThread { staticData in
+            if case .Success(let staticData) = staticData {
+                self.destinationURL = staticData.routes[routeName]?.url
+                self.performSegueWithIdentifier("BusWebSegue", sender: nil)
+            }
+        }
     }
     
     func stopDetailViewController(viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int) {

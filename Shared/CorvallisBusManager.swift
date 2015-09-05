@@ -80,13 +80,14 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     }
     
     func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
+        let routeDetailsPromise = routeDetailsViewModel(stopID)
         let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
         let isFavorite = favoriteStopIDs.contains(stopID)
         return staticData().map { (staticData: BusStaticData) -> Failable<StopDetailViewModel, BusError> in
             guard let stop = staticData.stops[stopID] else {
                 return .Error(.NonNotify)
             }
-            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: [], isFavorite: isFavorite))
+            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, isFavorite: isFavorite))
         }
     }
     
@@ -105,18 +106,5 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
                 arrivalsSummary: toEstimateSummary(routeTuple.arrivalTimes), scheduleSummary: toScheduleSummary(routeTuple.arrivalTimes))
         }
         
-    }
-    
-    private func toStopDetailsViewModel(stopID: Int, staticData: BusStaticData, schedules: StopSchedules) -> Failable<StopDetailViewModel, BusError> {
-        guard let stop = staticData.stops[stopID],
-            let routeSchedules = schedules[stopID] else {
-                return .Error(.NonNotify)
-        }
-        
-        let isFavorite = NSUserDefaults.groupUserDefaults().favoriteStopIds.contains(stopID)
-        
-        let sortedRoutes = staticData.routes.values.sort{ $0.name < $1.name }
-        let routeDetails = toSortedRouteDetailsViewModels(sortedRoutes, routeSchedule: routeSchedules)
-        return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetails, isFavorite: isFavorite))
     }
 }

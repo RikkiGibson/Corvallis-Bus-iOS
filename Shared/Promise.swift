@@ -25,7 +25,7 @@ class Promise<T, E: ErrorType> {
     private(set) var state = PromiseState<T, E>.Created
     private var completionHandlers = [CompletionHandler]()
     
-    init(_ operation: AsyncOperation) {
+    init(operation: AsyncOperation) {
         self.operation = operation
     }
     
@@ -55,6 +55,11 @@ class Promise<T, E: ErrorType> {
                 handler(result)
             }
         }
+    }
+    
+    /// Prevents the promise from calling completion handlers previously provided to it.
+    func cancel() {
+        completionHandlers = []
     }
     
     func startOnMainThread(completion: CompletionHandler) {
