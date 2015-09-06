@@ -11,6 +11,7 @@ import MapKit
 
 final class FavoritesTableViewController: UITableViewController {
     var favoriteStops = [FavoriteStopViewModel]()
+    var timer: NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +21,6 @@ final class FavoritesTableViewController: UITableViewController {
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "updateFavorites", forControlEvents: .ValueChanged)
-        
-        NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites",
-            userInfo: nil, repeats: true)
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -33,6 +31,9 @@ final class FavoritesTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites",
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         
+        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites",
+            userInfo: nil, repeats: true)
+        
         updateFavorites()
     }
     
@@ -40,41 +41,30 @@ final class FavoritesTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        timer?.invalidate()
     }
     
     func updateFavorites() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        let userDefaults = NSUserDefaults.groupUserDefaults()
-        let shouldShowNearestStop = userDefaults.shouldShowNearestStop
-        CorvallisBusFavoritesManager.favoriteStops(userDefaults.favoriteStopIds)
-            .map{ (json: [[String : AnyObject]]) -> [FavoriteStopViewModel] in
-                let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true)}
-                return shouldShowNearestStop ? viewModels : viewModels.filter{ !$0.isNearestStop }
-            }.start { failable in dispatch_async(dispatch_get_main_queue()) { self.onUpdate(failable) } }
+        CorvallisBusFavoritesManager.favoriteStops(fallbackToGrayColor: true, limitResults: false)
+            .startOnMainThread(onUpdate)
     }
     
     func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
-        favoriteStops = result.toOptional() ?? [FavoriteStopViewModel]()
+        favoriteStops = result.toOptional() ?? []
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         
-        switch result {
-        case .Error(.Message(let message)):
-            self.presentError(message)
-            break
-        default:
-            break
+        if case .Error(.Message(let message)) = result {
+            presentError(message)
         }
     }
     
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.favoriteStops.count
     }

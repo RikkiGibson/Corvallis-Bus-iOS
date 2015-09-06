@@ -12,6 +12,8 @@ import NotificationCenter
 final class TodayViewController: UITableViewController, NCWidgetProviding {
     var favoriteStops = [FavoriteStopViewModel]()
     
+    var didCompleteUpdate = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
@@ -21,10 +23,6 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     // MARK: Table view
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoriteStops.count
     }
@@ -57,32 +55,33 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         // If an error is encountered, use NCUpdateResult.Failed
         // If there's no update required, use NCUpdateResult.NoData
         // If there's an update, use NCUpdateResult.NewData
-        let cache = NSUserDefaults.groupUserDefaults().cachedFavoriteStops
-        favoriteStops = cache.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+        favoriteStops = CorvallisBusFavoritesManager.cachedFavoriteStops(fallbackToGrayColor: false)
         tableView.reloadData()
         
         completionHandler(.NewData)
         
-        let userDefaults = NSUserDefaults.groupUserDefaults()
-        CorvallisBusFavoritesManager.favoriteStops(userDefaults.favoriteStopIds)
+        didCompleteUpdate = false
+        CorvallisBusFavoritesManager.favoriteStops(fallbackToGrayColor: false, limitResults: true)
             .startOnMainThread(onUpdate)
+        
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "clearTableIfUpdatePending", userInfo: nil, repeats: false)
     }
     
-    func onUpdate(result: Failable<[[String : AnyObject]], BusError>) {
-        let userDefaults = NSUserDefaults.groupUserDefaults()
-        let shouldShowNearestStop = userDefaults.shouldShowNearestStop
-        let limit = userDefaults.todayViewItemCount
+    func clearTableIfUpdatePending() {
+        if !didCompleteUpdate {
+            favoriteStops = []
+            tableView.reloadData()
+        }
+    }
+    
+    func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
+        didCompleteUpdate = true
         
-        favoriteStops = result.map{ (json: [[String : AnyObject]]) -> [FavoriteStopViewModel] in
-            let viewModels = json.mapUnwrap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
-            return shouldShowNearestStop ? viewModels.limit(limit) : viewModels.filter{ !$0.isNearestStop }.limit(limit)
-        }.toOptional() ?? [FavoriteStopViewModel]()
+        favoriteStops = result.toOptional() ?? []
         self.tableView.reloadData()
         
         if (preferredContentSize != tableView.contentSize) {
             preferredContentSize = tableView.contentSize
         }
-        
-        userDefaults.cachedFavoriteStops = result.toOptional() ?? [[String : AnyObject]]()
     }
 }

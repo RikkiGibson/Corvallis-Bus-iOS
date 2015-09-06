@@ -20,7 +20,37 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     
     private var timer: NSTimer?
     
-    var destinationURL: NSURL?
+    private var destinationURL: NSURL?
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDetails",
+            name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
+            selector: "reloadDetails", userInfo: nil, repeats: true)
+        
+        reloadDetails()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let externalStopID = externalStopID {
+            busMapViewController!.selectStopExternally(externalStopID)
+            self.externalStopID = nil
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        timer?.invalidate()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         guard let identifier = segue.identifier else {
             return
@@ -40,14 +70,6 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             }
         default:
             break
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if let externalStopID = externalStopID {
-            busMapViewController!.selectStopExternally(externalStopID)
-            self.externalStopID = nil
         }
     }
     
@@ -102,26 +124,12 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDetails",
-            name: UIApplicationDidBecomeActiveNotification, object: nil)
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
-            selector: "reloadDetails", userInfo: nil, repeats: true)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
     func reloadDetails() {
         if let stopID = busMapViewController?.viewModel.selectedStopID {
             manager.stopDetailsViewModel(stopID).startOnMainThread(onReloadDetails)
         }
     }
     
-    var reloadDetailsTimer: NSTimer?
     func onReloadDetails(stopDetails: Failable<StopDetailViewModel, BusError>) {
         stopDetailViewController?.updateStopDetails(stopDetails)
         
@@ -141,8 +149,8 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             }
         }
         
-        reloadDetailsTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
-            selector: "clearSelectionIfDataUnavailable:", userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "clearSelectionIfDataUnavailable:",
+            userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)
     }
     
     func clearSelectionIfDataUnavailable(timer: NSTimer) {
@@ -152,12 +160,6 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             self.busMapViewController?.clearDisplayedRoute()
             self.stopDetailViewController?.clearTableIfDataUnavailable()
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        reloadDetails()
     }
     
     @IBAction func unwind(segue: UIStoryboardSegue) {
