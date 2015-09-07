@@ -45,6 +45,16 @@ final class FavoritesTableViewController: UITableViewController {
         timer?.invalidate()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let defaults = NSUserDefaults.groupUserDefaults()
+        if !defaults.hasPreviouslyLaunched {
+            defaults.hasPreviouslyLaunched = true
+            presentTutorial()
+        }
+    }
+    
     func updateFavorites() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         

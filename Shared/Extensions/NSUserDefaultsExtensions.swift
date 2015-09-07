@@ -57,4 +57,14 @@ extension NSUserDefaults {
             synchronize()
         }
     }
+    
+    private static let HAS_PREVIOUSLY_LAUNCHED_KEY = "hasPreviouslyLaunched"
+    var hasPreviouslyLaunched: Bool {
+        get {
+            return objectForKey(NSUserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY) as? Bool ?? false
+        }
+        set {
+            setObject(newValue, forKey: NSUserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY)
+        }
+    }
 }

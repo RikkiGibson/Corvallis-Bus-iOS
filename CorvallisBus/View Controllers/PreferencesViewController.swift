@@ -45,4 +45,8 @@ final class PreferencesViewController: UIViewController {
         defaults.todayViewItemCount = Int(sender.value)
         counterTodayItems.text = Int(sender.value).description
     }
+    
+    @IBAction func tutorialButtonTouched() {
+        presentTutorial()
+    }
 }

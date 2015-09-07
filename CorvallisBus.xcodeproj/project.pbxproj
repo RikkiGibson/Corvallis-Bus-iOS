@@ -32,6 +32,9 @@
 		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
 		5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */; };
 		5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */; };
+		5C74E3031B9D048600F281B1 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C74E3021B9D048600F281B1 /* Tutorial.storyboard */; settings = {ASSET_TAGS = (); }; };
+		5C74E3051B9D0C9B00F281B1 /* TutorialContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C74E3041B9D0C9B00F281B1 /* TutorialContentViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		5C74E3071B9D0D5900F281B1 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C74E3061B9D0D5900F281B1 /* TutorialViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		5C8130F71B88EEF700A498AC /* CorvallisBusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */; };
 		5C8130FA1B88EFA100A498AC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
 		5C8130FB1B88EFA100A498AC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
@@ -161,6 +164,9 @@
 		5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRouteDetailCell.swift; sourceTree = "<group>"; };
 		5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusRouteDetailCell.xib; sourceTree = "<group>"; };
 		5C68C68E1B86E5FC00A52EC3 /* TodayExtension-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TodayExtension-BridgingHeader.h"; sourceTree = "<group>"; };
+		5C74E3021B9D048600F281B1 /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		5C74E3041B9D0C9B00F281B1 /* TutorialContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialContentViewController.swift; sourceTree = "<group>"; };
+		5C74E3061B9D0D5900F281B1 /* TutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
 		5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusManager.swift; sourceTree = "<group>"; };
 		5C8130F91B88EFA100A498AC /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
@@ -292,6 +298,9 @@
 				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
 				5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */,
 				5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */,
+				5C74E3021B9D048600F281B1 /* Tutorial.storyboard */,
+				5C74E3041B9D0C9B00F281B1 /* TutorialContentViewController.swift */,
+				5C74E3061B9D0D5900F281B1 /* TutorialViewController.swift */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -546,6 +555,7 @@
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
 				5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */,
 				5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */,
+				5C74E3031B9D048600F281B1 /* Tutorial.storyboard in Resources */,
 				5CECD42F1B86DC50000F3E6C /* Corvallis, OR.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,7 +627,9 @@
 				5CECD4351B86DC50000F3E6C /* MKPolyline+GMEncodedString.m in Sources */,
 				5CECD4411B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */,
 				5CECD4471B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */,
+				5C74E3051B9D0C9B00F281B1 /* TutorialContentViewController.swift in Sources */,
 				5C8130F71B88EEF700A498AC /* CorvallisBusManager.swift in Sources */,
+				5C74E3071B9D0D5900F281B1 /* TutorialViewController.swift in Sources */,
 				5CA3038E1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift in Sources */,
 				5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */,
 				5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */,

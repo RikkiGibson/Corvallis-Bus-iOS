@@ -24,4 +24,11 @@ extension UIViewController {
     func presentError(message: String) {
         presentAlert(title: "Error", message: message)
     }
+    
+    func presentTutorial() {
+        let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
+        let tutorialViewController = storyboard.instantiateInitialViewController()!
+        
+        navigationController?.presentViewController(tutorialViewController, animated: true, completion: { })
+    }
 }
