@@ -64,18 +64,18 @@
                                 <rect key="frame" x="0.0" y="86" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Woq-oY-Of7" id="Y6M-CX-gYU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c1Q-cG-QIU">
-                                            <rect key="frame" x="15" y="17" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="16" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wKf-am-EIM">
-                                            <rect key="frame" x="15" y="36.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="15" y="36" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -212,7 +212,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="dSW-ni-d5B">
                                 <rect key="frame" x="20" y="92" width="15" height="16"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjI-gf-joC">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjI-gf-joC">
                                 <rect key="frame" x="20" y="178" width="90" height="30"/>
                                 <state key="normal" title="Show tutorial"/>
                                 <connections>
@@ -297,7 +297,7 @@
                             <constraint firstItem="rVi-jy-vTM" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" constant="16" id="7tK-cE-DF3"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="97B-xu-3dT"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="width" secondItem="gKa-oo-gfD" secondAttribute="width" multiplier="3:4" id="FLq-ra-O2Q"/>
-                            <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="1:2" id="Ir3-gi-Jvn"/>
+                            <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="2:3" id="Ir3-gi-Jvn"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="JUN-Zb-RaO"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="MyA-8f-aLN"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Guw-oB-wzY" secondAttribute="trailing" constant="-16" id="NrC-Qw-s2K"/>
@@ -391,6 +391,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
+                                <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="351"/>
+                                </variation>
                             </mapView>
                             <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-Uy-I1F" userLabel="Location Button">
                                 <rect key="frame" x="548" y="315" width="44" height="44"/>
@@ -405,11 +408,17 @@
                         <constraints>
                             <constraint firstItem="l15-9R-kx3" firstAttribute="leading" secondItem="dWY-TY-igF" secondAttribute="leading" id="6sZ-AN-Orw"/>
                             <constraint firstItem="A4J-Uy-I1F" firstAttribute="bottom" secondItem="l15-9R-kx3" secondAttribute="bottom" constant="-8" id="7e3-ZJ-g9j"/>
-                            <constraint firstItem="l15-9R-kx3" firstAttribute="top" secondItem="PPP-JE-826" secondAttribute="bottom" id="FSL-wI-ldX"/>
-                            <constraint firstAttribute="trailing" secondItem="A4J-Uy-I1F" secondAttribute="trailing" constant="8" id="cZj-zd-cas"/>
+                            <constraint firstItem="l15-9R-kx3" firstAttribute="top" secondItem="PPP-JE-826" secondAttribute="bottom" constant="-20" id="9Zm-MO-vea"/>
+                            <constraint firstItem="l15-9R-kx3" firstAttribute="top" secondItem="dWY-TY-igF" secondAttribute="top" id="S5s-dg-dYZ"/>
+                            <constraint firstAttribute="trailing" secondItem="A4J-Uy-I1F" secondAttribute="trailing" constant="5" id="cZj-zd-cas"/>
                             <constraint firstItem="Q2c-SB-vST" firstAttribute="top" secondItem="l15-9R-kx3" secondAttribute="bottom" id="dIZ-0x-Rnp"/>
                             <constraint firstAttribute="trailing" secondItem="l15-9R-kx3" secondAttribute="trailing" id="qcf-EC-26m"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="S5s-dg-dYZ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="l15-9R-kx3" id="nrt-qt-xcJ"/>
@@ -431,7 +440,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-4Z-quy" userLabel="Stop Name">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-4Z-quy" userLabel="Stop Name">
                                     <rect key="frame" x="15" y="11" width="42" height="21"/>
                                     <gestureRecognizers/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
