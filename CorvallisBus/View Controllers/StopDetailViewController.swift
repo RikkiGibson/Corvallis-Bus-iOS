@@ -40,11 +40,7 @@ final class StopDetailViewController : UITableViewController {
         
         // Indicates whether this is just a reload of the same stop or a different stop was selected.
         let didSelectDifferentStop = self.viewModel.stopID != viewModel.stopID
-        var selectedRouteName: String? = nil
-        if case .Finished(.Success(let routeDetails)) = self.viewModel.routeDetails.state,
-            let indexPath = tableView.indexPathForSelectedRow {
-                selectedRouteName = routeDetails[indexPath.row].routeName
-        }
+        let selectedRouteName = self.viewModel.selectedRouteName
         
         self.viewModel = viewModel
         labelStopName.text = viewModel.stopName
@@ -98,6 +94,7 @@ final class StopDetailViewController : UITableViewController {
             return
         }
         let routeName = routeDetails[indexPath.row].routeName
+        viewModel.selectedRouteName = routeName
         delegate?.stopDetailViewController(self, didSelectRouteNamed: routeName)
     }
     

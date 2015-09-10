@@ -87,7 +87,7 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
             guard let stop = staticData.stops[stopID] else {
                 return .Error(.NonNotify)
             }
-            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, isFavorite: isFavorite))
+            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, selectedRouteName: nil, isFavorite: isFavorite))
         }
     }
     
