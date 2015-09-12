@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -183,14 +182,14 @@
                                     <action selector="switchedShouldShowNearestStop:" destination="Qjw-Wo-5wg" eventType="valueChanged" id="7gL-TA-BIh"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Always show nearest stop" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckU-WZ-87K">
-                                <rect key="frame" x="43" y="89" width="200" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always show nearest stop" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckU-WZ-87K">
+                                <rect key="frame" x="43" y="89" width="198" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="LBR-a7-Ccx">
-                                <rect key="frame" x="490" y="129" width="94" height="29"/>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="LBR-a7-Ccx">
+                                <rect key="frame" x="486" y="129" width="94" height="29"/>
                                 <connections>
                                     <action selector="todayViewItemCountChanged:" destination="Qjw-Wo-5wg" eventType="valueChanged" id="0D8-rY-EWZ"/>
                                 </connections>
@@ -201,8 +200,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-YE-Dbu">
-                                <rect key="frame" x="456" y="129" width="29" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-YE-Dbu">
+                                <rect key="frame" x="452" y="129" width="29" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="29" id="3oX-bI-XOx"/>
                                 </constraints>
@@ -212,8 +211,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="dSW-ni-d5B">
                                 <rect key="frame" x="20" y="92" width="15" height="16"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjI-gf-joC">
-                                <rect key="frame" x="20" y="178" width="90" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjI-gf-joC">
+                                <rect key="frame" x="20" y="179" width="90" height="30"/>
                                 <state key="normal" title="Show tutorial"/>
                                 <connections>
                                     <action selector="tutorialButtonTouched" destination="Qjw-Wo-5wg" eventType="touchUpInside" id="Lb4-xW-Bhx"/>
@@ -264,16 +263,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar alpha="0.90000000000000002" contentMode="redraw" placeholder="Search or enter an address" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVi-jy-vTM">
-                                <rect key="frame" x="16" y="28" width="568" height="44"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guw-oB-wzY" userLabel="Search Button">
-                                <rect key="frame" x="552" y="28" width="44" height="44"/>
-                                <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="UIButtonBarSearch" backgroundImage="currentlocation-background"/>
-                            </button>
                             <containerView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
                                 <connections>
@@ -289,22 +278,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rVi-jy-vTM" firstAttribute="top" secondItem="Vmb-rm-uRA" secondAttribute="bottom" constant="8" id="02t-yn-ugj"/>
                             <constraint firstItem="gKa-oo-gfD" firstAttribute="leading" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="1vP-sF-RLW"/>
                             <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="3fO-eZ-OeB"/>
-                            <constraint firstItem="Guw-oB-wzY" firstAttribute="centerY" secondItem="rVi-jy-vTM" secondAttribute="centerY" id="6dv-y2-OCB"/>
                             <constraint firstAttribute="trailing" secondItem="gKa-oo-gfD" secondAttribute="trailing" id="7nj-DH-8Nc"/>
-                            <constraint firstItem="rVi-jy-vTM" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" constant="16" id="7tK-cE-DF3"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="97B-xu-3dT"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="width" secondItem="gKa-oo-gfD" secondAttribute="width" multiplier="3:4" id="FLq-ra-O2Q"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="height" secondItem="gKa-oo-gfD" secondAttribute="height" multiplier="2:3" id="Ir3-gi-Jvn"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="JUN-Zb-RaO"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="MyA-8f-aLN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Guw-oB-wzY" secondAttribute="trailing" constant="-16" id="NrC-Qw-s2K"/>
                             <constraint firstItem="gKa-oo-gfD" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="RuG-Mv-mDC"/>
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="Gko-sg-FwP" secondAttribute="bottom" id="W5f-eX-DiT"/>
                             <constraint firstAttribute="trailing" secondItem="Gko-sg-FwP" secondAttribute="trailing" id="cu4-yL-VQS"/>
-                            <constraint firstAttribute="trailing" secondItem="rVi-jy-vTM" secondAttribute="trailing" constant="16" id="dlV-63-f1A"/>
                             <constraint firstItem="gKa-oo-gfD" firstAttribute="leading" secondItem="GSn-ny-dvK" secondAttribute="leading" id="hS0-31-tsR"/>
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="Gko-sg-FwP" secondAttribute="bottom" id="jDp-VS-jzz"/>
                             <constraint firstItem="Gko-sg-FwP" firstAttribute="top" secondItem="GSn-ny-dvK" secondAttribute="top" id="m8V-fp-Lid"/>
@@ -312,10 +296,6 @@
                             <constraint firstItem="SZz-GU-DQm" firstAttribute="top" secondItem="gKa-oo-gfD" secondAttribute="bottom" id="ykg-7Y-x5T"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="rVi-jy-vTM"/>
-                                <exclude reference="Guw-oB-wzY"/>
-                            </mask>
                             <mask key="constraints">
                                 <exclude reference="1vP-sF-RLW"/>
                                 <exclude reference="7nj-DH-8Nc"/>
@@ -389,14 +369,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
-                                <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
+                                <rect key="frame" x="0.0" y="-20" width="600" height="387"/>
+                                <variation key="heightClass=compact" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="343" height="351"/>
                                 </variation>
                             </mapView>
-                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-Uy-I1F" userLabel="Location Button">
-                                <rect key="frame" x="548" y="315" width="44" height="44"/>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-Uy-I1F" userLabel="Location Button">
+                                <rect key="frame" x="551" y="315" width="44" height="44"/>
                                 <color key="tintColor" red="0.49019607840000001" green="0.70588235290000001" blue="0.70588235290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
                                 <connections>
@@ -446,9 +426,6 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="kZv-ny-ZKu" appends="YES" id="Wv5-gX-CuV"/>
-                                    </connections>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zfy-Ip-or8" userLabel="Favorite Button">
                                     <rect key="frame" x="556" y="11" width="36" height="22"/>
@@ -459,8 +436,11 @@
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <state key="normal" image="favorite"/>
                                     <state key="selected" image="favorite"/>
+                                    <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
+                                        <rect key="frame" x="213" y="11" width="36" height="22"/>
+                                    </variation>
                                     <connections>
-                                        <outletCollection property="gestureRecognizers" destination="kZv-ny-ZKu" appends="YES" id="LZ1-XL-hy3"/>
+                                        <action selector="toggleFavorite" destination="ha4-bl-X3Q" eventType="touchUpInside" id="puG-R2-0m1"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -472,7 +452,7 @@
                                 <constraint firstItem="RHK-4Z-quy" firstAttribute="top" secondItem="Whg-cx-n84" secondAttribute="top" constant="11" id="J6l-tU-cOE"/>
                                 <constraint firstItem="Zfy-Ip-or8" firstAttribute="top" secondItem="Whg-cx-n84" secondAttribute="top" constant="11" id="QqU-zO-sw0"/>
                                 <constraint firstAttribute="bottom" secondItem="RHK-4Z-quy" secondAttribute="bottom" constant="12" id="fs7-rM-EQ5"/>
-                                <constraint firstItem="Zfy-Ip-or8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RHK-4Z-quy" secondAttribute="trailing" constant="8" id="fvb-2g-FcE"/>
+                                <constraint firstItem="Zfy-Ip-or8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RHK-4Z-quy" secondAttribute="trailing" id="fvb-2g-FcE"/>
                                 <constraint firstItem="RHK-4Z-quy" firstAttribute="leading" secondItem="Whg-cx-n84" secondAttribute="leading" constant="15" id="lJl-3K-58N"/>
                                 <constraint firstAttribute="trailing" secondItem="Zfy-Ip-or8" secondAttribute="trailing" constant="8" id="tU2-Ul-UAx"/>
                             </constraints>
@@ -591,7 +571,6 @@
     </scenes>
     <resources>
         <image name="ListCurrentLoc" width="15" height="15"/>
-        <image name="UIButtonBarSearch" width="30" height="30"/>
         <image name="alert" width="22" height="22"/>
         <image name="bus_toolbar_icon" width="28" height="28"/>
         <image name="currentlocation" width="30" height="30"/>

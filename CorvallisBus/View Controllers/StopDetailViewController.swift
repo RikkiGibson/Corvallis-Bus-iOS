@@ -29,6 +29,14 @@ final class StopDetailViewController : UITableViewController {
         
         tableView.contentInset = UIEdgeInsetsZero
         updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
+    
+    func onOrientationChanged() {
+        // Simple workaround to get the label to show text at the right width
+        // when the screen orientation goes from landscape to portrait.
+        labelStopName.text = viewModel.stopName
     }
     
     func updateStopDetails(viewModel: Failable<StopDetailViewModel, BusError>) {

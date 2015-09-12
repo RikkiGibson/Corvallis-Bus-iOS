@@ -9,7 +9,7 @@
 import Foundation
 
 final class CorvallisBusAPIClient {
-    private static let BASE_URL = "http://corvallisbus.azurewebsites.net"
+    private static let BASE_URL = "https://corvallisbus.azurewebsites.net"
     
     static func favoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]], BusError> {
         let stopsString = stopIds.map{ String($0) }.joinWithSeparator(",")

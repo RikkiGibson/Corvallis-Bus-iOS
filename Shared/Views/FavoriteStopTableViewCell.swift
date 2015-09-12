@@ -8,9 +8,6 @@
 
 import UIKit
 
-let GRAY_ROUTE_COLOR = UIColor.lightGrayColor()
-let CLEAR_COLOR = UIColor.clearColor()
-
 final class FavoriteStopTableViewCell: UITableViewCell {
     @IBOutlet weak var labelStopName: UILabel!
     
@@ -26,14 +23,13 @@ final class FavoriteStopTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // TODO: should the background color be set in the layer like this?
-        self.labelFirstRoute.layer.backgroundColor = GRAY_ROUTE_COLOR.CGColor
-        self.labelFirstRoute.layer.cornerRadius = 5
-        self.labelFirstRoute.clipsToBounds = true
+        labelFirstRoute.backgroundColor = UIColor.lightGrayColor()
+        labelFirstRoute.layer.cornerRadius = 5
+        labelFirstRoute.clipsToBounds = true
         
-        self.labelSecondRoute.layer.backgroundColor = CLEAR_COLOR.CGColor
-        self.labelSecondRoute.layer.cornerRadius = 5
-        self.labelSecondRoute.clipsToBounds = true
+        labelSecondRoute.backgroundColor = UIColor.clearColor()
+        labelSecondRoute.layer.cornerRadius = 5
+        labelSecondRoute.clipsToBounds = true
     }
     
     func update(viewModel: FavoriteStopViewModel) {

@@ -8,7 +8,6 @@
 
 import UIKit
 
-// rename to RouteDetailCell?
 final class BusRouteDetailCell: UITableViewCell {
     
     @IBOutlet weak var labelRouteName: BusRouteLabel!
@@ -20,9 +19,8 @@ final class BusRouteDetailCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.labelRouteName.layer.cornerRadius = 8
-        self.labelRouteName.clipsToBounds = true
-        // Initialization code
+        labelRouteName.layer.cornerRadius = 8
+        labelRouteName.clipsToBounds = true
     }
     
     func update(viewModel: RouteDetailViewModel) {
