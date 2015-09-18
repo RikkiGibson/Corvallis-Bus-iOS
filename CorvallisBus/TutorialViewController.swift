@@ -30,10 +30,10 @@ class TutorialViewController : UIViewController, UIPageViewControllerDataSource,
         }
         pageControl.numberOfPages = viewControllers.count
         
-        let contentViewController = segue.destinationViewController as! UIPageViewController
-        contentViewController.dataSource = self
-        contentViewController.delegate = self
-        contentViewController.setViewControllers([viewControllers[0]], direction: .Forward, animated: true, completion: nil)
+        pageViewController = segue.destinationViewController as! UIPageViewController
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
+        pageViewController.setViewControllers([viewControllers[0]], direction: .Forward, animated: true, completion: nil)
     }
     
     // MARK: UIPageViewControllerDataSource
@@ -58,6 +58,13 @@ class TutorialViewController : UIViewController, UIPageViewControllerDataSource,
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         pageControl.currentPage = viewControllers.indexOf(pendingViewControllers[0] as! TutorialContentViewController)!
+    }
+    
+    @IBAction func onPageControlValueChanged(sender: UIPageControl) {
+        let oldIndex = viewControllers.indexOf(pageViewController.viewControllers![0] as! TutorialContentViewController)!
+        let direction: UIPageViewControllerNavigationDirection = oldIndex < sender.currentPage ? .Forward : .Reverse
+        
+        pageViewController.setViewControllers([viewControllers[sender.currentPage]], direction: direction, animated: true, completion: nil)
     }
     
     @IBAction func done() {
