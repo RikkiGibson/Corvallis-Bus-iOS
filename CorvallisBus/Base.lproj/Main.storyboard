@@ -212,8 +212,8 @@
                                 <rect key="frame" x="20" y="92" width="15" height="16"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjI-gf-joC">
-                                <rect key="frame" x="20" y="179" width="90" height="30"/>
-                                <state key="normal" title="Show tutorial"/>
+                                <rect key="frame" x="20" y="179" width="119" height="30"/>
+                                <state key="normal" title="Show Quick Start"/>
                                 <connections>
                                     <action selector="tutorialButtonTouched" destination="Qjw-Wo-5wg" eventType="touchUpInside" id="Lb4-xW-Bhx"/>
                                 </connections>
@@ -452,7 +452,7 @@
                                 <constraint firstItem="RHK-4Z-quy" firstAttribute="top" secondItem="Whg-cx-n84" secondAttribute="top" constant="11" id="J6l-tU-cOE"/>
                                 <constraint firstItem="Zfy-Ip-or8" firstAttribute="top" secondItem="Whg-cx-n84" secondAttribute="top" constant="11" id="QqU-zO-sw0"/>
                                 <constraint firstAttribute="bottom" secondItem="RHK-4Z-quy" secondAttribute="bottom" constant="12" id="fs7-rM-EQ5"/>
-                                <constraint firstItem="Zfy-Ip-or8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RHK-4Z-quy" secondAttribute="trailing" id="fvb-2g-FcE"/>
+                                <constraint firstItem="Zfy-Ip-or8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="RHK-4Z-quy" secondAttribute="trailing" constant="8" id="fvb-2g-FcE"/>
                                 <constraint firstItem="RHK-4Z-quy" firstAttribute="leading" secondItem="Whg-cx-n84" secondAttribute="leading" constant="15" id="lJl-3K-58N"/>
                                 <constraint firstAttribute="trailing" secondItem="Zfy-Ip-or8" secondAttribute="trailing" constant="8" id="tU2-Ul-UAx"/>
                             </constraints>

@@ -8,27 +8,35 @@
 
 import Foundation
 
-class TutorialViewController : UIViewController, UIPageViewControllerDataSource {
-    let viewModels = [TutorialViewModel(title: "foo", image: UIImage(named: "ListCurrentLoc")!), TutorialViewModel(title: "bar", image: UIImage(named: "goldoval")!)]
+class TutorialViewController : UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    let viewModels = [TutorialViewModel(image: UIImage(named: "tutorial1")!),
+        TutorialViewModel(image: UIImage(named: "tutorial2")!),
+        TutorialViewModel(image: UIImage(named: "tutorial3")!),
+        TutorialViewModel(image: UIImage(named: "tutorial4")!),
+        TutorialViewModel(image: UIImage(named: "tutorial5")!),
+        TutorialViewModel(image: UIImage(named: "tutorial6")!)]
+    
     var viewControllers = [TutorialContentViewController]()
     var pageViewController: UIPageViewController!
     
-    override func viewDidLoad() {
-        pageViewController = storyboard!.instantiateViewControllerWithIdentifier("PageViewController") as! UIPageViewController
-        pageViewController!.dataSource = self
+    @IBOutlet weak var pageControl: UIPageControl!
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         viewControllers = viewModels.map{ viewModel in
             let contentViewController = storyboard!.instantiateViewControllerWithIdentifier("TutorialContentViewController") as! TutorialContentViewController
             contentViewController.viewModel = viewModel
             return contentViewController
         }
+        pageControl.numberOfPages = viewControllers.count
         
-        pageViewController.setViewControllers([viewControllers[0]], direction: .Forward, animated: true, completion: nil)
-        
-        addChildViewController(pageViewController)
-        view.addSubview(pageViewController.view)
-        pageViewController.didMoveToParentViewController(self)
+        let contentViewController = segue.destinationViewController as! UIPageViewController
+        contentViewController.dataSource = self
+        contentViewController.delegate = self
+        contentViewController.setViewControllers([viewControllers[0]], direction: .Forward, animated: true, completion: nil)
     }
+    
+    // MARK: UIPageViewControllerDataSource
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         guard let contentController = viewController as? TutorialContentViewController,
@@ -44,6 +52,12 @@ class TutorialViewController : UIViewController, UIPageViewControllerDataSource 
                 return nil
         }
         return viewControllers[index - 1]
+    }
+    
+    // MARK: UIPageViewControllerDelegate
+    
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        pageControl.currentPage = viewControllers.indexOf(pendingViewControllers[0] as! TutorialContentViewController)!
     }
     
     @IBAction func done() {

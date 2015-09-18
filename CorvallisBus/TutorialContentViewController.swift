@@ -9,12 +9,10 @@
 import Foundation
 
 struct TutorialViewModel {
-    let title: String
     let image: UIImage
 }
 
 class TutorialContentViewController : UIViewController {
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
     var viewModel: TutorialViewModel?
@@ -28,7 +26,6 @@ class TutorialContentViewController : UIViewController {
     }
     
     func configure(viewModel: TutorialViewModel) {
-        titleLabel.text = viewModel.title
         imageView.image = viewModel.image
     }
 }
