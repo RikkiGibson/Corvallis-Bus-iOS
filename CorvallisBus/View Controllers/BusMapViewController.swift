@@ -42,9 +42,11 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         locationManagerDelegate.userLocation { maybeLocation in
             // Don't muck with the location if an annotation is selected right now
             guard self.mapView.selectedAnnotations.isEmpty else { return }
-            let location = maybeLocation.toOptional() ?? CORVALLIS_LOCATION
-            let region = MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN)
-            self.mapView.setRegion(region, animated: false)
+            // Only go to the user's location if they're within about 20 miles of Corvallis
+            if case .Success(let location) = maybeLocation where location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
+                let region = MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN)
+                self.mapView.setRegion(region, animated: false)
+            }
         }
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
     }
