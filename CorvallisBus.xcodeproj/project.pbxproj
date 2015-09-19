@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2937D6037F1A68D9C6268221 /* libPods-CorvallisBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F1926E13E2CA796C2D375B /* libPods-CorvallisBus.a */; };
+		5C05F0461BADEA3E003AA215 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47C1A07048400F5928E /* AudioToolbox.framework */; };
 		5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47E1A07048C00F5928E /* CFNetwork.framework */; };
 		5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4801A07049400F5928E /* CoreGraphics.framework */; };
@@ -139,6 +140,7 @@
 /* Begin PBXFileReference section */
 		54F1926E13E2CA796C2D375B /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
+		5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		5C07B47C1A07048400F5928E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5C07B47E1A07048C00F5928E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		5C07B4801A07049400F5928E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -364,6 +366,7 @@
 				5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */,
 				5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */,
 				5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */,
+				5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 				5CC81EC81B8A79800037A190 /* StopDetailViewController.swift in Sources */,
 				5CECD43B1B86DC50000F3E6C /* BusArrival.swift in Sources */,
 				5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */,
+				5C05F0461BADEA3E003AA215 /* NSDateExtensions.swift in Sources */,
 				5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */,
 				5CCA12391B9B91A300701423 /* UIViewControllerExtension.swift in Sources */,
 				5CECD4351B86DC50000F3E6C /* MKPolyline+GMEncodedString.m in Sources */,
@@ -812,6 +816,7 @@
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -838,6 +843,7 @@
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

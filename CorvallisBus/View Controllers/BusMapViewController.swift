@@ -29,6 +29,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     
     /// Temporary storage for the stop ID to display once the view controller is ready to do so.
     private var externalStopID: Int?
+    private var reloadTimer: NSTimer?
     
     var viewModel: BusMapViewModel = BusMapViewModel(stops: [:], selectedRoute: nil, selectedStopID: nil)
     
@@ -45,12 +46,16 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
             let region = MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN)
             self.mapView.setRegion(region, animated: false)
         }
-        
         dataSource?.busStopAnnotations().startOnMainThread(populateMap)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotationsIfExpired",
+            name: UIApplicationDidBecomeActiveNotification, object: nil)
+        
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadAnnotationsIfExpired", userInfo: nil, repeats: true)
         
         let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
         for annotation in viewModel.stops.values {
@@ -59,6 +64,11 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
                 view.updateWithBusStopAnnotation(annotation, isSelected: annotation.stop.id == viewModel.selectedStopID)
             }
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        reloadTimer?.invalidate()
     }
     
     @IBAction func goToUserLocation() {
@@ -73,8 +83,20 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
     }
     
+    var lastReloadedDate = NSDate()
+    /// The point of this daily reloading stuff is that when stops become active or inactive
+    /// over the course of the year (especially when OSU terms start and end) the map will get reloaded.
+    /// This is not the cleanest solution (relies on the manager getting new static data every day) but it gets the job done.
+    func reloadAnnotationsIfExpired() {
+        if !lastReloadedDate.isToday() {
+            lastReloadedDate = NSDate()
+            dataSource?.busStopAnnotations().startOnMainThread(populateMap)
+        }
+    }
+    
     func populateMap(failable: Failable<[Int : BusStopAnnotation], BusError>) {
         if case .Success(let annotations) = failable {
+            mapView.removeAnnotations(mapView.annotations.filter{ $0 is BusStopAnnotation })
             viewModel.stops = annotations
             for annotation in annotations.values {
                 mapView.addAnnotation(annotation)

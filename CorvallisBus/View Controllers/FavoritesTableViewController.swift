@@ -58,7 +58,7 @@ final class FavoritesTableViewController: UITableViewController {
     func updateFavorites() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        CorvallisBusFavoritesManager.favoriteStops(fallbackToGrayColor: true, limitResults: false)
+        CorvallisBusFavoritesManager.favoriteStops(updateCache: false, fallbackToGrayColor: true, limitResults: false)
             .startOnMainThread(onUpdate)
     }
     

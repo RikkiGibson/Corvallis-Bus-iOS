@@ -9,6 +9,7 @@
 import Foundation
 
 struct BusStaticData {
+    let obtainedTime: NSDate
     let stops: [Int : BusStop]
     let routes: [String : BusRoute]
 }
@@ -36,7 +37,7 @@ private func parseStaticData(json: [String : AnyObject]) -> Failable<BusStaticDa
         }
     }
     
-    return .Success(BusStaticData(stops: stops, routes: routes))
+    return .Success(BusStaticData(obtainedTime: NSDate(), stops: stops, routes: routes))
 }
 
 private var staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
@@ -44,7 +45,10 @@ private var staticDataCache = CorvallisBusAPIClient.staticData().map(parseStatic
 class CorvallisBusManager : BusMapViewControllerDataSource {
     
     func staticData() -> Promise<BusStaticData, BusError> {
-        if case .Finished(.Error) = staticDataCache.state {
+        
+        // if there was an error obtaining the static data or it's expired, get it again.
+        if case .Finished(.Error) = staticDataCache.state,
+            case .Finished(.Success(let staticData)) = staticDataCache.state where !staticData.obtainedTime.isToday() {
             staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
         }
         return staticDataCache

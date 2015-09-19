@@ -39,7 +39,7 @@ extension NSUserDefaults {
     private static let TODAY_VIEW_ITEM_COUNT_KEY = "todayViewItemCount"
     var todayViewItemCount: Int {
         get {
-            return objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 7 // default
+            return objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 2 // default
         }
         set {
             setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY)
