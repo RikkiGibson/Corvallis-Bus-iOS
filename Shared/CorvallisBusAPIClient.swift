@@ -9,7 +9,7 @@
 import Foundation
 
 final class CorvallisBusAPIClient {
-    private static let BASE_URL = "http://rikkib.us"
+    private static let BASE_URL = "https://corvallisb.us/api"
     
     static func favoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]], BusError> {
         let stopsString = stopIds.map{ String($0) }.joinWithSeparator(",")
@@ -28,17 +28,17 @@ final class CorvallisBusAPIClient {
             .map(NSJSONSerialization.parseJSONObject)
     }
     
-    static func schedule(stopIds: [Int]) -> Promise<[String : AnyObject], BusError> {
-        guard stopIds.count != 0 else {
+    static func arrivalsSummary(stopIds: [Int]) -> Promise<[String : AnyObject], BusError> {
+        guard !stopIds.isEmpty else {
             return Promise { completionHandler in
                 completionHandler(.Success([:]))
             }
         }
+        
         let joinedStops = stopIds.map{ String($0) }.joinWithSeparator(",")
-        let url = NSURL(string: BASE_URL + "/schedule/" + joinedStops)!
+        let url = NSURL(string: "\(BASE_URL)/arrivals-summary/\(joinedStops)")!
         let session = NSURLSession.sharedSession()
         return session.downloadData(url)
             .map(NSJSONSerialization.parseJSONObject)
-        
     }
 }

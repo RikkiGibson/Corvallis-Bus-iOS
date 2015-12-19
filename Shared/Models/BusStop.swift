@@ -23,11 +23,11 @@ struct BusStop : Equatable {
     }
     
     static func fromDictionary(dictionary: [String : AnyObject]) -> BusStop? {
-        guard let id = dictionary["ID"] as? Int,
-            let name = dictionary["Name"] as? String,
-            let lat = dictionary["Lat"] as? Double,
-            let long = dictionary["Long"] as? Double,
-            let routeNames = dictionary["RouteNames"] as? [String] else {
+        guard let id = dictionary["id"] as? Int,
+            let name = dictionary["name"] as? String,
+            let lat = dictionary["lat"] as? Double,
+            let long = dictionary["lng"] as? Double,
+            let routeNames = dictionary["routeNames"] as? [String] else {
                 return nil
         }
         return BusStop(id: id, name: name,

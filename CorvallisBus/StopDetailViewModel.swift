@@ -15,6 +15,17 @@ struct RouteDetailViewModel {
     let scheduleSummary: String
 }
 
+func parseArrivalsSummary(json: [String: AnyObject], routes: [String: BusRoute]) -> RouteDetailViewModel? {
+    guard let routeName = json["routeName"] as? String,
+        routeColor = routes[routeName]?.color,
+        arrivalsSummary = json["arrivalsSummary"] as? String,
+        scheduleSummary = json["scheduleSummary"] as? String else {
+            return nil
+    }
+    return RouteDetailViewModel(routeName: routeName, routeColor: routeColor,
+        arrivalsSummary: arrivalsSummary, scheduleSummary: scheduleSummary)
+}
+
 struct StopDetailViewModel {
     let stopName: String
     let stopID: Int?

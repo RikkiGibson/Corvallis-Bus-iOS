@@ -15,8 +15,8 @@ struct BusStaticData {
 }
 
 private func parseStaticData(json: [String : AnyObject]) -> Failable<BusStaticData, BusError> {
-    guard let stopsJSON = json["Stops"] as? [String : [String : AnyObject]],
-        let routesJSON = json["Routes"] as? [String : [String : AnyObject]] else {
+    guard let stopsJSON = json["stops"] as? [String : [String : AnyObject]],
+        let routesJSON = json["routes"] as? [String : [String : AnyObject]] else {
             return .Error(.NonNotify)
     }
     
@@ -71,15 +71,11 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     
     // TODO: refactor this stuff and remove the stuff that doesn't depend on the instance from the class itself
     func routeDetailsViewModel(stopID: Int) -> Promise<[RouteDetailViewModel], BusError> {
-        return CorvallisBusAPIClient.schedule([stopID]).map(parseSchedule)
-        .map{ (schedules: StopSchedules) in
-            self.staticData().map{ staticData in (staticData, schedules) }
-        }.map{ (staticData, schedules) -> Failable<[RouteDetailViewModel], BusError> in
-            guard let routeSchedules = schedules[stopID] else {
-                return .Error(.NonNotify)
-            }
-            let sortedRoutes = staticData.routes.values.sort { $0.name < $1.name }
-            return .Success(self.toSortedRouteDetailsViewModels(sortedRoutes, routeSchedule: routeSchedules))
+        return self.staticData().map { (staticData: BusStaticData) in
+            CorvallisBusAPIClient.arrivalsSummary([stopID]).map({ (arrivalsJson: [String: AnyObject]) -> Failable<[RouteDetailViewModel], BusError> in
+                guard let stopArrivalsJson = arrivalsJson[String(stopID)] as? [[String: AnyObject]] else { return .Error(.NonNotify) }
+                return .Success(stopArrivalsJson.flatMap({ parseArrivalsSummary($0, routes: staticData.routes) }))
+            })
         }
     }
     
@@ -93,22 +89,5 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
             }
             return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, selectedRouteName: nil, isFavorite: isFavorite))
         }
-    }
-    
-    private func toSortedRouteDetailsViewModels(routes: [BusRoute], routeSchedule: RouteSchedules) -> [RouteDetailViewModel] {
-        return routes.mapUnwrap{ (route: BusRoute) -> (route: BusRoute, arrivalTimes: [Int])? in
-            if let schedule = routeSchedule[route.name] {
-                return (route, schedule)
-            } else {
-                return nil
-            }
-        }.sort { first, second in
-            first.arrivalTimes.reduce(Int.max, combine: min) <
-            second.arrivalTimes.reduce(Int.max, combine: min)
-        }.map{ routeTuple in
-            RouteDetailViewModel(routeName: routeTuple.route.name, routeColor: routeTuple.route.color,
-                arrivalsSummary: toEstimateSummary(routeTuple.arrivalTimes), scheduleSummary: toScheduleSummary(routeTuple.arrivalTimes))
-        }
-        
     }
 }

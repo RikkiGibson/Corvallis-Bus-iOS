@@ -24,12 +24,12 @@ final class BusRoute : Equatable {
     }
     
     static func fromDictionary(data: [String : AnyObject]) -> BusRoute? {
-        guard let name = data["RouteNo"] as? String,
-            let path = data["Path"] as? [Int],
-            let polylineString = data["Polyline"] as? String,
+        guard let name = data["routeNo"] as? String,
+            let path = data["path"] as? [Int],
+            let polylineString = data["polyline"] as? String,
             let polyline = MKPolyline(GMEncodedString: polylineString),
-            let color = parseColor(data["Color"]),
-            let urlString = data["Url"] as? String,
+            let color = parseColor(data["color"]),
+            let urlString = data["url"] as? String,
             let url = NSURL(string: urlString) else {
                 return nil
         }

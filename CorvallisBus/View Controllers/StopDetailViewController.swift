@@ -58,7 +58,11 @@ final class StopDetailViewController : UITableViewController {
         buttonFavorite.enabled = viewModel.stopID != nil
         
         viewModel.routeDetails.startOnMainThread { failable in
+            // stackoverflow claims this may fix a crash
+            self.tableView.beginUpdates()
             self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            self.tableView.endUpdates()
+            
             if case .Success(let routeDetails) = failable where !routeDetails.isEmpty {
                 let indexToSelect = didSelectDifferentStop
                     ? NSIndexPath(forRow: 0, inSection: 0)
