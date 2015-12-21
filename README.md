@@ -17,5 +17,5 @@ Renders Corvallis Transit System's service alerts feed so that users can find ou
 **4. Preferences**  
 Allows users to set a few preferences, such as whether to show the nearest stop in town in the Favorites view.
 
-#### App extensions
+#### App extension
 The app extension shows arrival information for the user's favorite stops in the Today view.
