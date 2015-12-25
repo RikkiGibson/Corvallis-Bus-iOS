@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-CorvallisBus-MWFeedParser.xcscheme</key>
+		<key>Flurry-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWFeedParser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>475367C8F0000A08A3D6595A</key>
+		<key>16146B35458210FB715049DF7D6CC7F7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E3B2606FF42CEAD90915F078</key>
+		<key>819A636D7F6795687E4E9330120CFA43</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D079C0B8D193CBDF60F39822F384E43F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -33,7 +33,7 @@ final class ServiceAlertsFeedParserDelegate : NSObject, MWFeedParserDelegate {
     }
     
     internal func feedParserDidFinish(parser: MWFeedParser!) {
-        if self.items.count == 0 {
+        if self.items.isEmpty {
             let item = MWFeedItem()
             item.title = "No current service alerts!\nTap to view the service alerts website."
             item.link = "https://www.corvallisoregon.gov/index.aspx?page=1105"

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2937D6037F1A68D9C6268221 /* libPods-CorvallisBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F1926E13E2CA796C2D375B /* libPods-CorvallisBus.a */; };
 		5C05F0461BADEA3E003AA215 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */; };
 		5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47C1A07048400F5928E /* AudioToolbox.framework */; };
 		5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47E1A07048C00F5928E /* CFNetwork.framework */; };
@@ -56,6 +55,7 @@
 		5CD6400B1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
 		5CD6400C1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
 		5CD8087C1B8C1875004E3121 /* MKAnnotationViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */; };
+		5CE70D5F1C2C944900884291 /* libPods-CorvallisBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */; };
 		5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
 		5CECD3FC1B86DA3B000F3E6C /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */; };
 		5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */; };
@@ -181,6 +181,8 @@
 		5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusFavoritesManager.swift; sourceTree = "<group>"; };
 		5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtension.swift; sourceTree = "<group>"; };
+		5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CorvallisBus.a"; path = "Pods/../build/Debug-iphoneos/libPods-CorvallisBus.a"; sourceTree = "<group>"; };
+		5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libFlurry-iOS-SDK.a"; path = "Pods/../build/Debug-iphoneos/libFlurry-iOS-SDK.a"; sourceTree = "<group>"; };
 		5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
 		5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
@@ -224,7 +226,7 @@
 				5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */,
 				5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */,
 				5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */,
-				2937D6037F1A68D9C6268221 /* libPods-CorvallisBus.a in Frameworks */,
+				5CE70D5F1C2C944900884291 /* libPods-CorvallisBus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +414,8 @@
 		5CF192A919EF513100CB21EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */,
+				5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */,
 				5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */,
 				5C07B48B1A0704CC00F5928E /* StoreKit.framework */,
 				5C07B4891A0704C600F5928E /* Security.framework */,
@@ -442,6 +446,7 @@
 				5CF192BB19EF513100CB21EC /* Embed App Extensions */,
 				5CF1930B19EF52B600CB21EC /* Embed Frameworks */,
 				CC754EC938194856FD38A7F0 /* Copy Pods Resources */,
+				75963FFCC6E8019C6D89DC01 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -581,6 +586,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		75963FFCC6E8019C6D89DC01 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CorvallisBus/Pods-CorvallisBus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AE9544E59912DCD35B9EA15B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -818,6 +838,10 @@
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -845,6 +869,10 @@
 				INFOPLIST_FILE = CorvallisBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -1,4 +1,5 @@
 PODS:
+  - Flurry-iOS-SDK/FlurrySDK (7.3.0)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
     - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
@@ -10,9 +11,11 @@ PODS:
   - MWFeedParser/NSString+HTML (1.0.1)
 
 DEPENDENCIES:
+  - Flurry-iOS-SDK/FlurrySDK
   - MWFeedParser
 
 SPEC CHECKSUMS:
+  Flurry-iOS-SDK: 054befae0fa0244fb000985bfe757d70f87a9f60
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.39.0

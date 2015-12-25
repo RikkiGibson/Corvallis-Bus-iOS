@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/MWFeedParser"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/MWFeedParser"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-CorvallisBus-MWFeedParser"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Flurry-iOS-SDK" "${PODS_ROOT}/Headers/Public/MWFeedParser"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Flurry-iOS-SDK/Flurry"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Flurry-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/MWFeedParser"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Flurry-iOS-SDK" -l"Flurry_7.3.0" -l"MWFeedParser" -framework "Foundation" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
 PODS_ROOT = ${SRCROOT}/Pods

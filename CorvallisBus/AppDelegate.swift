@@ -19,6 +19,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatch_async(queue) {
             CorvallisBusManager().staticData().start{ result in }
         }
+        Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
         
         return true
     }
