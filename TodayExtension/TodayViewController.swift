@@ -10,14 +10,13 @@ import UIKit
 import NotificationCenter
 
 final class TodayViewController: UITableViewController, NCWidgetProviding {
+    let placeholderData = FavoriteStopViewModel(stopName: "Something's not right",
+        stopId: 0, distanceFromUser: "", isNearestStop: false,
+        firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
+        secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
+    
     var favoriteStops = [FavoriteStopViewModel]()
     var didCompleteUpdate = false
-    let placeholderData = [
-        FavoriteStopViewModel(stopName: "Something's not right", stopId: 0,
-            distanceFromUser: "", isNearestStop: false,
-            firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
-            secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell
         
         cell.update(favoriteStops.isEmpty
-            ? placeholderData[0]
+            ? placeholderData
             : favoriteStops[indexPath.row])
         
         return cell
@@ -84,6 +83,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     func clearTableIfUpdatePending() {
         if !didCompleteUpdate {
             favoriteStops = []
+            NSUserDefaults.groupUserDefaults().cachedFavoriteStops = []
             tableView.reloadData()
         }
     }
