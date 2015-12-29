@@ -11,34 +11,48 @@ import NotificationCenter
 
 final class TodayViewController: UITableViewController, NCWidgetProviding {
     var favoriteStops = [FavoriteStopViewModel]()
-    
     var didCompleteUpdate = false
+    let placeholderData = [
+        FavoriteStopViewModel(stopName: "Something's not right", stopId: 0,
+            distanceFromUser: "", isNearestStop: false,
+            firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
+            secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
         
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 66, bottom: 0, right: 8)
-        
     }
     
     // MARK: Table view
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteStops.count
+        // Use a placeholder row when favorites is empty (implying failure to load)
+        return favoriteStops.isEmpty ? 1 : favoriteStops.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell
         
-        cell.update(favoriteStops[indexPath.row])
+        cell.update(favoriteStops.isEmpty
+            ? placeholderData[0]
+            : favoriteStops[indexPath.row])
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let currentStop = self.favoriteStops[indexPath.row]
-        if let url = NSURL(string: "CorvallisBus://?\(currentStop.stopId)") {
+        let urlString: String
+        if favoriteStops.isEmpty {
+            urlString = "CorvallisBus://"
+        } else {
+            let currentStop = self.favoriteStops[indexPath.row]
+            urlString = "CorvallisBus://?\(currentStop.stopId)"
+        }
+        
+        if let url = NSURL(string: urlString) {
             self.extensionContext?.openURL(url) { success in }
         }
     }
