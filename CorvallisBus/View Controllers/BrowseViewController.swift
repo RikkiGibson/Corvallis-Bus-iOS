@@ -49,6 +49,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         timer?.invalidate()
+        userActivity?.invalidate()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -88,6 +89,12 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         manager.stopDetailsViewModel(stopID).startOnMainThread(onReloadDetails)
+        
+        userActivity?.invalidate()
+        userActivity = NSUserActivity(activityType: "com.RikkiGibson.CorvallisBus.Browse")
+        userActivity!.userInfo = [USER_INFO_STOP_ID_KEY : stopID]
+        userActivity!.webpageURL = NSURL(string: "https://corvallisb.us/#\(stopID)")
+        userActivity!.becomeCurrent()
     }
     
     func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {

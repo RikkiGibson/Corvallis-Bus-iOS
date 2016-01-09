@@ -8,6 +8,8 @@
 
 import UIKit
 
+let USER_INFO_STOP_ID_KEY = "stopID"
+
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,18 +21,27 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatch_async(queue) {
             CorvallisBusManager().staticData().start{ result in }
         }
-        Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
+        //TODO: comment back in for app store
+        //Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
         
         return true
     }
     
-    /// Selects the map tab in the tab controller and returns the map view controller.
-    private func getViewPreparedForStop() -> BrowseViewController {
-        let tabController = self.window!.rootViewController as! UITabBarController
-        // TODO: provide the browse view controller instance instead of selecting the index
-        tabController.selectedIndex = 1 // selects map tab
-        return (tabController.selectedViewController as? BrowseViewController ??
-            tabController.selectedViewController?.childViewControllers.last as? BrowseViewController)!
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        
+        
+        let tabBarController = self.window!.rootViewController as! UITabBarController
+        guard let browseViewController: BrowseViewController = tabBarController.childViewController() else {
+            fatalError("Browse view controller not present as expected.")
+        }
+        
+        if let stopID = userActivity.userInfo?[USER_INFO_STOP_ID_KEY] as? Int ??
+                        userActivity.webpageURL?.fragment.flatMap({ Int($0) }) {
+            tabBarController.selectedViewController = browseViewController.navigationController
+            browseViewController.selectStopExternally(stopID)
+        }
+        
+        return true
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
