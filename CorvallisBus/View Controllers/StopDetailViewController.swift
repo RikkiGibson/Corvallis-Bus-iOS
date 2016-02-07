@@ -76,7 +76,10 @@ final class StopDetailViewController : UITableViewController {
     func clearTableIfDataUnavailable() {
         switch viewModel.routeDetails.state {
         case .Finished: break
-        default: tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+        default:
+            tableView.beginUpdates()
+            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            tableView.endUpdates()
         }
     }
     
