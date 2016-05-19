@@ -21,8 +21,12 @@ enum BusError : ErrorType {
         }
     }
     
+    /// Produces a BusError from an NSError.
+    /// Determines whether to show the error based on the code
+    /// and whether there's a user-friendly message to show.
     static func fromNSError(error: NSError) -> BusError {
-        if let message = error.userInfo[NSLocalizedDescriptionKey] as? String {
+        if let message = error.userInfo[NSLocalizedDescriptionKey] as? String
+        where NSURLError(rawValue: error.code) != NSURLError.TimedOut {
             return .Message(message)
         } else {
             return .NonNotify
@@ -46,7 +50,7 @@ enum Failable<T, E: ErrorType> {
     func map<U>(transform: T -> U) -> Failable<U, E> {
         switch self {
         case Success(let value):
-            return Failable<U, E>.Success(transform(value))
+            return .Success(transform(value))
         case Error(let error):
             return .Error(error)
         }
