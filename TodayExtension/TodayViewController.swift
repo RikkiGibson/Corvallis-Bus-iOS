@@ -77,7 +77,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: true)
             .startOnMainThread(onUpdate)
         
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "clearTableIfUpdatePending", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(TodayViewController.clearTableIfUpdatePending), userInfo: nil, repeats: false)
     }
     
     func clearTableIfUpdatePending() {

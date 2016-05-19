@@ -54,10 +54,10 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadAnnotationsIfExpired",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BusMapViewController.reloadAnnotationsIfExpired),
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: "reloadAnnotationsIfExpired", userInfo: nil, repeats: true)
+        reloadTimer = NSTimer.scheduledTimerWithTimeInterval(60.0, target: self, selector: #selector(BusMapViewController.reloadAnnotationsIfExpired), userInfo: nil, repeats: true)
         
         let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
         for annotation in viewModel.stops.values {

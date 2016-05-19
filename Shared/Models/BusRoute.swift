@@ -41,7 +41,7 @@ final class BusRoute : Equatable {
         
         var pointer = self.polyline.points()
         
-        for var i = 0; i < self.polyline.pointCount - 1; i += 10 {
+        for i in 0.stride(to: self.polyline.pointCount - 1, by: 10) {
             let firstPoint = pointer[i]
             let secondPoint = pointer[i+1]
             

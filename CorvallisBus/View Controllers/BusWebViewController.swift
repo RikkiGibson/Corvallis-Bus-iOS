@@ -17,13 +17,13 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let edgePanRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "didPanFromEdge:")
+        let edgePanRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(BusWebViewController.didPanFromEdge(_:)))
         edgePanRecognizer.edges = .Left
         edgePanRecognizer.delegate = self
         
         self.view.addGestureRecognizer(edgePanRecognizer)
         
-        let touchRecognizer = UITapGestureRecognizer(target: self, action: "didTouch:")
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(BusWebViewController.didTouch(_:)))
         touchRecognizer.numberOfTapsRequired = 1
         touchRecognizer.numberOfTouchesRequired = 1
         touchRecognizer.delegate = self

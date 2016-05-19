@@ -17,7 +17,7 @@ final class ServiceAlertsViewController: UITableViewController {
         super.viewDidLoad()
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "reloadFeed:", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadFeed(_:)), forControlEvents: .ValueChanged)
         
         self.dateFormatter.dateStyle = .LongStyle
         self.dateFormatter.timeStyle = .NoStyle

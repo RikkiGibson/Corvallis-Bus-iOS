@@ -20,7 +20,7 @@ final class FavoritesTableViewController: UITableViewController {
         self.tableView.registerNib(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "updateFavorites", forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(FavoritesTableViewController.updateFavorites), forControlEvents: .ValueChanged)
 
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -28,10 +28,10 @@ final class FavoritesTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateFavorites",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoritesTableViewController.updateFavorites),
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: "updateFavorites",
+        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: #selector(FavoritesTableViewController.updateFavorites),
             userInfo: nil, repeats: true)
         
         updateFavorites()

@@ -11,7 +11,7 @@ import Foundation
 extension NSDate {
     func isOnSameDay(other: NSDate) -> Bool {
         let calendar = NSCalendar.currentCalendar()
-        let unitFlags: NSCalendarUnit = [.NSYearCalendarUnit, .NSMonthCalendarUnit, .NSDayCalendarUnit]
+        let unitFlags: NSCalendarUnit = [.Year, .Month, .Day]
         let selfComponents = calendar.components(unitFlags, fromDate: self)
         let otherComponents = calendar.components(unitFlags, fromDate: other)
         

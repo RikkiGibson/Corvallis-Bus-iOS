@@ -145,7 +145,7 @@ extension Array {
     func mapPairs<U>(otherArray: [Element], transform: (Element, Element) -> U) -> [U] {
         var result = [U]()
         let size = self.count < otherArray.count ? self.count : otherArray.count
-        for var i = 0; i < size; i++ {
+        for i in 0 ..< size {
             result.append(transform(self[i], otherArray[i]))
         }
         return result
@@ -168,8 +168,8 @@ extension Array {
     func toDictionary<Key, Value>(transform: Element -> (Key, Value)) -> [Key : Value] {
         var result = [Key : Value]()
         for t in self {
-            let tuple = transform(t)
-            result[tuple.0] = tuple.1
+            let (k,v) = transform(t)
+            result[k] = v
         }
         return result
     }

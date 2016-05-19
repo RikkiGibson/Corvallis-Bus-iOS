@@ -30,7 +30,7 @@ final class StopDetailViewController : UITableViewController {
         tableView.contentInset = UIEdgeInsetsZero
         updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "onOrientationChanged", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
     func onOrientationChanged() {

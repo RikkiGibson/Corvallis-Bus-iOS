@@ -25,11 +25,11 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDetails",
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseViewController.reloadDetails),
             name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
-            selector: "reloadDetails", userInfo: nil, repeats: true)
+            selector: #selector(BrowseViewController.reloadDetails), userInfo: nil, repeats: true)
         
         reloadDetails()
     }
@@ -156,7 +156,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             }
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "clearSelectionIfDataUnavailable:",
+        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(BrowseViewController.clearSelectionIfDataUnavailable(_:)),
             userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)
     }
     
