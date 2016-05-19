@@ -10,15 +10,9 @@ import Foundation
 
 extension UIViewController {
     func presentAlert(title title: String, message: String) {
-        if #available(iOS 8.0, *) {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
-            self.presentViewController(alertController, animated: true) { }
-        } else {
-            let alertView = UIAlertView(title: title, message: message,
-                delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "Ok")
-            alertView.show()
-        }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
+        self.presentViewController(alertController, animated: true) { }
     }
     
     func presentError(message: String) {

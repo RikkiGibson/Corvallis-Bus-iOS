@@ -15,11 +15,7 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     override init() {
         super.init()
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        
-        if #available(iOS 8.0, *) {
-            _locationManager.requestWhenInUseAuthorization()
-        }
-        
+        _locationManager.requestWhenInUseAuthorization()
         _locationManager.delegate = self
     }
     

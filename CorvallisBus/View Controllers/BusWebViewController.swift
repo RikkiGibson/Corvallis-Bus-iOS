@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate {
+final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var webView: UIWebView!
     
@@ -77,9 +77,6 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
         // Dispose of any resources that can be recreated.
     }
     
-    // An instance variable is needed to keep track of the URL request
-    // between creation of the UIActionSheet and the callback invocation.
-    private var leadingRequest: NSURLRequest?
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
         if navigationType != .LinkClicked || webView.request?.URL?.query == request.URL?.query {
@@ -89,33 +86,17 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
             let rect = CGRectMake(self.lastTouchLocation?.x ?? self.view.bounds.size.width / 2.0,
                 self.lastTouchLocation?.y ?? self.view.bounds.size.height / 2.0, 1.0, 1.0)
             
-            if #available(iOS 8.0, *) {
-                let url = request.URL!
-                let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
-                alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
-                    UIApplication.sharedApplication().openURL(url); return
-                    })
-                alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
-                alertController.popoverPresentationController?.sourceView = self.view
-                alertController.popoverPresentationController?.sourceRect = rect
-                self.presentViewController(alertController, animated: true) { }
-            } else {
-                self.leadingRequest = request
-                let actionSheet = UIActionSheet(title: request.URL?.absoluteString, delegate: self,
-                    cancelButtonTitle: nil, destructiveButtonTitle: nil)
-                actionSheet.addButtonWithTitle("Open in Safari")
-                actionSheet.addButtonWithTitle("Cancel")
-                actionSheet.cancelButtonIndex = 1
-                
-                actionSheet.showFromRect(rect, inView: self.view, animated: true)
-            }
+            let url = request.URL!
+            let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
+            alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
+                UIApplication.sharedApplication().openURL(url); return
+                })
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
+            alertController.popoverPresentationController?.sourceView = self.view
+            alertController.popoverPresentationController?.sourceRect = rect
+            self.presentViewController(alertController, animated: true) { }
+            
             return false
-        }
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if let url = leadingRequest?.URL where buttonIndex == 0 {
-            UIApplication.sharedApplication().openURL(url)
         }
     }
     

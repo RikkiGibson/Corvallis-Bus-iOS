@@ -14,17 +14,6 @@ final class PreferencesViewController: UIViewController {
     @IBOutlet weak var counterTodayItems: UITextField!
     @IBOutlet weak var sliderShowNearestStop: UISwitch!
     
-    override func viewDidLoad() {
-        let canUseTodayExtension: Bool
-        if #available(iOS 8.0, *) {
-            canUseTodayExtension = true
-        } else {
-            canUseTodayExtension = false
-        }
-        labelTodayItems.hidden = !canUseTodayExtension
-        stepperTodayItems.hidden = !canUseTodayExtension
-        counterTodayItems.hidden = !canUseTodayExtension
-    }
     override func viewWillAppear(animated: Bool) {
         let defaults = NSUserDefaults.groupUserDefaults()
         
