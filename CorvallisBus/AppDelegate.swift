@@ -21,8 +21,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         dispatch_async(queue) {
             CorvallisBusManager().staticData().start{ result in }
         }
-        //TODO: comment back in for app store
-        //Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
+        
+        #if RELEASE
+            Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
+        #else
+            print("Not a release build. Flurry is not running.")
+        #endif
         
         return true
     }
