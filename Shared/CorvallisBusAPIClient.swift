@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 final class CorvallisBusAPIClient {
     private static let BASE_URL = "https://corvallisb.us/api"

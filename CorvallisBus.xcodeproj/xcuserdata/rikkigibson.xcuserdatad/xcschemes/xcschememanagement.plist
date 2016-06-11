@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>CorvallisBusMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>CorvallisBusTodayExtension.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>5C7612711A09C75E001F9DBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CA19B7A1D0C9BB800F32665</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rikki Gibson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 func memoize<T, Key : Hashable, Value>(f: T -> Value, getHash: T -> Key) -> (T -> Value) {
     var memo = [Key : Value]()
@@ -17,7 +17,7 @@ func memoize<T, Key : Hashable, Value>(f: T -> Value, getHash: T -> Key) -> (T -
         return memo[getHash($0)]!
     }
 }
-
+#if os(iOS)
 func parseColor(obj: AnyObject?) -> UIColor? {
     if let colorString = obj as? String where colorString.characters.count == 6 {
         var colorHex: UInt32 = 0
@@ -29,6 +29,7 @@ func parseColor(obj: AnyObject?) -> UIColor? {
         return nil
     }
 }
+#endif
 
 /// Maps a function using the corresponding elements of two sequences.
 func mapPairs<S: SequenceType, T: SequenceType, U>(seq1: S, seq2: T,

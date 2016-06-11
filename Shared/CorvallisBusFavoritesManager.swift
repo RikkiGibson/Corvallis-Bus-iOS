@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class CorvallisBusFavoritesManager {
     static let delegate = PromiseLocationManagerDelegate()

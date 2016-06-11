@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rikki Gibson. All rights reserved.
 //
 
-import UIKit
+import CoreLocation
 
 final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
@@ -15,7 +15,9 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     override init() {
         super.init()
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        _locationManager.requestWhenInUseAuthorization()
+        #if os(iOS)
+            _locationManager.requestWhenInUseAuthorization()
+        #endif
         _locationManager.delegate = self
     }
     
@@ -25,12 +27,20 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     }
     
     // MARK - location manager delegate
+    
+    #if os(iOS)
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         _locationManager.stopUpdatingLocation()
-        
         _callback(.Success(locations.last!))
-        
     }
+    #else
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
+        _locationManager.stopUpdatingLocation()
+        _callback(.Success(locations.last as! CLLocation))
+    }
+    #endif
+    
+    
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
         _callback(.Error(BusError.fromNSError(error)))
