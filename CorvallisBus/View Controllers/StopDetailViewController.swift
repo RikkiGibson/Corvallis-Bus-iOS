@@ -20,7 +20,7 @@ final class StopDetailViewController : UITableViewController {
     
     weak var delegate: StopDetailViewControllerDelegate?
     
-    private var viewModel = StopDetailViewModel.defaultViewModel()
+    private var viewModel = StopDetailViewModel.empty()
     
     let CELL_IDENTIFIER = "BusRouteDetailCell"
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ final class StopDetailViewController : UITableViewController {
         tableView.registerNib(cellNib, forCellReuseIdentifier: CELL_IDENTIFIER)
         
         tableView.contentInset = UIEdgeInsetsZero
-        updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
+        updateStopDetails(.Success(StopDetailViewModel.empty()))
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }

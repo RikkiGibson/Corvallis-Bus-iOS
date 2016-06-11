@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents a row in the stop details table.
 struct RouteDetailViewModel {
     let routeName: String
     let routeColor: UIColor
@@ -26,6 +27,7 @@ func parseArrivalsSummary(json: [String: AnyObject], routes: [String: BusRoute])
         arrivalsSummary: arrivalsSummary, scheduleSummary: scheduleSummary)
 }
 
+/// Represents the whole contents of the stop details table.
 struct StopDetailViewModel {
     let stopName: String
     let stopID: Int?
@@ -33,7 +35,7 @@ struct StopDetailViewModel {
     var selectedRouteName: String?
     var isFavorite: Bool
     
-    static func defaultViewModel() -> StopDetailViewModel {
+    static func empty() -> StopDetailViewModel {
         return StopDetailViewModel(stopName: "", stopID: nil, routeDetails: Promise(result: []), selectedRouteName: nil, isFavorite: false)
     }
 }

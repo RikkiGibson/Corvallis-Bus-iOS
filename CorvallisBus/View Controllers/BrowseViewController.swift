@@ -75,6 +75,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     }
     
     func selectStopExternally(stopID: Int) {
+        // TODO: change this to a queue
         if let busMapViewController = busMapViewController {
             busMapViewController.selectStopExternally(stopID)
         } else {
@@ -98,7 +99,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     }
     
     func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {
-        stopDetailViewController?.updateStopDetails(.Success(StopDetailViewModel.defaultViewModel()))
+        stopDetailViewController?.updateStopDetails(.Success(StopDetailViewModel.empty()))
     }
     
     // MARK: StopDetailViewControllerDelegate
@@ -156,10 +157,13 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             }
         }
         
+        
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(BrowseViewController.clearSelectionIfDataUnavailable(_:)),
             userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)
     }
     
+    /// Clears the selected route from the map and arrival times from the
+    /// stop details table if the promise took too long to resolve.
     func clearSelectionIfDataUnavailable(timer: NSTimer) {
         if let details = timer.userInfo as? Promise<[RouteDetailViewModel], BusError>, case .Finished = details.state {
             // Just a placeholder because this is the easiest way to match the value

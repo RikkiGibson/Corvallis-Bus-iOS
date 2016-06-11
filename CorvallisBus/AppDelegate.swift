@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: it's really weird for this to be here. where is a better place?
 let USER_INFO_STOP_ID_KEY = "stopID"
 
 @UIApplicationMain
