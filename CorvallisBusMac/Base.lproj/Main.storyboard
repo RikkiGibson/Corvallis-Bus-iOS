@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -702,7 +703,7 @@
                                     <rect key="frame" x="1" y="0.0" width="448" height="299"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="66" headerView="buc-Dl-GcN" viewBased="YES" id="73V-j2-O0q">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="66" headerView="buc-Dl-GcN" viewBased="YES" id="73V-j2-O0q">
                                             <rect key="frame" x="0.0" y="0.0" width="448" height="276"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -726,81 +727,107 @@
                                                             <rect key="frame" x="1" y="1" width="445" height="66"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tqR-Uh-Vqx">
-                                                                    <rect key="frame" x="4" y="26" width="49" height="19"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="49" id="DCB-zg-jZX"/>
-                                                                        <constraint firstAttribute="height" constant="19" id="nvE-WS-Bpr"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="NOSW" drawsBackground="YES" id="0NB-u7-zx1">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="252" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1Rr-nV-U7Z">
-                                                                    <rect key="frame" x="59" y="27" width="385" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="8 minutes, 4:56 PM" id="3Hh-HD-2pM">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="252" verticalHuggingPriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BVE-Db-22E">
-                                                                    <rect key="frame" x="4" y="1" width="49" height="19"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="19" id="GEb-F0-Cgh"/>
-                                                                        <constraint firstAttribute="width" constant="49" id="Mf0-fI-uNk"/>
-                                                                    </constraints>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="NOSW" drawsBackground="YES" id="dAU-26-BP9">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95i-j9-rLA">
-                                                                    <rect key="frame" x="0.0" y="48" width="444" height="18"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="NW Monroe Ave &amp; NW 7th St" id="ZyK-W3-UAg">
-                                                                        <font key="font" metaFont="system" size="14"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="3" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKu-fA-gU1">
+                                                                    <rect key="frame" x="2" y="4" width="188" height="62"/>
+                                                                    <subviews>
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="95i-j9-rLA">
+                                                                            <rect key="frame" x="-2" y="44" width="192" height="18"/>
+                                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="NW Monroe Ave &amp; NW 7th St" id="ZyK-W3-UAg">
+                                                                                <font key="font" metaFont="system" size="14"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VQc-1H-UXy">
+                                                                            <rect key="frame" x="0.0" y="22" width="176" height="19"/>
+                                                                            <subviews>
+                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tqR-Uh-Vqx">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="49" height="19"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="width" constant="49" id="DCB-zg-jZX"/>
+                                                                                        <constraint firstAttribute="height" constant="19" id="nvE-WS-Bpr"/>
+                                                                                    </constraints>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="NOSW" drawsBackground="YES" id="0NB-u7-zx1">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <textField horizontalHuggingPriority="252" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1Rr-nV-U7Z">
+                                                                                    <rect key="frame" x="55" y="1" width="123" height="17"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="8 minutes, 4:56 PM" id="3Hh-HD-2pM">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                        <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rfw-Ra-5Ka">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="176" height="19"/>
+                                                                            <subviews>
+                                                                                <textField horizontalHuggingPriority="252" verticalHuggingPriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="BVE-Db-22E">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="49" height="19"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="19" id="GEb-F0-Cgh"/>
+                                                                                        <constraint firstAttribute="width" constant="49" id="Mf0-fI-uNk"/>
+                                                                                    </constraints>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="NOSW" drawsBackground="YES" id="dAU-26-BP9">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n9Q-Dg-pZC">
+                                                                                    <rect key="frame" x="55" y="1" width="123" height="17"/>
+                                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="8 minutes, 4:56 PM" id="COy-xP-QtG">
+                                                                                        <font key="font" metaFont="system"/>
+                                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                                    </textFieldCell>
+                                                                                </textField>
+                                                                            </subviews>
+                                                                            <visibilityPriorities>
+                                                                                <integer value="1000"/>
+                                                                                <integer value="1000"/>
+                                                                            </visibilityPriorities>
+                                                                            <customSpacing>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                                <real value="3.4028234663852886e+38"/>
+                                                                            </customSpacing>
+                                                                        </stackView>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
                                                                 <textField horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="RgX-cg-xLV">
-                                                                    <rect key="frame" x="397" y="4" width="50" height="14"/>
+                                                                    <rect key="frame" x="394" y="4" width="50" height="14"/>
                                                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.1 miles" id="kfc-06-gSE">
-                                                                        <font key="font" metaFont="system" size="11"/>
+                                                                        <font key="font" metaFont="smallSystem"/>
                                                                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n9Q-Dg-pZC">
-                                                                    <rect key="frame" x="59" y="4" width="334" height="17"/>
-                                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="8 minutes, 4:56 PM" id="COy-xP-QtG">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="n9Q-Dg-pZC" secondAttribute="bottom" constant="4" id="3rl-IA-Pez"/>
-                                                                <constraint firstItem="95i-j9-rLA" firstAttribute="leading" secondItem="JOw-af-ujx" secondAttribute="leading" constant="2" id="693-N8-9XG"/>
-                                                                <constraint firstAttribute="trailing" secondItem="RgX-cg-xLV" secondAttribute="trailing" id="Ccw-02-lTd"/>
-                                                                <constraint firstAttribute="trailing" secondItem="1Rr-nV-U7Z" secondAttribute="trailing" constant="3" id="HDU-8d-jGE"/>
-                                                                <constraint firstItem="BVE-Db-22E" firstAttribute="leading" secondItem="JOw-af-ujx" secondAttribute="leading" constant="4" id="Id4-9q-1gT"/>
-                                                                <constraint firstItem="tqR-Uh-Vqx" firstAttribute="top" secondItem="95i-j9-rLA" secondAttribute="bottom" constant="3" id="OZV-8V-jDw"/>
-                                                                <constraint firstItem="BVE-Db-22E" firstAttribute="top" secondItem="tqR-Uh-Vqx" secondAttribute="bottom" constant="6" id="RmF-aW-Eio"/>
-                                                                <constraint firstItem="95i-j9-rLA" firstAttribute="top" secondItem="JOw-af-ujx" secondAttribute="top" id="SbD-Ce-fXQ"/>
-                                                                <constraint firstItem="tqR-Uh-Vqx" firstAttribute="leading" secondItem="JOw-af-ujx" secondAttribute="leading" constant="4" id="Ugb-b4-uT4"/>
-                                                                <constraint firstItem="n9Q-Dg-pZC" firstAttribute="leading" secondItem="BVE-Db-22E" secondAttribute="trailing" constant="8" id="arz-ia-ZXs"/>
-                                                                <constraint firstItem="1Rr-nV-U7Z" firstAttribute="top" secondItem="95i-j9-rLA" secondAttribute="bottom" constant="4" id="bTa-Ik-qiM"/>
-                                                                <constraint firstAttribute="bottom" secondItem="BVE-Db-22E" secondAttribute="bottom" constant="1" id="eNp-u4-Ec5"/>
-                                                                <constraint firstItem="n9Q-Dg-pZC" firstAttribute="top" secondItem="1Rr-nV-U7Z" secondAttribute="bottom" constant="6" id="fGH-vC-eMj"/>
-                                                                <constraint firstAttribute="bottom" secondItem="RgX-cg-xLV" secondAttribute="bottom" constant="4" id="mzM-Zh-Gyl"/>
-                                                                <constraint firstAttribute="trailing" secondItem="95i-j9-rLA" secondAttribute="trailing" constant="3" id="nFj-s7-cvx"/>
-                                                                <constraint firstItem="RgX-cg-xLV" firstAttribute="leading" secondItem="n9Q-Dg-pZC" secondAttribute="trailing" constant="8" id="pfT-BK-ojn"/>
-                                                                <constraint firstItem="1Rr-nV-U7Z" firstAttribute="leading" secondItem="tqR-Uh-Vqx" secondAttribute="trailing" constant="8" id="yOb-QV-Yi4"/>
+                                                                <constraint firstAttribute="bottom" secondItem="RgX-cg-xLV" secondAttribute="bottom" constant="4" id="7wG-xW-Lly"/>
+                                                                <constraint firstAttribute="trailing" secondItem="RgX-cg-xLV" secondAttribute="trailing" constant="3" id="9qK-Ql-2V8"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="labelDistanceFromUser" destination="RgX-cg-xLV" id="yvk-sJ-c4h"/>
