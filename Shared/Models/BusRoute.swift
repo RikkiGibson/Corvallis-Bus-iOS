@@ -7,15 +7,16 @@
 //
 
 import Foundation
+import MapKit
 
 final class BusRoute : Equatable {
     let name: String
-    let color: UIColor
+    let color: Color
     let polyline: MKPolyline
     let url: NSURL
     let path: Set<Int>
     
-    init(name: String, color: UIColor, polyline: MKPolyline, path: Set<Int>, url: NSURL) {
+    init(name: String, color: Color, polyline: MKPolyline, path: Set<Int>, url: NSURL) {
         self.name = name
         self.color = color
         self.polyline = polyline

@@ -29,7 +29,7 @@ class FavoritesTableCellView: NSTableCellView {
             if let box = newValue as? Box<FavoriteStopViewModel> {
                 populateView(box.value)
             } else {
-                fatalError()
+                Swift.print("nil was assigned to FavoritesTableCellView.objectValue")
             }
         }
         get {

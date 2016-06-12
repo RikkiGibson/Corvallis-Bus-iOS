@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Rikki Gibson. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import MapKit
 
 final class BusStopAnnotation: NSObject, MKAnnotation {

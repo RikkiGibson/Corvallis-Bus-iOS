@@ -11,7 +11,7 @@ import Foundation
 /// Represents a row in the stop details table.
 struct RouteDetailViewModel {
     let routeName: String
-    let routeColor: UIColor
+    let routeColor: Color
     let arrivalsSummary: String
     let scheduleSummary: String
 }
