@@ -1,43 +1,45 @@
 //
-//  FavoritesTableCellView.swift
-//  CorvallisBus
+//  ListRowViewController.swift
+//  TodayExtensionMac
 //
-//  Created by Rikki Gibson on 6/11/16.
+//  Created by Rikki Gibson on 6/12/16.
 //  Copyright © 2016 Rikki Gibson. All rights reserved.
 //
 
 import Cocoa
 
-class FavoritesTableCellView: NSTableCellView {
-    override func viewDidMoveToWindow() {
+class ListRowViewController: NSViewController {
+
+    @IBOutlet weak var labelStopName: NSTextField!
+    
+    @IBOutlet weak var labelFirstRouteName: NSTextField!
+    @IBOutlet weak var labelFirstRouteArrivals: NSTextField!
+    
+    @IBOutlet weak var labelSecondRouteName: NSTextField!
+    @IBOutlet weak var labelSecondRouteArrivals: NSTextField!
+    
+    @IBOutlet weak var labelDistanceFromUser: NSTextField!
+    
+    override var nibName: String? {
+        return "ListRowViewController"
+    }
+
+    override func loadView() {
+        super.loadView()
+        view.setFrameSize(NSSize(width: 0, height: 80))
+        preferredContentSize = view.frame.size
         labelFirstRouteName.wantsLayer = true
         labelFirstRouteName.layer!.cornerRadius = 6
         
         labelSecondRouteName.wantsLayer = true
         labelSecondRouteName.layer!.cornerRadius = 6
-    }
-    
-    @IBOutlet weak var labelStopName: NSTextField!
-    @IBOutlet weak var labelFirstRouteName: NSTextField!
-    @IBOutlet weak var labelFirstRouteArrivals: NSTextField!
-    @IBOutlet weak var labelSecondRouteName: NSTextField!
-    @IBOutlet weak var labelSecondRouteArrivals: NSTextField!
-    @IBOutlet weak var labelDistanceFromUser: NSTextField!
-    
-    override var objectValue: AnyObject? {
-        set {
-            if let box = newValue as? Box<FavoriteStopViewModel> {
-                populateView(box.value)
-            } else {
-                fatalError()
-            }
+        
+        guard let box = representedObject as? Box<FavoriteStopViewModel> else {
+            return
         }
-        get {
-            return nil
-        }
-    }
-    
-    func populateView(model: FavoriteStopViewModel) {
+        
+        let model = box.value
+        
         labelStopName.stringValue = model.stopName
         labelFirstRouteName.stringValue = model.firstRouteName
         labelFirstRouteName.backgroundColor = model.firstRouteColor
@@ -49,4 +51,5 @@ class FavoritesTableCellView: NSTableCellView {
         
         labelDistanceFromUser.stringValue = model.distanceFromUser
     }
+
 }

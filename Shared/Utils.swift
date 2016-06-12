@@ -8,6 +8,13 @@
 
 import Foundation
 
+class Box<T> {
+    let value: T
+    init(value: T) {
+        self.value = value
+    }
+}
+
 func memoize<T, Key : Hashable, Value>(f: T -> Value, getHash: T -> Key) -> (T -> Value) {
     var memo = [Key : Value]()
     return {
@@ -17,19 +24,18 @@ func memoize<T, Key : Hashable, Value>(f: T -> Value, getHash: T -> Key) -> (T -
         return memo[getHash($0)]!
     }
 }
-#if os(iOS)
-func parseColor(obj: AnyObject?) -> UIColor? {
+
+func parseColor(obj: AnyObject?) -> Color? {
     if let colorString = obj as? String where colorString.characters.count == 6 {
         var colorHex: UInt32 = 0
         NSScanner(string: colorString).scanHexInt(&colorHex)
-        return UIColor(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,
+        return Color(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,
             green: CGFloat(colorHex >> 8 & 0xFF) / 255.0,
             blue: CGFloat(colorHex & 0xFF) / 255.0, alpha: 1.0)
     } else {
         return nil
     }
 }
-#endif
 
 /// Maps a function using the corresponding elements of two sequences.
 func mapPairs<S: SequenceType, T: SequenceType, U>(seq1: S, seq2: T,
