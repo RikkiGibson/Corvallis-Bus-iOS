@@ -47,10 +47,15 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     func staticData() -> Promise<BusStaticData, BusError> {
         
         // if there was an error obtaining the static data or it's expired, get it again.
-        if case .Finished(.Error) = staticDataCache.state,
-            case .Finished(.Success(let staticData)) = staticDataCache.state where !staticData.obtainedTime.isToday() {
+        switch staticDataCache.state {
+        case .Finished(.Success(let staticData)) where !staticData.obtainedTime.isToday():
+            fallthrough
+        case .Finished(.Error):
             staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
+        default:
+            break
         }
+        
         return staticDataCache
     }
     
