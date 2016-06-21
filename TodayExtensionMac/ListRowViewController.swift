@@ -9,6 +9,7 @@
 import Cocoa
 
 class ListRowViewController: NSViewController {
+    var stopID: Int?
     
     @IBOutlet weak var labelStopName: NSTextField!
     
@@ -36,13 +37,13 @@ class ListRowViewController: NSViewController {
     }
 
     override func viewWillAppear() {
-        
         guard let box = representedObject as? Box<FavoriteStopViewModel> else {
             return
         }
         
         let model = box.value
         
+        stopID = model.stopId
         labelStopName.stringValue = model.stopName
         labelFirstRouteName.stringValue = model.firstRouteName
         labelFirstRouteName.backgroundColor = model.firstRouteColor
@@ -53,5 +54,12 @@ class ListRowViewController: NSViewController {
         labelSecondRouteArrivals.stringValue = model.secondRouteArrivals
         
         labelDistanceFromUser.stringValue = model.distanceFromUser
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        if let stopID = stopID,
+               url = NSURL(string: "CorvallisBus://\(stopID)") {
+            NSWorkspace.sharedWorkspace().openURL(url)
+        }
     }
 }

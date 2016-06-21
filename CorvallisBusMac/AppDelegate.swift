@@ -15,12 +15,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
+        NSAppleEventManager.sharedAppleEventManager()
+                           .setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),
+                                                  forEventClass: AEEventID(kInternetEventClass),
+                                                  andEventID: AEEventID(kAEGetURL))
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
 
-
+    func handleGetURLEvent(event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
+        // show the stop ID in the URL or something
+        if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
+            print(urlString)
+        }
+    }
 }
 
