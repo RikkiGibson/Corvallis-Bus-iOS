@@ -25,7 +25,8 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // Set up the widget list view controller.
         // The contents property should contain an object for each row in the list.
         self.listViewController.contents = []
-        self.listViewController.minimumVisibleRowCount = 5
+        NSUserDefaults.groupUserDefaults().favoriteStopIds = [11776, 10308]
+
     }
     
     func onUpdateFavorites(result: Failable<[FavoriteStopViewModel], BusError>, completionHandler: NCUpdateResult -> Void) {
@@ -51,24 +52,19 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // or NCUpdateResultNewData to indicate that there is new data since the
         // last invocation of this method.
         
-        NSUserDefaults.groupUserDefaults().favoriteStopIds = [11776, 10308]
-        CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: true)
+        CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: false)
                                     .startOnMainThread { self.onUpdateFavorites($0, completionHandler: completionHandler) }
         
     }
 
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
-        // Override the left margin so that the list view is flush with the edge.
-        var newInsets = defaultMarginInset
-        newInsets.left = 0
-        return newInsets
+        return NSEdgeInsetsZero
     }
 
-    // Can this be deleted?
     var widgetAllowsEditing: Bool {
         // Return true to indicate that the widget supports editing of content and
         // that the list view should be allowed to enter an edit mode.
-        return false
+        return true
     }
 
     // MARK: - NCWidgetListViewDelegate
@@ -92,7 +88,8 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
 
     func widgetList(list: NCWidgetListViewController!, didRemoveRow row: Int) {
         // The user has removed an item from the list.
-        // TODO: delete stop from favorites
+        let defaults = NSUserDefaults.groupUserDefaults()
+        defaults.favoriteStopIds.removeAtIndex(row)
     }
 
 }

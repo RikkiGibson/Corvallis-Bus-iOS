@@ -1,4 +1,4 @@
 /* Display name and description for this extension. */
-"CFBundleDisplayName" = "TodayExtensionMac";
-"com.apple.notificationcenter.widget.description" = "Sample description";
+"CFBundleDisplayName" = "Corvallis Bus";
+"com.apple.notificationcenter.widget.description" = "Shows arrival times for nearby and favorite bus stops in Corvallis.";
 

@@ -9,7 +9,7 @@
 import Cocoa
 
 class ListRowViewController: NSViewController {
-
+    
     @IBOutlet weak var labelStopName: NSTextField!
     
     @IBOutlet weak var labelFirstRouteName: NSTextField!
@@ -33,6 +33,9 @@ class ListRowViewController: NSViewController {
         
         labelSecondRouteName.wantsLayer = true
         labelSecondRouteName.layer!.cornerRadius = 6
+    }
+
+    override func viewWillAppear() {
         
         guard let box = representedObject as? Box<FavoriteStopViewModel> else {
             return
@@ -51,5 +54,4 @@ class ListRowViewController: NSViewController {
         
         labelDistanceFromUser.stringValue = model.distanceFromUser
     }
-
 }
