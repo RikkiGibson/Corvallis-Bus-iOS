@@ -234,7 +234,7 @@
 		5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusManager.swift; sourceTree = "<group>"; };
 		5C8130F91B88EFA100A498AC /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSJSONSerializationExtension.swift; sourceTree = "<group>"; };
-		5CA19B7B1D0C9BB800F32665 /* CorvallisBusMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBusMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Corvallis Bus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA19B7D1D0C9BB800F32665 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CA19B811D0C9BB800F32665 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA19B841D0C9BB800F32665 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 				5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */,
 				5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */,
 				5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */,
-				5CA19B7B1D0C9BB800F32665 /* CorvallisBusMac.app */,
+				5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */,
 				5CD551411D0DD3D80014B08C /* TodayExtensionMac.appex */,
 			);
 			name = Products;
@@ -635,7 +635,7 @@
 			);
 			name = CorvallisBusMac;
 			productName = CorvallisBusMac;
-			productReference = 5CA19B7B1D0C9BB800F32665 /* CorvallisBusMac.app */;
+			productReference = 5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5CD551401D0DD3D80014B08C /* TodayExtensionMac */ = {
@@ -1234,7 +1234,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
 			};
@@ -1255,7 +1255,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
 			};
