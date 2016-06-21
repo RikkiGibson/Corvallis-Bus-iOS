@@ -23,7 +23,11 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     
     func userLocation(callback: Failable<CLLocation, BusError> -> Void) {
         _callback = callback
-        _locationManager.startUpdatingLocation()
+        if CLLocationManager.locationServicesEnabled() {
+            _locationManager.startUpdatingLocation()
+        } else {
+            _callback(.Error(.Message("Location services are not enabled.")))
+        }
     }
     
     // MARK - location manager delegate

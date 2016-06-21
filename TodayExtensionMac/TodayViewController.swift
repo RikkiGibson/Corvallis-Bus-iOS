@@ -51,15 +51,10 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // or NCUpdateResultNewData to indicate that there is new data since the
         // last invocation of this method.
         
+        NSUserDefaults.groupUserDefaults().favoriteStopIds = [11776, 10308]
         CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: true)
                                     .startOnMainThread { self.onUpdateFavorites($0, completionHandler: completionHandler) }
         
-        listViewController.contents = [
-            Box(value: FavoriteStopViewModel(stopName: "NW Monroe Ave & NW 7th St", stopId: 12345, distanceFromUser: "0.3 miles", isNearestStop: false, firstRouteColor: Color.blueColor(), firstRouteName: "3", firstRouteArrivals: "22 minutes, 4:56 PM", secondRouteColor: Color.redColor(), secondRouteName: "8", secondRouteArrivals: "4:26 PM, 5:26 PM")),
-            Box(value: FavoriteStopViewModel(stopName: "NW Monroe Ave & NW 7th St", stopId: 12345, distanceFromUser: "0.3 miles", isNearestStop: false, firstRouteColor: Color.blueColor(), firstRouteName: "3", firstRouteArrivals: "22 minutes, 4:56 PM", secondRouteColor: Color.redColor(), secondRouteName: "8", secondRouteArrivals: "4:26 PM, 5:26 PM")),
-            Box(value: FavoriteStopViewModel(stopName: "NW Monroe Ave & NW 7th St", stopId: 12345, distanceFromUser: "0.3 miles", isNearestStop: false, firstRouteColor: Color.blueColor(), firstRouteName: "3", firstRouteArrivals: "22 minutes, 4:56 PM", secondRouteColor: Color.redColor(), secondRouteName: "8", secondRouteArrivals: "4:26 PM, 5:26 PM")),
-            Box(value: FavoriteStopViewModel(stopName: "NW Monroe Ave & NW 7th St", stopId: 12345, distanceFromUser: "0.3 miles", isNearestStop: false, firstRouteColor: Color.blueColor(), firstRouteName: "3", firstRouteArrivals: "22 minutes, 4:56 PM", secondRouteColor: Color.redColor(), secondRouteName: "8", secondRouteArrivals: "4:26 PM, 5:26 PM"))
-        ]
     }
 
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
