@@ -52,9 +52,13 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // or NCUpdateResultNewData to indicate that there is new data since the
         // last invocation of this method.
         
+        let cachedStops = NSUserDefaults.groupUserDefaults()
+            .cachedFavoriteStops
+            .flatMap({ toFavoriteStopViewModel($0, fallbackToGrayColor: false) })
+        listViewController.contents = cachedStops.map({ Box(value: $0) })
+        completionHandler(.NewData)
         CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: false)
                                     .startOnMainThread { self.onUpdateFavorites($0, completionHandler: completionHandler) }
-        
     }
 
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {

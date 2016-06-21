@@ -29,10 +29,10 @@ class ListRowViewController: NSViewController {
         view.setFrameSize(NSSize(width: 0, height: 80))
         preferredContentSize = view.frame.size
         labelFirstRouteName.wantsLayer = true
-        labelFirstRouteName.layer!.cornerRadius = 6
+        labelFirstRouteName.layer!.cornerRadius = 5
         
         labelSecondRouteName.wantsLayer = true
-        labelSecondRouteName.layer!.cornerRadius = 6
+        labelSecondRouteName.layer!.cornerRadius = 5
     }
 
     override func viewWillAppear() {
