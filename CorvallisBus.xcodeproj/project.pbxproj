@@ -26,7 +26,6 @@
 		5C2FC1311B8AC78300E909E1 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */; };
 		5C3165001D19D3AE00AA9FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B811D0C9BB800F32665 /* Assets.xcassets */; };
 		5C36E08119F7293700024186 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
-		5C387D791D0CBA2000EE6AAA /* FavoritesTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C387D781D0CBA2000EE6AAA /* FavoritesTableCellView.swift */; };
 		5C387D7D1D0CBD1500EE6AAA /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
 		5C387D7E1D0CC6E800EE6AAA /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
 		5C387D7F1D0CC6F000EE6AAA /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
@@ -54,7 +53,6 @@
 		5CA19B7E1D0C9BB800F32665 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA19B7D1D0C9BB800F32665 /* AppDelegate.swift */; };
 		5CA19B821D0C9BB800F32665 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B811D0C9BB800F32665 /* Assets.xcassets */; };
 		5CA19B851D0C9BB800F32665 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B831D0C9BB800F32665 /* Main.storyboard */; };
-		5CA19B8D1D0CACED00F32665 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA19B8C1D0CACED00F32665 /* FavoritesViewController.swift */; };
 		5CA303811B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */; };
 		5CA303891B8AD7FC003E44ED /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303871B8AD7FC003E44ED /* BusRoute.swift */; };
 		5CA3038B1B8AD7FC003E44ED /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303881B8AD7FC003E44ED /* BusStop.swift */; };
@@ -217,7 +215,6 @@
 		5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewController.swift; sourceTree = "<group>"; };
 		5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		5C36E08019F7293700024186 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		5C387D781D0CBA2000EE6AAA /* FavoritesTableCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableCellView.swift; sourceTree = "<group>"; };
 		5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopAnnotation.swift; sourceTree = "<group>"; };
 		5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4937D019CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -240,7 +237,6 @@
 		5CA19B811D0C9BB800F32665 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CA19B841D0C9BB800F32665 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5CA19B861D0C9BB800F32665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CA19B8C1D0CACED00F32665 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardSegueExtension.swift; sourceTree = "<group>"; };
 		5CA303871B8AD7FC003E44ED /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
 		5CA303881B8AD7FC003E44ED /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
@@ -426,8 +422,6 @@
 				5CA19B811D0C9BB800F32665 /* Assets.xcassets */,
 				5CA19B831D0C9BB800F32665 /* Main.storyboard */,
 				5CA19B861D0C9BB800F32665 /* Info.plist */,
-				5CA19B8C1D0CACED00F32665 /* FavoritesViewController.swift */,
-				5C387D781D0CBA2000EE6AAA /* FavoritesTableCellView.swift */,
 				5CD551671D0DF7650014B08C /* BusMapViewController.swift */,
 				5CD5517C1D0E037A0014B08C /* MKAnnotationViewExtension.swift */,
 			);
@@ -908,10 +902,8 @@
 				5C387D821D0CC90300EE6AAA /* NSUserDefaultsExtensions.swift in Sources */,
 				5C387D811D0CC75800EE6AAA /* Failable.swift in Sources */,
 				5C387D861D0CC94F00EE6AAA /* Utils.swift in Sources */,
-				5C387D791D0CBA2000EE6AAA /* FavoritesTableCellView.swift in Sources */,
 				5CD551691D0DF7F20014B08C /* CorvallisBusManager.swift in Sources */,
 				5CD551721D0DF9540014B08C /* NSDateExtensions.swift in Sources */,
-				5CA19B8D1D0CACED00F32665 /* FavoritesViewController.swift in Sources */,
 				5CE40C7F1D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */,
 				5CD551771D0DF9BD0014B08C /* StopDetailViewModel.swift in Sources */,
 				5CA19B7E1D0C9BB800F32665 /* AppDelegate.swift in Sources */,
