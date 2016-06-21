@@ -10,7 +10,6 @@ import Cocoa
 import NotificationCenter
 
 class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListViewDelegate {
-
     @IBOutlet var listViewController: NCWidgetListViewController!
     
     // MARK: - NSViewController
@@ -21,10 +20,9 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Set up the widget list view controller.
-        // The contents property should contain an object for each row in the list.
-        self.listViewController.contents = []
+        
+        listViewController.showsAddButtonWhenEditing = false
+        listViewController.contents = []
         NSUserDefaults.groupUserDefaults().favoriteStopIds = [11776, 10308]
 
     }
@@ -69,6 +67,14 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // Return true to indicate that the widget supports editing of content and
         // that the list view should be allowed to enter an edit mode.
         return true
+    }
+    
+    func widgetDidBeginEditing() {
+        listViewController.editing = true
+    }
+    
+    func widgetDidEndEditing() {
+        listViewController.editing = false
     }
 
     // MARK: - NCWidgetListViewDelegate
