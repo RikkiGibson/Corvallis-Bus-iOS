@@ -19,6 +19,7 @@ class ListRowViewController: NSViewController {
     @IBOutlet weak var labelSecondRouteName: NSTextField!
     @IBOutlet weak var labelSecondRouteArrivals: NSTextField!
     
+    @IBOutlet weak var imageNearestStop: NSImageView!
     @IBOutlet weak var labelDistanceFromUser: NSTextField!
     
     override var nibName: String? {
@@ -52,7 +53,7 @@ class ListRowViewController: NSViewController {
         labelSecondRouteName.stringValue = model.secondRouteName
         labelSecondRouteName.backgroundColor = model.secondRouteColor
         labelSecondRouteArrivals.stringValue = model.secondRouteArrivals
-        
+        imageNearestStop.hidden = !model.isNearestStop
         labelDistanceFromUser.stringValue = model.distanceFromUser
     }
     

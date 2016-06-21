@@ -24,6 +24,7 @@
 		5C22F5031A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */; };
 		5C2FC12F1B8AC2C600E909E1 /* BusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */; };
 		5C2FC1311B8AC78300E909E1 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */; };
+		5C3165001D19D3AE00AA9FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B811D0C9BB800F32665 /* Assets.xcassets */; };
 		5C36E08119F7293700024186 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
 		5C387D791D0CBA2000EE6AAA /* FavoritesTableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C387D781D0CBA2000EE6AAA /* FavoritesTableCellView.swift */; };
 		5C387D7D1D0CBD1500EE6AAA /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
@@ -775,6 +776,7 @@
 			files = (
 				5CD5514C1D0DD3D80014B08C /* TodayViewController.xib in Resources */,
 				5CD551531D0DD3D80014B08C /* InfoPlist.strings in Resources */,
+				5C3165001D19D3AE00AA9FC0 /* Assets.xcassets in Resources */,
 				5CD5514F1D0DD3D80014B08C /* ListRowViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
