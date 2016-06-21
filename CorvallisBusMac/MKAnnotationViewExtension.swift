@@ -20,10 +20,6 @@ let arrowImage = NSImage(named: "ListCurrentLoc")
 
 extension MKAnnotationView {
     func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool) {
-        wantsLayer = true
-        layer!.anchorPoint = CGPoint(x: 0.5, y: 0.85)
-        enabled = true
-        
         let isFavorite = annotation.isFavorite
         let isDeemphasized = annotation.isDeemphasized
         if isSelected {

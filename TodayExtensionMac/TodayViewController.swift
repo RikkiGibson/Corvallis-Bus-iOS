@@ -23,8 +23,7 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         
         listViewController.showsAddButtonWhenEditing = false
         listViewController.contents = []
-        NSUserDefaults.groupUserDefaults().favoriteStopIds = [11776, 10308]
-
+        listViewController.minimumVisibleRowCount = NSUserDefaults.groupUserDefaults().todayViewItemCount
     }
     
     func onUpdateFavorites(result: Failable<[FavoriteStopViewModel], BusError>, completionHandler: NCUpdateResult -> Void) {
@@ -61,20 +60,6 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
 
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
         return NSEdgeInsets(top: 0, left: -25, bottom: 0, right: -10)
-    }
-
-    var widgetAllowsEditing: Bool {
-        // Return true to indicate that the widget supports editing of content and
-        // that the list view should be allowed to enter an edit mode.
-        return true
-    }
-    
-    func widgetDidBeginEditing() {
-        listViewController.editing = true
-    }
-    
-    func widgetDidEndEditing() {
-        listViewController.editing = false
     }
 
     // MARK: - NCWidgetListViewDelegate

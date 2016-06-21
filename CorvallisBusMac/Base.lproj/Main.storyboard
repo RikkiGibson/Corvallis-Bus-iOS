@@ -671,11 +671,11 @@
             <objects>
                 <viewController title="Browse" id="fO6-xm-xlj" customClass="BrowseViewController" customModule="Corvallis_Bus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="dlZ-Sa-hbN">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="900" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="Yob-Es-5d3">
-                                <rect key="frame" x="0.0" y="0.0" width="225" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="225" height="600"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="225" id="pcB-e8-6u8"/>
                                 </constraints>
@@ -684,7 +684,7 @@
                                 </connections>
                             </containerView>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="y8P-Xd-0Z6">
-                                <rect key="frame" x="225" y="0.0" width="225" height="300"/>
+                                <rect key="frame" x="225" y="0.0" width="675" height="600"/>
                                 <connections>
                                     <segue destination="8e1-OY-MWk" kind="embed" identifier="BusMapEmbed" id="Uq5-tQ-60d"/>
                                 </connections>

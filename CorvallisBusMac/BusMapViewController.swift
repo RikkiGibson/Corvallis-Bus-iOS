@@ -49,11 +49,40 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
+    func onButtonClick(button: NSButton) {
+        guard let selectedStop = selectedStop else {
+            return
+        }
+        let defaults = NSUserDefaults.groupUserDefaults()
+        var favorites = defaults.favoriteStopIds
+        if let index = favorites.indexOf(selectedStop.stop.id) {
+            selectedStop.isFavorite = false
+            favorites.removeAtIndex(index)
+        } else {
+            favorites.append(selectedStop.stop.id)
+            selectedStop.isFavorite = true
+        }
+        button.highlighted = selectedStop.isFavorite
+        if let view = mapView.viewForAnnotation(selectedStop) {
+            view.updateWithBusStopAnnotation(selectedStop, isSelected: selectedStop.isFavorite)
+        }
+        defaults.favoriteStopIds = favorites
+    }
+    
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? BusStopAnnotation {
             let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(String(BusStopAnnotation)) ??
-                MKAnnotationView(annotation: annotation, reuseIdentifier: String(BusStopAnnotation))
+                                 MKAnnotationView(annotation: annotation, reuseIdentifier: String(BusStopAnnotation))
             annotationView.updateWithBusStopAnnotation(annotation, isSelected: false)
+            
+            let button = NSButton()
+            button.image = NSImage(named: "disclosure-closed")
+            button.title = "Fav"
+            button.target = self
+            button.action = #selector(BusMapViewController.onButtonClick)
+            
+            annotationView.rightCalloutAccessoryView = button
+            annotationView.canShowCallout = true
             return annotationView
         }
         
@@ -61,10 +90,12 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
                MKAnnotationView(annotation: annotation, reuseIdentifier: String(MKAnnotationView))
     }
     
+    // can this variable be avoided?
+    var selectedStop: BusStopAnnotation?
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let annotation = view.annotation as? BusStopAnnotation {
             view.updateWithBusStopAnnotation(annotation, isSelected: true)
-            
+            selectedStop = annotation
 //            NSAnimationContext.beginGrouping()
 //            NSAnimationContext.currentContext().duration = 0.1
 //            view!.setAffineTransform(CGAffineTransformMakeScale(1.3, 1.3))
@@ -76,6 +107,7 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
         
         if let annotation = view.annotation as? BusStopAnnotation {
             view.updateWithBusStopAnnotation(annotation, isSelected: false)
+            selectedStop = nil
             
 //            NSAnimationContext.beginGrouping()
 //            NSAnimationContext.currentContext().duration = 0.1
