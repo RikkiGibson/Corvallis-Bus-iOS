@@ -58,7 +58,7 @@ class ListRowViewController: NSViewController {
     
     override func mouseUp(theEvent: NSEvent) {
         if let stopID = stopID,
-               url = NSURL(string: "CorvallisBus://\(stopID)") {
+               url = NSURL(string: "CorvallisBus://?\(stopID)") {
             NSWorkspace.sharedWorkspace().openURL(url)
         }
     }

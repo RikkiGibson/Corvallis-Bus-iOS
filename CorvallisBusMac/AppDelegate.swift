@@ -26,9 +26,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func handleGetURLEvent(event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
-        // show the stop ID in the URL or something
-        if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
-            print(urlString)
+        if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue,
+               index = urlString.rangeOfString("?", options: .BackwardsSearch)?.endIndex,
+               stopID = Int(urlString.substringFromIndex(index)) {
+            // do something with the stop ID
+            print(stopID)
         }
     }
 }
