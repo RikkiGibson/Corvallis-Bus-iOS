@@ -102,6 +102,10 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
             return annotationView
         }
         
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
         return mapView.dequeueReusableAnnotationViewWithIdentifier(String(MKAnnotationView)) ??
                MKAnnotationView(annotation: annotation, reuseIdentifier: String(MKAnnotationView))
     }
