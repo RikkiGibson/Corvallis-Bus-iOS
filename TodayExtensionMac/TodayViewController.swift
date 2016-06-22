@@ -70,21 +70,4 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         // of this view controller to one of the objects in its contents array.
         return ListRowViewController()
     }
-
-    func widgetList(list: NCWidgetListViewController!, shouldReorderRow row: Int) -> Bool {
-        // Return true to allow the item to be reordered in the list by the user.
-        return false
-    }
-
-    func widgetList(list: NCWidgetListViewController!, shouldRemoveRow row: Int) -> Bool {
-        // Return true to allow the item to be removed from the list by the user.
-        return true
-    }
-
-    func widgetList(list: NCWidgetListViewController!, didRemoveRow row: Int) {
-        // The user has removed an item from the list.
-        let defaults = NSUserDefaults.groupUserDefaults()
-        defaults.favoriteStopIds.removeAtIndex(row)
-    }
-
 }

@@ -15,11 +15,12 @@ protocol BusMapViewControllerDataSource : class {
 
 let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
 let DEFAULT_SPAN = MKCoordinateSpanMake(0.01, 0.01)
-class BusMapViewController: NSViewController, MKMapViewDelegate {
+class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     weak var dataSource: BusMapViewControllerDataSource?
     let locationManagerDelegate = PromiseLocationManagerDelegate()
+    var viewModel = BusMapViewModel(stops: [:], selectedRoute: nil, selectedStopID: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +40,24 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
         dataSource?.busStopAnnotations().startOnMainThread(onStopsLoaded)
     }
     
-    func onStopsLoaded(result: Failable<[Int : BusStopAnnotation], BusError>) {
+    // MARK: StopSelectionDelegate
+    
+    func onStopSelected(stopID: Int) {
+        if let annotation = viewModel.stops[stopID] {
+            mapView.setCenterCoordinate(annotation.stop.location.coordinate, animated: true)
+            mapView.selectAnnotation(annotation, animated: true)
+        }
+    }
+    
+    func onStopsLoaded(result: Failable<[Int: BusStopAnnotation], BusError>) {
         switch result {
         case .Success(let stops):
+            viewModel.stops = stops
             mapView.addAnnotations(Array(stops.values))
+            if let externalStopID = AppDelegate.dequeueSelectedStopID() {
+                onStopSelected(externalStopID)
+            }
+            AppDelegate.stopSelectionDelegate = self
         case .Error(let error):
             // TODO: show something
             print(error)
@@ -64,7 +79,7 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
         }
         button.highlighted = selectedStop.isFavorite
         if let view = mapView.viewForAnnotation(selectedStop) {
-            view.updateWithBusStopAnnotation(selectedStop, isSelected: selectedStop.isFavorite)
+            view.updateWithBusStopAnnotation(selectedStop, isSelected: true)
         }
         defaults.favoriteStopIds = favorites
     }
@@ -76,8 +91,9 @@ class BusMapViewController: NSViewController, MKMapViewDelegate {
             annotationView.updateWithBusStopAnnotation(annotation, isSelected: false)
             
             let button = NSButton()
-            button.image = NSImage(named: "disclosure-closed")
-            button.title = "Fav"
+            button.image = NSImage(named: "favorite")
+            button.alternateImage = NSImage(named: "favorite")
+            button.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
             button.target = self
             button.action = #selector(BusMapViewController.onButtonClick)
             

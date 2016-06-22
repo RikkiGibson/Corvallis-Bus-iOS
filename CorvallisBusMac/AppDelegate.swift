@@ -8,17 +8,28 @@
 
 import Cocoa
 
+protocol StopSelectionDelegate : class {
+    func onStopSelected(stopID: Int)
+}
+
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
+    
+    private static var externalStopID: Int?
+    
+    weak static var stopSelectionDelegate: StopSelectionDelegate?
+    
+    override init() {
+        super.init()
+        
+        NSAppleEventManager.sharedAppleEventManager()
+            .setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),
+                             forEventClass: AEEventID(kInternetEventClass),
+                             andEventID: AEEventID(kAEGetURL))
+    }
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         // Insert code here to initialize your application
-        NSAppleEventManager.sharedAppleEventManager()
-                           .setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),
-                                                  forEventClass: AEEventID(kInternetEventClass),
-                                                  andEventID: AEEventID(kAEGetURL))
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
@@ -30,8 +41,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                index = urlString.rangeOfString("?", options: .BackwardsSearch)?.endIndex,
                stopID = Int(urlString.substringFromIndex(index)) {
             // do something with the stop ID
-            print(stopID)
+            if let stopSelectionDelegate = AppDelegate.stopSelectionDelegate {
+                stopSelectionDelegate.onStopSelected(stopID)
+            } else {
+                AppDelegate.externalStopID = stopID
+            }
         }
     }
+    
+    static func dequeueSelectedStopID() -> Int? {
+        let stopID = externalStopID
+        externalStopID = nil
+        return stopID
+    }
 }
-
