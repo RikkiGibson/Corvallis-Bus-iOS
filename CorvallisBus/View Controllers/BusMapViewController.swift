@@ -63,7 +63,9 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         for annotation in viewModel.stops.values {
             annotation.isFavorite = favoriteStopIDs.contains(annotation.stop.id)
             if let view = mapView.viewForAnnotation(annotation) {
-                view.updateWithBusStopAnnotation(annotation, isSelected: annotation.stop.id == viewModel.selectedStopID)
+                view.updateWithBusStopAnnotation(annotation,
+                                                 isSelected: annotation.stop.id == viewModel.selectedStopID,
+                                                 animated: false)
             }
         }
     }
@@ -119,7 +121,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
             // The annotation view only exists if it's visible
             if let view = mapView.viewForAnnotation(annotation) {
                 let isSelected = viewModel.selectedStopID == stopID
-                view.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
+                view.updateWithBusStopAnnotation(annotation, isSelected: isSelected, animated: false)
             }
         }
     }
@@ -141,14 +143,11 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         if let polyline = viewModel.selectedRoute?.polyline {
             mapView.removeOverlay(polyline)
         }
-        if let arrows = viewModel.selectedRoute?.arrows {
-            mapView.removeAnnotations(arrows)
-        }
         
         for annotation in viewModel.stops.values {
             annotation.isDeemphasized = false
             if let view = mapView.viewForAnnotation(annotation) {
-                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id)
+                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id, animated: false)
             }
         }
         
@@ -163,19 +162,15 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         if let polyline = viewModel.selectedRoute?.polyline {
             mapView.removeOverlay(polyline)
         }
-        if let arrows = viewModel.selectedRoute?.arrows {
-            mapView.removeAnnotations(arrows)
-        }
         
         viewModel.selectedRoute = route
         for (stopID, annotation) in viewModel.stops {
             annotation.isDeemphasized = !route.path.contains(stopID)
             if let view = mapView.viewForAnnotation(annotation) {
-                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id)
+                view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id, animated: false)
             }
         }
         mapView.addOverlay(route.polyline)
-        mapView.addAnnotations(route.arrows)
     }
     
     // MARK: MKMapViewDelegate
@@ -191,9 +186,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         
         if let annotation = annotation as? BusStopAnnotation {
             let isSelected = viewModel.selectedStopID == annotation.stop.id
-            annotationView.updateWithBusStopAnnotation(annotation, isSelected: isSelected)
-        } else if let annotation = annotation as? ArrowAnnotation {
-            annotationView.updateWithArrowAnnotation(annotation)
+            annotationView.updateWithBusStopAnnotation(annotation, isSelected: isSelected, animated: false)
         }
         
         return annotationView
@@ -213,11 +206,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         viewModel.selectedStopID = annotation.stop.id
         delegate?.busMapViewController(self, didSelectStopWithID: annotation.stop.id)
         
-        UIView.animateWithDuration(0.1, animations: {
-            view.transform = CGAffineTransformMakeScale(1.3, 1.3)
-        })
-        
-        view.updateWithBusStopAnnotation(annotation, isSelected: true)
+        view.updateWithBusStopAnnotation(annotation, isSelected: true, animated: true)
     }
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
@@ -234,10 +223,10 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
         
         UIView.animateWithDuration(0.1, animations: {
-            view.transform = CGAffineTransformIdentity
+            view.transform = CGAffineTransformMakeRotation(CGFloat(annotation.stop.bearing))
         })
         
-        view.updateWithBusStopAnnotation(annotation, isSelected: false)
+        view.updateWithBusStopAnnotation(annotation, isSelected: false, animated: true)
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {

@@ -12,27 +12,26 @@ import CoreLocation
 struct BusStop : Equatable {
     let id: Int
     let name: String
+    let bearing: Double
     let location: CLLocation
     let routeNames: [String]
-    
-    private init(id: Int, name: String, location: CLLocation, routeNames: [String]) {
-        self.id = id
-        self.name = name
-        self.location = location
-        self.routeNames = routeNames
-    }
     
     static func fromDictionary(dictionary: [String : AnyObject]) -> BusStop? {
         guard let id = dictionary["id"] as? Int,
             let name = dictionary["name"] as? String,
+            let bearing = dictionary["bearing"] as? Double,
             let lat = dictionary["lat"] as? Double,
             let long = dictionary["lng"] as? Double,
             let routeNames = dictionary["routeNames"] as? [String] else {
                 return nil
         }
-        return BusStop(id: id, name: name,
+        return BusStop(id: id, name: name, bearing: toCGFriendlyAngle(bearing),
             location: CLLocation(latitude: lat, longitude: long),
             routeNames: routeNames)
+    }
+    
+    static func toCGFriendlyAngle(bearingDegrees: Double) -> Double {
+        return (bearingDegrees / 180.0 * M_PI + M_PI / 2.0) % (M_PI * 2.0);
     }
 }
     

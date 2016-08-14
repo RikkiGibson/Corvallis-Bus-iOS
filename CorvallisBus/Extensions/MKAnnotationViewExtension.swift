@@ -8,38 +8,44 @@
 
 import Foundation
 
-let greenOvalImage = UIImage(named: "greenoval")
-let greenOvalHighlightedImage = UIImage(named: "greenoval-highlighted")
-let greenOvalDeemphasizedImage = UIImage(named: "greenoval-deemphasized")
-let goldOvalImage = UIImage(named: "goldoval")
-let goldOvalHighlightedImage = UIImage(named: "goldoval-highlighted")
-let goldOvalDeemphasizedImage = UIImage(named: "goldoval-deemphasized")
+let greenNeedleImage = UIImage(named: "green-needle")
+let greenNeedleHighlightedImage = UIImage(named: "green-needle-highlighted")
+let greenNeedleDeemphasizedImage = UIImage(named: "green-needle-deemphasized")
+let goldNeedleImage = UIImage(named: "gold-needle")
+let goldNeedleHighlightedImage = UIImage(named: "gold-needle-highlighted")
+let goldNeedleDeemphasizedImage = UIImage(named: "gold-needle-deemphasized")
 
 let arrowImage = UIImage(named: "ListCurrentLoc")
 
 extension MKAnnotationView {
-    func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool) {
-        layer.anchorPoint = CGPoint(x: 0.5, y: 0.85)
+    func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool, animated: Bool) {
+        layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         enabled = true
         
         let isFavorite = annotation.isFavorite
         let isDeemphasized = annotation.isDeemphasized
         if isSelected {
             layer.zPosition = 5
-            image = isFavorite ? goldOvalHighlightedImage : greenOvalHighlightedImage
+            image = isFavorite ? goldNeedleHighlightedImage : greenNeedleHighlightedImage
         } else if isDeemphasized {
             layer.zPosition = isFavorite ? 2 : 1
-            image = isFavorite ? goldOvalDeemphasizedImage : greenOvalDeemphasizedImage
+            image = isFavorite ? goldNeedleDeemphasizedImage : greenNeedleDeemphasizedImage
         } else {
             layer.zPosition = isFavorite ? 4 : 3
-            image = isFavorite ? goldOvalImage : greenOvalImage
+            image = isFavorite ? goldNeedleImage : greenNeedleImage
         }
-    }
-    
-    func updateWithArrowAnnotation(annotation: ArrowAnnotation) {
-        layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        enabled = false
-        image = arrowImage
-        transform = CGAffineTransformMakeRotation(annotation.angle)
+        
+        let newTransform = isSelected
+            ? CGAffineTransformConcat(
+                CGAffineTransformMakeRotation(CGFloat(annotation.stop.bearing)),
+                CGAffineTransformMakeScale(1.3, 1.3))
+            : CGAffineTransformMakeRotation(CGFloat(annotation.stop.bearing))
+        if animated {
+            UIView.animateWithDuration(0.1, animations: {
+                self.transform = newTransform
+            })
+        } else {
+            transform = newTransform
+        }
     }
 }

@@ -36,39 +36,8 @@ final class BusRoute : Equatable {
         }
         return BusRoute(name: name, color: color, polyline: polyline, path: Set(path), url: url)
     }
-    
-    lazy var arrows: [ArrowAnnotation] = {
-        var arrows = [ArrowAnnotation]()
-        
-        var pointer = self.polyline.points()
-        
-        for i in 0.stride(to: self.polyline.pointCount - 1, by: 10) {
-            let firstPoint = pointer[i]
-            let secondPoint = pointer[i+1]
-            
-            let dy = secondPoint.y - firstPoint.y
-            let dx = secondPoint.x - firstPoint.x
-            
-            // M_PI / 4 is added because the arrow graphic is facing
-            // at that angle to the positive X axis to begin with
-            let angle = atan2(dy, dx) + M_PI / 4
-            arrows.append(ArrowAnnotation(mapPoint: firstPoint, angle: angle))
-        }
-        
-        return arrows
-    }()
 }
 
 func == (lhs: BusRoute, rhs: BusRoute) -> Bool {
     return lhs.name == rhs.name
-}
-
-final class ArrowAnnotation : NSObject, MKAnnotation {
-    let angle: CGFloat
-    let coordinate: CLLocationCoordinate2D
-    
-    init(mapPoint: MKMapPoint, angle: Double) {
-        self.coordinate = MKCoordinateForMapPoint(mapPoint)
-        self.angle = CGFloat(angle)
-    }
 }
