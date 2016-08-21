@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -63,18 +63,18 @@
                                 <rect key="frame" x="0.0" y="86" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Woq-oY-Of7" id="Y6M-CX-gYU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c1Q-cG-QIU">
-                                            <rect key="frame" x="15" y="16" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="17" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wKf-am-EIM">
-                                            <rect key="frame" x="15" y="36" width="41" height="14"/>
+                                            <rect key="frame" x="15" y="36.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -490,20 +490,7 @@
                     <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Aqe-H5-rmJ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Rv-2S-Iy5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="7Rv-2S-Iy5" secondAttribute="bottom" id="GBP-8D-IeZ"/>
-                            <constraint firstAttribute="trailing" secondItem="7Rv-2S-Iy5" secondAttribute="trailing" id="TO6-BG-sq9"/>
-                            <constraint firstItem="7Rv-2S-Iy5" firstAttribute="top" secondItem="Aqe-H5-rmJ" secondAttribute="top" id="kCS-im-uz5"/>
-                            <constraint firstItem="7Rv-2S-Iy5" firstAttribute="leading" secondItem="Aqe-H5-rmJ" secondAttribute="leading" id="yPb-m9-zDH"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="93S-6f-2bv">
                         <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="2A4-v7-kTg">
@@ -517,9 +504,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="7Rv-2S-Iy5" id="gC1-Fd-gg7"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RvA-Yo-hNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="aSk-Dq-kvb" userLabel="Exit" sceneMemberID="exit"/>

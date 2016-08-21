@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import WebKit
 
-final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGestureRecognizerDelegate {
+final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate, WKNavigationDelegate {
+    let webView: WKWebView = WKWebView()
     
-    @IBOutlet weak var webView: UIWebView!
-    
+    /// Set by the parent to indicate what page the web view should navigate to.
     var initialURL: NSURL?
     var alwaysShowNavigationBar = false
     
@@ -34,7 +35,19 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGesture
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.webView.delegate = self
+        self.webView.navigationDelegate = self
+        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(webView)
+        self.view.addConstraints([
+            NSLayoutConstraint(item: self.webView, attribute: .Left, relatedBy: .Equal,
+                toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: self.webView, attribute: .Right, relatedBy: .Equal,
+                toItem: self.view, attribute: .Right, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: self.webView, attribute: .Top, relatedBy: .Equal,
+                toItem: self.view, attribute: .Top, multiplier: 1.0, constant: 0.0),
+            NSLayoutConstraint(item: self.webView, attribute: .Bottom, relatedBy: .Equal,
+                toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)])
+        
         // Do any additional setup after loading the view.
     }
     
@@ -43,11 +56,12 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGesture
         // necessary if the user begins popping the view controller then pushes it back on
         UIView.animateWithDuration(0.2) {
             self.navigationController?.navigationBarHidden = false
-            return
         }
         
-        if self.initialURL != nil {
-            self.webView.loadRequest(NSURLRequest(URL: self.initialURL!))
+        if let url = self.initialURL {
+            self.webView.loadRequest(NSURLRequest(URL: url))
+        } else {
+            fatalError("BusWebViewController should have its initialURL property set before being presented.")
         }
     }
     
@@ -57,58 +71,71 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGesture
         if !alwaysShowNavigationBar {
             UIView.animateWithDuration(0.2) {
                 self.navigationController?.navigationBarHidden = true
-                return
             }
         }
     }
     
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction,
+                 decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.URL else {
+            fatalError("BusWebViewController.initialURL was unexpectedly nil.")
+        }
+        
+        if url.isEqual(self.initialURL) {
+            decisionHandler(.Allow)
+        } else {
+            decisionHandler(.Cancel)
+            presentNavigationActionSheet(url)
+        }
+    }
+    
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    }
+    
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        let javascript = "$(function() {" +
+            "$('#show-route-schedules').trigger('click');" +
+            "$('#stop-all').trigger('click');" +
+            "$('html, body').stop();" +
+            "$('html, body').animate({scrollTop: ($('#cts-schedules-top').offset().top)}, 0);" +
+        "});"
+        
+        self.webView.evaluateJavaScript(javascript, completionHandler: nil)
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+    }
+    
     @IBAction func openInBrowser(sender: AnyObject) {
-        if let url = self.webView.request?.URL {
+        if let url = self.initialURL {
             UIApplication.sharedApplication().openURL(url)
         }
     }
     
+    func presentNavigationActionSheet(url: NSURL) {
+        let rect = CGRectMake(self.lastTouchLocation?.x ?? self.view.bounds.size.width / 2.0,
+                              self.lastTouchLocation?.y ?? self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(
+            UIAlertAction(title: "Open in Safari", style: .Default) { action in
+                UIApplication.sharedApplication().openURL(url); return
+            })
+        alertController.addAction(
+                UIAlertAction(title: "Cancel", style: .Cancel) { action in
+            })
+        alertController.popoverPresentationController?.sourceView = self.view
+        alertController.popoverPresentationController?.sourceRect = rect
+        
+        self.presentViewController(alertController, animated: true) { }
+    }
+    
     @IBAction func triggerUnwind(sender: AnyObject) {
         self.performSegueWithIdentifier("unwindToMap", sender: self)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        
-        if navigationType != .LinkClicked || webView.request?.URL?.query == request.URL?.query {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            return true
-        } else {
-            let rect = CGRectMake(self.lastTouchLocation?.x ?? self.view.bounds.size.width / 2.0,
-                self.lastTouchLocation?.y ?? self.view.bounds.size.height / 2.0, 1.0, 1.0)
-            
-            let url = request.URL!
-            let alertController = UIAlertController(title: url.absoluteString, message: nil, preferredStyle: .ActionSheet)
-            alertController.addAction(UIAlertAction(title: "Open in Safari", style: .Default) { action in
-                UIApplication.sharedApplication().openURL(url); return
-                })
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action in })
-            alertController.popoverPresentationController?.sourceView = self.view
-            alertController.popoverPresentationController?.sourceRect = rect
-            self.presentViewController(alertController, animated: true) { }
-            
-            return false
-        }
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        let javascript = "$(function() {" +
-                "$('#show-route-schedules').trigger('click');" +
-                "$('#stop-all').trigger('click');" +
-                "$('html, body').stop();" +
-                "$('html, body').animate({scrollTop: ($('#cts-schedules-top').offset().top)}, 0);" +
-            "});"
-        webView.stringByEvaluatingJavaScriptFromString(javascript)
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -123,14 +150,4 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIGesture
     func didTouch(sender: UITapGestureRecognizer) {
         lastTouchLocation = sender.locationInView(self.view)
     }
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
