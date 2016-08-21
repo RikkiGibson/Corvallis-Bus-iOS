@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -63,18 +63,18 @@
                                 <rect key="frame" x="0.0" y="86" width="600" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Woq-oY-Of7" id="Y6M-CX-gYU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="c1Q-cG-QIU">
-                                            <rect key="frame" x="15" y="16" width="32" height="20"/>
+                                            <rect key="frame" x="15" y="17" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wKf-am-EIM">
-                                            <rect key="frame" x="15" y="36" width="41" height="14"/>
+                                            <rect key="frame" x="15" y="36.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -218,21 +218,39 @@
                                     <action selector="tutorialButtonTouched" destination="Qjw-Wo-5wg" eventType="touchUpInside" id="Lb4-xW-Bhx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaU-1e-TMf">
+                                <rect key="frame" x="20" y="219" width="42" height="30"/>
+                                <state key="normal" title="About"/>
+                                <connections>
+                                    <segue destination="LTL-5N-aNi" kind="presentation" identifier="AboutWebSegue" id="dkk-Bs-5j5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Bj-FP-DIp">
+                                <rect key="frame" x="20" y="259" width="95" height="30"/>
+                                <state key="normal" title="Privacy Policy"/>
+                                <connections>
+                                    <segue destination="LTL-5N-aNi" kind="presentation" identifier="PrivacyPolicyWebSegue" id="b9s-Jr-NZI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="kaU-1e-TMf" firstAttribute="leading" secondItem="LjI-gf-joC" secondAttribute="leading" id="3oj-DM-THk"/>
                             <constraint firstItem="LjI-gf-joC" firstAttribute="top" secondItem="pRk-fG-szh" secondAttribute="bottom" constant="24" id="81H-05-Kte"/>
                             <constraint firstItem="dSW-ni-d5B" firstAttribute="top" secondItem="xPV-LH-3fX" secondAttribute="bottom" constant="28" id="8w1-WZ-dG4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LBR-a7-Ccx" secondAttribute="trailing" id="Dfr-o7-NfV"/>
                             <constraint firstItem="pRk-fG-szh" firstAttribute="top" secondItem="dSW-ni-d5B" secondAttribute="bottom" constant="26" id="Gw3-hL-Hvo"/>
                             <constraint firstItem="LjI-gf-joC" firstAttribute="leading" secondItem="pRk-fG-szh" secondAttribute="leading" constant="4" id="Iok-Fu-Lgh"/>
+                            <constraint firstItem="9Bj-FP-DIp" firstAttribute="top" secondItem="kaU-1e-TMf" secondAttribute="bottom" constant="10" id="Lfk-Sx-TJF"/>
                             <constraint firstItem="ckU-WZ-87K" firstAttribute="top" secondItem="xPV-LH-3fX" secondAttribute="bottom" constant="25" id="ND4-ji-H7d"/>
+                            <constraint firstItem="9Bj-FP-DIp" firstAttribute="leading" secondItem="kaU-1e-TMf" secondAttribute="leading" id="SdF-WG-Uba"/>
                             <constraint firstItem="5dZ-YE-Dbu" firstAttribute="centerY" secondItem="LBR-a7-Ccx" secondAttribute="centerY" id="ULg-7z-DBp"/>
                             <constraint firstItem="5dZ-YE-Dbu" firstAttribute="centerY" secondItem="pRk-fG-szh" secondAttribute="centerY" id="V3r-0e-yaf"/>
                             <constraint firstItem="LBR-a7-Ccx" firstAttribute="leading" secondItem="5dZ-YE-Dbu" secondAttribute="trailing" constant="5" id="XsE-ZH-dDT"/>
                             <constraint firstItem="pRk-fG-szh" firstAttribute="top" secondItem="ckU-WZ-87K" secondAttribute="bottom" constant="23.5" id="bdB-v7-0GT"/>
                             <constraint firstItem="5dZ-YE-Dbu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pRk-fG-szh" secondAttribute="trailing" constant="8" id="dPG-A6-ush"/>
                             <constraint firstItem="ckU-WZ-87K" firstAttribute="leading" secondItem="dSW-ni-d5B" secondAttribute="trailing" constant="8" id="dgU-PX-tbq"/>
+                            <constraint firstItem="kaU-1e-TMf" firstAttribute="top" secondItem="LjI-gf-joC" secondAttribute="bottom" constant="10" id="gFx-hi-mox"/>
                             <constraint firstAttribute="trailing" secondItem="bpy-SV-0Gg" secondAttribute="trailing" constant="16" id="lmS-6b-inu"/>
                             <constraint firstItem="pRk-fG-szh" firstAttribute="leading" secondItem="dSW-ni-d5B" secondAttribute="leading" constant="-4" id="o9L-xt-qKk"/>
                             <constraint firstItem="bpy-SV-0Gg" firstAttribute="top" secondItem="xPV-LH-3fX" secondAttribute="bottom" constant="20" id="qa9-NI-C8w"/>
@@ -579,6 +597,7 @@
         <image name="settings" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="b9s-Jr-NZI"/>
         <segue reference="S3B-ii-cke"/>
     </inferredMetricsTieBreakers>
 </document>

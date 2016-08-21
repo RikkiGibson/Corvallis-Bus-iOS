@@ -82,7 +82,10 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
     private var leadingRequest: NSURLRequest?
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         
-        if navigationType != .LinkClicked || webView.request?.URL?.query == request.URL?.query {
+        if navigationType != .LinkClicked ||
+            webView.request?.URL?.query == request.URL?.query ||
+            webView.request?.URL == request.URL
+        {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             return true
         } else {
@@ -142,14 +145,4 @@ final class BusWebViewController: UIViewController, UIWebViewDelegate, UIActionS
     func didTouch(sender: UITapGestureRecognizer) {
         lastTouchLocation = sender.locationInView(self.view)
     }
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }
