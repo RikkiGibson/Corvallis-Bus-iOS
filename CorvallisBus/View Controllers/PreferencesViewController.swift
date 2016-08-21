@@ -38,4 +38,18 @@ final class PreferencesViewController: UIViewController {
     @IBAction func tutorialButtonTouched() {
         presentTutorial()
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? BusWebViewController ??
+            segue.destinationViewController.childViewControllers.first as? BusWebViewController
+        {
+            destination.initialURL = segue.identifier == "PrivacyPolicyWebSegue"
+                ? NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!
+                : NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!
+            destination.alwaysShowNavigationBar = true
+        }
+    }
+    
+    @IBAction func unwind(segue: UIStoryboardSegue) { }
+    
 }

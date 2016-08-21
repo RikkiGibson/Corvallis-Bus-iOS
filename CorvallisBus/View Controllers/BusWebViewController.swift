@@ -78,10 +78,15 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction,
                  decisionHandler: (WKNavigationActionPolicy) -> Void) {
         guard let url = navigationAction.request.URL else {
+            fatalError("navigationAction had a nil URL.")
+        }
+        guard let initialURL = self.initialURL else {
             fatalError("BusWebViewController.initialURL was unexpectedly nil.")
         }
         
-        if url.isEqual(self.initialURL) {
+        // Everything important about the URL except for the hash needs to be the same as the original.
+        // This supports users navigating within the page without letting them navigate to another page.
+        if url.host == initialURL.host && url.path == initialURL.path && url.query == initialURL.query {
             decisionHandler(.Allow)
         } else {
             decisionHandler(.Cancel)

@@ -30,6 +30,15 @@ final class StopDetailViewController : UITableViewController {
         tableView.contentInset = UIEdgeInsetsZero
         updateStopDetails(.Success(StopDetailViewModel.empty()))
         
+        // Rounds the corners on the table view if it's being shown on an iPad, where
+        // it floats on top of the map instead of being flush against the map.
+        let traitCollection = UIScreen.mainScreen().traitCollection
+        if traitCollection.verticalSizeClass == .Regular && traitCollection.horizontalSizeClass == .Regular {
+            tableView.layer.cornerRadius = 8
+        } else {
+            tableView.layer.cornerRadius = 0
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
