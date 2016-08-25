@@ -84,6 +84,17 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
             fatalError("BusWebViewController.initialURL was unexpectedly nil.")
         }
         
+        // For some reason, iPads get redirected to these two places when viewing a route schedule.
+        // Accepting the redirect doesn't seem to do anything, so might as well.
+        if let path = url.path where path.hasPrefix("/ftp/") {
+            decisionHandler(.Allow)
+            return
+        }
+        if url.absoluteString == "about:blank" {
+            decisionHandler(.Allow)
+            return
+        }
+        
         // Everything important about the URL except for the hash needs to be the same as the original.
         // This supports users navigating within the page without letting them navigate to another page.
         if url.host == initialURL.host && url.path == initialURL.path && url.query == initialURL.query {
