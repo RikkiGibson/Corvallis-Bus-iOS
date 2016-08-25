@@ -291,8 +291,8 @@
                                 <rect key="frame" x="0.0" y="367" width="600" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="PPU-ew-h6w"/>
-                                    <constraint firstAttribute="height" constant="350" id="lAN-7K-1Ch"/>
-                                    <constraint firstAttribute="width" constant="350" id="qOf-iq-1T9"/>
+                                    <constraint firstAttribute="height" constant="340" id="lAN-7K-1Ch"/>
+                                    <constraint firstAttribute="width" constant="340" id="qOf-iq-1T9"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
