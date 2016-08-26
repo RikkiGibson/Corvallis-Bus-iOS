@@ -10,6 +10,9 @@ import UIKit
 import MapKit
 
 final class BrowseViewController: UIViewController, BusMapViewControllerDelegate, StopDetailViewControllerDelegate {
+    @IBOutlet weak var stopDetailContainer: UIView!
+    @IBOutlet weak var constraintStopDetailsPadding: NSLayoutConstraint!
+    
     let manager = CorvallisBusManager()
     
     var busMapViewController: BusMapViewController?
@@ -50,6 +53,16 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         
         timer?.invalidate()
         userActivity?.invalidate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // Rounds the corners on the table view if it's being shown on an iPad, where
+        // it floats on top of the map instead of being flush against the map.
+        if constraintStopDetailsPadding.constant == 0 {
+            stopDetailContainer.layer.cornerRadius = 0
+        } else {
+            stopDetailContainer.layer.cornerRadius = 8
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

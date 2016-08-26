@@ -294,6 +294,9 @@
                                     <constraint firstAttribute="height" constant="340" id="lAN-7K-1Ch"/>
                                     <constraint firstAttribute="width" constant="340" id="qOf-iq-1T9"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="PPU-ew-h6w"/>
@@ -391,7 +394,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
+                        <outlet property="constraintStopDetailsPadding" destination="MyA-8f-aLN" id="6tO-DK-yxs"/>
                         <outlet property="searchDisplayController" destination="57G-UC-EAU" id="Dga-0f-8Bj"/>
+                        <outlet property="stopDetailContainer" destination="Gko-sg-FwP" id="yWE-xa-AUA"/>
                         <segue destination="LTL-5N-aNi" kind="show" identifier="BusWebSegue" id="ouR-5R-7DY"/>
                     </connections>
                 </viewController>
