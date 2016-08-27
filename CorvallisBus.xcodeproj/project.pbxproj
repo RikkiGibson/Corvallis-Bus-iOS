@@ -16,7 +16,6 @@
 		5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4851A0704B600F5928E /* MobileCoreServices.framework */; };
 		5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4871A0704BE00F5928E /* QuartzCore.framework */; };
 		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
-		5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48B1A0704CC00F5928E /* StoreKit.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
 		5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */; };
 		5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
@@ -207,7 +206,6 @@
 		5C07B4851A0704B600F5928E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5C07B4871A0704BE00F5928E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		5C07B48B1A0704CC00F5928E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExtension.swift; sourceTree = "<group>"; };
 		5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionExtensions.swift; sourceTree = "<group>"; };
@@ -297,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */,
-				5C07B48C1A0704CC00F5928E /* StoreKit.framework in Frameworks */,
 				5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */,
 				5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */,
 				5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */,
@@ -556,7 +553,6 @@
 				5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */,
 				5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */,
 				5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */,
-				5C07B48B1A0704CC00F5928E /* StoreKit.framework */,
 				5C07B4891A0704C600F5928E /* Security.framework */,
 				5C07B4871A0704BE00F5928E /* QuartzCore.framework */,
 				5C07B4851A0704B600F5928E /* MobileCoreServices.framework */,
@@ -686,6 +682,9 @@
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
 							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
