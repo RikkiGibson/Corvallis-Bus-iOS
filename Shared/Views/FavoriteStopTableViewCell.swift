@@ -30,6 +30,17 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         labelSecondRoute.backgroundColor = UIColor.clearColor()
         labelSecondRoute.layer.cornerRadius = 5
         labelSecondRoute.clipsToBounds = true
+        
+        // Ideally, we would check the background color, but for now checking OS version will have to do.
+        if #available(iOSApplicationExtension 10.0, *) {
+            if NSBundle.mainBundle().bundlePath.hasSuffix(".appex") {
+                labelStopName.textColor = UIColor.blackColor()
+                labelFirstArrival.textColor = UIColor.blackColor()
+                labelSecondArrival.textColor = UIColor.blackColor()
+                labelDistance.textColor = UIColor.darkGrayColor()
+                locationImage.image = UIImage(named: "ListCurrentLoc")
+            }
+        }
     }
     
     func update(viewModel: FavoriteStopViewModel) {

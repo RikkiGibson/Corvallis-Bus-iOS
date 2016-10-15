@@ -15,14 +15,26 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
         secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
     
-    var favoriteStops = [FavoriteStopViewModel]()
+    var favoriteStops: [FavoriteStopViewModel] = []
     var didCompleteUpdate = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
-        
+
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 66, bottom: 0, right: 8)
+        if #available(iOSApplicationExtension 10.0, *) {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .Expanded
+        }
+    }
+    
+    @available(iOSApplicationExtension 10.0, *)
+    func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        if activeDisplayMode == .Compact {
+            self.preferredContentSize = CGSize(width: maxSize.width, height: min(maxSize.height, self.tableView.contentSize.height))
+        } else {
+            self.preferredContentSize = CGSize(width: maxSize.width, height: self.tableView.contentSize.height)
+        }
     }
     
     // MARK: Table view
