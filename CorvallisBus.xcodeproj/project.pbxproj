@@ -673,12 +673,13 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Rikki Gibson";
 				TargetAttributes = {
 					5C4937CB19CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -694,10 +695,12 @@
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0800;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 					5CA19B7A1D0C9BB800F32665 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
 								enabled = 1;
@@ -706,6 +709,7 @@
 					};
 					5CD551401D0DD3D80014B08C = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.Mac = {
 								enabled = 1;
@@ -715,6 +719,7 @@
 					5CF192A719EF513100CB21EC = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1053,8 +1058,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1063,6 +1070,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1075,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1096,8 +1104,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1105,13 +1115,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
@@ -1147,6 +1158,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1179,6 +1191,7 @@
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1202,6 +1215,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Debug;
@@ -1221,6 +1235,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Release;
@@ -1228,27 +1243,29 @@
 		5CA19B871D0C9BB800F32665 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = "CorvallisBusMac/Corvallis Bus.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
 				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
 		5CA19B881D0C9BB800F32665 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_ENTITLEMENTS = "CorvallisBusMac/Corvallis Bus.entitlements";
@@ -1256,15 +1273,15 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
 				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -1279,11 +1296,12 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1299,11 +1317,12 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -1326,6 +1345,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1344,6 +1364,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

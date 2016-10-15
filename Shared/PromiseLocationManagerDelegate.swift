@@ -32,18 +32,10 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
     
     // MARK - location manager delegate
     
-    #if os(iOS)
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         _locationManager.stopUpdatingLocation()
         _callback(.Success(locations.last!))
-    }
-    #else
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        _locationManager.stopUpdatingLocation()
-        _callback(.Success(locations.last as! CLLocation))
-    }
-    #endif
-    
+    }    
     
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {

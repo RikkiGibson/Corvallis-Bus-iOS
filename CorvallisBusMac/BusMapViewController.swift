@@ -93,7 +93,7 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
             let button = NSButton()
             button.image = NSImage(named: "favorite")
             button.alternateImage = NSImage(named: "favorite")
-            button.bezelStyle = NSBezelStyle.RegularSquareBezelStyle
+            button.bezelStyle = NSBezelStyle.RegularSquare
             button.target = self
             button.action = #selector(BusMapViewController.onButtonClick)
             

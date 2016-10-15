@@ -3,19 +3,19 @@
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "mac-icon@0.125x.png",
+      "filename" : "mac-icon-small@0.25x.png",
       "scale" : "1x"
     },
     {
       "size" : "16x16",
       "idiom" : "mac",
-      "filename" : "mac-icon@0.25x-1.png",
+      "filename" : "mac-icon-small@0.5x.png",
       "scale" : "2x"
     },
     {
       "size" : "32x32",
       "idiom" : "mac",
-      "filename" : "mac-icon@0.25x.png",
+      "filename" : "mac-icon-small@0.5x-1.png",
       "scale" : "1x"
     },
     {

@@ -9,6 +9,7 @@
 import Cocoa
 
 class ListRowViewController: NSViewController {
+    var hasDarkAppearance = false
     var stopID: Int?
     
     @IBOutlet weak var labelStopName: NSTextField!
@@ -35,6 +36,10 @@ class ListRowViewController: NSViewController {
         
         labelSecondRouteName.wantsLayer = true
         labelSecondRouteName.layer!.cornerRadius = 5
+        
+        if hasDarkAppearance {
+            imageNearestStop.image = NSImage(named: "ListCurrentLocWhite")
+        }
     }
 
     override func viewWillAppear() {

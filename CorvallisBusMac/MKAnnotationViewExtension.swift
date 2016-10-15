@@ -33,12 +33,4 @@ extension MKAnnotationView {
             image = isFavorite ? goldOvalImage : greenOvalImage
         }
     }
-    
-    func updateWithArrowAnnotation(annotation: ArrowAnnotation) {
-        layer?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        enabled = false
-        image = arrowImage
-        
-        //transform = CGAffineTransformMakeRotation(annotation.angle)
-    }
 }

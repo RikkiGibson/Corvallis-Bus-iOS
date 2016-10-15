@@ -42,7 +42,7 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
 
     // MARK: - NCWidgetProviding
 
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)!) {
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
         // Refresh the widget's contents in preparation for a snapshot.
         // Call the completion handler block after the widget's contents have been
         // refreshed. Pass NCUpdateResultNoData to indicate that nothing has changed
@@ -59,15 +59,20 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
     }
 
     func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
-        return NSEdgeInsets(top: 0, left: -25, bottom: 0, right: -10)
+        return NSEdgeInsetsZero
     }
 
     // MARK: - NCWidgetListViewDelegate
 
-    func widgetList(list: NCWidgetListViewController!, viewControllerForRow row: Int) -> NSViewController! {
+    func widgetList(list: NCWidgetListViewController, viewControllerForRow row: Int) -> NSViewController {
         // Return a new view controller subclass for displaying an item of widget
         // content. The NCWidgetListViewController will set the representedObject
         // of this view controller to one of the objects in its contents array.
-        return ListRowViewController()
+        let viewController = ListRowViewController()
+        
+        let appearanceName = parentViewController?.view.effectiveAppearance.name
+        viewController.hasDarkAppearance = appearanceName == NSAppearanceNameVibrantDark
+        
+        return viewController
     }
 }
