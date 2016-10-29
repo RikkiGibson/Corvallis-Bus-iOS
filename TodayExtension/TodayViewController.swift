@@ -30,6 +30,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     @available(iOSApplicationExtension 10.0, *)
     func widgetActiveDisplayModeDidChange(activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        reloadCachedFavorites()
         if activeDisplayMode == .Compact {
             self.preferredContentSize = CGSize(width: maxSize.width, height: min(maxSize.height, self.tableView.contentSize.height))
         } else {
@@ -75,20 +76,25 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
             right: defaultMarginInsets.right)
     }
     
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        favoriteStops = CorvallisBusFavoritesManager.cachedFavoriteStops(fallbackToGrayColor: false)
+    func isWidgetCollapsed() -> Bool {
+        if #available(iOSApplicationExtension 10.0, *) {
+            return (extensionContext?.widgetActiveDisplayMode == NCWidgetDisplayMode.Compact) ?? false
+        } else {
+            return false
+        }
+    }
+    func reloadCachedFavorites() {
+        let viewModels = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
+        favoriteStops = filterFavoriteStops(viewModels)
         tableView.reloadData()
-        
-        completionHandler(.NewData)
+    }
+    
+    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+        reloadCachedFavorites()
         
         didCompleteUpdate = false
-        CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: true)
-            .startOnMainThread(onUpdate)
-        
+        CorvallisBusFavoritesManager.favoriteStopsForWidget()
+            .startOnMainThread({ self.onUpdate($0, completionHandler: completionHandler) })
         NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(TodayViewController.clearTableIfUpdatePending), userInfo: nil, repeats: false)
     }
     
@@ -100,14 +106,36 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         }
     }
     
-    func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
+    func filterFavoriteStops(favorites: [FavoriteStopViewModel]) -> [FavoriteStopViewModel] {
+        let defaults = NSUserDefaults.groupUserDefaults()
+        let favorites = defaults.shouldShowNearestStop ? favorites : favorites.filter({ !$0.isNearestStop })
+        if isWidgetCollapsed() {
+            let maybeFavorite = favorites.first({ !$0.isNearestStop }) ?? favorites.first
+            let singleOrNoFavorite = maybeFavorite.map({ [$0] }) ?? []
+            return singleOrNoFavorite
+        } else {
+            return favorites.limit(defaults.todayViewItemCount)
+        }
+    }
+    
+    func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>, completionHandler: NCUpdateResult -> Void) {
         didCompleteUpdate = true
-        
-        favoriteStops = result.toOptional() ?? []
-        self.tableView.reloadData()
+
+        let updateResult: NCUpdateResult
+        switch(result) {
+        case .Success(let data):
+            favoriteStops = filterFavoriteStops(data)
+            updateResult = .NewData
+        case .Error:
+            favoriteStops = []
+            updateResult = .Failed
+        }
+        tableView.reloadData()
         
         if (preferredContentSize != tableView.contentSize) {
             preferredContentSize = tableView.contentSize
         }
+        
+        completionHandler(updateResult)
     }
 }
