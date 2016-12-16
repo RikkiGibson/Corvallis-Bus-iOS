@@ -34,6 +34,30 @@ enum BusError : ErrorType {
     }
 }
 
+/// Represents an asynchronously obtained resource that is reloaded over time.
+enum Resource<T, E: ErrorType> {
+    case Loading
+    case Success(T)
+    case Error(E)
+    
+    func fromFailable(failable: Failable<T, E>) -> Resource<T, E> {
+        switch failable {
+        case Failable.Success(let value):
+            return .Success(value)
+        case Failable.Error(let err):
+            return .Error(err)
+        }
+    }
+}
+
+func ??<T, E: ErrorType>(resource: Resource<T, E>, replacementValue: T) -> T {
+    if case .Success(let value) = resource {
+        return value
+    } else {
+        return replacementValue
+    }
+}
+
 enum Failable<T, E: ErrorType> {
     case Success(T)
     case Error(E)
@@ -85,6 +109,14 @@ enum Failable<T, E: ErrorType> {
         default:
             return nil
         }
+    }
+}
+
+func ??<T, E: ErrorType>(failable: Failable<T, E>, replacementValue: T) -> T {
+    if case .Success(let value) = failable {
+        return value
+    } else {
+        return replacementValue
     }
 }
 

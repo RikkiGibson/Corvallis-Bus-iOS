@@ -15,6 +15,13 @@ final class PreferencesViewController: UIViewController {
     @IBOutlet weak var sliderShowNearestStop: UISwitch!
     
     override func viewWillAppear(animated: Bool) {
+        if #available(iOS 10, *) {
+            stepperTodayItems.minimumValue = 2
+        } else {
+            stepperTodayItems.minimumValue = 1
+        }
+        stepperTodayItems.maximumValue = 7
+        
         let defaults = NSUserDefaults.groupUserDefaults()
         
         let todayItemCount = defaults.todayViewItemCount

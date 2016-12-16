@@ -10,12 +10,22 @@ import UIKit
 import NotificationCenter
 
 final class TodayViewController: UITableViewController, NCWidgetProviding {
-    let placeholderData = FavoriteStopViewModel(stopName: "Something's not right",
+    let errorPlaceholder = FavoriteStopViewModel(stopName: "An error occurred",
         stopId: 0, distanceFromUser: "", isNearestStop: false,
         firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
         secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
     
-    var favoriteStops: [FavoriteStopViewModel] = []
+    let emptyPlaceholder = FavoriteStopViewModel(stopName: "No favorites to display",
+        stopId: 0, distanceFromUser: "", isNearestStop: false,
+        firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "",
+        secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
+    
+    let loadingPlaceholder = FavoriteStopViewModel(stopName: "Loading...",
+        stopId: 0, distanceFromUser: "", isNearestStop: false,
+        firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "",
+        secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
+    
+    var favoriteStops: Resource<[FavoriteStopViewModel], BusError> = .Loading
     var didCompleteUpdate = false
     
     override func viewDidLoad() {
@@ -23,9 +33,6 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         self.tableView.registerNib(UINib(nibName: "TodayTableViewCell", bundle: NSBundle.mainBundle()), forCellReuseIdentifier: "TodayTableViewCell")
 
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 66, bottom: 0, right: 8)
-        if #available(iOSApplicationExtension 10.0, *) {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .Expanded
-        }
     }
     
     @available(iOSApplicationExtension 10.0, *)
@@ -40,28 +47,48 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     // MARK: Table view
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Use a placeholder row when favorites is empty (implying failure to load)
-        return favoriteStops.isEmpty ? 1 : favoriteStops.count
+        // Use a placeholder row when favorites is empty (either no displayable favorites or failed to load)
+        let itemCount = (favoriteStops ?? []).count
+        return isWidgetCollapsed() ? 1 : max(1, itemCount)
+    }
+    
+    func viewModel(for row: Int) -> FavoriteStopViewModel {
+        if case .Error = favoriteStops {
+            return errorPlaceholder
+        }
+        
+        guard case .Success(let viewModels) = favoriteStops else {
+            return loadingPlaceholder
+        }
+        
+        if viewModels.isEmpty {
+            return emptyPlaceholder
+        }
+        
+        if isWidgetCollapsed() {
+            return viewModels.first({ !$0.isNearestStop }) ?? viewModels[row]
+        }
+        
+        return viewModels[row]
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodayTableViewCell") as! FavoriteStopTableViewCell
         
-        cell.update(favoriteStops.isEmpty
-            ? placeholderData
-            : favoriteStops[indexPath.row])
+        cell.update(viewModel(for: indexPath.row))
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         let urlString: String
-        if favoriteStops.isEmpty {
-            urlString = "CorvallisBus://"
+        if case .Success(let viewModels) = favoriteStops where !viewModels.isEmpty {
+            let selectedStop = viewModels[indexPath.row]
+            urlString = "CorvallisBus://?\(selectedStop.stopId)"
         } else {
-            let currentStop = self.favoriteStops[indexPath.row]
-            urlString = "CorvallisBus://?\(currentStop.stopId)"
+            urlString = "CorvallisBus://"
         }
         
         if let url = NSURL(string: urlString) {
@@ -83,9 +110,13 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
             return false
         }
     }
+    
     func reloadCachedFavorites() {
         let viewModels = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
-        favoriteStops = filterFavoriteStops(viewModels)
+        favoriteStops = .Success(viewModels)
+        if #available(iOSApplicationExtension 10.0, *) {
+            extensionContext?.widgetLargestAvailableDisplayMode = viewModels.count > 1 ? .Expanded : .Compact
+        }
         tableView.reloadData()
     }
     
@@ -100,21 +131,9 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     func clearTableIfUpdatePending() {
         if !didCompleteUpdate {
-            favoriteStops = []
+            favoriteStops = .Loading
             NSUserDefaults.groupUserDefaults().cachedFavoriteStops = []
             tableView.reloadData()
-        }
-    }
-    
-    func filterFavoriteStops(favorites: [FavoriteStopViewModel]) -> [FavoriteStopViewModel] {
-        let defaults = NSUserDefaults.groupUserDefaults()
-        let favorites = defaults.shouldShowNearestStop ? favorites : favorites.filter({ !$0.isNearestStop })
-        if isWidgetCollapsed() {
-            let maybeFavorite = favorites.first({ !$0.isNearestStop }) ?? favorites.first
-            let singleOrNoFavorite = maybeFavorite.map({ [$0] }) ?? []
-            return singleOrNoFavorite
-        } else {
-            return favorites.limit(defaults.todayViewItemCount)
         }
     }
     
@@ -124,11 +143,17 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         let updateResult: NCUpdateResult
         switch(result) {
         case .Success(let data):
-            favoriteStops = filterFavoriteStops(data)
+            favoriteStops = .Success(data)
             updateResult = .NewData
-        case .Error:
-            favoriteStops = []
+            if #available(iOSApplicationExtension 10.0, *) {
+                extensionContext?.widgetLargestAvailableDisplayMode = data.count > 1 ? .Expanded : .Compact
+            }
+        case .Error(let err):
+            favoriteStops = .Error(err)
             updateResult = .Failed
+            if #available(iOSApplicationExtension 10.0, *) {
+                extensionContext?.widgetLargestAvailableDisplayMode = .Compact
+            }
         }
         tableView.reloadData()
         

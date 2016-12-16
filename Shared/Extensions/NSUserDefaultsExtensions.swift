@@ -39,7 +39,15 @@ extension NSUserDefaults {
     private static let TODAY_VIEW_ITEM_COUNT_KEY = "todayViewItemCount"
     var todayViewItemCount: Int {
         get {
-            return objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 2 // default
+            let storedValue = objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 2
+            let minimum: Int
+            if #available(iOS 10, *) {
+                minimum = 2
+            } else {
+                minimum = 1
+            }
+            // Set lower and upper bounds for today view item count
+            return max(minimum, min(7, storedValue))
         }
         set {
             setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY)

@@ -21,16 +21,27 @@ class CorvallisBusFavoritesManager {
     
     static func favoriteStopsForApp() -> Promise<[FavoriteStopViewModel], BusError> {
         let defaults = NSUserDefaults.groupUserDefaults()
-        let shouldShowNearestStop = defaults.shouldShowNearestStop
-        return favoriteStops(defaults.favoriteStopIds)
+        let viewModelsPromise = favoriteStops(defaults.favoriteStopIds)
             .map { (json: [[String: AnyObject]]) -> [FavoriteStopViewModel] in
                 let viewModels = json.flatMap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true) }
-                let filteredViewModels = shouldShowNearestStop ? viewModels : viewModels.filter{ !$0.isNearestStop }
-                return filteredViewModels
-            }
+                if !defaults.shouldShowNearestStop {
+                    return viewModels.filter({ !$0.isNearestStop })
+                }
+                return viewModels
+        }
+        return viewModelsPromise
     }
     
-    /// Performs no filtering, unlike favoriteStopsForApp, because the collapsed state of the widget can change rapidly.
+    private static func filterFavoriteStopsForWidget(viewModels: [FavoriteStopViewModel],
+        _ defaults: NSUserDefaults) -> [FavoriteStopViewModel]
+    {
+        let filteredModels = defaults.shouldShowNearestStop
+            ? viewModels
+            : viewModels.filter({ !$0.isNearestStop })
+        
+        return filteredModels.limit(defaults.todayViewItemCount)
+    }
+    
     static func favoriteStopsForWidget() -> Promise<[FavoriteStopViewModel], BusError> {
         let defaults = NSUserDefaults.groupUserDefaults()
         if !hasDisplayableFavorites() {
@@ -42,26 +53,33 @@ class CorvallisBusFavoritesManager {
             .map { (json: [[String: AnyObject]]) -> [FavoriteStopViewModel] in
                 defaults.cachedFavoriteStops = json
                 let viewModels = json.flatMap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
-                return viewModels
+                return filterFavoriteStopsForWidget(viewModels, defaults)
             }
     }
     
     static func cachedFavoriteStopsForWidget() -> [FavoriteStopViewModel] {
         let defaults = NSUserDefaults.groupUserDefaults()
-        let cachedFavoriteStops = defaults.cachedFavoriteStops
-        let viewModels = cachedFavoriteStops.flatMap{
+        let viewModels = defaults.cachedFavoriteStops.flatMap({
             toFavoriteStopViewModel($0, fallbackToGrayColor: false)
-        }
-        return viewModels
+        })
+        return filterFavoriteStopsForWidget(viewModels, defaults)
     }
     
     static func hasDisplayableFavorites() -> Bool {
         let defaults = NSUserDefaults.groupUserDefaults()
         let stopIds = defaults.favoriteStopIds
         
+        if !stopIds.isEmpty {
+            return true
+        }
+        
+        if !defaults.shouldShowNearestStop {
+            return false
+        }
+        
         let locationAvailable = CLLocationManager.locationServicesEnabled() &&
             CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
         
-        return (locationAvailable && defaults.shouldShowNearestStop) || !stopIds.isEmpty
+        return locationAvailable
     }
 }
