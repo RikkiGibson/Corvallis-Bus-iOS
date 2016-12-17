@@ -8,8 +8,7 @@
 
 import UIKit
 
-final class PreferencesViewController: UIViewController {
-    @IBOutlet weak var labelTodayItems: UILabel!
+final class PreferencesViewController: UITableViewController {
     @IBOutlet weak var stepperTodayItems: UIStepper!
     @IBOutlet weak var counterTodayItems: UITextField!
     @IBOutlet weak var sliderShowNearestStop: UISwitch!
@@ -42,15 +41,21 @@ final class PreferencesViewController: UIViewController {
         counterTodayItems.text = Int(sender.value).description
     }
     
-    @IBAction func onUserGuideTapped() {
-        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide")!)
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if indexPath.section == 0 {
+            return
+        }
+        
+        switch indexPath.row {
+        case 0:
+            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
+        case 1:
+            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!)
+        case 2:
+            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!)
+        default:
+            break
+        }
     }
-    
-    @IBAction func onAboutTapped() {
-        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!)
-    }
-    
-    @IBAction func onPrivacyPolicyTapped() {
-        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!)
-    }    
 }
