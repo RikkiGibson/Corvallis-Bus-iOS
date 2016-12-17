@@ -127,9 +127,10 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     
     func stopDetailViewController(viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String) {
         manager.staticData().startOnMainThread { staticData in
-            if case .Success(let staticData) = staticData {
-                self.destinationURL = staticData.routes[routeName]?.url
-                self.performSegueWithIdentifier("BusWebSegue", sender: nil)
+            if case .Success(let staticData) = staticData,
+                let url = staticData.routes[routeName]?.url
+            {
+                self.presentURL(url)
             }
         }
     }

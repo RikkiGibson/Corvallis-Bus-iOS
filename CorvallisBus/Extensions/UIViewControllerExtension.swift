@@ -19,10 +19,14 @@ extension UIViewController {
         presentAlert(title: "Error", message: message)
     }
     
-    func presentTutorial() {
-        let storyboard = UIStoryboard(name: "Tutorial", bundle: nil)
-        let tutorialViewController = storyboard.instantiateInitialViewController()!
+    func presentURL(url: NSURL) {
+        guard let destination = storyboard?.instantiateViewControllerWithIdentifier("WebNavigation") as? UINavigationController else {
+            fatalError("Tried to present URL while not attached to a storyboard with a view controller with identifier WebNavigation")
+        }
+        let webVC = destination.childViewControllers.first as! BusWebViewController
+        webVC.initialURL = url
+        webVC.alwaysShowNavigationBar = true
         
-        navigationController?.presentViewController(tutorialViewController, animated: true, completion: { })
+        self.presentViewController(destination, animated: true, completion: nil)
     }
 }

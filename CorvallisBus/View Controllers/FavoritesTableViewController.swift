@@ -51,8 +51,24 @@ final class FavoritesTableViewController: UITableViewController {
         let defaults = NSUserDefaults.groupUserDefaults()
         if !defaults.hasPreviouslyLaunched {
             defaults.hasPreviouslyLaunched = true
-            presentTutorial()
-        }
+            presentWelcomeDialog()
+    }
+    
+    func presentWelcomeDialog() {
+        let alertController = UIAlertController(
+            title: "Welcome to Corvallis Bus",
+            message: "Check out the user guide for tips on how to get started, or view it later in Preferences.",
+            preferredStyle: .Alert)
+        
+        alertController.addAction(
+            UIAlertAction(title: "View User Guide", style: .Default) { action in
+                self.presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
+            })
+        
+        alertController.addAction(
+            UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in}))
+        
+        self.presentViewController(alertController, animated: true) { }
     }
     
     func updateFavorites() {
@@ -63,7 +79,7 @@ final class FavoritesTableViewController: UITableViewController {
     }
     
     func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
-        favoriteStops = result.toOptional() ?? []
+        favoriteStops = result ?? []
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()

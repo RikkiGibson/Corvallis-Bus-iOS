@@ -75,6 +75,10 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
         }
     }
     
+    @IBAction func onBackButtonPressed(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction,
                  decisionHandler: (WKNavigationActionPolicy) -> Void) {
         guard let url = navigationAction.request.URL else {
@@ -150,16 +154,12 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
         self.presentViewController(alertController, animated: true) { }
     }
     
-    @IBAction func triggerUnwind(sender: AnyObject) {
-        self.performSegueWithIdentifier("unwindToMap", sender: self)
-    }
-    
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
     @IBAction func didPanFromEdge(sender: AnyObject) {
-        self.performSegueWithIdentifier("unwind", sender: sender)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     var lastTouchLocation: CGPoint?

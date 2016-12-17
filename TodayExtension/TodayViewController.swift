@@ -17,7 +17,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     let emptyPlaceholder = FavoriteStopViewModel(stopName: "No favorites to display",
         stopId: 0, distanceFromUser: "", isNearestStop: false,
-        firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "",
+        firstRouteColor: UIColor.clearColor(), firstRouteName: "", firstRouteArrivals: "Tap to open the app.",
         secondRouteColor: UIColor.clearColor(), secondRouteName: "", secondRouteArrivals: "")
     
     let loadingPlaceholder = FavoriteStopViewModel(stopName: "Loading...",

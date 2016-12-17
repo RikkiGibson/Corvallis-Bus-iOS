@@ -40,6 +40,7 @@ final class ServiceAlertsViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        items = []
         // Dispose of any resources that can be recreated.
     }
     
@@ -60,16 +61,12 @@ final class ServiceAlertsViewController: UITableViewController {
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? BusWebViewController ??
-            segue.destinationViewController.childViewControllers.first as? BusWebViewController,
-            let indexPath = self.tableView.indexPathForSelectedRow {
-            destination.initialURL = NSURL(string: self.items[indexPath.row].link)
-            destination.alwaysShowNavigationBar = true
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let link = self.items[indexPath.row].link
+        if let url = NSURL(string: link) {
+            presentURL(url)
+        } else {
+            presentError("Unable to open URL: \(link)")
         }
-    }
-    
-    @IBAction func unwind(segue: UIStoryboardSegue) {
-        
     }
 }

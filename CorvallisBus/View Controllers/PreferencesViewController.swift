@@ -42,21 +42,15 @@ final class PreferencesViewController: UIViewController {
         counterTodayItems.text = Int(sender.value).description
     }
     
-    @IBAction func tutorialButtonTouched() {
-        presentTutorial()
+    @IBAction func onUserGuideTapped() {
+        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide")!)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? BusWebViewController ??
-            segue.destinationViewController.childViewControllers.first as? BusWebViewController
-        {
-            destination.initialURL = segue.identifier == "PrivacyPolicyWebSegue"
-                ? NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!
-                : NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!
-            destination.alwaysShowNavigationBar = true
-        }
+    @IBAction func onAboutTapped() {
+        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!)
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) { }
-    
+    @IBAction func onPrivacyPolicyTapped() {
+        presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!)
+    }    
 }
