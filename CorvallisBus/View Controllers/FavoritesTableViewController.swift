@@ -52,6 +52,7 @@ final class FavoritesTableViewController: UITableViewController {
         if !defaults.hasPreviouslyLaunched {
             defaults.hasPreviouslyLaunched = true
             presentWelcomeDialog()
+        }
     }
     
     func presentWelcomeDialog() {
