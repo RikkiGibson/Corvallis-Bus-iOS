@@ -67,7 +67,7 @@ final class FavoritesTableViewController: UITableViewController {
             })
         
         alertController.addAction(
-            UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in}))
+            UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in }))
         
         self.presentViewController(alertController, animated: true) { }
     }
