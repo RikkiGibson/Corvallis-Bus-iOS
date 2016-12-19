@@ -13,10 +13,10 @@ final class BusRoute : Equatable {
     let name: String
     let color: Color
     let polyline: MKPolyline
-    let url: NSURL
+    let url: URL
     let path: Set<Int>
     
-    init(name: String, color: Color, polyline: MKPolyline, path: Set<Int>, url: NSURL) {
+    init(name: String, color: Color, polyline: MKPolyline, path: Set<Int>, url: URL) {
         self.name = name
         self.color = color
         self.polyline = polyline
@@ -24,14 +24,14 @@ final class BusRoute : Equatable {
         self.url = url
     }
     
-    static func fromDictionary(data: [String : AnyObject]) -> BusRoute? {
+    static func fromDictionary(_ data: [String : AnyObject]) -> BusRoute? {
         guard let name = data["routeNo"] as? String,
             let path = data["path"] as? [Int],
             let polylineString = data["polyline"] as? String,
-            let polyline = MKPolyline(GMEncodedString: polylineString),
+            let polyline = MKPolyline(gmEncodedString: polylineString),
             let color = parseColor(data["color"]),
             let urlString = data["url"] as? String,
-            let url = NSURL(string: urlString) else {
+            let url = URL(string: urlString) else {
                 return nil
         }
         return BusRoute(name: name, color: color, polyline: polyline, path: Set(path), url: url)

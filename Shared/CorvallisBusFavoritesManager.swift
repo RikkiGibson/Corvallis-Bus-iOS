@@ -11,7 +11,7 @@ import CoreLocation
 
 class CorvallisBusFavoritesManager {
     static let delegate = PromiseLocationManagerDelegate()
-    private static func favoriteStops(stopIds: [Int]) -> Promise<[[String: AnyObject]], BusError> {
+    private static func favoriteStops(_ stopIds: [Int]) -> Promise<[[String: AnyObject]], BusError> {
         return Promise { completionHandler in
             delegate.userLocation(completionHandler)
         }.map { (location: Failable<CLLocation, BusError>) in
@@ -20,7 +20,7 @@ class CorvallisBusFavoritesManager {
     }
     
     static func favoriteStopsForApp() -> Promise<[FavoriteStopViewModel], BusError> {
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         let viewModelsPromise = favoriteStops(defaults.favoriteStopIds)
             .map { (json: [[String: AnyObject]]) -> [FavoriteStopViewModel] in
                 let viewModels = json.flatMap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true) }
@@ -32,8 +32,8 @@ class CorvallisBusFavoritesManager {
         return viewModelsPromise
     }
     
-    private static func filterFavoriteStopsForWidget(viewModels: [FavoriteStopViewModel],
-        _ defaults: NSUserDefaults) -> [FavoriteStopViewModel]
+    private static func filterFavoriteStopsForWidget(_ viewModels: [FavoriteStopViewModel],
+        _ defaults: UserDefaults) -> [FavoriteStopViewModel]
     {
         let filteredModels = defaults.shouldShowNearestStop
             ? viewModels
@@ -43,7 +43,7 @@ class CorvallisBusFavoritesManager {
     }
     
     static func favoriteStopsForWidget() -> Promise<[FavoriteStopViewModel], BusError> {
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         if !hasDisplayableFavorites() {
             defaults.cachedFavoriteStops = []
             return Promise(result: [])
@@ -58,7 +58,7 @@ class CorvallisBusFavoritesManager {
     }
     
     static func cachedFavoriteStopsForWidget() -> [FavoriteStopViewModel] {
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         let viewModels = defaults.cachedFavoriteStops.flatMap({
             toFavoriteStopViewModel($0, fallbackToGrayColor: false)
         })
@@ -66,7 +66,7 @@ class CorvallisBusFavoritesManager {
     }
     
     static func hasDisplayableFavorites() -> Bool {
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         let stopIds = defaults.favoriteStopIds
         
         if !stopIds.isEmpty {
@@ -78,7 +78,7 @@ class CorvallisBusFavoritesManager {
         }
         
         let locationAvailable = CLLocationManager.locationServicesEnabled() &&
-            CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
+            CLLocationManager.authorizationStatus() == .authorizedWhenInUse
         
         return locationAvailable
     }

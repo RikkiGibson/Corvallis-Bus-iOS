@@ -9,9 +9,9 @@
 import Foundation
 
 protocol StopDetailViewControllerDelegate : class {
-    func stopDetailViewController(viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int)
-    func stopDetailViewController(viewController: StopDetailViewController, didSelectRouteNamed routeName: String)
-    func stopDetailViewController(viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String)
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int)
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSelectRouteNamed routeName: String)
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String)
 }
 
 final class StopDetailViewController : UITableViewController {
@@ -24,13 +24,13 @@ final class StopDetailViewController : UITableViewController {
     
     let CELL_IDENTIFIER = "BusRouteDetailCell"
     override func viewDidLoad() {
-        let cellNib = UINib(nibName: CELL_IDENTIFIER, bundle: NSBundle.mainBundle())
-        tableView.registerNib(cellNib, forCellReuseIdentifier: CELL_IDENTIFIER)
+        let cellNib = UINib(nibName: CELL_IDENTIFIER, bundle: Bundle.main)
+        tableView.register(cellNib, forCellReuseIdentifier: CELL_IDENTIFIER)
         
-        tableView.contentInset = UIEdgeInsetsZero
-        updateStopDetails(.Success(StopDetailViewModel.empty()))
+        tableView.contentInset = UIEdgeInsets.zero
+        updateStopDetails(.success(StopDetailViewModel.empty()))
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     func onOrientationChanged() {
@@ -39,7 +39,7 @@ final class StopDetailViewController : UITableViewController {
         labelStopName.text = viewModel.stopName
     }
     
-    func updateStopDetails(viewModel: Failable<StopDetailViewModel, BusError>) {
+    func updateStopDetails(_ viewModel: Failable<StopDetailViewModel, BusError>) {
         guard let viewModel = viewModel.toOptional() else {
             return
         }
@@ -55,48 +55,48 @@ final class StopDetailViewController : UITableViewController {
         setFavoriteButtonState(favorited: viewModel.isFavorite)
         
         // stopID being nil indicates no stop is selected
-        buttonFavorite.enabled = viewModel.stopID != nil
+        buttonFavorite.isEnabled = viewModel.stopID != nil
         
         viewModel.routeDetails.startOnMainThread { failable in
             // stackoverflow claims this may fix a crash
             self.tableView.beginUpdates()
-            self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             self.tableView.endUpdates()
             
-            if case .Success(let routeDetails) = failable where !routeDetails.isEmpty {
+            if case .success(let routeDetails) = failable, !routeDetails.isEmpty {
                 let indexToSelect = didSelectDifferentStop
-                    ? NSIndexPath(forRow: 0, inSection: 0)
-                    : NSIndexPath(forRow: routeDetails.indexOf{ $0.routeName == selectedRouteName } ?? 0, inSection: 0)
-                self.tableView.selectRowAtIndexPath(indexToSelect, animated: true, scrollPosition: .None)
-                self.tableView(self.tableView, didSelectRowAtIndexPath: indexToSelect)
+                    ? IndexPath(row: 0, section: 0)
+                    : IndexPath(row: routeDetails.index{ $0.routeName == selectedRouteName } ?? 0, section: 0)
+                self.tableView.selectRow(at: indexToSelect, animated: true, scrollPosition: .none)
+                self.tableView(self.tableView, didSelectRowAt: indexToSelect)
             }
         }
     }
     
     func clearTableIfDataUnavailable() {
         switch viewModel.routeDetails.state {
-        case .Finished: break
+        case .finished: break
         default:
             tableView.beginUpdates()
-            tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             tableView.endUpdates()
         }
     }
     
     // MARK: Table view data source
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if case .Finished(.Success(let routeDetails)) = viewModel.routeDetails.state {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if case .finished(.success(let routeDetails)) = viewModel.routeDetails.state {
             return routeDetails.count
         } else {
             return 0
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_IDENTIFIER) as! BusRouteDetailCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_IDENTIFIER) as! BusRouteDetailCell
         
-        if case .Finished(.Success(let routeDetails)) = viewModel.routeDetails.state {
+        if case .finished(.success(let routeDetails)) = viewModel.routeDetails.state {
             cell.update(routeDetails[indexPath.row])
         }
         return cell
@@ -104,8 +104,8 @@ final class StopDetailViewController : UITableViewController {
     
     // MARK: Table view delegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard case .Finished(.Success(let routeDetails)) = viewModel.routeDetails.state else {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard case .finished(.success(let routeDetails)) = viewModel.routeDetails.state else {
             return
         }
         let routeName = routeDetails[indexPath.row].routeName
@@ -122,17 +122,17 @@ final class StopDetailViewController : UITableViewController {
         delegate?.stopDetailViewController(self, didSetFavoritedState: viewModel.isFavorite, forStopID: stopID)
     }
     
-    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        guard case .Finished(.Success(let routeDetails)) = viewModel.routeDetails.state else {
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        guard case .finished(.success(let routeDetails)) = viewModel.routeDetails.state else {
             return
         }
         let routeName = routeDetails[indexPath.row].routeName
         delegate?.stopDetailViewController(self, didSelectDetailsForRouteNamed: routeName)
     }
     
-    func setFavoriteButtonState(favorited favorited: Bool) {
-        UIView.animateWithDuration(0.2) {
-            self.buttonFavorite.selected = favorited
-        }
+    func setFavoriteButtonState(favorited: Bool) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.buttonFavorite.isSelected = favorited
+        }) 
     }
 }

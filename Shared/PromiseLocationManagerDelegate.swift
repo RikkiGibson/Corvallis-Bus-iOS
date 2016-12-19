@@ -10,7 +10,7 @@ import CoreLocation
 
 final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate {
     private let _locationManager = CLLocationManager()
-    private var _callback: Failable<CLLocation, BusError> -> Void = { loc in }
+    private var _callback: (Failable<CLLocation, BusError>) -> Void = { loc in }
     
     override init() {
         super.init()
@@ -21,24 +21,24 @@ final class PromiseLocationManagerDelegate : NSObject, CLLocationManagerDelegate
         _locationManager.delegate = self
     }
     
-    func userLocation(callback: Failable<CLLocation, BusError> -> Void) {
+    func userLocation(_ callback: @escaping (Failable<CLLocation, BusError>) -> Void) {
         _callback = callback
         if CLLocationManager.locationServicesEnabled() {
             _locationManager.startUpdatingLocation()
         } else {
-            _callback(.Error(.Message("Location services are not enabled.")))
+            _callback(.error(.message("Location services are not enabled.")))
         }
     }
     
     // MARK - location manager delegate
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         _locationManager.stopUpdatingLocation()
-        _callback(.Success(locations.last!))
+        _callback(.success(locations.last!))
     }    
     
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        _callback(.Error(BusError.fromNSError(error)))
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        _callback(.error(.message(error.localizedDescription)))
     }
 }

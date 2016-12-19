@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum BusError : ErrorType {
-    case Message(String)
-    case NonNotify
+enum BusError : Error {
+    case message(String)
+    case nonNotify
     
     func getMessage() -> String? {
         switch self {
-        case .Message(let message):
+        case .message(let message):
             return message
         default:
             return nil
@@ -24,67 +24,68 @@ enum BusError : ErrorType {
     /// Produces a BusError from an NSError.
     /// Determines whether to show the error based on the code
     /// and whether there's a user-friendly message to show.
-    static func fromNSError(error: NSError) -> BusError {
-        if let message = error.userInfo[NSLocalizedDescriptionKey] as? String
-        where NSURLError(rawValue: error.code) != NSURLError.TimedOut {
-            return .Message(message)
+    static func fromNSError(_ error: NSError) -> BusError {
+        if let message = error.userInfo[NSLocalizedDescriptionKey] as? String,
+            URLError.Code.init(rawValue: error.code) != URLError.timedOut
+        {
+            return .message(message)
         } else {
-            return .NonNotify
+            return .nonNotify
         }
     }
 }
 
 /// Represents an asynchronously obtained resource that is reloaded over time.
-enum Resource<T, E: ErrorType> {
-    case Loading
-    case Success(T)
-    case Error(E)
+enum Resource<T, E: Error> {
+    case loading
+    case success(T)
+    case error(E)
     
-    func fromFailable(failable: Failable<T, E>) -> Resource<T, E> {
+    func fromFailable(_ failable: Failable<T, E>) -> Resource<T, E> {
         switch failable {
-        case Failable.Success(let value):
-            return .Success(value)
-        case Failable.Error(let err):
-            return .Error(err)
+        case Failable.success(let value):
+            return .success(value)
+        case Failable.error(let err):
+            return .error(err)
         }
     }
 }
 
-func ??<T, E: ErrorType>(resource: Resource<T, E>, replacementValue: T) -> T {
-    if case .Success(let value) = resource {
+func ??<T, E: Error>(resource: Resource<T, E>, replacementValue: T) -> T {
+    if case .success(let value) = resource {
         return value
     } else {
         return replacementValue
     }
 }
 
-enum Failable<T, E: ErrorType> {
-    case Success(T)
-    case Error(E)
+enum Failable<T, E: Error> {
+    case success(T)
+    case error(E)
     
-    func map<U>(transform: T -> Failable<U, E>) -> Failable<U, E> {
+    func map<U>(_ transform: (T) -> Failable<U, E>) -> Failable<U, E> {
         switch self {
-        case Success(let value):
+        case .success(let value):
             return transform(value)
-        case Error(let error):
-            return .Error(error)
+        case .error(let error):
+            return .error(error)
         }
     }
     
-    func map<U>(transform: T -> U) -> Failable<U, E> {
+    func map<U>(_ transform: (T) -> U) -> Failable<U, E> {
         switch self {
-        case Success(let value):
-            return .Success(transform(value))
-        case Error(let error):
-            return .Error(error)
+        case .success(let value):
+            return .success(transform(value))
+        case .error(let error):
+            return .error(error)
         }
     }
     
     func unwrap() throws -> T {
         switch self {
-        case Success(let value):
+        case .success(let value):
             return value
-        case Error(let error):
+        case .error(let error):
             throw error
         }
     }
@@ -93,7 +94,7 @@ enum Failable<T, E: ErrorType> {
     /// and Error converts to None.
     func toOptional() -> T? {
         switch self {
-        case .Success(let value):
+        case .success(let value):
             return value
         default:
             return nil
@@ -104,7 +105,7 @@ enum Failable<T, E: ErrorType> {
     /// and Error converts to None.
     func toError() -> E? {
         switch self {
-        case .Error(let error):
+        case .error(let error):
             return error
         default:
             return nil
@@ -112,8 +113,8 @@ enum Failable<T, E: ErrorType> {
     }
 }
 
-func ??<T, E: ErrorType>(failable: Failable<T, E>, replacementValue: T) -> T {
-    if case .Success(let value) = failable {
+func ??<T, E: Error>(failable: Failable<T, E>, replacementValue: T) -> T {
+    if case .success(let value) = failable {
         return value
     } else {
         return replacementValue
@@ -123,9 +124,9 @@ func ??<T, E: ErrorType>(failable: Failable<T, E>, replacementValue: T) -> T {
 extension Optional {
     func toFailable() -> Failable<Wrapped, BusError> {
         if let value = self {
-            return .Success(value)
+            return .success(value)
         } else {
-            return .Error(.NonNotify)
+            return .error(.nonNotify)
         }
     }
 }

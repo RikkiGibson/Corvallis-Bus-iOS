@@ -16,7 +16,7 @@ struct BusStop : Equatable {
     let location: CLLocation
     let routeNames: [String]
     
-    static func fromDictionary(dictionary: [String : AnyObject]) -> BusStop? {
+    static func fromDictionary(_ dictionary: [String : AnyObject]) -> BusStop? {
         guard let id = dictionary["id"] as? Int,
             let name = dictionary["name"] as? String,
             let bearing = dictionary["bearing"] as? Double,
@@ -30,8 +30,8 @@ struct BusStop : Equatable {
             routeNames: routeNames)
     }
     
-    static func toCGFriendlyAngle(bearingDegrees: Double) -> Double {
-        return (bearingDegrees / 180.0 * M_PI + M_PI / 2.0) % (M_PI * 2.0);
+    static func toCGFriendlyAngle(_ bearingDegrees: Double) -> Double {
+        return (bearingDegrees / 180.0 * M_PI + M_PI / 2.0).truncatingRemainder(dividingBy: (M_PI * 2.0));
     }
 }
     

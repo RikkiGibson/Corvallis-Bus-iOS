@@ -11,44 +11,44 @@ import MapKit
 
 final class FavoritesTableViewController: UITableViewController {
     var favoriteStops = [FavoriteStopViewModel]()
-    var timer: NSTimer?
+    var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cellNib = UINib(nibName: "FavoritesTableViewCell", bundle: NSBundle.mainBundle())
-        self.tableView.registerNib(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
+        let cellNib = UINib(nibName: "FavoritesTableViewCell", bundle: Bundle.main)
+        self.tableView.register(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(FavoritesTableViewController.updateFavorites), forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(FavoritesTableViewController.updateFavorites), for: .valueChanged)
 
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FavoritesTableViewController.updateFavorites),
-            name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FavoritesTableViewController.updateFavorites),
+            name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: #selector(FavoritesTableViewController.updateFavorites),
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(FavoritesTableViewController.updateFavorites),
             userInfo: nil, repeats: true)
         
         updateFavorites()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
         timer?.invalidate()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         if !defaults.hasPreviouslyLaunched {
             defaults.hasPreviouslyLaunched = true
             presentWelcomeDialog()
@@ -59,70 +59,70 @@ final class FavoritesTableViewController: UITableViewController {
         let alertController = UIAlertController(
             title: "Welcome to Corvallis Bus",
             message: "Check out the user guide for tips on how to get started, or view it later in Preferences.",
-            preferredStyle: .Alert)
+            preferredStyle: .alert)
         
         alertController.addAction(
-            UIAlertAction(title: "View User Guide", style: .Default) { action in
-                self.presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
+            UIAlertAction(title: "View User Guide", style: .default) { action in
+                self.presentURL(URL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
             })
         
         alertController.addAction(
-            UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in }))
+            UIAlertAction(title: "Dismiss", style: .cancel, handler: { action in }))
         
-        self.presentViewController(alertController, animated: true) { }
+        self.present(alertController, animated: true) { }
     }
     
     func updateFavorites() {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         CorvallisBusFavoritesManager.favoriteStopsForApp()
             .startOnMainThread(onUpdate)
     }
     
-    func onUpdate(result: Failable<[FavoriteStopViewModel], BusError>) {
+    func onUpdate(_ result: Failable<[FavoriteStopViewModel], BusError>) {
         favoriteStops = result ?? []
         
         self.refreshControl?.endRefreshing()
         self.tableView.reloadData()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
-        if case .Error(.Message(let message)) = result {
+        if case .error(.message(let message)) = result {
             presentError(message)
         }
     }
     
     // MARK: - Table view data source
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.favoriteStops.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FavoritesTableViewCell", forIndexPath: indexPath) as! FavoriteStopTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesTableViewCell", for: indexPath) as! FavoriteStopTableViewCell
         
         cell.update(favoriteStops[indexPath.row])
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let selectedStop = self.favoriteStops[indexPath.row]
         return !selectedStop.isNearestStop
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == .Delete {
+        if editingStyle == .delete {
             // Delete the row from the data source
-            favoriteStops.removeAtIndex(indexPath.row)
+            favoriteStops.remove(at: indexPath.row)
             
-            let userDefaults = NSUserDefaults.groupUserDefaults()
+            let userDefaults = UserDefaults.groupUserDefaults()
             userDefaults.favoriteStopIds = favoriteStops.filter{ !$0.isNearestStop }.map{ $0.stopId }
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let browseViewController: BrowseViewController = tabBarController!.childViewController() else {
             fatalError("Browse view controller not present as expected")
         }

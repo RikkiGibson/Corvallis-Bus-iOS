@@ -13,7 +13,7 @@ final class PreferencesViewController: UITableViewController {
     @IBOutlet weak var counterTodayItems: UITextField!
     @IBOutlet weak var sliderShowNearestStop: UISwitch!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if #available(iOS 10, *) {
             stepperTodayItems.minimumValue = 2
         } else {
@@ -21,39 +21,39 @@ final class PreferencesViewController: UITableViewController {
         }
         stepperTodayItems.maximumValue = 7
         
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         
         let todayItemCount = defaults.todayViewItemCount
         stepperTodayItems.value = Double(todayItemCount)
         counterTodayItems.text = todayItemCount.description
         
-        sliderShowNearestStop.on = defaults.shouldShowNearestStop
+        sliderShowNearestStop.isOn = defaults.shouldShowNearestStop
     }
     
-    @IBAction func switchedShouldShowNearestStop(sender: UISwitch) {
-        let defaults = NSUserDefaults.groupUserDefaults()
-        defaults.shouldShowNearestStop = sender.on
+    @IBAction func switchedShouldShowNearestStop(_ sender: UISwitch) {
+        let defaults = UserDefaults.groupUserDefaults()
+        defaults.shouldShowNearestStop = sender.isOn
     }
     
-    @IBAction func todayViewItemCountChanged(sender: UIStepper) {
-        let defaults = NSUserDefaults.groupUserDefaults()
+    @IBAction func todayViewItemCountChanged(_ sender: UIStepper) {
+        let defaults = UserDefaults.groupUserDefaults()
         defaults.todayViewItemCount = Int(sender.value)
         counterTodayItems.text = Int(sender.value).description
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         if indexPath.section == 0 {
             return
         }
         
         switch indexPath.row {
         case 0:
-            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
+            presentURL(URL(string: "https://rikkigibson.github.io/corvallisbus/ios-user-guide/index.html")!)
         case 1:
-            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!)
+            presentURL(URL(string: "https://rikkigibson.github.io/corvallisbus/index.html")!)
         case 2:
-            presentURL(NSURL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!)
+            presentURL(URL(string: "https://rikkigibson.github.io/corvallisbus/privacy/index.html")!)
         default:
             break
         }

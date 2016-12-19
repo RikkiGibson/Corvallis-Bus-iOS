@@ -8,12 +8,12 @@
 
 import Foundation
 
-extension NSDate {
-    func isOnSameDay(other: NSDate) -> Bool {
-        let calendar = NSCalendar.currentCalendar()
-        let unitFlags: NSCalendarUnit = [.Year, .Month, .Day]
-        let selfComponents = calendar.components(unitFlags, fromDate: self)
-        let otherComponents = calendar.components(unitFlags, fromDate: other)
+extension Date {
+    func isOnSameDay(_ other: Date) -> Bool {
+        let calendar = Calendar.current
+        let unitFlags: NSCalendar.Unit = [.year, .month, .day]
+        let selfComponents = (calendar as NSCalendar).components(unitFlags, from: self)
+        let otherComponents = (calendar as NSCalendar).components(unitFlags, from: other)
         
         return selfComponents.day == otherComponents.day &&
             selfComponents.month == otherComponents.month &&
@@ -21,6 +21,6 @@ extension NSDate {
     }
     
     func isToday() -> Bool {
-        return isOnSameDay(NSDate())
+        return isOnSameDay(Date())
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 final class ServiceAlertsViewController: UITableViewController {
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     let feedParser = ServiceAlertsFeedParserDelegate()
     var items = [MWFeedItem]()
     
@@ -17,20 +17,20 @@ final class ServiceAlertsViewController: UITableViewController {
         super.viewDidLoad()
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadFeed(_:)), forControlEvents: .ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadFeed(_:)), for: .valueChanged)
         
-        self.dateFormatter.dateStyle = .LongStyle
-        self.dateFormatter.timeStyle = .NoStyle
+        self.dateFormatter.dateStyle = .long
+        self.dateFormatter.timeStyle = .none
 
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadFeed(self);
     }
     
-    func reloadFeed(sender: AnyObject) {
+    func reloadFeed(_ sender: AnyObject) {
         self.feedParser.feedItems() { items in
             self.items = items
             self.tableView.reloadData()
@@ -44,26 +44,26 @@ final class ServiceAlertsViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell")!
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell")!
         let item = self.items[indexPath.row]
         cell.textLabel?.text = item.title
-        cell.detailTextLabel?.text = item.date == nil ? "" : self.dateFormatter.stringFromDate(item.date)
+        cell.detailTextLabel?.text = item.date == nil ? "" : self.dateFormatter.string(from: item.date)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let link = self.items[indexPath.row].link
-        if let url = NSURL(string: link) {
+        if let url = URL(string: link!) {
             presentURL(url)
         } else {
             presentError("Unable to open URL: \(link)")

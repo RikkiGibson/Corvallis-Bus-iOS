@@ -670,7 +670,7 @@
 					5C4937CB19CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -686,7 +686,7 @@
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 					5CA19B7A1D0C9BB800F32665 = {
@@ -710,7 +710,7 @@
 					5CF192A719EF513100CB21EC = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1076,6 +1076,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 			};
 			name = Debug;
 		};
@@ -1115,6 +1116,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1146,7 +1148,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1179,7 +1181,7 @@
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1203,7 +1205,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Debug;
@@ -1223,7 +1225,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Release;
@@ -1332,7 +1334,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1352,7 +1354,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

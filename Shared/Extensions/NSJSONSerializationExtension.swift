@@ -8,21 +8,21 @@
 
 import Foundation
 
-extension NSJSONSerialization {
-    private static func parseJSON<T>(data: NSData) -> Failable<T, BusError> {
-        if let json = try? JSONObjectWithData(data, options: []),
+extension JSONSerialization {
+    private static func parseJSON<T>(_ data: Data) -> Failable<T, BusError> {
+        if let json = try? jsonObject(with: data, options: []),
             let typedJSON = json as? T {
-            return Failable<T, BusError>.Success(typedJSON)
+            return Failable<T, BusError>.success(typedJSON)
         } else {
-            return .Error(.NonNotify)
+            return .error(.nonNotify)
         }
     }
     
-    static func parseJSONArray(data: NSData) -> Failable<[[String : AnyObject]], BusError> {
+    static func parseJSONArray(_ data: Data) -> Failable<[[String : AnyObject]], BusError> {
         return parseJSON(data)
     }
     
-    static func parseJSONObject(data: NSData) -> Failable<[String : AnyObject], BusError> {
+    static func parseJSONObject(_ data: Data) -> Failable<[String : AnyObject], BusError> {
         return parseJSON(data)
     }
 }

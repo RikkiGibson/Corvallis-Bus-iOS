@@ -9,24 +9,24 @@
 import Foundation
 
 extension UIViewController {
-    func presentAlert(title title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: "Ok", style: .Default) { action in })
-        self.presentViewController(alertController, animated: true) { }
+    func presentAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default) { action in })
+        self.present(alertController, animated: true) { }
     }
     
-    func presentError(message: String) {
+    func presentError(_ message: String) {
         presentAlert(title: "Error", message: message)
     }
     
-    func presentURL(url: NSURL) {
-        guard let destination = storyboard?.instantiateViewControllerWithIdentifier("WebNavigation") as? UINavigationController else {
+    func presentURL(_ url: URL) {
+        guard let destination = storyboard?.instantiateViewController(withIdentifier: "WebNavigation") as? UINavigationController else {
             fatalError("Tried to present URL while not attached to a storyboard with a view controller with identifier WebNavigation")
         }
         let webVC = destination.childViewControllers.first as! BusWebViewController
         webVC.initialURL = url
         webVC.alwaysShowNavigationBar = true
         
-        self.presentViewController(destination, animated: true, completion: nil)
+        self.present(destination, animated: true, completion: nil)
     }
 }

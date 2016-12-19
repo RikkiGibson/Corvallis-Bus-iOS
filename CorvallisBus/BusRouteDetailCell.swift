@@ -23,7 +23,7 @@ final class BusRouteDetailCell: UITableViewCell {
         labelRouteName.clipsToBounds = true
     }
     
-    func update(viewModel: RouteDetailViewModel) {
+    func update(_ viewModel: RouteDetailViewModel) {
         labelRouteName.text = viewModel.routeName
         labelRouteName.backgroundColorActual = viewModel.routeColor
         labelEstimate.text = viewModel.arrivalsSummary

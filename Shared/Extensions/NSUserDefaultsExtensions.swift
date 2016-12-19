@@ -8,19 +8,19 @@
 
 import Foundation
 
-extension NSUserDefaults {
+extension UserDefaults {
     
-    static func groupUserDefaults() -> NSUserDefaults {
-        return NSUserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
+    static func groupUserDefaults() -> UserDefaults {
+        return UserDefaults(suiteName: "group.RikkiGibson.CorvallisBus")!
     }
     
     private static let FAVORITES_KEY = "Favorites"
     var favoriteStopIds: [Int] {
         get {
-            return arrayForKey(NSUserDefaults.FAVORITES_KEY) as? [Int] ?? []
+            return array(forKey: UserDefaults.FAVORITES_KEY) as? [Int] ?? []
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.FAVORITES_KEY)
+            set(newValue, forKey: UserDefaults.FAVORITES_KEY)
             synchronize()
         }
     }
@@ -28,10 +28,10 @@ extension NSUserDefaults {
     private static let NEAREST_STOP_KEY = "shouldShowNearestStop"
     var shouldShowNearestStop: Bool {
         get {
-            return objectForKey(NSUserDefaults.NEAREST_STOP_KEY) as? Bool ?? true // default
+            return object(forKey: UserDefaults.NEAREST_STOP_KEY) as? Bool ?? true // default
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.NEAREST_STOP_KEY)
+            set(newValue, forKey: UserDefaults.NEAREST_STOP_KEY)
             synchronize()
         }
     }
@@ -39,7 +39,7 @@ extension NSUserDefaults {
     private static let TODAY_VIEW_ITEM_COUNT_KEY = "todayViewItemCount"
     var todayViewItemCount: Int {
         get {
-            let storedValue = objectForKey(NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 2
+            let storedValue = object(forKey: UserDefaults.TODAY_VIEW_ITEM_COUNT_KEY) as? Int ?? 2
             let minimum: Int
             if #available(iOS 10, *) {
                 minimum = 2
@@ -50,7 +50,7 @@ extension NSUserDefaults {
             return max(minimum, min(7, storedValue))
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.TODAY_VIEW_ITEM_COUNT_KEY)
+            set(newValue, forKey: UserDefaults.TODAY_VIEW_ITEM_COUNT_KEY)
             synchronize()
         }
     }
@@ -58,21 +58,21 @@ extension NSUserDefaults {
     private static let CACHED_FAVORITE_STOPS_KEY = "cachedFavoriteStops"
     var cachedFavoriteStops: [[String : AnyObject]] {
         get {
-            return objectForKey(NSUserDefaults.CACHED_FAVORITE_STOPS_KEY) as? [[String : AnyObject]] ?? []
+            return object(forKey: UserDefaults.CACHED_FAVORITE_STOPS_KEY) as? [[String : AnyObject]] ?? []
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.CACHED_FAVORITE_STOPS_KEY)
+            set(newValue, forKey: UserDefaults.CACHED_FAVORITE_STOPS_KEY)
             synchronize()
         }
     }
     
-    private static let HAS_PREVIOUSLY_LAUNCHED_KEY = "hasPreviouslyLaunched"
+    fileprivate static let HAS_PREVIOUSLY_LAUNCHED_KEY = "hasPreviouslyLaunched"
     var hasPreviouslyLaunched: Bool {
         get {
-            return objectForKey(NSUserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY) as? Bool ?? false
+            return object(forKey: UserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY) as? Bool ?? false
         }
         set {
-            setObject(newValue, forKey: NSUserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY)
+            set(newValue, forKey: UserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY)
         }
     }
 }

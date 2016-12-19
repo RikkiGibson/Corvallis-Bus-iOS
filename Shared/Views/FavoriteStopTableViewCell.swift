@@ -23,27 +23,27 @@ final class FavoriteStopTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        labelFirstRoute.backgroundColor = UIColor.lightGrayColor()
+        labelFirstRoute.backgroundColor = UIColor.lightGray
         labelFirstRoute.layer.cornerRadius = 5
         labelFirstRoute.clipsToBounds = true
         
-        labelSecondRoute.backgroundColor = UIColor.clearColor()
+        labelSecondRoute.backgroundColor = UIColor.clear
         labelSecondRoute.layer.cornerRadius = 5
         labelSecondRoute.clipsToBounds = true
         
         // Ideally, we would check the background color, but for now checking OS version will have to do.
         if #available(iOSApplicationExtension 10.0, *) {
-            if NSBundle.mainBundle().bundlePath.hasSuffix(".appex") {
-                labelStopName.textColor = UIColor.blackColor()
-                labelFirstArrival.textColor = UIColor.blackColor()
-                labelSecondArrival.textColor = UIColor.blackColor()
-                labelDistance.textColor = UIColor.darkGrayColor()
+            if Bundle.main.bundlePath.hasSuffix(".appex") {
+                labelStopName.textColor = UIColor.black
+                labelFirstArrival.textColor = UIColor.black
+                labelSecondArrival.textColor = UIColor.black
+                labelDistance.textColor = UIColor.darkGray
                 locationImage.image = UIImage(named: "ListCurrentLoc")
             }
         }
     }
     
-    func update(viewModel: FavoriteStopViewModel) {
+    func update(_ viewModel: FavoriteStopViewModel) {
         labelStopName.text = viewModel.stopName
         
         labelFirstRoute.backgroundColorActual = viewModel.firstRouteColor
@@ -54,7 +54,7 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         labelSecondRoute.text = viewModel.secondRouteName
         labelSecondArrival.text = viewModel.secondRouteArrivals
         
-        locationImage.hidden = !viewModel.isNearestStop
+        locationImage.isHidden = !viewModel.isNearestStop
         labelDistance.text = viewModel.distanceFromUser
     }
     

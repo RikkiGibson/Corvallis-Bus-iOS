@@ -18,9 +18,9 @@ let goldNeedleDeemphasizedImage = UIImage(named: "gold-needle-deemphasized")
 let arrowImage = UIImage(named: "ListCurrentLoc")
 
 extension MKAnnotationView {
-    func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool, animated: Bool) {
+    func updateWithBusStopAnnotation(_ annotation: BusStopAnnotation, isSelected: Bool, animated: Bool) {
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        enabled = true
+        isEnabled = true
         
         let isFavorite = annotation.isFavorite
         let isDeemphasized = annotation.isDeemphasized
@@ -36,12 +36,10 @@ extension MKAnnotationView {
         }
         
         let newTransform = isSelected
-            ? CGAffineTransformConcat(
-                CGAffineTransformMakeRotation(CGFloat(annotation.stop.bearing)),
-                CGAffineTransformMakeScale(1.3, 1.3))
-            : CGAffineTransformMakeRotation(CGFloat(annotation.stop.bearing))
+            ? CGAffineTransform(rotationAngle: CGFloat(annotation.stop.bearing)).concatenating(CGAffineTransform(scaleX: 1.3, y: 1.3))
+            : CGAffineTransform(rotationAngle: CGFloat(annotation.stop.bearing))
         if animated {
-            UIView.animateWithDuration(0.1, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 self.transform = newTransform
             })
         } else {

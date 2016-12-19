@@ -21,23 +21,23 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     /// Temporary storage for the stop ID to display once the view controllers are ready to do so.
     private var externalStopID: Int?
     
-    private var timer: NSTimer?
+    private var timer: Timer?
     
-    private var destinationURL: NSURL?
+    private var destinationURL: URL?
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseViewController.reloadDetails),
-            name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BrowseViewController.reloadDetails),
+            name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self,
             selector: #selector(BrowseViewController.reloadDetails), userInfo: nil, repeats: true)
         
         reloadDetails()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let externalStopID = externalStopID {
@@ -46,10 +46,10 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
         timer?.invalidate()
         userActivity?.invalidate()
@@ -65,7 +65,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else {
             return
         }
@@ -87,7 +87,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    func selectStopExternally(stopID: Int) {
+    func selectStopExternally(_ stopID: Int) {
         // TODO: change this to a queue
         if let busMapViewController = busMapViewController {
             busMapViewController.selectStopExternally(stopID)
@@ -100,34 +100,34 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     
     // MARK: BusMapViewControllerDelegate
     
-    func busMapViewController(viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func busMapViewController(_ viewController: BusMapViewController, didSelectStopWithID stopID: Int) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         manager.stopDetailsViewModel(stopID).startOnMainThread(onReloadDetails)
         
         userActivity?.invalidate()
         userActivity = NSUserActivity(activityType: "com.RikkiGibson.CorvallisBus.Browse")
         userActivity!.userInfo = [USER_INFO_STOP_ID_KEY : stopID]
-        userActivity!.webpageURL = NSURL(string: "https://corvallisb.us/#\(stopID)")
+        userActivity!.webpageURL = URL(string: "https://corvallisb.us/#\(stopID)")
         userActivity!.becomeCurrent()
     }
     
-    func busMapViewControllerDidClearSelection(viewController: BusMapViewController) {
-        stopDetailViewController?.updateStopDetails(.Success(StopDetailViewModel.empty()))
+    func busMapViewControllerDidClearSelection(_ viewController: BusMapViewController) {
+        stopDetailViewController?.updateStopDetails(.success(StopDetailViewModel.empty()))
     }
     
     // MARK: StopDetailViewControllerDelegate
     
-    func stopDetailViewController(viewController: StopDetailViewController, didSelectRouteNamed routeName: String) {
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSelectRouteNamed routeName: String) {
         manager.staticData().startOnMainThread { staticData in
-            if case .Success(let staticData) = staticData, let route = staticData.routes[routeName] {
+            if case .success(let staticData) = staticData, let route = staticData.routes[routeName] {
                 self.busMapViewController?.displayRoute(route)
             }
         }
     }
     
-    func stopDetailViewController(viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String) {
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String) {
         manager.staticData().startOnMainThread { staticData in
-            if case .Success(let staticData) = staticData,
+            if case .success(let staticData) = staticData,
                 let url = staticData.routes[routeName]?.url
             {
                 self.presentURL(url)
@@ -135,10 +135,10 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    func stopDetailViewController(viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int) {
+    func stopDetailViewController(_ viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int) {
         busMapViewController?.setFavoriteState(favorite, forStopID: stopID)
         
-        let userDefaults = NSUserDefaults.groupUserDefaults()
+        let userDefaults = UserDefaults.groupUserDefaults()
         if favorite {
             userDefaults.favoriteStopIds = userDefaults.favoriteStopIds + [stopID]
         } else {
@@ -152,34 +152,34 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    func onReloadDetails(stopDetails: Failable<StopDetailViewModel, BusError>) {
+    func onReloadDetails(_ stopDetails: Failable<StopDetailViewModel, BusError>) {
         stopDetailViewController?.updateStopDetails(stopDetails)
         
-        if case .Error(let error) = stopDetails {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        if case .error(let error) = stopDetails {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let message = error.getMessage() {
                 presentError(message)
             }
             // on failure, make an another attempt to get the data
             reloadDetails()
-        } else if case .Success(let stopDetails) = stopDetails {
+        } else if case .success(let stopDetails) = stopDetails {
             stopDetails.routeDetails.startOnMainThread{ routeDetails in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                if case .Error(let error) = routeDetails, let message = error.getMessage() {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                if case .error(let error) = routeDetails, let message = error.getMessage() {
                     self.presentError(message)
                 }
             }
         }
         
         
-        NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(BrowseViewController.clearSelectionIfDataUnavailable(_:)),
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(BrowseViewController.clearSelectionIfDataUnavailable(_:)),
             userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)
     }
     
     /// Clears the selected route from the map and arrival times from the
     /// stop details table if the promise took too long to resolve.
-    func clearSelectionIfDataUnavailable(timer: NSTimer) {
-        if let details = timer.userInfo as? Promise<[RouteDetailViewModel], BusError>, case .Finished = details.state {
+    func clearSelectionIfDataUnavailable(_ timer: Timer) {
+        if let details = timer.userInfo as? Promise<[RouteDetailViewModel], BusError>, case .finished = details.state {
             // Just a placeholder because this is the easiest way to match the value
         } else {
             self.busMapViewController?.clearDisplayedRoute()
@@ -187,7 +187,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) {
+    @IBAction func unwind(_ segue: UIStoryboardSegue) {
         
     }
 }

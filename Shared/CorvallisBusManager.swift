@@ -9,15 +9,15 @@
 import Foundation
 
 struct BusStaticData {
-    let obtainedTime: NSDate
+    let obtainedTime: Date
     let stops: [Int : BusStop]
     let routes: [String : BusRoute]
 }
 
-private func parseStaticData(json: [String : AnyObject]) -> Failable<BusStaticData, BusError> {
+private func parseStaticData(_ json: [String : AnyObject]) -> Failable<BusStaticData, BusError> {
     guard let stopsJSON = json["stops"] as? [String : [String : AnyObject]],
         let routesJSON = json["routes"] as? [String : [String : AnyObject]] else {
-            return .Error(.NonNotify)
+            return .error(.nonNotify)
     }
     
     let stops = stopsJSON.mapUnwrap {
@@ -37,7 +37,7 @@ private func parseStaticData(json: [String : AnyObject]) -> Failable<BusStaticDa
         }
     }
     
-    return .Success(BusStaticData(obtainedTime: NSDate(), stops: stops, routes: routes))
+    return .success(BusStaticData(obtainedTime: Date(), stops: stops, routes: routes))
 }
 
 private var staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
@@ -48,9 +48,9 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
         
         // if there was an error obtaining the static data or it's expired, get it again.
         switch staticDataCache.state {
-        case .Finished(.Success(let staticData)) where !staticData.obtainedTime.isToday():
+        case .finished(.success(let staticData)) where !staticData.obtainedTime.isToday():
             fallthrough
-        case .Finished(.Error):
+        case .finished(.error):
             staticDataCache = CorvallisBusAPIClient.staticData().map(parseStaticData)
         default:
             break
@@ -62,7 +62,7 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     // MARK: BusMapViewControllerDataSource
     
     func busStopAnnotations() -> Promise<[Int : BusStopAnnotation], BusError> {
-        let favoriteIds = NSUserDefaults.groupUserDefaults().favoriteStopIds
+        let favoriteIds = UserDefaults.groupUserDefaults().favoriteStopIds
         return staticData().map { staticData in
             return staticData.stops.map{
                 let result = ($0, BusStopAnnotation(stop: $1))
@@ -75,24 +75,24 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
     // MARK: StopDetailsViewController support
     
     // TODO: refactor this stuff and remove the stuff that doesn't depend on the instance from the class itself
-    func routeDetailsViewModel(stopID: Int) -> Promise<[RouteDetailViewModel], BusError> {
+    func routeDetailsViewModel(_ stopID: Int) -> Promise<[RouteDetailViewModel], BusError> {
         return self.staticData().map { (staticData: BusStaticData) in
             CorvallisBusAPIClient.arrivalsSummary([stopID]).map({ (arrivalsJson: [String: AnyObject]) -> Failable<[RouteDetailViewModel], BusError> in
-                guard let stopArrivalsJson = arrivalsJson[String(stopID)] as? [[String: AnyObject]] else { return .Error(.NonNotify) }
-                return .Success(stopArrivalsJson.flatMap({ parseArrivalsSummary($0, routes: staticData.routes) }))
+                guard let stopArrivalsJson = arrivalsJson[String(stopID)] as? [[String: AnyObject]] else { return .error(.nonNotify) }
+                return .success(stopArrivalsJson.flatMap({ parseArrivalsSummary($0, routes: staticData.routes) }))
             })
         }
     }
     
-    func stopDetailsViewModel(stopID: Int) -> Promise<StopDetailViewModel, BusError> {
+    func stopDetailsViewModel(_ stopID: Int) -> Promise<StopDetailViewModel, BusError> {
         let routeDetailsPromise = routeDetailsViewModel(stopID)
-        let favoriteStopIDs = NSUserDefaults.groupUserDefaults().favoriteStopIds
+        let favoriteStopIDs = UserDefaults.groupUserDefaults().favoriteStopIds
         let isFavorite = favoriteStopIDs.contains(stopID)
         return staticData().map { (staticData: BusStaticData) -> Failable<StopDetailViewModel, BusError> in
             guard let stop = staticData.stops[stopID] else {
-                return .Error(.NonNotify)
+                return .error(.nonNotify)
             }
-            return .Success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, selectedRouteName: nil, isFavorite: isFavorite))
+            return .success(StopDetailViewModel(stopName: stop.name, stopID: stopID, routeDetails: routeDetailsPromise, selectedRouteName: nil, isFavorite: isFavorite))
         }
     }
 }

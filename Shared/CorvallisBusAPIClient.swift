@@ -10,36 +10,36 @@ import Foundation
 import CoreLocation
 
 final class CorvallisBusAPIClient {
-    private static let BASE_URL = "https://corvallisb.us/api"
+    static let BASE_URL = "https://corvallisb.us/api"
     
-    static func favoriteStops(stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]], BusError> {
-        let stopsString = stopIds.map{ String($0) }.joinWithSeparator(",")
+    static func favoriteStops(_ stopIds: [Int], _ location: CLLocationCoordinate2D?) -> Promise<[[String : AnyObject]], BusError> {
+        let stopsString = stopIds.map{ String($0) }.joined(separator: ",")
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
-        let url = NSURL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
+        let url = URL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
         
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
         return session.downloadData(url)
-            .map(NSJSONSerialization.parseJSONArray)
+            .map(JSONSerialization.parseJSONArray)
     }
     
     static func staticData() -> Promise<[String : AnyObject], BusError> {
-        let url = NSURL(string: BASE_URL + "/static")!
-        let session = NSURLSession.sharedSession()
+        let url = URL(string: BASE_URL + "/static")!
+        let session = URLSession.shared
         return session.downloadData(url)
-            .map(NSJSONSerialization.parseJSONObject)
+            .map(JSONSerialization.parseJSONObject)
     }
     
-    static func arrivalsSummary(stopIds: [Int]) -> Promise<[String : AnyObject], BusError> {
+    static func arrivalsSummary(_ stopIds: [Int]) -> Promise<[String : AnyObject], BusError> {
         guard !stopIds.isEmpty else {
             return Promise { completionHandler in
-                completionHandler(.Success([:]))
+                completionHandler(.success([:]))
             }
         }
         
-        let joinedStops = stopIds.map{ String($0) }.joinWithSeparator(",")
-        let url = NSURL(string: "\(BASE_URL)/arrivals-summary/\(joinedStops)")!
-        let session = NSURLSession.sharedSession()
+        let joinedStops = stopIds.map{ String($0) }.joined(separator: ",")
+        let url = URL(string: "\(BASE_URL)/arrivals-summary/\(joinedStops)")!
+        let session = URLSession.shared
         return session.downloadData(url)
-            .map(NSJSONSerialization.parseJSONObject)
+            .map(JSONSerialization.parseJSONObject)
     }
 }

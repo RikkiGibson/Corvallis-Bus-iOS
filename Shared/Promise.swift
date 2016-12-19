@@ -10,47 +10,47 @@
 
 import Foundation
 
-enum PromiseState<T, E: ErrorType> {
-    case Created
-    case Started
-    case Finished(Failable<T, E>)
+enum PromiseState<T, E: Error> {
+    case created
+    case started
+    case finished(Failable<T, E>)
 }
 
-class Promise<T, E: ErrorType> {
-    typealias CompletionHandler = Failable<T, E> -> Void
-    typealias AsyncOperation = (CompletionHandler) -> Void
+class Promise<T, E: Error> {
+    typealias CompletionHandler = (Failable<T, E>) -> Void
+    typealias AsyncOperation = (@escaping CompletionHandler) -> Void
     
     let operation: AsyncOperation
     
-    private(set) var state = PromiseState<T, E>.Created
-    private var completionHandlers = [CompletionHandler]()
+    private(set) var state = PromiseState<T, E>.created
+    private var completionHandlers: [CompletionHandler] = []
     
-    init(operation: AsyncOperation) {
+    init(operation: @escaping AsyncOperation) {
         self.operation = operation
     }
     
     init(result: T) {
         self.operation = { completionHandler in
-            completionHandler(.Success(result))
+            completionHandler(.success(result))
         }
     }
     
-    func start(handler: CompletionHandler) {
+    func start(_ handler: @escaping CompletionHandler) {
         switch state {
-        case .Created:
+        case .created:
             completionHandlers.append(handler)
             start()
-        case .Started:
+        case .started:
             completionHandlers.append(handler)
-        case .Finished(let result):
+        case .finished(let result):
             handler(result)
         }
     }
     
     private func start() {
-        self.state = .Started
+        self.state = .started
         self.operation { result in
-            self.state = .Finished(result)
+            self.state = .finished(result)
             for handler in self.completionHandlers {
                 handler(result)
             }
@@ -62,43 +62,44 @@ class Promise<T, E: ErrorType> {
         completionHandlers = []
     }
     
-    func startOnMainThread(completion: CompletionHandler) {
+    func startOnMainThread(_ completion: @escaping CompletionHandler) {
         self.start{ result in
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 completion(result)
             }
         }
     }
     
-    func map<U>(transform: T -> U) -> Promise<U, E> {
-        return Promise<U, E> { completionHandler in
+    func map<U>(_ transform: @escaping (T) -> U) -> Promise<U, E> {
+        return Promise<U, E>(operation: { (completionHandler: @escaping Promise<U, E>.CompletionHandler) in
             self.start { failable in
-                completionHandler(failable.map(transform))
+                let foo = failable.map(transform)
+                completionHandler(foo)
             }
-        }
+        })
     }
     
-    func map<U>(transform: T -> Promise<U, E>) -> Promise<U, E> {
-        return Promise<U, E> { completionHandler in
+    func map<U>(_ transform: @escaping (T) -> Promise<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { (completionHandler: @escaping Promise<U, E>.CompletionHandler) in
             self.start { failable in
                 switch failable {
-                case .Success(let t):
+                case .success(let t):
                     transform(t).start(completionHandler)
-                case .Error(let error):
-                    completionHandler(.Error(error))
+                case .error(let error):
+                    completionHandler(.error(error))
                 }
             }
         }
     }
     
-    func map<U>(transform: Failable<T, E> -> Promise<U, E>) -> Promise<U, E> {
-        return Promise<U, E> { completionHandler in
+    func map<U>(_ transform: @escaping (Failable<T, E>) -> Promise<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { (completionHandler: @escaping Promise<U, E>.CompletionHandler) in
             self.start { failable in transform(failable).start(completionHandler) }
         }
     }
     
-    func map<U>(transform: T -> Failable<U, E>) -> Promise<U, E> {
-        return Promise<U, E> { completionHandler in
+    func map<U>(_ transform: @escaping (T) -> Failable<U, E>) -> Promise<U, E> {
+        return Promise<U, E> { (completionHandler: @escaping Promise<U, E>.CompletionHandler) in
             self.start { failable in completionHandler(failable.map(transform)) }
         }
     }
