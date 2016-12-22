@@ -10,19 +10,23 @@ import UIKit
 import MapKit
 
 final class FavoritesTableViewController: UITableViewController {
+    lazy var placeholder: FavoritesPlaceholder = Bundle.main.loadNibNamed(
+            "FavoritesPlaceholder",
+            owner: nil,
+            options: nil)![0] as! FavoritesPlaceholder
+    
     var favoriteStops = [FavoriteStopViewModel]()
     var timer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        placeholder.handler = self.goToBrowseController
         
         let cellNib = UINib(nibName: "FavoritesTableViewCell", bundle: Bundle.main)
         self.tableView.register(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(FavoritesTableViewController.updateFavorites), for: .valueChanged)
-
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +76,13 @@ final class FavoritesTableViewController: UITableViewController {
         self.present(alertController, animated: true) { }
     }
     
+    func goToBrowseController() {
+        guard let browseViewController: BrowseViewController = tabBarController!.childViewController() else {
+            fatalError("Browse view controller not present as expected")
+        }
+        tabBarController!.selectedViewController = browseViewController.navigationController
+    }
+    
     func updateFavorites() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -83,7 +94,21 @@ final class FavoritesTableViewController: UITableViewController {
         favoriteStops = result ?? []
         
         self.refreshControl?.endRefreshing()
+        
         self.tableView.reloadData()
+        
+        if favoriteStops.isEmpty {
+            self.tableView.backgroundView = placeholder
+            self.tableView.separatorStyle = .none
+        } else {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+        }
+        
+        self.navigationItem.rightBarButtonItem = favoriteStops.any({ !$0.isNearestStop })
+            ? self.editButtonItem
+            : nil
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
         if case .error(.message(let message)) = result {
