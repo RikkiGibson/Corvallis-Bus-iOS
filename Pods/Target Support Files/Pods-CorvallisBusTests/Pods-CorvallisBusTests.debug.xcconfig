@@ -1,9 +1,8 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Flurry-iOS-SDK" "${PODS_ROOT}/Headers/Public/MWFeedParser"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Flurry-iOS-SDK" "$PODS_CONFIGURATION_BUILD_DIR/MWFeedParser" $(inherited) "${PODS_ROOT}/Flurry-iOS-SDK/Flurry"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Flurry-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/MWFeedParser"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Flurry-iOS-SDK" -l"Flurry_7.3.0" -l"MWFeedParser" -framework "Foundation" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+OTHER_LDFLAGS = $(inherited) -ObjC
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_ROOT = ${SRCROOT}/Pods

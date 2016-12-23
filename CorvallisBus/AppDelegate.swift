@@ -23,10 +23,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             CorvallisBusManager().staticData().start{ result in }
         }
         
-        #if RELEASE
-            Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
-        #else
+        #if DEBUG
             print("Not a release build. Flurry is not running.")
+        #else
+            Flurry.startSession("XW65DQFD4RKR9WHP6QC3")
         #endif
         
         return true

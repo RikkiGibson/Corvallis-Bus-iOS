@@ -19,20 +19,40 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-CorvallisBusTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-CorvallisBusTodayExtension.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>16146B35458210FB715049DF7D6CC7F7</key>
+		<key>24860EE832078782B25810A8EDEC6A79</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>819A636D7F6795687E4E9330120CFA43</key>
+		<key>3848F2E4D3CD745C6877F94627BAA8CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D079C0B8D193CBDF60F39822F384E43F</key>
+		<key>7AA894EE45F56612C5494E7C4156D9A1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A94DFD1631A0A67744549D545ADD91EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C59BFA556C756BC5DCF7695C0D92B173</key>
 		<dict>
 			<key>primary</key>
 			<true/>

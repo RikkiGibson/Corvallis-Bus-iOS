@@ -28,7 +28,7 @@ extension UserDefaults {
     private static let NEAREST_STOP_KEY = "shouldShowNearestStop"
     var shouldShowNearestStop: Bool {
         get {
-            return object(forKey: UserDefaults.NEAREST_STOP_KEY) as? Bool ?? true // default
+            return object(forKey: UserDefaults.NEAREST_STOP_KEY) as? Bool ?? true
         }
         set {
             set(newValue, forKey: UserDefaults.NEAREST_STOP_KEY)
@@ -66,7 +66,7 @@ extension UserDefaults {
         }
     }
     
-    fileprivate static let HAS_PREVIOUSLY_LAUNCHED_KEY = "hasPreviouslyLaunched"
+    private static let HAS_PREVIOUSLY_LAUNCHED_KEY = "hasPreviouslyLaunched"
     var hasPreviouslyLaunched: Bool {
         get {
             return object(forKey: UserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY) as? Bool ?? false
