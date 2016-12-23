@@ -96,7 +96,15 @@ final class FavoritesTableViewController: UITableViewController {
         self.refreshControl?.endRefreshing()
         
         self.tableView.reloadData()
+        self.reconfigureTableView()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
+        if case .error(.message(let message)) = result {
+            presentError(message)
+        }
+    }
+    
+    func reconfigureTableView() {
         if favoriteStops.isEmpty {
             self.tableView.backgroundView = placeholder
             self.tableView.separatorStyle = .none
@@ -108,12 +116,6 @@ final class FavoritesTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = favoriteStops.any({ !$0.isNearestStop })
             ? self.editButtonItem
             : nil
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
-        if case .error(.message(let message)) = result {
-            presentError(message)
-        }
     }
     
     // MARK: - Table view data source
@@ -145,6 +147,10 @@ final class FavoritesTableViewController: UITableViewController {
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+        reconfigureTableView()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
