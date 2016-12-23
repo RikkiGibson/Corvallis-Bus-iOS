@@ -38,7 +38,10 @@ final class FavoritesTableViewController: UITableViewController {
         timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(FavoritesTableViewController.updateFavorites),
             userInfo: nil, repeats: true)
         
-        updateFavorites()
+        let defaults = UserDefaults.groupUserDefaults()
+        if defaults.hasPreviouslyLaunched {
+            updateFavorites()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,7 +74,9 @@ final class FavoritesTableViewController: UITableViewController {
             })
         
         alertController.addAction(
-            UIAlertAction(title: "Dismiss", style: .cancel, handler: { action in }))
+            UIAlertAction(title: "Dismiss", style: .cancel) { action in
+                self.updateFavorites()
+            })
         
         self.present(alertController, animated: true) { }
     }
