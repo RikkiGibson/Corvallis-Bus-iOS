@@ -86,6 +86,33 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        let tabController = self.window!.rootViewController as! UITabBarController
+        guard let alertsController: ServiceAlertsViewController = tabController.childViewController() else {
+            fatalError("Could not find service alerts view controller")
+        }
+        alertsController.feedParser.feedItems({
+            self.onFeedLoaded(items: $0,
+                tabItem: alertsController.navigationController!.tabBarItem)
+        })
+    }
+    
+    func onFeedLoaded(items: [MWFeedItem], tabItem: UITabBarItem) {
+        let defaults = UserDefaults.groupUserDefaults()
+        let seenIdentifiers = defaults.seenServiceAlertIds
+        
+        var count = 0
+        for item in items {
+            if !seenIdentifiers.contains(item.identifier) {
+                count += 1
+            }
+        }
+        
+        if count == 0 {
+            tabItem.badgeValue = nil
+        } else {
+            tabItem.badgeValue = String(count)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

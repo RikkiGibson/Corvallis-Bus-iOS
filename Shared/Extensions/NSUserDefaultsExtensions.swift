@@ -75,4 +75,17 @@ extension UserDefaults {
             set(newValue, forKey: UserDefaults.HAS_PREVIOUSLY_LAUNCHED_KEY)
         }
     }
+    
+    
+    private static let SEEN_SERVICE_ALERT_IDS = "seenServiceAlertIds"
+    var seenServiceAlertIds: Set<String> {
+        get {
+            let arr = object(forKey: UserDefaults.SEEN_SERVICE_ALERT_IDS) as? [String] ?? []
+            return Set(arr)
+        }
+        set {
+            let arr = Array(newValue)
+            set(arr, forKey: UserDefaults.SEEN_SERVICE_ALERT_IDS)
+        }
+    }
 }

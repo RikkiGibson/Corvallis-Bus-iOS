@@ -17,6 +17,7 @@
 		5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4871A0704BE00F5928E /* QuartzCore.framework */; };
 		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
 		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
+		5C0BD1EA1E0F058A00923F20 /* ServiceAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */; };
 		5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */; };
 		5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
 		5C1FEA911B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
@@ -213,6 +214,7 @@
 		5C07B4871A0704BE00F5928E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertCell.swift; sourceTree = "<group>"; };
 		5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExtension.swift; sourceTree = "<group>"; };
 		5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionExtensions.swift; sourceTree = "<group>"; };
 		5C22F5021A26A3C500F791A6 /* ServiceAlertsFeedParserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsFeedParserDelegate.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
 				5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */,
 				5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */,
+				5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */,
 			);
 			path = CorvallisBus;
 			sourceTree = "<group>";
@@ -980,6 +983,7 @@
 				5CF2FBD71E0C7DED00421244 /* FavoritesPlaceholder.swift in Sources */,
 				5CECD3FF1B86DA3B000F3E6C /* ServiceAlertsViewController.swift in Sources */,
 				5CECD3FE1B86DA3B000F3E6C /* PreferencesViewController.swift in Sources */,
+				5C0BD1EA1E0F058A00923F20 /* ServiceAlertCell.swift in Sources */,
 				5CECD4371B86DC50000F3E6C /* NSUserDefaultsExtensions.swift in Sources */,
 				5CD6400B1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */,
 				5CA303931B8AEAD2003E44ED /* BusMapViewModel.swift in Sources */,
