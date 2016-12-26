@@ -12,10 +12,4 @@ class ServiceAlertCell : UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var imageUnread: UIImageView!
-    
-    func update(with alert: ServiceAlert) {
-        titleLabel.text = alert.title
-        descriptionLabel.text = alert.description
-        imageUnread.isHidden = alert.isRead
-    }
 }

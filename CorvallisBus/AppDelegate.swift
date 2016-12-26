@@ -91,30 +91,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let alertsController: ServiceAlertsViewController = tabController.childViewController() else {
             fatalError("Could not find service alerts view controller")
         }
-        alertsController.feedParser.feedItems({
-            self.onFeedLoaded(items: $0,
-                tabItem: alertsController.navigationController!.tabBarItem)
-        })
+        alertsController.reloadAlerts(self)
     }
     
-    func onFeedLoaded(items: [MWFeedItem], tabItem: UITabBarItem) {
-        let defaults = UserDefaults.groupUserDefaults()
-        let seenIdentifiers = defaults.seenServiceAlertIds
-        
-        var count = 0
-        for item in items {
-            if !seenIdentifiers.contains(item.identifier) {
-                count += 1
-            }
-        }
-        
-        if count == 0 {
-            tabItem.badgeValue = nil
-        } else {
-            tabItem.badgeValue = String(count)
-        }
-    }
-
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }

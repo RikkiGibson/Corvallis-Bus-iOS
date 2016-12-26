@@ -9,60 +9,50 @@
 import UIKit
 
 final class ServiceAlertsViewController: UITableViewController {
-    let dateFormatter = DateFormatter()
-    let feedParser = ServiceAlertsFeedParserDelegate()
-    var items = [MWFeedItem]()
-    var unseenIdentifiers: Set<String> = []
+    let manager = ServiceAlertsManager()
+    var alerts: [ServiceAlert] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadFeed(_:)), for: .valueChanged)
-
-        self.dateFormatter.dateStyle = .long
-        self.dateFormatter.timeStyle = .none
+        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadAlerts(_:)), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.reloadFeed(self);
+        self.reloadAlerts(self);
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.tabBarItem.badgeValue = nil
+    func reloadAlerts(_ sender: AnyObject) {
+        self.manager.serviceAlerts(onAlertsReloaded)
     }
     
-    func reloadFeed(_ sender: AnyObject) {
-        self.feedParser.feedItems(onFeedReloaded)
-    }
-    
-    func onFeedReloaded(items: [MWFeedItem]) {
-        self.items = items
+    func onAlertsReloaded(alerts: [ServiceAlert]) {
+        self.alerts = alerts
         self.tableView.reloadData()
-        
-        let defaults = UserDefaults.groupUserDefaults()
-        let prevSeen = defaults.seenServiceAlertIds
-        
-        let identifiers = Set(self.items.mapUnwrap({ $0.identifier }))
-        
-        self.unseenIdentifiers = identifiers.subtracting(prevSeen)
-        if self.unseenIdentifiers.isEmpty {
-            self.navigationController?.tabBarItem.badgeValue = nil
-        } else {
-            self.navigationController?.tabBarItem.badgeValue = String(self.unseenIdentifiers.count)
+        self.updateBadgeValue()
+        self.refreshControl?.endRefreshing()
+    }
+    
+    func updateBadgeValue() {
+        var unreadCount = 0
+        for alert in self.alerts {
+            if !alert.isRead {
+                unreadCount += 1
+            }
         }
         
-        defaults.seenServiceAlertIds = prevSeen.union(self.unseenIdentifiers)
-        
-        self.refreshControl?.endRefreshing()
+        if unreadCount == 0 {
+            self.navigationController?.tabBarItem.badgeValue = nil
+        } else {
+            self.navigationController?.tabBarItem.badgeValue = String(unreadCount)
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        items = []
-        unseenIdentifiers = []
+        alerts = []
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,15 +60,14 @@ final class ServiceAlertsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
+        return alerts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceAlertCell", for: indexPath) as! ServiceAlertCell
-        let item = self.items[indexPath.row]
-        cell.titleLabel?.text = item.title
-        cell.descriptionLabel?.text = item.date == nil ? "" : self.dateFormatter.string(from: item.date)
-        cell.imageUnread.isHidden = !self.unseenIdentifiers.contains(item.identifier)
+        let alert = self.alerts[indexPath.row]
+        
+        cell.update(with: alert)
         
         return cell
     }
@@ -88,20 +77,18 @@ final class ServiceAlertsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let isRowUnseen = unseenIdentifiers.contains(self.items[indexPath.row].identifier)
-        let action = UITableViewRowAction(style: .normal, title: isRowUnseen ? "Mark as Read" : "Mark as Unread") { action, indexPath in
-            let item = self.items[indexPath.row]
-            let identifier = item.identifier!
-            if self.unseenIdentifiers.contains(identifier) {
-                self.unseenIdentifiers.remove(identifier)
-            } else {
-                self.unseenIdentifiers.insert(identifier)
-            }
+        let isRead = self.alerts[indexPath.row].isRead
+        let action = UITableViewRowAction(style: .normal, title: isRead ? "Mark\nUnread" : "Mark\nRead") { action, indexPath in
+            self.alerts[indexPath.row] = self.manager.toggleRead(self.alerts[indexPath.row])
+            
             self.tableView.setEditing(false, animated: true)
             
             let cell = self.tableView.cellForRow(at: indexPath) as! ServiceAlertCell
-            cell.imageUnread.isHidden = !self.unseenIdentifiers.contains(item.identifier)
+            cell.update(with: self.alerts[indexPath.row])
+
+            self.updateBadgeValue()
         }
+        action.backgroundColor = UIColor(colorLiteralRed: 0, green: 122/255, blue: 255/255, alpha: 1)
         return [action]
     }
     
@@ -110,11 +97,13 @@ final class ServiceAlertsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let link = self.items[indexPath.row].link
-        if let url = URL(string: link!) {
+        self.alerts[indexPath.row] = self.manager.markRead(self.alerts[indexPath.row])
+        
+        let urlString = self.alerts[indexPath.row].url
+        if let url = URL(string: urlString) {
             presentURL(url)
         } else {
-            presentError("Unable to open URL: \(link)")
+            presentError("Unable to open URL: \(urlString)")
         }
     }
 }
