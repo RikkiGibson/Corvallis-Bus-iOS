@@ -12,7 +12,7 @@ final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
     private let parser = MWFeedParser(feedURL: URL(string: "https://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current")!)
     
     private var items: [MWFeedItem] = []
-    private var callback: ([ServiceAlert]) -> Void = { items in }
+    private var callback: (Failable<[ServiceAlert], BusError>) -> Void = { items in }
     
     override init() {
         super.init()
@@ -22,7 +22,7 @@ final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
         parser?.connectionType = ConnectionTypeAsynchronously
     }
     
-    func serviceAlerts(_ callback: @escaping ([ServiceAlert]) -> Void) {
+    func serviceAlerts(_ callback: @escaping (Failable<[ServiceAlert], BusError>) -> Void) {
         self.callback = callback
         items = []
         parser?.parse()
@@ -77,6 +77,10 @@ final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
         let alerts = self.items.map({ item in
             ServiceAlert.fromMWFeedItem(feedItem: item, isRead: seenIds.contains(item.identifier))
         })
-        self.callback(alerts)
+        self.callback(.success(alerts))
+    }
+    
+    func feedParser(_ parser: MWFeedParser!, didFailWithError error: Error!) {
+        self.callback(.error(.message(error.localizedDescription)))
     }
 }

@@ -41,7 +41,7 @@ enum Resource<T, E: Error> {
     case success(T)
     case error(E)
     
-    func fromFailable(_ failable: Failable<T, E>) -> Resource<T, E> {
+    static func fromFailable(_ failable: Failable<T, E>) -> Resource<T, E> {
         switch failable {
         case Failable.success(let value):
             return .success(value)
