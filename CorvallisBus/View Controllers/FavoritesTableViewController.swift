@@ -21,7 +21,15 @@ final class FavoritesTableViewController: UITableViewController {
         return view
     }()
     
-    var favoriteStops = [FavoriteStopViewModel]()
+    lazy var errorPlaceholder: UIView = {
+        let label = UILabel()
+        label.textColor = Color.darkGray
+        label.textAlignment = .center
+        label.text = "Failed to load favorites"
+        return label
+    }()
+    
+    var favoriteStops: Resource<[FavoriteStopViewModel], BusError> = .loading
     var timer: Timer?
     
     override func viewDidLoad() {
@@ -50,14 +58,6 @@ final class FavoritesTableViewController: UITableViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
-        
-        timer?.invalidate()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -66,6 +66,14 @@ final class FavoritesTableViewController: UITableViewController {
             defaults.hasPreviouslyLaunched = true
             presentWelcomeDialog()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+        
+        timer?.invalidate()
     }
     
     func presentWelcomeDialog() {
@@ -102,59 +110,77 @@ final class FavoritesTableViewController: UITableViewController {
     }
     
     func onUpdate(_ result: Failable<[FavoriteStopViewModel], BusError>) {
-        favoriteStops = result ?? []
+        favoriteStops = Resource.fromFailable(result)
         
         self.refreshControl?.endRefreshing()
         
         self.tableView.reloadData()
         self.reconfigureTableView()
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
-        if case .error(.message(let message)) = result {
-            presentError(message)
-        }
     }
     
     func reconfigureTableView() {
-        if favoriteStops.isEmpty {
-            self.tableView.backgroundView = placeholder
-            self.tableView.separatorStyle = .none
-        } else {
+        if case .loading = favoriteStops {
             self.tableView.backgroundView = nil
-            self.tableView.separatorStyle = .singleLine
+            self.tableView.separatorStyle = .none
+            self.navigationItem.rightBarButtonItem = nil
         }
-        
-        self.navigationItem.rightBarButtonItem = favoriteStops.any({ !$0.isNearestStop })
-            ? self.editButtonItem
-            : nil
+        else if case .error = favoriteStops {
+            self.tableView.backgroundView = errorPlaceholder
+            self.tableView.separatorStyle = .none
+            self.navigationItem.rightBarButtonItem = nil
+        } else if case .success(let models) = favoriteStops {
+            if models.isEmpty {
+                self.tableView.backgroundView = placeholder
+                self.tableView.separatorStyle = .none
+            } else {
+                self.tableView.backgroundView = nil
+                self.tableView.separatorStyle = .singleLine
+            }
+            
+            self.navigationItem.rightBarButtonItem = models.any({ !$0.isNearestStop })
+                ? self.editButtonItem
+                : nil
+        }
     }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favoriteStops.count
+        return (self.favoriteStops ?? []).count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard case .success(let models) = self.favoriteStops else {
+            fatalError("Table view asked for cell when no models were present")
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesTableViewCell", for: indexPath) as! FavoriteStopTableViewCell
         
-        cell.update(favoriteStops[indexPath.row])
+        cell.update(models[indexPath.row])
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let selectedStop = self.favoriteStops[indexPath.row]
+        guard case .success(let models) = self.favoriteStops else {
+            fatalError("Table view asked for cell when no models were present")
+        }
+        let selectedStop = models[indexPath.row]
         return !selectedStop.isNearestStop
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard case .success(let models) = self.favoriteStops else {
+            fatalError("Table view asked for cell when no models were present")
+        }
         
         if editingStyle == .delete {
-            // Delete the row from the data source
-            favoriteStops.remove(at: indexPath.row)
+            var newModels = models
+            newModels.remove(at: indexPath.row)
+            self.favoriteStops = .success(newModels)
             
             let userDefaults = UserDefaults.groupUserDefaults()
-            userDefaults.favoriteStopIds = favoriteStops.filter{ !$0.isNearestStop }.map{ $0.stopId }
+            userDefaults.favoriteStopIds = newModels.filter{ !$0.isNearestStop }.map{ $0.stopId }
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -168,7 +194,11 @@ final class FavoritesTableViewController: UITableViewController {
         guard let browseViewController: BrowseViewController = tabBarController!.childViewController() else {
             fatalError("Browse view controller not present as expected")
         }
-        browseViewController.selectStopExternally(favoriteStops[indexPath.row].stopId)
+        guard case .success(let models) = favoriteStops else {
+            fatalError("Selected row when no models were present")
+        }
+
+        browseViewController.selectStopExternally(models[indexPath.row].stopId)
         tabBarController!.selectedViewController = browseViewController.navigationController
     }
 }
