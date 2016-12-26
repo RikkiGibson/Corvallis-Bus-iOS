@@ -10,10 +10,16 @@ import UIKit
 import MapKit
 
 final class FavoritesTableViewController: UITableViewController {
-    lazy var placeholder: FavoritesPlaceholder = Bundle.main.loadNibNamed(
-            "FavoritesPlaceholder",
+    lazy var placeholder: TableViewPlaceholder = {
+        let view = Bundle.main.loadNibNamed(
+            "TableViewPlaceholder",
             owner: nil,
-            options: nil)![0] as! FavoritesPlaceholder
+            options: nil)![0] as! TableViewPlaceholder
+        view.labelTitle.text = "Add frequently used stops to Favorites."
+        view.button.setTitle("Tap to browse stops", for: .normal)
+        
+        return view
+    }()
     
     var favoriteStops = [FavoriteStopViewModel]()
     var timer: Timer?

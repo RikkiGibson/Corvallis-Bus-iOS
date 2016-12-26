@@ -12,8 +12,21 @@ final class ServiceAlertsViewController: UITableViewController {
     let manager = ServiceAlertsManager()
     var alerts: [ServiceAlert] = []
     
+    lazy var placeholder: TableViewPlaceholder = {
+        let view = Bundle.main.loadNibNamed(
+            "TableViewPlaceholder",
+            owner: nil,
+            options: nil)![0] as! TableViewPlaceholder
+        view.labelTitle.text = "No current service alerts."
+        view.button.setTitle("Tap to open service alerts website", for: .normal)
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.placeholder.handler = { self.presentURL(URL(string: "https://www.corvallisoregon.gov/index.aspx?page=1105")!) }
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadAlerts(_:)), for: .valueChanged)
@@ -31,6 +44,15 @@ final class ServiceAlertsViewController: UITableViewController {
     func onAlertsReloaded(alerts: [ServiceAlert]) {
         self.alerts = alerts
         self.tableView.reloadData()
+        
+        if alerts.isEmpty {
+            self.tableView.backgroundView = placeholder
+            self.tableView.separatorStyle = .none
+        } else {
+            self.tableView.backgroundView = nil
+            self.tableView.separatorStyle = .singleLine
+        }
+        
         self.updateBadgeValue()
         self.refreshControl?.endRefreshing()
     }
