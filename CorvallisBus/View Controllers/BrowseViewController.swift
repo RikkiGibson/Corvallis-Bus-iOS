@@ -162,15 +162,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             }
             // on failure, make an another attempt to get the data
             reloadDetails()
-        } else if case .success(let stopDetails) = stopDetails {
-            stopDetails.routeDetails.startOnMainThread{ routeDetails in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                if case .error(let error) = routeDetails, let message = error.getMessage() {
-                    self.presentError(message)
-                }
-            }
         }
-        
         
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(BrowseViewController.clearSelectionIfDataUnavailable(_:)),
             userInfo: stopDetails.toOptional()?.routeDetails, repeats: false)

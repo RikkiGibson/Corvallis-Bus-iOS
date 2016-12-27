@@ -33,14 +33,22 @@ final class StopDetailViewController : UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
+    lazy var errorPlaceholder: UIView = {
+        let label = UILabel()
+        label.textColor = Color.darkGray
+        label.textAlignment = .center
+        label.text = "Failed to route details"
+        return label
+    }()
+    
     func onOrientationChanged() {
         // Simple workaround to get the label to show text at the right width
         // when the screen orientation goes from landscape to portrait.
         labelStopName.text = viewModel.stopName
     }
     
-    func updateStopDetails(_ viewModel: Failable<StopDetailViewModel, BusError>) {
-        guard let viewModel = viewModel.toOptional() else {
+    func updateStopDetails(_ failable: Failable<StopDetailViewModel, BusError>) {
+        guard case .success(let viewModel) = failable else {
             return
         }
         // If the previous route details are still pending, don't load them.
@@ -58,10 +66,8 @@ final class StopDetailViewController : UITableViewController {
         buttonFavorite.isEnabled = viewModel.stopID != nil
         
         viewModel.routeDetails.startOnMainThread { failable in
-            // stackoverflow claims this may fix a crash
-            self.tableView.beginUpdates()
-            self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            self.tableView.endUpdates()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.updateTableView()
             
             if case .success(let routeDetails) = failable, !routeDetails.isEmpty {
                 let indexToSelect = didSelectDifferentStop
@@ -77,9 +83,21 @@ final class StopDetailViewController : UITableViewController {
         switch viewModel.routeDetails.state {
         case .finished: break
         default:
-            tableView.beginUpdates()
-            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            tableView.endUpdates()
+            updateTableView()
+        }
+    }
+    
+    func updateTableView() {
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.endUpdates()
+        
+        if case .finished(.error) = viewModel.routeDetails.state {
+            tableView.backgroundView = errorPlaceholder
+            tableView.separatorStyle = .none
+        } else {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
         }
     }
     
