@@ -23,29 +23,35 @@ final class ServiceAlertsViewController: UITableViewController {
         return view
     }()
     
-    lazy var errorPlaceholder: UIView = {
-        let label = UILabel()
-        label.textColor = Color.darkGray
-        label.textAlignment = .center
-        label.text = "Failed to load service alerts"
-        return label
+    lazy var errorPlaceholder: TableViewPlaceholder = {
+        let view = Bundle.main.loadNibNamed(
+            "TableViewPlaceholder",
+            owner: nil,
+            options: nil)![0] as! TableViewPlaceholder
+        view.labelTitle.text = "Failed to load service alerts"
+        view.button.setTitle("Retry", for: .normal)
+        return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.placeholder.handler = { self.presentURL(URL(string: "https://www.corvallisoregon.gov/index.aspx?page=1105")!) }
+        self.errorPlaceholder.handler = self.reloadAlerts
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadAlerts(_:)), for: .valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(ServiceAlertsViewController.reloadAlerts), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.reloadAlerts(self);
+        self.reloadAlerts()
     }
     
-    func reloadAlerts(_ sender: AnyObject) {
+    func reloadAlerts() {
+        self.refreshControl?.beginRefreshing()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         self.manager.serviceAlerts(onAlertsReloaded)
     }
     
@@ -68,6 +74,8 @@ final class ServiceAlertsViewController: UITableViewController {
         
         self.updateBadgeValue()
         self.refreshControl?.endRefreshing()
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
     }
     
     func updateBadgeValue() {

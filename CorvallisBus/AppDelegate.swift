@@ -91,7 +91,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let alertsController: ServiceAlertsViewController = tabController.childViewController() else {
             fatalError("Could not find service alerts view controller")
         }
-        alertsController.reloadAlerts(self)
+        alertsController.reloadAlerts()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {

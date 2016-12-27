@@ -12,6 +12,7 @@ protocol StopDetailViewControllerDelegate : class {
     func stopDetailViewController(_ viewController: StopDetailViewController, didSetFavoritedState favorite: Bool, forStopID stopID: Int)
     func stopDetailViewController(_ viewController: StopDetailViewController, didSelectRouteNamed routeName: String)
     func stopDetailViewController(_ viewController: StopDetailViewController, didSelectDetailsForRouteNamed routeName: String)
+    func reloadDetails()
 }
 
 final class StopDetailViewController : UITableViewController {
@@ -22,24 +23,26 @@ final class StopDetailViewController : UITableViewController {
     
     private var viewModel = StopDetailViewModel.empty()
     
+    lazy var errorPlaceholder: TableViewPlaceholder = {
+        let view = Bundle.main.loadNibNamed(
+            "TableViewPlaceholder",
+            owner: nil,
+            options: nil)![0] as! TableViewPlaceholder
+        view.labelTitle.text = "Failed to load route details"
+        view.button.setTitle("Retry", for: .normal)
+        return view
+    }()
+    
     let CELL_IDENTIFIER = "BusRouteDetailCell"
     override func viewDidLoad() {
         let cellNib = UINib(nibName: CELL_IDENTIFIER, bundle: Bundle.main)
         tableView.register(cellNib, forCellReuseIdentifier: CELL_IDENTIFIER)
-        
         tableView.contentInset = UIEdgeInsets.zero
         updateStopDetails(.success(StopDetailViewModel.empty()))
+        errorPlaceholder.handler = { self.delegate?.reloadDetails() }
         
         NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
-    
-    lazy var errorPlaceholder: UIView = {
-        let label = UILabel()
-        label.textColor = Color.darkGray
-        label.textAlignment = .center
-        label.text = "Failed to route details"
-        return label
-    }()
     
     func onOrientationChanged() {
         // Simple workaround to get the label to show text at the right width

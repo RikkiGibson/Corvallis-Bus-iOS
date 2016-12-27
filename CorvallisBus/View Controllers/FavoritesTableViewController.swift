@@ -21,12 +21,14 @@ final class FavoritesTableViewController: UITableViewController {
         return view
     }()
     
-    lazy var errorPlaceholder: UIView = {
-        let label = UILabel()
-        label.textColor = Color.darkGray
-        label.textAlignment = .center
-        label.text = "Failed to load favorites"
-        return label
+    lazy var errorPlaceholder: TableViewPlaceholder = {
+        let view = Bundle.main.loadNibNamed(
+            "TableViewPlaceholder",
+            owner: nil,
+            options: nil)![0] as! TableViewPlaceholder
+        view.labelTitle.text = "Failed to load favorites"
+        view.button.setTitle("Retry", for: .normal)
+        return view
     }()
     
     var favoriteStops: Resource<[FavoriteStopViewModel], BusError> = .loading
@@ -35,6 +37,7 @@ final class FavoritesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         placeholder.handler = self.goToBrowseController
+        errorPlaceholder.handler = self.updateFavorites
         
         let cellNib = UINib(nibName: "FavoritesTableViewCell", bundle: Bundle.main)
         self.tableView.register(cellNib, forCellReuseIdentifier: "FavoritesTableViewCell")
@@ -103,6 +106,7 @@ final class FavoritesTableViewController: UITableViewController {
     }
     
     func updateFavorites() {
+        self.refreshControl?.beginRefreshing()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         CorvallisBusFavoritesManager.favoriteStopsForApp()
