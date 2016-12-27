@@ -155,11 +155,8 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     func onReloadDetails(_ stopDetails: Failable<StopDetailViewModel, BusError>) {
         stopDetailViewController?.updateStopDetails(stopDetails)
         
-        if case .error(let error) = stopDetails {
+        if case .error = stopDetails {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if let message = error.getMessage() {
-                presentError(message)
-            }
             // on failure, make an another attempt to get the data
             reloadDetails()
         }
