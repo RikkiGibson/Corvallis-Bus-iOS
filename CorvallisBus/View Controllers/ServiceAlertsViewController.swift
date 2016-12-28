@@ -59,7 +59,7 @@ final class ServiceAlertsViewController: UITableViewController {
         self.alerts = Resource.fromFailable(alerts)
         self.tableView.reloadData()
         
-        if case .success(let models) = alerts {
+        if case .success(let models) = self.alerts {
             if models.isEmpty {
                 self.tableView.backgroundView = placeholder
                 self.tableView.separatorStyle = .none
