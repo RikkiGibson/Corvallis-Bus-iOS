@@ -56,6 +56,17 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         
         locationImage.isHidden = !viewModel.isNearestStop
         labelDistance.text = viewModel.distanceFromUser
+        
+        let nearestStopDescription = viewModel.isNearestStop ? "Nearby stop." : ""
+        let firstRouteDescription = viewModel.firstRouteName.isEmpty
+            ? ". " + viewModel.firstRouteArrivals + " "
+            : ". Route \(viewModel.firstRouteName): \(viewModel.firstRouteArrivals). "
+        let secondRouteDescription = viewModel.secondRouteName.isEmpty
+            ? ""
+            : "Route \(viewModel.secondRouteName): \(viewModel.secondRouteArrivals). "
+        
+        accessibilityLabel = viewModel.stopName + firstRouteDescription + secondRouteDescription
+            + "\(nearestStopDescription) \(viewModel.distanceFromUser)."
     }
     
 }

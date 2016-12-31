@@ -102,6 +102,8 @@ final class StopDetailViewController : UITableViewController {
             tableView.backgroundView = nil
             tableView.separatorStyle = .singleLine
         }
+        
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.tableView)
     }
     
     // MARK: Table view data source

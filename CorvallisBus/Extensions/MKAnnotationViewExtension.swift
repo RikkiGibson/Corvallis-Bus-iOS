@@ -19,6 +19,7 @@ let arrowImage = UIImage(named: "ListCurrentLoc")
 
 extension MKAnnotationView {
     func updateWithBusStopAnnotation(_ annotation: BusStopAnnotation, isSelected: Bool, animated: Bool) {
+        accessibilityLabel = annotation.accessibilityLabel
         layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         isEnabled = true
         

@@ -32,6 +32,11 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
         self.view.addGestureRecognizer(touchRecognizer)
     }
     
+    override func accessibilityPerformEscape() -> Bool {
+        self.dismiss(animated: true, completion: nil)
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

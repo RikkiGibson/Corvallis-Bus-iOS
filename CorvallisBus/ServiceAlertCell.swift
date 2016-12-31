@@ -17,5 +17,8 @@ class ServiceAlertCell : UITableViewCell {
         titleLabel.text = alert.title
         descriptionLabel.text = alert.description
         imageUnread.isHidden = alert.isRead
+        
+        accessibilityLabel = (alert.isRead ? "" : "Unread. ")
+            + alert.title + ". " + alert.description
     }
 }

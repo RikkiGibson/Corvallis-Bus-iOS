@@ -24,5 +24,8 @@ final class BusStopAnnotation: NSObject, MKAnnotation {
     
     init(stop: BusStop) {
         self.stop = stop
+        super.init()
+        
+        accessibilityLabel = "Bus stop: \(stop.name)"
     }
 }

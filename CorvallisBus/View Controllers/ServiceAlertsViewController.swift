@@ -91,10 +91,13 @@ final class ServiceAlertsViewController: UITableViewController {
             }
         }
         
+        let tabBarItem = self.navigationController!.tabBarItem!
         if unreadCount == 0 {
-            self.navigationController?.tabBarItem.badgeValue = nil
+            tabBarItem.badgeValue = nil
+            tabBarItem.accessibilityValue = nil
         } else {
-            self.navigationController?.tabBarItem.badgeValue = String(unreadCount)
+            tabBarItem.badgeValue = String(unreadCount)
+            tabBarItem.accessibilityValue = "\(unreadCount) unread " + (unreadCount == 1 ? "message" : "messages")
         }
     }
     

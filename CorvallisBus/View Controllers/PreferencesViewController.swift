@@ -9,9 +9,15 @@
 import UIKit
 
 final class PreferencesViewController: UITableViewController {
+    @IBOutlet weak var cellShowNearestStop: UITableViewCell!
+    @IBOutlet weak var sliderShowNearestStop: UISwitch!
+    
+    @IBOutlet weak var cellTodayItems: UITableViewCell!
     @IBOutlet weak var stepperTodayItems: UIStepper!
     @IBOutlet weak var counterTodayItems: UITextField!
-    @IBOutlet weak var sliderShowNearestStop: UISwitch!
+    override func viewDidLoad() {
+        cellShowNearestStop.accessoryView = sliderShowNearestStop
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         if #available(iOS 10, *) {
@@ -26,6 +32,7 @@ final class PreferencesViewController: UITableViewController {
         let todayItemCount = defaults.todayViewItemCount
         stepperTodayItems.value = Double(todayItemCount)
         counterTodayItems.text = todayItemCount.description
+        cellTodayItems.accessibilityLabel = "Max stops in widget: \(todayItemCount)"
         
         sliderShowNearestStop.isOn = defaults.shouldShowNearestStop
     }
@@ -36,9 +43,12 @@ final class PreferencesViewController: UITableViewController {
     }
     
     @IBAction func todayViewItemCountChanged(_ sender: UIStepper) {
+        let intValue = Int(sender.value)
         let defaults = UserDefaults.groupUserDefaults()
-        defaults.todayViewItemCount = Int(sender.value)
-        counterTodayItems.text = Int(sender.value).description
+        defaults.todayViewItemCount = intValue
+        counterTodayItems.text = intValue.description
+        cellTodayItems.accessibilityLabel = "Max stops in widget: \(intValue)"
+        stepperTodayItems.accessibilityValue = intValue.description
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
