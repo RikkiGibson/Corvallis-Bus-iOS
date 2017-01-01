@@ -85,7 +85,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         
         let urlString: String
         if case .success(let viewModels) = favoriteStops, !viewModels.isEmpty {
-            let selectedStop = viewModels[indexPath.row]
+            let selectedStop = viewModel(for: indexPath.row)
             urlString = "CorvallisBus://?\(selectedStop.stopId)"
         } else {
             urlString = "CorvallisBus://"
