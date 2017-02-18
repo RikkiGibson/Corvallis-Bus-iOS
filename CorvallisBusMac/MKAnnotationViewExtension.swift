@@ -19,9 +19,9 @@ let goldOvalDeemphasizedImage = NSImage(named: "goldoval-deemphasized")
 let arrowImage = NSImage(named: "ListCurrentLoc")
 
 extension MKAnnotationView {
-    func updateWithBusStopAnnotation(annotation: BusStopAnnotation, isSelected: Bool) {
-        let isFavorite = annotation.isFavorite
-        let isDeemphasized = annotation.isDeemphasized
+    func update(with busStopAnnotation: BusStopAnnotation, isSelected: Bool) {
+        let isFavorite = busStopAnnotation.isFavorite
+        let isDeemphasized = busStopAnnotation.isDeemphasized
         if isSelected {
             layer!.zPosition = 5
             image = isFavorite ? goldOvalHighlightedImage : greenOvalHighlightedImage

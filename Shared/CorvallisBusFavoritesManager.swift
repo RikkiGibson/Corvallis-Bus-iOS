@@ -77,8 +77,13 @@ class CorvallisBusFavoritesManager {
             return false
         }
         
+#if os(iOS)
         let locationAvailable = CLLocationManager.locationServicesEnabled() &&
             CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+#else
+        let locationAvailable = CLLocationManager.locationServicesEnabled() &&
+            CLLocationManager.authorizationStatus() == .authorizedAlways
+#endif
         
         return locationAvailable
     }

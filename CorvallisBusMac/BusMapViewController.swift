@@ -31,7 +31,7 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
             // Don't muck with the location if an annotation is selected right now
             guard self.mapView.selectedAnnotations.isEmpty else { return }
             // Only go to the user's location if they're within about 20 miles of Corvallis
-            if case .Success(let location) = maybeLocation where location.distanceFromLocation(CORVALLIS_LOCATION) < 32000 {
+            if case .success(let location) = maybeLocation, location.distance(from: CORVALLIS_LOCATION) < 32000 {
                 let region = MKCoordinateRegion(center: location.coordinate, span: DEFAULT_SPAN)
                 self.mapView.setRegion(region, animated: false)
             }
@@ -44,56 +44,56 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
     
     func onStopSelected(stopID: Int) {
         if let annotation = viewModel.stops[stopID] {
-            mapView.setCenterCoordinate(annotation.stop.location.coordinate, animated: true)
+            mapView.setCenter(annotation.stop.location.coordinate, animated: true)
             mapView.selectAnnotation(annotation, animated: true)
         }
     }
     
     func onStopsLoaded(result: Failable<[Int: BusStopAnnotation], BusError>) {
         switch result {
-        case .Success(let stops):
+        case .success(let stops):
             viewModel.stops = stops
             mapView.addAnnotations(Array(stops.values))
             if let externalStopID = AppDelegate.dequeueSelectedStopID() {
-                onStopSelected(externalStopID)
+                onStopSelected(stopID: externalStopID)
             }
             AppDelegate.stopSelectionDelegate = self
-        case .Error(let error):
+        case .error(let error):
             // TODO: show something
             print(error)
         }
     }
     
-    func onButtonClick(button: NSButton) {
+    func onButtonClick(_ button: NSButton) {
         guard let selectedStop = selectedStop else {
             return
         }
-        let defaults = NSUserDefaults.groupUserDefaults()
+        let defaults = UserDefaults.groupUserDefaults()
         var favorites = defaults.favoriteStopIds
-        if let index = favorites.indexOf(selectedStop.stop.id) {
+        if let index = favorites.index(of: selectedStop.stop.id) {
             selectedStop.isFavorite = false
-            favorites.removeAtIndex(index)
+            favorites.remove(at: index)
         } else {
             favorites.append(selectedStop.stop.id)
             selectedStop.isFavorite = true
         }
-        button.highlighted = selectedStop.isFavorite
-        if let view = mapView.viewForAnnotation(selectedStop) {
-            view.updateWithBusStopAnnotation(selectedStop, isSelected: true)
+        button.isHighlighted = selectedStop.isFavorite
+        if let view = mapView.view(for: selectedStop) {
+            view.update(with: selectedStop, isSelected: true)
         }
         defaults.favoriteStopIds = favorites
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? BusStopAnnotation {
-            let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(String(BusStopAnnotation)) ??
-                                 MKAnnotationView(annotation: annotation, reuseIdentifier: String(BusStopAnnotation))
-            annotationView.updateWithBusStopAnnotation(annotation, isSelected: false)
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: BusStopAnnotation.self)) ??
+                                 MKAnnotationView(annotation: annotation, reuseIdentifier: String(describing: BusStopAnnotation.self))
+            annotationView.update(with: annotation, isSelected: false)
             
             let button = NSButton()
             button.image = NSImage(named: "favorite")
             button.alternateImage = NSImage(named: "favorite")
-            button.bezelStyle = NSBezelStyle.RegularSquare
+            button.bezelStyle = .regularSquare
             button.target = self
             button.action = #selector(BusMapViewController.onButtonClick)
             
@@ -106,15 +106,15 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
             return nil
         }
         
-        return mapView.dequeueReusableAnnotationViewWithIdentifier(String(MKAnnotationView)) ??
-               MKAnnotationView(annotation: annotation, reuseIdentifier: String(MKAnnotationView))
+        return mapView.dequeueReusableAnnotationView(withIdentifier: String(describing: MKAnnotationView.self)) ??
+               MKAnnotationView(annotation: annotation, reuseIdentifier: String(describing: MKAnnotationView.self))
     }
     
     // can this variable be avoided?
     var selectedStop: BusStopAnnotation?
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation as? BusStopAnnotation {
-            view.updateWithBusStopAnnotation(annotation, isSelected: true)
+            view.update(with: annotation, isSelected: true)
             selectedStop = annotation
 //            NSAnimationContext.beginGrouping()
 //            NSAnimationContext.currentContext().duration = 0.1
@@ -123,10 +123,10 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
         }
     }
     
-    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         
         if let annotation = view.annotation as? BusStopAnnotation {
-            view.updateWithBusStopAnnotation(annotation, isSelected: false)
+            view.update(with: annotation, isSelected: false)
             selectedStop = nil
             
 //            NSAnimationContext.beginGrouping()

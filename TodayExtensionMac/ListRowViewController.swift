@@ -58,14 +58,14 @@ class ListRowViewController: NSViewController {
         labelSecondRouteName.stringValue = model.secondRouteName
         labelSecondRouteName.backgroundColor = model.secondRouteColor
         labelSecondRouteArrivals.stringValue = model.secondRouteArrivals
-        imageNearestStop.hidden = !model.isNearestStop
+        imageNearestStop.isHidden = !model.isNearestStop
         labelDistanceFromUser.stringValue = model.distanceFromUser
     }
     
-    override func mouseUp(theEvent: NSEvent) {
+    override func mouseUp(with theEvent: NSEvent) {
         if let stopID = stopID,
-               url = NSURL(string: "CorvallisBus://?\(stopID)") {
-            NSWorkspace.sharedWorkspace().openURL(url)
+               let url = URL(string: "CorvallisBus://?\(stopID)") {
+            NSWorkspace.shared().open(url)
         }
     }
 }

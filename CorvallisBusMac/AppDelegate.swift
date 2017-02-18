@@ -22,27 +22,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override init() {
         super.init()
         
-        NSAppleEventManager.sharedAppleEventManager()
+        NSAppleEventManager.shared()
             .setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),
                              forEventClass: AEEventID(kInternetEventClass),
                              andEventID: AEEventID(kAEGetURL))
     }
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
-    func handleGetURLEvent(event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
-        if let urlString = event.paramDescriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue,
-               index = urlString.rangeOfString("?", options: .BackwardsSearch)?.endIndex,
-               stopID = Int(urlString.substringFromIndex(index)) {
+    func handleGetURLEvent(_ event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
+        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
+               let index = urlString.range(of: "?", options: .backwards)?.upperBound,
+               let stopID = Int(urlString.substring(from: index)) {
             // do something with the stop ID
             if let stopSelectionDelegate = AppDelegate.stopSelectionDelegate {
-                stopSelectionDelegate.onStopSelected(stopID)
+                stopSelectionDelegate.onStopSelected(stopID: stopID)
             } else {
                 AppDelegate.externalStopID = stopID
             }

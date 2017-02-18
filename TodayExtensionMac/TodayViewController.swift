@@ -23,18 +23,18 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         
         listViewController.showsAddButtonWhenEditing = false
         listViewController.contents = []
-        listViewController.minimumVisibleRowCount = NSUserDefaults.groupUserDefaults().todayViewItemCount
+        listViewController.minimumVisibleRowCount = UserDefaults.groupUserDefaults().todayViewItemCount
     }
     
-    func onUpdateFavorites(result: Failable<[FavoriteStopViewModel], BusError>, completionHandler: NCUpdateResult -> Void) {
+    func onUpdateFavorites(_ result: Failable<[FavoriteStopViewModel], BusError>, completionHandler: (NCUpdateResult) -> Void) {
         switch result {
-        case .Success(let models):
+        case .success(let models):
             listViewController.contents = models.map({ Box(value: $0) })
-            completionHandler(.NewData)
-        case .Error(let error):
+            completionHandler(.newData)
+        case .error(let error):
             // show an error view or something?
             listViewController.contents = []
-            completionHandler(.Failed)
+            completionHandler(.failed)
             print(error)
             break
         }
@@ -42,35 +42,35 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
 
     // MARK: - NCWidgetProviding
 
-    func widgetPerformUpdateWithCompletionHandler(completionHandler: ((NCUpdateResult) -> Void)) {
+    func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Refresh the widget's contents in preparation for a snapshot.
         // Call the completion handler block after the widget's contents have been
         // refreshed. Pass NCUpdateResultNoData to indicate that nothing has changed
         // or NCUpdateResultNewData to indicate that there is new data since the
         // last invocation of this method.
         
-        let cachedStops = NSUserDefaults.groupUserDefaults()
+        let cachedStops = UserDefaults.groupUserDefaults()
             .cachedFavoriteStops
             .flatMap({ toFavoriteStopViewModel($0, fallbackToGrayColor: false) })
         listViewController.contents = cachedStops.map({ Box(value: $0) })
-        completionHandler(.NewData)
-        CorvallisBusFavoritesManager.favoriteStops(updateCache: true, fallbackToGrayColor: false, limitResults: false)
+        completionHandler(.newData)
+        CorvallisBusFavoritesManager.favoriteStopsForWidget()
                                     .startOnMainThread { self.onUpdateFavorites($0, completionHandler: completionHandler) }
     }
 
-    func widgetMarginInsetsForProposedMarginInsets(defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
+    func widgetMarginInsets(forProposedMarginInsets defaultMarginInset: EdgeInsets) -> EdgeInsets {
         return NSEdgeInsetsZero
     }
 
     // MARK: - NCWidgetListViewDelegate
 
-    func widgetList(list: NCWidgetListViewController, viewControllerForRow row: Int) -> NSViewController {
+    func widgetList(_ list: NCWidgetListViewController, viewControllerForRow row: Int) -> NSViewController {
         // Return a new view controller subclass for displaying an item of widget
         // content. The NCWidgetListViewController will set the representedObject
         // of this view controller to one of the objects in its contents array.
         let viewController = ListRowViewController()
         
-        let appearanceName = parentViewController?.view.effectiveAppearance.name
+        let appearanceName = parent?.view.effectiveAppearance.name
         viewController.hasDarkAppearance = appearanceName == NSAppearanceNameVibrantDark
         
         return viewController
