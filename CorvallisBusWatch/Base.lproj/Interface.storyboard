@@ -9,12 +9,56 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Corvallis Bus-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="CorvallisBusWatch" customModuleProvider="target"/>
+                <controller identifier="Favorites" title="Corvallis Bus" id="AgC-eL-Hgc" customClass="FavoritesInterfaceController" customModule="CorvallisBusWatch_Extension">
+                    <items>
+                        <table alignment="left" id="4Ro-05-R8j">
+                            <items>
+                                <tableRow identifier="FavoritesRow" id="hZf-5Q-T6h">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" spacing="6" id="GQS-RB-WhX">
+                                        <items>
+                                            <separator height="1" heightAdjustment="-4" alignment="left" verticalAlignment="center" id="glb-mI-Ig7">
+                                                <color key="color" red="0.47450980392156861" green="0.69411764705882351" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
+                                            </separator>
+                                            <group alignment="left" layout="vertical" spacing="0.0" id="Knw-ps-ZoA">
+                                                <items>
+                                                    <group width="1" height="32" alignment="left" spacing="4" id="NMd-fj-SJr">
+                                                        <items>
+                                                            <label alignment="left" verticalAlignment="center" text="Pay" id="UTn-x4-vvB">
+                                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                                            </label>
+                                                            <label alignment="right" verticalAlignment="center" text="No" id="Ntd-wq-ntS">
+                                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                    <group width="1" alignment="left" id="MN7-RR-q7v">
+                                                        <items>
+                                                            <label alignment="left" verticalAlignment="bottom" text="Attention" id="LqC-gy-29P">
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                            <label alignment="right" verticalAlignment="bottom" text="Here" id="TUz-4c-TyS">
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="favoritesTable" destination="4Ro-05-R8j" id="MdI-mz-5hL"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="0.0" y="-11"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.47450980392156861" green="0.69411764705882351" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
 </document>

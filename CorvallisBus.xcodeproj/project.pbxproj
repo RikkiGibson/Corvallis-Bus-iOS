@@ -132,10 +132,11 @@
 		A68639851E67BD0000F17872 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68639831E67BD0000F17872 /* Interface.storyboard */; };
 		A68639871E67BD0000F17872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68639861E67BD0000F17872 /* Assets.xcassets */; };
 		A686398E1E67BD0000F17872 /* CorvallisBusWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A686398D1E67BD0000F17872 /* CorvallisBusWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A68639931E67BD0000F17872 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639921E67BD0000F17872 /* InterfaceController.swift */; };
 		A68639951E67BD0000F17872 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639941E67BD0000F17872 /* ExtensionDelegate.swift */; };
 		A68639971E67BD0000F17872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68639961E67BD0000F17872 /* Assets.xcassets */; };
 		A686399B1E67BD0000F17872 /* CorvallisBusWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A68639811E67BD0000F17872 /* CorvallisBusWatch.app */; };
+		A68639A71E67ED3500F17872 /* FavoritesInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */; };
+		A68639A91E67F35000F17872 /* FavoritesRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639A81E67F35000F17872 /* FavoritesRowController.swift */; };
 		D7CC42CB6486495FDF9F6D98 /* libPods-CorvallisBusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */; };
 /* End PBXBuildFile section */
 
@@ -345,10 +346,11 @@
 		A68639861E67BD0000F17872 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A68639881E67BD0000F17872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A686398D1E67BD0000F17872 /* CorvallisBusWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "CorvallisBusWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A68639921E67BD0000F17872 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		A68639941E67BD0000F17872 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		A68639961E67BD0000F17872 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A68639981E67BD0000F17872 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesInterfaceController.swift; sourceTree = "<group>"; };
+		A68639A81E67F35000F17872 /* FavoritesRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesRowController.swift; sourceTree = "<group>"; };
 		BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTodayExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB864585F75C5207D730C8CC /* Pods-CorvallisBusTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTodayExtension/Pods-CorvallisBusTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -666,10 +668,11 @@
 		A68639911E67BD0000F17872 /* CorvallisBusWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A68639921E67BD0000F17872 /* InterfaceController.swift */,
 				A68639941E67BD0000F17872 /* ExtensionDelegate.swift */,
 				A68639961E67BD0000F17872 /* Assets.xcassets */,
 				A68639981E67BD0000F17872 /* Info.plist */,
+				A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */,
+				A68639A81E67F35000F17872 /* FavoritesRowController.swift */,
 			);
 			path = "CorvallisBusWatch Extension";
 			sourceTree = "<group>";
@@ -1238,7 +1241,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A68639951E67BD0000F17872 /* ExtensionDelegate.swift in Sources */,
-				A68639931E67BD0000F17872 /* InterfaceController.swift in Sources */,
+				A68639A91E67F35000F17872 /* FavoritesRowController.swift in Sources */,
+				A68639A71E67ED3500F17872 /* FavoritesInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
