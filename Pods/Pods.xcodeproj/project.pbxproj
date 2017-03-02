@@ -57,7 +57,7 @@
 /* Begin PBXFileReference section */
 		005226DDC9800B7FA0277F4094B49E4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		0AE2B1AEA5B9E725F4AC98EF9EF79FCB /* Flurry-iOS-SDK-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Flurry-iOS-SDK-prefix.pch"; sourceTree = "<group>"; };
-		11E24883920EBA163BBE702FF1B5020E /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		11E24883920EBA163BBE702FF1B5020E /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-CorvallisBus.a"; path = "libPods-CorvallisBus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2092B7C628B5BD5B83DBCD597246CB52 /* NSDate+InternetDateTime.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+InternetDateTime.m"; path = "Classes/NSDate+InternetDateTime.m"; sourceTree = "<group>"; };
 		210E945102DBB2AEF65931917BAE537B /* Pods-CorvallisBus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CorvallisBus.debug.xcconfig"; sourceTree = "<group>"; };
 		2A61239E44640180373469C42DB97CE2 /* Pods-CorvallisBusTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CorvallisBusTests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -67,11 +67,11 @@
 		3D9021C28F7E873B7DD74469A74481EE /* Pods-CorvallisBusTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CorvallisBusTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3F94E334CFDDE69156A9B8E4964E0B7F /* MWFeedParser-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MWFeedParser-dummy.m"; sourceTree = "<group>"; };
 		41B644237CD21C695DAED043DE2AA3AD /* Pods-CorvallisBus-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CorvallisBus-acknowledgements.markdown"; sourceTree = "<group>"; };
-		4B11829447A5CC57A85558EDD456D0C6 /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFlurry-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B11829447A5CC57A85558EDD456D0C6 /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libFlurry-iOS-SDK.a"; path = "libFlurry-iOS-SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		54E52529683AAF3F04927F2C9F4EF6C3 /* Flurry-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Flurry-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
 		572F7777CE85ABFBAEC7690DFDCB65A5 /* MWFeedParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MWFeedParser.m; path = Classes/MWFeedParser.m; sourceTree = "<group>"; };
 		5CE010A61D549792AE3DA2AD8AB44BED /* MWFeedParser_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MWFeedParser_Private.h; path = Classes/MWFeedParser_Private.h; sourceTree = "<group>"; };
-		5EEF4F924E0BAD3249C3A0782C9E71BF /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EEF4F924E0BAD3249C3A0782C9E71BF /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-CorvallisBusTests.a"; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E32A6DD1926664513D381C46BAA334 /* Pods-CorvallisBusTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CorvallisBusTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6562BE77C14645A7599EE8088D490ADE /* Pods-CorvallisBus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CorvallisBus.release.xcconfig"; sourceTree = "<group>"; };
 		6723DFB6261556C87FA72472A0454552 /* NSDate+InternetDateTime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDate+InternetDateTime.h"; path = "Classes/NSDate+InternetDateTime.h"; sourceTree = "<group>"; };
@@ -85,14 +85,14 @@
 		7D7D3E695328285012E2F96683BEA806 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GTMNSString+HTML.m"; path = "Classes/GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		7EA2838D498123F8F59E41B298E939CC /* Pods-CorvallisBusTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CorvallisBusTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		82D5B4D927F75B4C37E6ECAB436F8BE1 /* MWFeedParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MWFeedParser.h; path = Classes/MWFeedParser.h; sourceTree = "<group>"; };
-		83C0A8B4A00E88E4195E96606E5A8D97 /* libMWFeedParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMWFeedParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		83C0A8B4A00E88E4195E96606E5A8D97 /* libMWFeedParser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMWFeedParser.a; path = libMWFeedParser.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		86F5764043155E2A2ECB382A985F239D /* MWFeedItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MWFeedItem.m; path = Classes/MWFeedItem.m; sourceTree = "<group>"; };
 		8998E09EAD3727E832431044B359ECC7 /* MWFeedParser.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MWFeedParser.xcconfig; sourceTree = "<group>"; };
 		90CBE174B81BBC7057C46EA63A703C2C /* Flurry-iOS-SDK-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Flurry-iOS-SDK-dummy.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A9E17567DF30E9E181871D4F6580745E /* Pods-CorvallisBusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CorvallisBusTests.release.xcconfig"; sourceTree = "<group>"; };
 		AB96E722CF37AD31A85C220AEA81915F /* Pods-CorvallisBus-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CorvallisBus-acknowledgements.plist"; sourceTree = "<group>"; };
-		AE9AAA2515946E3FEFDC139930566045 /* libPods-CorvallisBusTodayExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTodayExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE9AAA2515946E3FEFDC139930566045 /* libPods-CorvallisBusTodayExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-CorvallisBusTodayExtension.a"; path = "libPods-CorvallisBusTodayExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF6B43DF9BB281D62674B9AEB1AFFFC2 /* MWFeedItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MWFeedItem.h; path = Classes/MWFeedItem.h; sourceTree = "<group>"; };
 		C7772CF31460FBEB127ED6ECA78BF1CB /* Pods-CorvallisBusTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CorvallisBusTests-frameworks.sh"; sourceTree = "<group>"; };
 		C94F6CE14464541E094562C1C468A447 /* NSString+HTML.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+HTML.m"; path = "Classes/NSString+HTML.m"; sourceTree = "<group>"; };
@@ -198,6 +198,7 @@
 				34496D4C6F9B5EE0A0435001BA12B933 /* NSString+HTML */,
 				EE4948A62A42E53481509A531434D45A /* Support Files */,
 			);
+			name = MWFeedParser;
 			path = MWFeedParser;
 			sourceTree = "<group>";
 		};
@@ -207,6 +208,7 @@
 				836410D9E1D7275573F2C067194912E6 /* FlurrySDK */,
 				B782CB7163B5ADAD5489126070A61FD1 /* Support Files */,
 			);
+			name = "Flurry-iOS-SDK";
 			path = "Flurry-iOS-SDK";
 			sourceTree = "<group>";
 		};
@@ -600,11 +602,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
-				VALID_ARCHS = "x86_64 i386 armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -669,7 +670,6 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "x86_64 i386 armv7 armv7s arm64";
 			};
 			name = Release;
 		};
