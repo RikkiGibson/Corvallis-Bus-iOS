@@ -129,6 +129,7 @@
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676E389C1122B9D4CE99EDE6 /* libPods-CorvallisBusTodayExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */; };
+		A60B4BA61E70E651009D67B9 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60B4BA51E70E651009D67B9 /* ComplicationController.swift */; };
 		A68639851E67BD0000F17872 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68639831E67BD0000F17872 /* Interface.storyboard */; };
 		A68639871E67BD0000F17872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68639861E67BD0000F17872 /* Assets.xcassets */; };
 		A686398E1E67BD0000F17872 /* CorvallisBusWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A686398D1E67BD0000F17872 /* CorvallisBusWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -137,6 +138,16 @@
 		A686399B1E67BD0000F17872 /* CorvallisBusWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A68639811E67BD0000F17872 /* CorvallisBusWatch.app */; };
 		A68639A71E67ED3500F17872 /* FavoritesInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */; };
 		A68639A91E67F35000F17872 /* FavoritesRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639A81E67F35000F17872 /* FavoritesRowController.swift */; };
+		A6D158DC1E71010B00CEA1D5 /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
+		A6D158DD1E71011600CEA1D5 /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
+		A6D158DE1E71011A00CEA1D5 /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4251B86DC50000F3E6C /* Failable.swift */; };
+		A6D158DF1E71011D00CEA1D5 /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
+		A6D158E01E71012100CEA1D5 /* CorvallisBusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */; };
+		A6D158E11E71012500CEA1D5 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
+		A6D158E21E7101EC00CEA1D5 /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
+		A6D158E31E7101F000CEA1D5 /* NSJSONSerializationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */; };
+		A6D158E41E71020000CEA1D5 /* NSUserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */; };
+		A6D158E51E71021A00CEA1D5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42B1B86DC50000F3E6C /* Utils.swift */; };
 		D7CC42CB6486495FDF9F6D98 /* libPods-CorvallisBusTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */; };
 /* End PBXBuildFile section */
 
@@ -341,6 +352,9 @@
 		7F9243A255C406BB650FB5BA /* Pods-CorvallisBusTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTodayExtension/Pods-CorvallisBusTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59B2719D2199C44CADDE856 /* Pods-CorvallisBusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTests/Pods-CorvallisBusTests.release.xcconfig"; sourceTree = "<group>"; };
+		A60B4BA51E70E651009D67B9 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		A629462D1E713A9300796BE5 /* CorvallisBusWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorvallisBusWatch.entitlements; sourceTree = "<group>"; };
+		A629462E1E713A9B00796BE5 /* CorvallisBusWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CorvallisBusWatch Extension.entitlements"; sourceTree = "<group>"; };
 		A68639811E67BD0000F17872 /* CorvallisBusWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBusWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68639841E67BD0000F17872 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		A68639861E67BD0000F17872 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -658,6 +672,7 @@
 		A68639821E67BD0000F17872 /* CorvallisBusWatch */ = {
 			isa = PBXGroup;
 			children = (
+				A629462D1E713A9300796BE5 /* CorvallisBusWatch.entitlements */,
 				A68639831E67BD0000F17872 /* Interface.storyboard */,
 				A68639861E67BD0000F17872 /* Assets.xcassets */,
 				A68639881E67BD0000F17872 /* Info.plist */,
@@ -668,11 +683,13 @@
 		A68639911E67BD0000F17872 /* CorvallisBusWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A629462E1E713A9B00796BE5 /* CorvallisBusWatch Extension.entitlements */,
 				A68639941E67BD0000F17872 /* ExtensionDelegate.swift */,
 				A68639961E67BD0000F17872 /* Assets.xcassets */,
 				A68639981E67BD0000F17872 /* Info.plist */,
 				A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */,
 				A68639A81E67F35000F17872 /* FavoritesRowController.swift */,
+				A60B4BA51E70E651009D67B9 /* ComplicationController.swift */,
 			);
 			path = "CorvallisBusWatch Extension";
 			sourceTree = "<group>";
@@ -823,7 +840,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Rikki Gibson";
 				TargetAttributes = {
@@ -831,6 +848,7 @@
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = RF227NXGSC;
 						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -845,13 +863,13 @@
 					};
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 6M3YNUD5R9;
+						DevelopmentTeam = RF227NXGSC;
 						LastSwiftMigration = 0820;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 					5CA19B7A1D0C9BB800F32665 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 6M3YNUD5R9;
+						DevelopmentTeam = RF227NXGSC;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -862,7 +880,7 @@
 					};
 					5CD551401D0DD3D80014B08C = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 6M3YNUD5R9;
+						DevelopmentTeam = RF227NXGSC;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -873,7 +891,7 @@
 					};
 					5CF192A719EF513100CB21EC = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = 6M3YNUD5R9;
+						DevelopmentTeam = RF227NXGSC;
 						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -885,11 +903,21 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RF227NXGSC;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					A686398C1E67BD0000F17872 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RF227NXGSC;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1240,7 +1268,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6D158E01E71012100CEA1D5 /* CorvallisBusAPIClient.swift in Sources */,
+				A6D158E21E7101EC00CEA1D5 /* NSURLSessionExtensions.swift in Sources */,
+				A6D158DE1E71011A00CEA1D5 /* Failable.swift in Sources */,
+				A6D158E51E71021A00CEA1D5 /* Utils.swift in Sources */,
+				A6D158DD1E71011600CEA1D5 /* FavoriteStopViewModel.swift in Sources */,
 				A68639951E67BD0000F17872 /* ExtensionDelegate.swift in Sources */,
+				A6D158DC1E71010B00CEA1D5 /* CorvallisBusFavoritesManager.swift in Sources */,
+				A60B4BA61E70E651009D67B9 /* ComplicationController.swift in Sources */,
+				A6D158E31E7101F000CEA1D5 /* NSJSONSerializationExtension.swift in Sources */,
+				A6D158DF1E71011D00CEA1D5 /* PromiseLocationManagerDelegate.swift in Sources */,
+				A6D158E11E71012500CEA1D5 /* Promise.swift in Sources */,
+				A6D158E41E71020000CEA1D5 /* NSUserDefaultsExtensions.swift in Sources */,
 				A68639A91E67F35000F17872 /* FavoritesRowController.swift in Sources */,
 				A68639A71E67ED3500F17872 /* FavoritesInterfaceController.swift in Sources */,
 			);
@@ -1441,9 +1480,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1472,9 +1512,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1490,6 +1531,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1515,6 +1557,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1539,12 +1582,12 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBusMac;
 				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
@@ -1563,12 +1606,12 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBusMac;
 				PRODUCT_NAME = "Corvallis Bus";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
@@ -1584,13 +1627,13 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBusMac.TodayExtensionMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1607,13 +1650,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBusMac.TodayExtensionMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1628,11 +1671,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/CorvallisBusTodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.CorvallisBusTodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1650,11 +1694,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = TodayExtension/CorvallisBusTodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RF227NXGSC;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = TodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.CorvallisBusTodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1671,13 +1716,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBusWatch/CorvallisBusWatch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = RF227NXGSC;
 				IBSC_MODULE = CorvallisBusWatch_Extension;
 				INFOPLIST_FILE = CorvallisBusWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBus.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1695,6 +1741,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBusWatch/CorvallisBusWatch.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1702,7 +1749,7 @@
 				DEVELOPMENT_TEAM = RF227NXGSC;
 				IBSC_MODULE = CorvallisBusWatch_Extension;
 				INFOPLIST_FILE = CorvallisBusWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBus.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1718,11 +1765,12 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = "CorvallisBusWatch Extension/CorvallisBusWatch Extension.entitlements";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = RF227NXGSC;
 				INFOPLIST_FILE = "CorvallisBusWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBus.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1739,12 +1787,13 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = "CorvallisBusWatch Extension/CorvallisBusWatch Extension.entitlements";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = RF227NXGSC;
 				INFOPLIST_FILE = "CorvallisBusWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBus.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ecksian.CorvallisBus.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1818,6 +1867,7 @@
 				A686399F1E67BD0000F17872 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A68639A21E67BD0000F17872 /* Build configuration list for PBXNativeTarget "CorvallisBusWatch" */ = {
 			isa = XCConfigurationList;
@@ -1826,6 +1876,7 @@
 				A686399D1E67BD0000F17872 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

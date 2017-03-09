@@ -17,8 +17,16 @@ class FavoritesInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        favoritesTable.setNumberOfRows(10, withRowType: "FavoritesRow")
+        let cachedFavorites = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
+        favoritesTable.setNumberOfRows(cachedFavorites.count, withRowType: "FavoritesRow")
+        
+        for i in 0..<favoritesTable.numberOfRows {
+            guard let controller = favoritesTable.rowController(at: i) as? FavoritesRowController else { continue }
+            controller.update(with: cachedFavorites[i])
+        }
         // Configure interface objects here.
+        CorvallisBusFavoritesManager.favoriteStopsForWidget()
+            .startOnMainThread(onStopsLoaded)
     }
 
     override func willActivate() {
@@ -29,6 +37,18 @@ class FavoritesInterfaceController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    func onStopsLoaded(failable:Failable<[FavoriteStopViewModel], BusError>) {
+        guard case .success(let models) = failable else {
+            print("ERROR")
+            return
+        }
+        for i in 0..<favoritesTable.numberOfRows {
+            print(i)
+            guard let controller = favoritesTable.rowController(at: i) as? FavoritesRowController else { continue }
+            controller.update(with: models[i])
+        }
     }
 
 }

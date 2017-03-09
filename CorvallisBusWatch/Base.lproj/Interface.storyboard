@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16E163f" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12117" systemVersion="16E175b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Corvallis Bus-->
@@ -16,7 +16,7 @@
                     <items>
                         <table alignment="left" id="4Ro-05-R8j">
                             <items>
-                                <tableRow identifier="FavoritesRow" id="hZf-5Q-T6h">
+                                <tableRow identifier="FavoritesRow" id="hZf-5Q-T6h" customClass="FavoritesRowController" customModule="CorvallisBusWatch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" spacing="6" id="GQS-RB-WhX">
                                         <items>
                                             <separator height="1" heightAdjustment="-4" alignment="left" verticalAlignment="center" id="glb-mI-Ig7">
@@ -26,21 +26,18 @@
                                                 <items>
                                                     <group width="1" height="32" alignment="left" spacing="4" id="NMd-fj-SJr">
                                                         <items>
-                                                            <label alignment="left" verticalAlignment="center" text="Pay" id="UTn-x4-vvB">
-                                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
-                                                            </label>
-                                                            <label alignment="right" verticalAlignment="center" text="No" id="Ntd-wq-ntS">
-                                                                <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                                            <label alignment="left" verticalAlignment="center" text="NW Witham Hill Dr &amp; NW Woodland Dr" numberOfLines="2" id="UTn-x4-vvB">
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                                             </label>
                                                         </items>
                                                     </group>
                                                     <group width="1" alignment="left" id="MN7-RR-q7v">
                                                         <items>
-                                                            <label alignment="left" verticalAlignment="bottom" text="Attention" id="LqC-gy-29P">
-                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            <label alignment="left" verticalAlignment="bottom" text="1" id="LqC-gy-29P">
+                                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                                             </label>
-                                                            <label alignment="right" verticalAlignment="bottom" text="Here" id="TUz-4c-TyS">
-                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            <label alignment="right" verticalAlignment="bottom" text="No arrivals!" id="TUz-4c-TyS">
+                                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                                             </label>
                                                         </items>
                                                     </group>
@@ -48,6 +45,11 @@
                                             </group>
                                         </items>
                                     </group>
+                                    <connections>
+                                        <outlet property="lblArrivalsSummary" destination="TUz-4c-TyS" id="fUz-PY-Hdb"/>
+                                        <outlet property="lblRouteName" destination="LqC-gy-29P" id="Rhj-w9-GyG"/>
+                                        <outlet property="lblStopName" destination="UTn-x4-vvB" id="bSr-Yj-ZCD"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>

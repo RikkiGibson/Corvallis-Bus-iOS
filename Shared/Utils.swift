@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Box<T> {
     let value: T

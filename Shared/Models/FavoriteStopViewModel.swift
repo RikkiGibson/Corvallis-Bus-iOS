@@ -6,7 +6,7 @@
 //  Copyright © 2015 Rikki Gibson. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
     import UIKit
     typealias Color = UIColor
 #else
