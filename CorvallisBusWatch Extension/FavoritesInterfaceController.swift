@@ -13,17 +13,21 @@ import Foundation
 class FavoritesInterfaceController: WKInterfaceController {
 
     @IBOutlet var favoritesTable: WKInterfaceTable!
-    
+    var favoriteStops: [FavoriteStopViewModel] = []
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        let cachedFavorites = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
-        favoritesTable.setNumberOfRows(cachedFavorites.count, withRowType: "FavoritesRow")
+        favoriteStops = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
+        favoritesTable.setNumberOfRows(favoriteStops.count, withRowType: "FavoritesRow")
         
         for i in 0..<favoritesTable.numberOfRows {
             guard let controller = favoritesTable.rowController(at: i) as? FavoritesRowController else { continue }
-            controller.update(with: cachedFavorites[i])
+            controller.update(with: favoriteStops[i])
         }
+
+        // This will force the back-end to actually fetch some favorite stops.
+        UserDefaults.groupUserDefaults().favoriteStopIds = [14704, 10308]
+        
         // Configure interface objects here.
         CorvallisBusFavoritesManager.favoriteStopsForWidget()
             .startOnMainThread(onStopsLoaded)
@@ -39,15 +43,23 @@ class FavoritesInterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
     
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        // Simulator crashes when selecting a row. why?
+        print(favoriteStops[rowIndex].stopId)
+    }
+    
     func onStopsLoaded(failable:Failable<[FavoriteStopViewModel], BusError>) {
         guard case .success(let models) = failable else {
             print("ERROR")
             return
         }
+        favoriteStops = models
+        
+        // can't set number of rows in here. why?
+        //favoritesTable.setNumberOfRows(favoriteStops.count, withRowType: "FavoritesRow")
         for i in 0..<favoritesTable.numberOfRows {
-            print(i)
             guard let controller = favoritesTable.rowController(at: i) as? FavoritesRowController else { continue }
-            controller.update(with: models[i])
+            controller.update(with: favoriteStops[i])
         }
     }
 
