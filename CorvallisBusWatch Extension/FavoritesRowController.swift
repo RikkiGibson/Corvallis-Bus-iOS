@@ -13,7 +13,10 @@ import Foundation
 class FavoritesRowController: WKInterfaceController {
 
     @IBOutlet var lblStopName: WKInterfaceLabel!
+    
+    @IBOutlet var groupRouteName: WKInterfaceGroup!
     @IBOutlet var lblRouteName: WKInterfaceLabel!
+    
     @IBOutlet var lblArrivalsSummary: WKInterfaceLabel!
     
     override func awake(withContext context: Any?) {
@@ -34,7 +37,10 @@ class FavoritesRowController: WKInterfaceController {
 
     func update(with model: FavoriteStopViewModel) {
         lblStopName.setText(model.stopName)
+        
         lblRouteName.setText(model.firstRouteName)
-        lblRouteName.setText(model.firstRouteArrivals)
+        groupRouteName.setBackgroundColor(model.firstRouteColor)
+        
+        lblArrivalsSummary.setText(model.firstRouteArrivals)
     }
 }

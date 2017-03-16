@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12117" systemVersion="16E175b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
         <!--Corvallis Bus-->
@@ -33,19 +33,27 @@
                                                     </group>
                                                     <group width="1" alignment="left" id="MN7-RR-q7v">
                                                         <items>
-                                                            <label alignment="left" verticalAlignment="bottom" text="1" id="LqC-gy-29P">
-                                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                                            </label>
-                                                            <label alignment="right" verticalAlignment="bottom" text="No arrivals!" id="TUz-4c-TyS">
+                                                            <group alignment="left" verticalAlignment="center" radius="4" id="uAA-5K-NaP">
+                                                                <items>
+                                                                    <label alignment="left" verticalAlignment="bottom" text="3" textAlignment="center" id="LqC-gy-29P">
+                                                                        <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                                                    </label>
+                                                                </items>
+                                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="0.0"/>
+                                                            </group>
+                                                            <label alignment="right" verticalAlignment="bottom" text="No arrivals!" numberOfLines="0" id="TUz-4c-TyS">
                                                                 <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                                             </label>
                                                         </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
                                                 </items>
                                             </group>
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="groupRouteName" destination="uAA-5K-NaP" id="wGM-Pd-1TI"/>
                                         <outlet property="lblArrivalsSummary" destination="TUz-4c-TyS" id="fUz-PY-Hdb"/>
                                         <outlet property="lblRouteName" destination="LqC-gy-29P" id="Rhj-w9-GyG"/>
                                         <outlet property="lblStopName" destination="UTn-x4-vvB" id="bSr-Yj-ZCD"/>
@@ -59,7 +67,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-11"/>
+            <point key="canvasLocation" x="0.0" y="-11.76923076923077"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.47450980392156861" green="0.69411764705882351" blue="0.69803921568627447" alpha="1" colorSpace="calibratedRGB"/>
