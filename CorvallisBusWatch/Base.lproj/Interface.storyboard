@@ -54,6 +54,15 @@
                             </items>
                         </table>
                     </items>
+                    <menu key="menu" id="yvU-TW-aRB">
+                        <items>
+                            <menuItem title="Refresh" icon="resume" id="xnh-7I-2z8">
+                                <connections>
+                                    <action selector="btnRefresh" destination="AgC-eL-Hgc" id="d8i-lq-tVz"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="favoritesTable" destination="4Ro-05-R8j" id="MdI-mz-5hL"/>
                     </connections>
