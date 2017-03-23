@@ -13,6 +13,11 @@ import Foundation
 class FavoritesInterfaceController: WKInterfaceController {
 
     @IBOutlet var favoritesTable: WKInterfaceTable!
+    
+    @IBAction func mnubtnRefresh() {
+        print("HELP")
+    }
+    
     var favoriteStops: [FavoriteStopViewModel] = []
     
     override func awake(withContext context: Any?) {

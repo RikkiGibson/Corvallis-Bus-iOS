@@ -18,6 +18,11 @@ class FavoritesRowController: WKInterfaceController {
     @IBOutlet var lblRouteName: WKInterfaceLabel!
     
     @IBOutlet var lblArrivalsSummary: WKInterfaceLabel!
+    @IBOutlet var separatorColor: WKInterfaceSeparator!
+    
+    @IBAction func mnuRefresh() {
+        print("Refreshing!")
+    }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -40,6 +45,7 @@ class FavoritesRowController: WKInterfaceController {
         
         lblRouteName.setText(model.firstRouteName)
         groupRouteName.setBackgroundColor(model.firstRouteColor)
+        separatorColor.setColor(model.firstRouteColor)
         
         lblArrivalsSummary.setText(model.firstRouteArrivals)
     }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12117" systemVersion="16E192b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Corvallis Bus-->
@@ -57,16 +57,17 @@
                                         <outlet property="lblArrivalsSummary" destination="TUz-4c-TyS" id="fUz-PY-Hdb"/>
                                         <outlet property="lblRouteName" destination="LqC-gy-29P" id="Rhj-w9-GyG"/>
                                         <outlet property="lblStopName" destination="UTn-x4-vvB" id="bSr-Yj-ZCD"/>
+                                        <outlet property="separatorColor" destination="glb-mI-Ig7" id="nJy-lL-hGW"/>
                                     </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
-                    <menu key="menu" id="yvU-TW-aRB">
+                    <menu key="menu" id="Wbg-aB-HbD">
                         <items>
-                            <menuItem title="Refresh" icon="resume" id="xnh-7I-2z8">
+                            <menuItem title="Refresh" icon="resume" id="fuh-1J-Pdk">
                                 <connections>
-                                    <action selector="btnRefresh" destination="AgC-eL-Hgc" id="d8i-lq-tVz"/>
+                                    <action selector="mnuRefresh" destination="AgC-eL-Hgc" id="4tK-yX-vLq"/>
                                 </connections>
                             </menuItem>
                         </items>
