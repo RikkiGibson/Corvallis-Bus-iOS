@@ -22,6 +22,11 @@ class FavoritesInterfaceController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+    }
+
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
         favoriteStops = CorvallisBusFavoritesManager.cachedFavoriteStopsForWidget()
         favoritesTable.setNumberOfRows(favoriteStops.count, withRowType: "FavoritesRow")
         
@@ -38,19 +43,15 @@ class FavoritesInterfaceController: WKInterfaceController {
             .startOnMainThread(onStopsLoaded)
     }
 
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
-
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
-        // Simulator crashes when selecting a row. why?
-        print(favoriteStops[rowIndex].stopId)
+        let action = WKAlertAction(title: "OK", style: .default, handler: { })
+        
+        presentAlert(withTitle: favoriteStops[rowIndex].stopName, message: nil, preferredStyle: .alert, actions: [action])
     }
     
     func onStopsLoaded(failable:Failable<[FavoriteStopViewModel], BusError>) {
@@ -60,8 +61,7 @@ class FavoritesInterfaceController: WKInterfaceController {
         }
         favoriteStops = models
         
-        // can't set number of rows in here. why?
-        //favoritesTable.setNumberOfRows(favoriteStops.count, withRowType: "FavoritesRow")
+        favoritesTable.setNumberOfRows(favoriteStops.count, withRowType: "FavoritesRow")
         for i in 0..<favoritesTable.numberOfRows {
             guard let controller = favoritesTable.rowController(at: i) as? FavoritesRowController else { continue }
             controller.update(with: favoriteStops[i])
