@@ -129,6 +129,7 @@
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676E389C1122B9D4CE99EDE6 /* libPods-CorvallisBusTodayExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */; };
+		A60414FB1E8F2AE7001A3C6E /* StopInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */; };
 		A60B4BA61E70E651009D67B9 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60B4BA51E70E651009D67B9 /* ComplicationController.swift */; };
 		A68639851E67BD0000F17872 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68639831E67BD0000F17872 /* Interface.storyboard */; };
 		A68639871E67BD0000F17872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68639861E67BD0000F17872 /* Assets.xcassets */; };
@@ -352,6 +353,7 @@
 		7F9243A255C406BB650FB5BA /* Pods-CorvallisBusTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTodayExtension/Pods-CorvallisBusTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59B2719D2199C44CADDE856 /* Pods-CorvallisBusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTests/Pods-CorvallisBusTests.release.xcconfig"; sourceTree = "<group>"; };
+		A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopInterfaceController.swift; sourceTree = "<group>"; };
 		A60B4BA51E70E651009D67B9 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		A629462D1E713A9300796BE5 /* CorvallisBusWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorvallisBusWatch.entitlements; sourceTree = "<group>"; };
 		A629462E1E713A9B00796BE5 /* CorvallisBusWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CorvallisBusWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				A68639A61E67ED3500F17872 /* FavoritesInterfaceController.swift */,
 				A68639A81E67F35000F17872 /* FavoritesRowController.swift */,
 				A60B4BA51E70E651009D67B9 /* ComplicationController.swift */,
+				A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */,
 			);
 			path = "CorvallisBusWatch Extension";
 			sourceTree = "<group>";
@@ -1281,6 +1284,7 @@
 				A6D158E11E71012500CEA1D5 /* Promise.swift in Sources */,
 				A6D158E41E71020000CEA1D5 /* NSUserDefaultsExtensions.swift in Sources */,
 				A68639A91E67F35000F17872 /* FavoritesRowController.swift in Sources */,
+				A60414FB1E8F2AE7001A3C6E /* StopInterfaceController.swift in Sources */,
 				A68639A71E67ED3500F17872 /* FavoritesInterfaceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
