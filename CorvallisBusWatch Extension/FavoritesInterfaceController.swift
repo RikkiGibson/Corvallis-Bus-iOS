@@ -14,8 +14,10 @@ class FavoritesInterfaceController: WKInterfaceController {
 
     @IBOutlet var favoritesTable: WKInterfaceTable!
     
-    @IBAction func mnubtnRefresh() {
-        print("HELP")
+    @IBAction func mnuRefresh() {
+        let action = WKAlertAction(title: "OK", style: .default, handler: { })
+        
+        presentAlert(withTitle: "Refreshing...", message: nil, preferredStyle: .alert, actions: [action])
     }
     
     var favoriteStops: [FavoriteStopViewModel] = []

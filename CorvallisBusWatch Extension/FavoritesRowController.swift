@@ -17,11 +17,7 @@ class FavoritesRowController: NSObject {
     
     @IBOutlet var lblArrivalsSummary: WKInterfaceLabel!
     @IBOutlet var separatorColor: WKInterfaceSeparator!
-    
-    @IBAction func mnuRefresh() {
-        print("Refreshing!")
-    }
-    
+        
     func update(with model: FavoriteStopViewModel) {
         lblStopName.setText(model.stopName)
         
