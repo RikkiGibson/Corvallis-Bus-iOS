@@ -27,7 +27,9 @@ class FavoritesRowController: NSObject {
         groupRouteName.setBackgroundColor(model.firstRouteColor)
         separatorColor.setColor(model.firstRouteColor)
         
-        lblArrivalsSummary.setText(model.firstRouteArrivals)
+        let longTime = model.firstRouteArrivals
+        let shortTime = concatTime(time: longTime)
+        lblArrivalsSummary.setText(shortTime)
     }
     
     func concatStopName(stopName:String)->String {
@@ -36,13 +38,24 @@ class FavoritesRowController: NSObject {
         let replaceAbrvs = [" St"," Dr"," Ave"]
         
         for string in replaceDirs {
-            stopString = stopString.replacingOccurrences(of:string, with: "", options: .literal)
+            stopString = stopString.replacingOccurrences(of: string, with: "", options: .literal)
         }
         
         for string in replaceAbrvs {
-            stopString = stopString.replacingOccurrences(of:string, with: "", options: .literal)
+            stopString = stopString.replacingOccurrences(of: string, with: "", options: .literal)
         }
         
         return stopString
+    }
+    
+    func concatTime(time:String)->String {
+        var timeString = time
+        let replaceTimes = ["hours":"hrs","hour":"hr","minutes":"mins","minute":"min","seconds":"secs","second":"sec"," AM":""," PM":""]
+        
+        for (long,short) in replaceTimes {
+            timeString = timeString.replacingOccurrences(of: long, with: short, options: .literal)
+        }
+        
+        return timeString
     }
 }
