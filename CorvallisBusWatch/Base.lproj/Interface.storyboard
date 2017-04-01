@@ -26,7 +26,7 @@
                                                 <items>
                                                     <group width="1" height="32" alignment="left" spacing="4" id="NMd-fj-SJr">
                                                         <items>
-                                                            <label alignment="left" verticalAlignment="center" text="NW Witham Hill Dr &amp; NW Woodland Dr" numberOfLines="2" id="UTn-x4-vvB">
+                                                            <label alignment="left" verticalAlignment="center" text="NW Witham Hill Dr &amp; NW Woodland Dr" numberOfLines="0" id="UTn-x4-vvB">
                                                                 <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                                             </label>
                                                         </items>

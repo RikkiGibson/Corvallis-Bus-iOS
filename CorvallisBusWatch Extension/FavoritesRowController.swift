@@ -50,7 +50,7 @@ class FavoritesRowController: NSObject {
     
     func concatTime(time:String)->String {
         var timeString = time
-        let replaceTimes = ["hours":"hrs","hour":"hr","minutes":"mins","minute":"min","seconds":"secs","second":"sec"," AM":""," PM":""]
+        let replaceTimes = ["hours":"hrs","hour":"hr","minutes":"mins","minute":"min","seconds":"secs","second":"sec"," AM":""," PM":"", ", ":", \n"]
         
         for (long,short) in replaceTimes {
             timeString = timeString.replacingOccurrences(of: long, with: short, options: .literal)

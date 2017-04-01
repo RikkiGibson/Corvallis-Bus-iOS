@@ -130,6 +130,7 @@
 		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		676E389C1122B9D4CE99EDE6 /* libPods-CorvallisBusTodayExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */; };
 		A60414FB1E8F2AE7001A3C6E /* StopInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */; };
+		A60414FD1E8F3D7D001A3C6E /* StopRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60414FC1E8F3D7D001A3C6E /* StopRowController.swift */; };
 		A60B4BA61E70E651009D67B9 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60B4BA51E70E651009D67B9 /* ComplicationController.swift */; };
 		A68639851E67BD0000F17872 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68639831E67BD0000F17872 /* Interface.storyboard */; };
 		A68639871E67BD0000F17872 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68639861E67BD0000F17872 /* Assets.xcassets */; };
@@ -354,6 +355,7 @@
 		98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A59B2719D2199C44CADDE856 /* Pods-CorvallisBusTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CorvallisBusTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CorvallisBusTests/Pods-CorvallisBusTests.release.xcconfig"; sourceTree = "<group>"; };
 		A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopInterfaceController.swift; sourceTree = "<group>"; };
+		A60414FC1E8F3D7D001A3C6E /* StopRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopRowController.swift; sourceTree = "<group>"; };
 		A60B4BA51E70E651009D67B9 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		A629462D1E713A9300796BE5 /* CorvallisBusWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CorvallisBusWatch.entitlements; sourceTree = "<group>"; };
 		A629462E1E713A9B00796BE5 /* CorvallisBusWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CorvallisBusWatch Extension.entitlements"; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 				A68639A81E67F35000F17872 /* FavoritesRowController.swift */,
 				A60B4BA51E70E651009D67B9 /* ComplicationController.swift */,
 				A60414FA1E8F2AE7001A3C6E /* StopInterfaceController.swift */,
+				A60414FC1E8F3D7D001A3C6E /* StopRowController.swift */,
 			);
 			path = "CorvallisBusWatch Extension";
 			sourceTree = "<group>";
@@ -1275,6 +1278,7 @@
 				A6D158E21E7101EC00CEA1D5 /* NSURLSessionExtensions.swift in Sources */,
 				A6D158DE1E71011A00CEA1D5 /* Failable.swift in Sources */,
 				A6D158E51E71021A00CEA1D5 /* Utils.swift in Sources */,
+				A60414FD1E8F3D7D001A3C6E /* StopRowController.swift in Sources */,
 				A6D158DD1E71011600CEA1D5 /* FavoriteStopViewModel.swift in Sources */,
 				A68639951E67BD0000F17872 /* ExtensionDelegate.swift in Sources */,
 				A6D158DC1E71010B00CEA1D5 /* CorvallisBusFavoritesManager.swift in Sources */,
