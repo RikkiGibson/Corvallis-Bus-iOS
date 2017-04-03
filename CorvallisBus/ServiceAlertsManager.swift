@@ -62,15 +62,7 @@ final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
         items.append(item)
     }
     
-    func feedParserDidFinish(_ parser: MWFeedParser!) {
-        if self.items.isEmpty {
-            // TODO: use a placeholder view instead of this row
-            let item = MWFeedItem()
-            item.title = "No current service alerts!\nTap to view the service alerts website."
-            item.link = "https://www.corvallisoregon.gov/index.aspx?page=1105"
-            items.append(item)
-        }
-        
+    func feedParserDidFinish(_ parser: MWFeedParser!) {        
         let defaults = UserDefaults.groupUserDefaults()
         let seenIds = defaults.seenServiceAlertIds
         
