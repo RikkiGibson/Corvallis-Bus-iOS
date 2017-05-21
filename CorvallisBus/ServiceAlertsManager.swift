@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
     private let parser = MWFeedParser(feedURL: URL(string: "https://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current")!)

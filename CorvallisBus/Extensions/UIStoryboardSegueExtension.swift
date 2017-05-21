@@ -6,7 +6,7 @@
 //  Copyright © 2015 Rikki Gibson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UIStoryboardSegue {
     /// This wraps up the boilerplate around the fact that iOS 7 wants

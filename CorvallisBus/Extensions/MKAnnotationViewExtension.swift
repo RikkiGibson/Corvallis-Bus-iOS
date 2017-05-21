@@ -6,7 +6,8 @@
 //  Copyright © 2015 Rikki Gibson. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import MapKit
 
 let greenNeedleImage = UIImage(named: "green-needle")
 let greenNeedleHighlightedImage = UIImage(named: "green-needle-highlighted")
