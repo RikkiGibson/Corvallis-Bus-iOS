@@ -34,7 +34,6 @@ project.all_configurations.each do |configuration|
     configuration.settings["GCC_NO_COMMON_BLOCKS"] = "YES"
     configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "$(inherited)"
     configuration.settings["SWIFT_VERSION"] = "3.0"
-    configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBus/CorvallisBus-BridgingHeader.h"
 end
 
 def add_swiftlint(target)
@@ -59,7 +58,7 @@ application_for :ios, 8.0 do |target|
         configuration.supported_devices = :universal
         configuration.settings["PRODUCT_NAME"] = "$(TARGET_NAME)"
         configuration.settings["ENABLE_BITCODE"] = "YES"
-
+        configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBus/CorvallisBus-BridgingHeader.h"
         configuration.settings["ASSETCATALOG_COMPILER_APPICON_NAME"] = "AppIcon"
         configuration.settings["OTHER_LDFLAGS"] = "$(inherited) -ObjC"
     end
@@ -77,6 +76,7 @@ application_for :ios, 8.0 do |target|
         ext_target.name = "CorvallisBusTodayExtension"
         ext_target.include_files << "TodayExtension/**/*.*"
         ext_target.include_files << "Shared/**/*.*"
+        ext_target.include_files << "CorvallisBus/Images.xcassets"
         ext_target.exclude_files << "Shared/CorvallisBusManager.swift"
         ext_target.all_configurations.each do |configuration|
             configuration.product_bundle_identifier = "Rikki.CorvallisBus.CorvallisBusTodayExtension"
@@ -90,13 +90,36 @@ application_for :ios, 8.0 do |target|
         ext_target.system_frameworks = ["CoreLocation", "NotificationCenter"]
     end
 
-    target.linked_targets = [ext_target]
     target.copy_files_build_phase "Embed App Extensions" do |phase|
         phase.destination = :plug_ins
         phase.files = ["Products/CorvallisBusTodayExtension.appex"]
     end
 end
 
+application_for :osx, 10.12 do |target|
+    target.name = "CorvallisBusMac"
+    target.include_files << "Shared/**/*.*"
+    target.include_files << "CorvallisBus/BusStopAnnotation.swift"
+    target.include_files << "CorvallisBus/StopDetailViewModel.swift"
+    target.include_files << "CorvallisBus/BusMapViewModel.swift"
+    target.exclude_files << "Shared/Views/BusRouteLabel.swift"
+    target.exclude_files << "Shared/Views/FavoriteStopTableViewCell.swift"
+    target.all_configurations.each do |configuration|
+        configuration.product_bundle_identifier = "Rikki.CorvallisBusMac"
+        configuration.settings["INFOPLIST_FILE"] = "CorvallisBusMac/Info.plist"
+        configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h"
+    end
+
+    ## TODO: Add Mac Today Extension
+    ## This crashes when uncommented
+    # extension_for target do |ext_target|
+    # end
+
+end
+
 project.after_save do |project|
-    system("pod install")
+    system <<-SCRIPT
+cp .xcake/*.xcscheme CorvallisBus.xcodeproj/xcshareddata/xcschemes/
+pod install
+SCRIPT
 end
