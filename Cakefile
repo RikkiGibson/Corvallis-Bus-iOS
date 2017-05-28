@@ -72,7 +72,7 @@ application_for :ios, 8.0 do |target|
         end
     end
 
-    ext_target = extension_for target do |ext_target|
+    extension_for target do |ext_target|
         ext_target.name = "CorvallisBusTodayExtension"
         ext_target.include_files << "TodayExtension/**/*.*"
         ext_target.include_files << "Shared/**/*.*"
@@ -110,10 +110,24 @@ application_for :osx, 10.12 do |target|
         configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h"
     end
 
-    ## TODO: Add Mac Today Extension
-    ## This crashes when uncommented
-    # extension_for target do |ext_target|
-    # end
+    extension_for target do |ext_target|
+        ext_target.name = "TodayExtensionMac"
+        ext_target.include_files << "Shared/**/*.*"
+        ext_target.include_files << "CorvallisBus/BusStopAnnotation.swift"
+        ext_target.include_files << "CorvallisBus/StopDetailViewModel.swift"
+        ext_target.include_files << "CorvallisBus/BusMapViewModel.swift"
+        ext_target.exclude_files << "Shared/CorvallisBusManager.swift"
+        ext_target.exclude_files << "Shared/Views/BusRouteLabel.swift"
+        ext_target.exclude_files << "Shared/Views/FavoriteStopTableViewCell.swift"
+        ext_target.all_configurations.each do |configuration|
+            configuration.settings["INFOPLIST_FILE"] = "TodayExtensionMac/Info.plist"
+            configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h"
+            configuration.settings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks"
+            configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "YES"
+        end
+        ext_target.system_frameworks = ["AppKit"]
+
+    end
 
 end
 
