@@ -33,7 +33,8 @@ project.all_configurations.each do |configuration|
     configuration.settings["ENABLE_STRICT_OBJC_MSGSEND"] = "YES"
     configuration.settings["GCC_NO_COMMON_BLOCKS"] = "YES"
     configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "$(inherited)"
-    configuration.settings["SWIFT_VERSION"] = "3.0"
+    configuration.settings["SWIFT_VERSION"] = "4.0"
+    configuration.settings["SWIFT_SWIFT3_OBJC_INFERENCE"] = "On";
 end
 
 def add_swiftlint(target)
