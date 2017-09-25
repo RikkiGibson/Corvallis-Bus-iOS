@@ -163,7 +163,7 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
     }
     
     var lastTouchLocation: CGPoint?
-    func didTouch(_ sender: UITapGestureRecognizer) {
+    @objc func didTouch(_ sender: UITapGestureRecognizer) {
         lastTouchLocation = sender.location(in: self.view)
     }
 }

@@ -91,7 +91,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     /// The point of this daily reloading stuff is that when stops become active or inactive
     /// over the course of the year (especially when OSU terms start and end) the map will get reloaded.
     /// This is not the cleanest solution (relies on the manager getting new static data every day) but it gets the job done.
-    func reloadAnnotationsIfExpired() {
+    @objc func reloadAnnotationsIfExpired() {
         if !lastReloadedDate.isToday() {
             lastReloadedDate = Date()
             dataSource?.busStopAnnotations().startOnMainThread(populateMap)

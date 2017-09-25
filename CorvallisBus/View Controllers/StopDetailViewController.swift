@@ -44,7 +44,7 @@ final class StopDetailViewController : UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
-    func onOrientationChanged() {
+    @objc func onOrientationChanged() {
         // Simple workaround to get the label to show text at the right width
         // when the screen orientation goes from landscape to portrait.
         labelStopName.text = viewModel.stopName

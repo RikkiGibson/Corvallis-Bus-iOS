@@ -146,7 +146,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         }
     }
     
-    func reloadDetails() {
+    @objc func reloadDetails() {
         if let stopID = busMapViewController?.viewModel.selectedStopID {
             manager.stopDetailsViewModel(stopID).startOnMainThread(onReloadDetails)
         }
@@ -167,7 +167,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
     
     /// Clears the selected route from the map and arrival times from the
     /// stop details table if the promise took too long to resolve.
-    func clearSelectionIfDataUnavailable(_ timer: Timer) {
+    @objc func clearSelectionIfDataUnavailable(_ timer: Timer) {
         if let details = timer.userInfo as? Promise<[RouteDetailViewModel], BusError>, case .finished = details.state {
             // Just a placeholder because this is the easiest way to match the value
         } else {

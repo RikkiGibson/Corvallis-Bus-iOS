@@ -48,7 +48,7 @@ final class ServiceAlertsViewController: UITableViewController {
         self.reloadAlerts()
     }
     
-    func reloadAlerts() {
+    @objc func reloadAlerts() {
         self.refreshControl?.beginRefreshing()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -147,7 +147,8 @@ final class ServiceAlertsViewController: UITableViewController {
 
             self.updateBadgeValue()
         }
-        action.backgroundColor = UIColor(colorLiteralRed: 0, green: 122/255, blue: 255/255, alpha: 1)
+        
+        action.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         return [action]
     }
     

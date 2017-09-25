@@ -105,7 +105,7 @@ final class FavoritesTableViewController: UITableViewController {
         tabBarController!.selectedViewController = browseViewController.navigationController
     }
     
-    func updateFavorites() {
+    @objc func updateFavorites() {
         self.refreshControl?.beginRefreshing()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         

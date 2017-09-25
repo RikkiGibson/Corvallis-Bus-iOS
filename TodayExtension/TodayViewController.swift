@@ -129,7 +129,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(TodayViewController.clearTableIfUpdatePending), userInfo: nil, repeats: false)
     }
     
-    func clearTableIfUpdatePending() {
+    @objc func clearTableIfUpdatePending() {
         if !didCompleteUpdate {
             favoriteStops = .loading
             UserDefaults.groupUserDefaults().cachedFavoriteStops = []
