@@ -1,5 +1,14 @@
 # Corvallis Bus for iOS
-This is the iOS client for the [Corvallis Bus API](https://github.com/RikkiGibson/Corvallis-Bus-Server). It's freely available [on the App Store](http://appsto.re/us/iWJZ3.i). Compatible with iOS 7.0 and higher.
+This is the iOS client for the [Corvallis Bus API](https://github.com/RikkiGibson/Corvallis-Bus-Server). It's freely available [on the App Store](http://appsto.re/us/iWJZ3.i). Compatible with iOS 8.0 and higher.
+
+## Build
+Run the following commands:
+```
+gem install bundler # If you don't have bundler installed already
+bundler install # Installs Ruby-based dev dependencies
+bundler exec xcake make # Generates the Xcode project
+open CorvallisBus.xcworkspace
+```
 
 ## Overview
 #### Main app
