@@ -53,7 +53,7 @@ application_for :ios, 8.0 do |target|
 
     target.include_files << "Shared/**/*.*"
     target.all_configurations.each do |configuration|
-            configuration.settings["CODE_SIGN_ENTITLEMENTS"] = "CorvallisBus/CorvallisBus.entitlements"
+        configuration.settings["CODE_SIGN_ENTITLEMENTS"] = "CorvallisBus/CorvallisBus.entitlements"
         configuration.settings["INFOPLIST_FILE"] = "CorvallisBus/Info.plist"
         configuration.product_bundle_identifier = "Rikki.CorvallisBus"
         configuration.supported_devices = :universal
