@@ -1,35 +1,29 @@
-//
-//  ServiceAlert.swift
-//  CorvallisBus
-//
-//  Created by Rikki Gibson on 12/26/16.
-//  Copyright © 2016 Rikki Gibson. All rights reserved.
-//
-
 import Foundation
 
 struct ServiceAlert {
     var title: String
-    var description: String
-    var url: String
-    var identifier: String
-    var isRead: Bool
+    var publishDate: Date
+    var link: String
+    
+    /// Uniquely identifies the service alert.
+    /// Currently a concatenation of the link and publish date.
+    var id: String
 
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return formatter
     }()
     
-    static func fromMWFeedItem(feedItem: MWFeedItem, isRead: Bool) -> ServiceAlert {
-        let alert = ServiceAlert(
-            title: feedItem.title,
-            description: dateFormatter.string(from: feedItem.date),
-            url: feedItem.link,
-            identifier: feedItem.identifier,
-            isRead: isRead)
+    static func fromDictionary(_ data: [String : AnyObject]) -> ServiceAlert? {
+        guard let title = data["title"] as? String,
+            let link = data["link"] as? String,
+            let publishDateString = data["publishDate"] as? String,
+            let publishDate = dateFormatter.date(from: publishDateString) else {
+                
+            return nil
+        }
         
-        return alert
+        return ServiceAlert(title: title, publishDate: publishDate, link: link, id: link + " " + publishDateString)
     }
 }

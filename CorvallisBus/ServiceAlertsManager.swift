@@ -9,33 +9,27 @@
 import Foundation
 import MapKit
 
-final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
-    private let parser = MWFeedParser(feedURL: URL(string: "https://www.corvallisoregon.gov/Rss.aspx?type=5&cat=100,104,105,106,107,108,109,110,111,112,113,114,58,119&dept=12&paramtime=Current")!)
-    
-    private var items: [MWFeedItem] = []
-    private var callback: (Failable<[ServiceAlert], BusError>) -> Void = { items in }
-    
-    override init() {
-        super.init()
-        
-        parser?.delegate = self
-        parser?.feedParseType = ParseTypeItemsOnly
-        parser?.connectionType = ConnectionTypeAsynchronously
+final class ServiceAlertsManager {
+    func serviceAlerts() -> Promise<[ServiceAlertViewModel], BusError> {
+        return CorvallisBusAPIClient.serviceAlerts()
+            .map({ (alertsJSON: [[String: AnyObject]]) -> [ServiceAlertViewModel] in
+                return alertsJSON.flatMap({ ServiceAlert.fromDictionary($0) })
+                    .map({
+                        let defaults = UserDefaults.groupUserDefaults()
+                        let seenIds = defaults.seenServiceAlertIds
+                        
+                        return ServiceAlertViewModel.fromServiceAlert(serviceAlert: $0, isRead: seenIds.contains($0.id))
+                    })
+            })
     }
     
-    func serviceAlerts(_ callback: @escaping (Failable<[ServiceAlert], BusError>) -> Void) {
-        self.callback = callback
-        items = []
-        parser?.parse()
-    }
-    
-    func toggleRead(_ alert: ServiceAlert) -> ServiceAlert {
+    func toggleRead(_ alert: ServiceAlertViewModel) -> ServiceAlertViewModel {
         let defaults = UserDefaults.groupUserDefaults()
         var seenIdentifiers = defaults.seenServiceAlertIds
         if alert.isRead {
-            seenIdentifiers.remove(alert.identifier)
+            seenIdentifiers.remove(alert.id)
         } else {
-            seenIdentifiers.insert(alert.identifier)
+            seenIdentifiers.insert(alert.id)
         }
         
         defaults.seenServiceAlertIds = seenIdentifiers
@@ -44,36 +38,18 @@ final class ServiceAlertsManager : NSObject, MWFeedParserDelegate {
         return newAlert
     }
     
-    func markRead(_ alert: ServiceAlert) -> ServiceAlert {
+    func markRead(_ alert: ServiceAlertViewModel) -> ServiceAlertViewModel {
         if alert.isRead {
             return alert
         }
         
         let defaults = UserDefaults.groupUserDefaults()
         var seenIdentifiers = defaults.seenServiceAlertIds
-        seenIdentifiers.insert(alert.identifier)
+        seenIdentifiers.insert(alert.id)
         defaults.seenServiceAlertIds = seenIdentifiers
         
         var newAlert = alert
         newAlert.isRead = true
         return newAlert
-    }
-    
-    func feedParser(_ parser: MWFeedParser!, didParseFeedItem item: MWFeedItem!) {
-        items.append(item)
-    }
-    
-    func feedParserDidFinish(_ parser: MWFeedParser!) {        
-        let defaults = UserDefaults.groupUserDefaults()
-        let seenIds = defaults.seenServiceAlertIds
-        
-        let alerts = self.items.map({ item in
-            ServiceAlert.fromMWFeedItem(feedItem: item, isRead: seenIds.contains(item.identifier))
-        })
-        self.callback(.success(alerts))
-    }
-    
-    func feedParser(_ parser: MWFeedParser!, didFailWithError error: Error!) {
-        self.callback(.error(.message(error.localizedDescription)))
     }
 }

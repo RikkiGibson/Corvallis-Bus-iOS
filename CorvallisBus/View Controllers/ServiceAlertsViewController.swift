@@ -10,7 +10,7 @@ import UIKit
 
 final class ServiceAlertsViewController: UITableViewController {
     let manager = ServiceAlertsManager()
-    var alerts: Resource<[ServiceAlert], BusError> = .loading
+    var alerts: Resource<[ServiceAlertViewModel], BusError> = .loading
     
     lazy var placeholder: TableViewPlaceholder = {
         let view = Bundle.main.loadNibNamed(
@@ -36,7 +36,7 @@ final class ServiceAlertsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.placeholder.handler = { self.presentURL(URL(string: "https://www.corvallisoregon.gov/index.aspx?page=1105")!) }
+        self.placeholder.handler = { self.presentURL(URL(string: CorvallisBusAPIClient.BASE_URL + "/service-alerts/html")!) }
         self.errorPlaceholder.handler = self.reloadAlerts
         
         self.refreshControl = UIRefreshControl()
@@ -52,10 +52,10 @@ final class ServiceAlertsViewController: UITableViewController {
         self.refreshControl?.beginRefreshing()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        self.manager.serviceAlerts(onAlertsReloaded)
+        self.manager.serviceAlerts().startOnMainThread(onAlertsReloaded)
     }
     
-    func onAlertsReloaded(alerts: Failable<[ServiceAlert], BusError>) {
+    func onAlertsReloaded(alerts: Failable<[ServiceAlertViewModel], BusError>) {
         self.alerts = Resource.fromFailable(alerts)
         self.tableView.reloadData()
         
@@ -165,7 +165,7 @@ final class ServiceAlertsViewController: UITableViewController {
         newModels[indexPath.row] = self.manager.markRead(newModels[indexPath.row])
         self.alerts = .success(newModels)
         
-        let urlString = newModels[indexPath.row].url
+        let urlString = newModels[indexPath.row].link
         if let url = URL(string: urlString) {
             presentURL(url)
         } else {

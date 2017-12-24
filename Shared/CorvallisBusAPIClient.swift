@@ -42,4 +42,11 @@ final class CorvallisBusAPIClient {
         return session.downloadData(url)
             .map(JSONSerialization.parseJSONObject)
     }
+    
+    static func serviceAlerts() -> Promise<[[String : AnyObject]], BusError> {
+        let url = URL(string: BASE_URL + "/service-alerts")!
+        let session = URLSession.shared
+        return session.downloadData(url)
+            .map(JSONSerialization.parseJSONArray)
+    }
 }
