@@ -115,15 +115,6 @@ final class BusWebViewController: UIViewController, UIGestureRecognizerDelegate,
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
-        let javascript = "$(function() {" +
-            "$('#show-route-schedules').trigger('click');" +
-            "$('#stop-all').trigger('click');" +
-            "$('html, body').stop();" +
-            "$('html, body').animate({scrollTop: ($('#cts-schedules-top').offset().top)}, 0);" +
-        "});"
-        
-        self.webView.evaluateJavaScript(javascript, completionHandler: nil)
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
