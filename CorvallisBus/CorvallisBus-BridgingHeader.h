@@ -9,8 +9,6 @@
 #ifndef CorvallisBus_BridgingHeader_h
 #define CorvallisBus_BridgingHeader_h
 
-#include <MWFeedParser/MWFeedParser.h>
-#include <Flurry-iOS-SDK/Flurry.h>
 #include "MKPolyline+GMEncodedString.h"
 
 #endif
