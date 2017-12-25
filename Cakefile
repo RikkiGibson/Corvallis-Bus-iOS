@@ -62,6 +62,7 @@ application_for :ios, 8.0 do |target|
         configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "CorvallisBus/CorvallisBus-BridgingHeader.h"
         configuration.settings["ASSETCATALOG_COMPILER_APPICON_NAME"] = "AppIcon"
         configuration.settings["OTHER_LDFLAGS"] = "$(inherited) -ObjC"
+        configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "YES"
     end
 
     unit_tests_for target do |test_target|
@@ -85,7 +86,7 @@ application_for :ios, 8.0 do |target|
             configuration.settings["CODE_SIGN_ENTITLEMENTS"] = "TodayExtension/CorvallisBusTodayExtension.entitlements"
             configuration.settings["SWIFT_OBJC_BRIDGING_HEADER"] = "TodayExtension/TodayExtension-BridgingHeader.h"
             configuration.settings["LD_RUNPATH_SEARCH_PATHS"] = "$(inherited) @executable_path/Frameworks"
-            configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "YES"
+            configuration.settings["ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES"] = "NO"
         end
 
         ext_target.system_frameworks = ["CoreLocation", "NotificationCenter"]
