@@ -135,7 +135,7 @@ end
 
 project.after_save do |project|
     system <<-SCRIPT
-cp .xcake/*.xcscheme CorvallisBus.xcodeproj/xcshareddata/xcschemes/
+#cp .xcake/*.xcscheme CorvallisBus.xcodeproj/xcshareddata/xcschemes/
 pod install
 SCRIPT
 end
