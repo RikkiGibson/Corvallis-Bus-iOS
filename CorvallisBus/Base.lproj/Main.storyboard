@@ -348,14 +348,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKa-oo-gfD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="371"/>
                                 <connections>
                                     <segue destination="hkZ-NO-D3u" kind="embed" identifier="BusMapEmbed" id="af2-OZ-6UP"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-sg-FwP">
-                                <rect key="frame" x="0.0" y="367" width="600" height="184"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gko-sg-FwP">
+                                <rect key="frame" x="0.0" y="371" width="375" height="247"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="350" id="PPU-ew-h6w"/>
                                     <constraint firstAttribute="height" constant="340" id="lAN-7K-1Ch"/>
@@ -492,14 +492,14 @@
                         <viewControllerLayoutGuide type="bottom" id="Q2c-SB-vST"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dWY-TY-igF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="367"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="371"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" preservesSuperviewLayoutMargins="YES" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l15-9R-kx3">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-Uy-I1F" userLabel="Location Button">
-                                <rect key="frame" x="551" y="315" width="44" height="44"/>
+                                <rect key="frame" x="326" y="319" width="44" height="44"/>
                                 <color key="tintColor" red="0.42175692319869995" green="0.65070939064025879" blue="0.64643627405166626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="currentlocation" backgroundImage="currentlocation-background"/>
                                 <connections>
@@ -536,11 +536,11 @@
             <objects>
                 <tableViewController id="ha4-bl-X3Q" customClass="StopDetailViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0m1-Lq-rWn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="184"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="247"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Whg-cx-n84" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RHK-4Z-quy" userLabel="Stop Name">

@@ -31,7 +31,7 @@ struct BusStop : Equatable {
     }
     
     static func toCGFriendlyAngle(_ bearingDegrees: Double) -> Double {
-        return (bearingDegrees / 180.0 * M_PI + M_PI / 2.0).truncatingRemainder(dividingBy: (M_PI * 2.0));
+        return (bearingDegrees / 180.0 * .pi + .pi / 2.0).truncatingRemainder(dividingBy: (.pi * 2.0));
     }
 }
     

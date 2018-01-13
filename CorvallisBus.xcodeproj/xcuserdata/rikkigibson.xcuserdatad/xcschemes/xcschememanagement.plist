@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>CorvallisBusMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>TodayExtensionMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>5C4937CB19CFCB82009A2FB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C4937E219CFCB82009A2FB2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C7612671A09C75E001F9DBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5C7612711A09C75E001F9DBE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CA19B7A1D0C9BB800F32665</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CD551401D0DD3D80014B08C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CF192A719EF513100CB21EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CF192EF19EF52B500CB21EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CF192F919EF52B500CB21EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

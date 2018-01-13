@@ -26,7 +26,7 @@ func memoize<T, Key : Hashable, Value>(_ f: @escaping (T) -> Value, getHash: @es
 }
 
 func parseColor(_ obj: AnyObject?) -> Color? {
-    if let colorString = obj as? String, colorString.characters.count == 6 {
+    if let colorString = obj as? String, colorString.count == 6 {
         var colorHex: UInt32 = 0
         Scanner(string: colorString).scanHexInt32(&colorHex)
         return Color(red: CGFloat(colorHex >> 16 & 0xFF) / 255.0,

@@ -36,10 +36,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
 
-    func handleGetURLEvent(_ event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
+    @objc func handleGetURLEvent(_ event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
         if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
                let index = urlString.range(of: "?", options: .backwards)?.upperBound,
-               let stopID = Int(urlString.substring(from: index)) {
+               let stopID = Int(urlString[index...]) {
             // do something with the stop ID
             if let stopSelectionDelegate = AppDelegate.stopSelectionDelegate {
                 stopSelectionDelegate.onStopSelected(stopID: stopID)

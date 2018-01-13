@@ -14,8 +14,8 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
     
     // MARK: - NSViewController
 
-    override var nibName: String? {
-        return "TodayViewController"
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "TodayViewController")
     }
 
     override func viewDidLoad() {
@@ -58,7 +58,7 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
                                     .startOnMainThread { self.onUpdateFavorites($0, completionHandler: completionHandler) }
     }
 
-    func widgetMarginInsets(forProposedMarginInsets defaultMarginInset: EdgeInsets) -> EdgeInsets {
+    func widgetMarginInsets(forProposedMarginInsets defaultMarginInset: NSEdgeInsets) -> NSEdgeInsets {
         return NSEdgeInsetsZero
     }
 
@@ -71,7 +71,7 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         let viewController = ListRowViewController()
         
         let appearanceName = parent?.view.effectiveAppearance.name
-        viewController.hasDarkAppearance = appearanceName == NSAppearanceNameVibrantDark
+        viewController.hasDarkAppearance = appearanceName == NSAppearance.Name.vibrantDark
         
         return viewController
     }

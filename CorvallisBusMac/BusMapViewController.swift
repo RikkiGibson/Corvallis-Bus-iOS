@@ -64,7 +64,7 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
         }
     }
     
-    func onButtonClick(_ button: NSButton) {
+    @objc func onButtonClick(_ button: NSButton) {
         guard let selectedStop = selectedStop else {
             return
         }
@@ -91,8 +91,8 @@ class BusMapViewController: NSViewController, MKMapViewDelegate, StopSelectionDe
             annotationView.update(with: annotation, isSelected: false)
             
             let button = NSButton()
-            button.image = NSImage(named: "favorite")
-            button.alternateImage = NSImage(named: "favorite")
+            button.image = NSImage(named: NSImage.Name(rawValue: "favorite"))
+            button.alternateImage = NSImage(named: NSImage.Name(rawValue: "favorite"))
             button.bezelStyle = .regularSquare
             button.target = self
             button.action = #selector(BusMapViewController.onButtonClick)

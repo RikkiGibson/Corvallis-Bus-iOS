@@ -23,8 +23,8 @@ class ListRowViewController: NSViewController {
     @IBOutlet weak var imageNearestStop: NSImageView!
     @IBOutlet weak var labelDistanceFromUser: NSTextField!
     
-    override var nibName: String? {
-        return "ListRowViewController"
+    override var nibName: NSNib.Name? {
+        return NSNib.Name(rawValue: "ListRowViewController")
     }
 
     override func loadView() {
@@ -38,7 +38,7 @@ class ListRowViewController: NSViewController {
         labelSecondRouteName.layer!.cornerRadius = 5
         
         if hasDarkAppearance {
-            imageNearestStop.image = NSImage(named: "ListCurrentLocWhite")
+            imageNearestStop.image = NSImage(named: NSImage.Name(rawValue: "ListCurrentLocWhite"))
         }
     }
 
@@ -65,7 +65,7 @@ class ListRowViewController: NSViewController {
     override func mouseUp(with theEvent: NSEvent) {
         if let stopID = stopID,
                let url = URL(string: "CorvallisBus://?\(stopID)") {
-            NSWorkspace.shared().open(url)
+            NSWorkspace.shared.open(url)
         }
     }
 }

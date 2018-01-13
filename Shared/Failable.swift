@@ -51,7 +51,7 @@ enum Resource<T, E: Error> {
     }
 }
 
-func ??<T, E: Error>(resource: Resource<T, E>, replacementValue: T) -> T {
+func ??<T, E>(resource: Resource<T, E>, replacementValue: T) -> T {
     if case .success(let value) = resource {
         return value
     } else {
@@ -113,7 +113,7 @@ enum Failable<T, E: Error> {
     }
 }
 
-func ??<T, E: Error>(failable: Failable<T, E>, replacementValue: T) -> T {
+func ??<T, E>(failable: Failable<T, E>, replacementValue: T) -> T {
     if case .success(let value) = failable {
         return value
     } else {

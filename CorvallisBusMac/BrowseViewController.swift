@@ -22,7 +22,7 @@ class BrowseViewController: NSViewController {
             return
         }
         switch identifier {
-        case "BusMapEmbed":
+        case NSStoryboardSegue.Identifier(rawValue: "BusMapEmbed"):
             let destination = segue.destinationController as! BusMapViewController
             destination.dataSource = manager
         default:

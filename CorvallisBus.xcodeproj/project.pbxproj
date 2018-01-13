@@ -1,0 +1,1401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5C05F0461BADEA3E003AA215 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */; };
+		5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47C1A07048400F5928E /* AudioToolbox.framework */; };
+		5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B47E1A07048C00F5928E /* CFNetwork.framework */; };
+		5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4801A07049400F5928E /* CoreGraphics.framework */; };
+		5C07B4821A07049800F5928E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
+		5C07B4841A0704A800F5928E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4831A0704A800F5928E /* libz.dylib */; };
+		5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4851A0704B600F5928E /* MobileCoreServices.framework */; };
+		5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4871A0704BE00F5928E /* QuartzCore.framework */; };
+		5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B4891A0704C600F5928E /* Security.framework */; };
+		5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */; };
+		5C0BD1EA1E0F058A00923F20 /* ServiceAlertCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */; };
+		5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */; };
+		5C127865200AB0A700B808EF /* ServiceAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C127864200AB0A700B808EF /* ServiceAlertViewModel.swift */; };
+		5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
+		5C1FEA911B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
+		5C22F5031A26A3C500F791A6 /* ServiceAlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C22F5021A26A3C500F791A6 /* ServiceAlertsManager.swift */; };
+		5C2FC12F1B8AC2C600E909E1 /* BusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */; };
+		5C2FC1311B8AC78300E909E1 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */; };
+		5C3165001D19D3AE00AA9FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B811D0C9BB800F32665 /* Assets.xcassets */; };
+		5C36E08119F7293700024186 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C36E08019F7293700024186 /* CoreLocation.framework */; };
+		5C387D7D1D0CBD1500EE6AAA /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
+		5C387D7E1D0CC6E800EE6AAA /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
+		5C387D7F1D0CC6F000EE6AAA /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
+		5C387D811D0CC75800EE6AAA /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4251B86DC50000F3E6C /* Failable.swift */; };
+		5C387D821D0CC90300EE6AAA /* NSUserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */; };
+		5C387D831D0CC91500EE6AAA /* CorvallisBusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */; };
+		5C387D841D0CC92700EE6AAA /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
+		5C387D851D0CC92F00EE6AAA /* NSJSONSerializationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */; };
+		5C387D861D0CC94F00EE6AAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42B1B86DC50000F3E6C /* Utils.swift */; };
+		5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
+		5C3992F21A05B30B00AF52E4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
+		5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */; };
+		5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937D719CFCB82009A2FB2 /* Main.storyboard */; };
+		5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C4937DA19CFCB82009A2FB2 /* Images.xcassets */; };
+		5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */; };
+		5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */; };
+		5C8130F71B88EEF700A498AC /* CorvallisBusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */; };
+		5C8130FA1B88EFA100A498AC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
+		5C8130FB1B88EFA100A498AC /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
+		5C8130FD1B88FFCF00A498AC /* NSJSONSerializationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */; };
+		5C8130FE1B88FFCF00A498AC /* NSJSONSerializationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */; };
+		5C92BC781E11AF4B007990B7 /* ServiceAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92BC771E11AF4A007990B7 /* ServiceAlert.swift */; };
+		5C92BC7A1E11BCD2007990B7 /* TableViewPlaceholder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C92BC791E11BCD2007990B7 /* TableViewPlaceholder.xib */; };
+		5C92BC7C1E11BCFF007990B7 /* TableViewPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92BC7B1E11BCFF007990B7 /* TableViewPlaceholder.swift */; };
+		5CA19B7E1D0C9BB800F32665 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA19B7D1D0C9BB800F32665 /* AppDelegate.swift */; };
+		5CA19B821D0C9BB800F32665 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B811D0C9BB800F32665 /* Assets.xcassets */; };
+		5CA19B851D0C9BB800F32665 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA19B831D0C9BB800F32665 /* Main.storyboard */; };
+		5CA303811B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */; };
+		5CA303891B8AD7FC003E44ED /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303871B8AD7FC003E44ED /* BusRoute.swift */; };
+		5CA3038B1B8AD7FC003E44ED /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303881B8AD7FC003E44ED /* BusStop.swift */; };
+		5CA3038E1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */; };
+		5CA3038F1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */; };
+		5CA303911B8AE307003E44ED /* StopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */; };
+		5CA303931B8AEAD2003E44ED /* BusMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */; };
+		5CC81EC81B8A79800037A190 /* StopDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC81EC71B8A79800037A190 /* StopDetailViewController.swift */; };
+		5CCA12391B9B91A300701423 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */; };
+		5CD551421D0DD3D80014B08C /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
+		5CD551471D0DD3D80014B08C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD551461D0DD3D80014B08C /* TodayViewController.swift */; };
+		5CD551491D0DD3D80014B08C /* ListRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD551481D0DD3D80014B08C /* ListRowViewController.swift */; };
+		5CD5514C1D0DD3D80014B08C /* TodayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CD5514A1D0DD3D80014B08C /* TodayViewController.xib */; };
+		5CD5514F1D0DD3D80014B08C /* ListRowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CD5514D1D0DD3D80014B08C /* ListRowViewController.xib */; };
+		5CD551531D0DD3D80014B08C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5CD551511D0DD3D80014B08C /* InfoPlist.strings */; };
+		5CD551561D0DD3D80014B08C /* TodayExtensionMac.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CD551411D0DD3D80014B08C /* TodayExtensionMac.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5CD5515B1D0DD56B0014B08C /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
+		5CD5515C1D0DD59D0014B08C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42B1B86DC50000F3E6C /* Utils.swift */; };
+		5CD5515D1D0DD5B90014B08C /* CorvallisBusAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */; };
+		5CD5515E1D0DD5C40014B08C /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F91B88EFA100A498AC /* Promise.swift */; };
+		5CD5515F1D0DD5CA0014B08C /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4251B86DC50000F3E6C /* Failable.swift */; };
+		5CD551601D0DD5D40014B08C /* NSURLSessionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */; };
+		5CD551611D0DD5D70014B08C /* NSJSONSerializationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */; };
+		5CD551621D0DD5DA0014B08C /* NSUserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */; };
+		5CD551631D0DD6C00014B08C /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
+		5CD551661D0DF6EA0014B08C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CD551651D0DF6EA0014B08C /* MapKit.framework */; };
+		5CD551681D0DF7650014B08C /* BusMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD551671D0DF7650014B08C /* BusMapViewController.swift */; };
+		5CD551691D0DF7F20014B08C /* CorvallisBusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */; };
+		5CD5516A1D0DF8000014B08C /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303871B8AD7FC003E44ED /* BusRoute.swift */; };
+		5CD5516B1D0DF8460014B08C /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4231B86DC50000F3E6C /* MKPolyline+GMEncodedString.m */; };
+		5CD551721D0DF9540014B08C /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */; };
+		5CD551731D0DF9850014B08C /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303881B8AD7FC003E44ED /* BusStop.swift */; };
+		5CD551741D0DF98E0014B08C /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303881B8AD7FC003E44ED /* BusStop.swift */; };
+		5CD551751D0DF9910014B08C /* BusRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303871B8AD7FC003E44ED /* BusRoute.swift */; };
+		5CD551761D0DF9A70014B08C /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
+		5CD551771D0DF9BD0014B08C /* StopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */; };
+		5CD551781D0DF9D60014B08C /* BusMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */; };
+		5CD5517A1D0DFB500014B08C /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD551791D0DFB500014B08C /* BrowseViewController.swift */; };
+		5CD5517D1D0E037A0014B08C /* MKAnnotationViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD5517C1D0E037A0014B08C /* MKAnnotationViewExtension.swift */; };
+		5CD640091B8C323D0099BBDD /* BusStopAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */; };
+		5CD6400B1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
+		5CD6400C1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */; };
+		5CD8087C1B8C1875004E3121 /* MKAnnotationViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */; };
+		5CE40C7D1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
+		5CE40C7E1D18DDBA00257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
+		5CE40C7F1D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
+		5CE40C801D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
+		5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
+		5CECD3FC1B86DA3B000F3E6C /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */; };
+		5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */; };
+		5CECD3FE1B86DA3B000F3E6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */; };
+		5CECD3FF1B86DA3B000F3E6C /* ServiceAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */; };
+		5CECD4351B86DC50000F3E6C /* MKPolyline+GMEncodedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4231B86DC50000F3E6C /* MKPolyline+GMEncodedString.m */; };
+		5CECD4371B86DC50000F3E6C /* NSUserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */; };
+		5CECD4381B86DC50000F3E6C /* NSUserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */; };
+		5CECD4391B86DC50000F3E6C /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4251B86DC50000F3E6C /* Failable.swift */; };
+		5CECD43A1B86DC50000F3E6C /* Failable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4251B86DC50000F3E6C /* Failable.swift */; };
+		5CECD4411B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
+		5CECD4421B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */; };
+		5CECD4431B86DC50000F3E6C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42B1B86DC50000F3E6C /* Utils.swift */; };
+		5CECD4441B86DC50000F3E6C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42B1B86DC50000F3E6C /* Utils.swift */; };
+		5CECD4451B86DC50000F3E6C /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42D1B86DC50000F3E6C /* BusRouteLabel.swift */; };
+		5CECD4461B86DC50000F3E6C /* BusRouteLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42D1B86DC50000F3E6C /* BusRouteLabel.swift */; };
+		5CECD4471B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */; };
+		5CECD4481B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */; };
+		5CECD44C1B86DCA1000F3E6C /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD44A1B86DCA1000F3E6C /* CorvallisBusTests.swift */; };
+		5CECD4551B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */; };
+		5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */; };
+		5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */; };
+		5CECD45A1B86DCAA000F3E6C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */; };
+		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
+		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5C4937E419CFCB82009A2FB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5C4937CB19CFCB82009A2FB2;
+			remoteInfo = CorvallisBus;
+		};
+		5CD551541D0DD3D80014B08C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CD551401D0DD3D80014B08C;
+			remoteInfo = TodayExtensionMac;
+		};
+		5CF192B319EF513100CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192A719EF513100CB21EC;
+			remoteInfo = CorvallisBusTodayExtension;
+		};
+		5CF192B619EF513100CB21EC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C4937C419CFCB82009A2FB2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF192A719EF513100CB21EC;
+			remoteInfo = CorvallisBusTodayExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		5CD5515A1D0DD3D80014B08C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5CD551561D0DD3D80014B08C /* TodayExtensionMac.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192BB19EF513100CB21EC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF1930B19EF52B600CB21EC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		43C38EDE7C0640B9EE9BC804 /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C02311119E9C69900135B42 /* CorvallisBus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CorvallisBus.entitlements; sourceTree = "<group>"; };
+		5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		5C07B47C1A07048400F5928E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		5C07B47E1A07048C00F5928E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		5C07B4801A07049400F5928E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		5C07B4831A0704A800F5928E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		5C07B4851A0704B600F5928E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		5C07B4871A0704BE00F5928E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5C07B4891A0704C600F5928E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertCell.swift; sourceTree = "<group>"; };
+		5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerExtension.swift; sourceTree = "<group>"; };
+		5C127864200AB0A700B808EF /* ServiceAlertViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertViewModel.swift; sourceTree = "<group>"; };
+		5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionExtensions.swift; sourceTree = "<group>"; };
+		5C22F5021A26A3C500F791A6 /* ServiceAlertsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsManager.swift; sourceTree = "<group>"; };
+		5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewController.swift; sourceTree = "<group>"; };
+		5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		5C3165011D19E0CD00AA9FC0 /* Corvallis Bus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Corvallis Bus.entitlements"; sourceTree = "<group>"; };
+		5C36E08019F7293700024186 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStopAnnotation.swift; sourceTree = "<group>"; };
+		5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CorvallisBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C4937D019CFCB82009A2FB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5C4937D819CFCB82009A2FB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5C4937DA19CFCB82009A2FB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CorvallisBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRouteDetailCell.swift; sourceTree = "<group>"; };
+		5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BusRouteDetailCell.xib; sourceTree = "<group>"; };
+		5C51BE871E0D0808005B20AA /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libFlurry-iOS-SDK.a"; path = "../../Library/Developer/Xcode/DerivedData/CorvallisBus-bfjswdxkiuwgahdtklberawovcri/Build/Products/Debug-iphoneos/Flurry-iOS-SDK/libFlurry-iOS-SDK.a"; sourceTree = "<group>"; };
+		5C51BE891E0D080C005B20AA /* libMWFeedParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWFeedParser.a; path = "../../Library/Developer/Xcode/DerivedData/CorvallisBus-bfjswdxkiuwgahdtklberawovcri/Build/Products/Debug-iphoneos/MWFeedParser/libMWFeedParser.a"; sourceTree = "<group>"; };
+		5C68C68E1B86E5FC00A52EC3 /* TodayExtension-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TodayExtension-BridgingHeader.h"; sourceTree = "<group>"; };
+		5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBus-BridgingHeader.h"; sourceTree = "<group>"; };
+		5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusManager.swift; sourceTree = "<group>"; };
+		5C8130F91B88EFA100A498AC /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSJSONSerializationExtension.swift; sourceTree = "<group>"; };
+		5C92BC771E11AF4A007990B7 /* ServiceAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlert.swift; sourceTree = "<group>"; };
+		5C92BC791E11BCD2007990B7 /* TableViewPlaceholder.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewPlaceholder.xib; sourceTree = "<group>"; };
+		5C92BC7B1E11BCFF007990B7 /* TableViewPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewPlaceholder.swift; sourceTree = "<group>"; };
+		5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Corvallis Bus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CA19B7D1D0C9BB800F32665 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5CA19B811D0C9BB800F32665 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5CA19B841D0C9BB800F32665 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5CA19B861D0C9BB800F32665 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardSegueExtension.swift; sourceTree = "<group>"; };
+		5CA303871B8AD7FC003E44ED /* BusRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRoute.swift; sourceTree = "<group>"; };
+		5CA303881B8AD7FC003E44ED /* BusStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
+		5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusAPIClient.swift; sourceTree = "<group>"; };
+		5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewModel.swift; sourceTree = "<group>"; };
+		5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewModel.swift; sourceTree = "<group>"; };
+		5CC81EC71B8A79800037A190 /* StopDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopDetailViewController.swift; sourceTree = "<group>"; };
+		5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		5CD551411D0DD3D80014B08C /* TodayExtensionMac.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodayExtensionMac.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CD551451D0DD3D80014B08C /* TodayExtensionMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TodayExtensionMac.entitlements; sourceTree = "<group>"; };
+		5CD551461D0DD3D80014B08C /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5CD551481D0DD3D80014B08C /* ListRowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowViewController.swift; sourceTree = "<group>"; };
+		5CD5514B1D0DD3D80014B08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TodayViewController.xib; sourceTree = "<group>"; };
+		5CD5514E1D0DD3D80014B08C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ListRowViewController.xib; sourceTree = "<group>"; };
+		5CD551501D0DD3D80014B08C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CD551521D0DD3D80014B08C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5CD551651D0DF6EA0014B08C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		5CD551671D0DF7650014B08C /* BusMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusMapViewController.swift; sourceTree = "<group>"; };
+		5CD551711D0DF8FB0014B08C /* CorvallisBusMac-BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorvallisBusMac-BridgingHeader.h"; sourceTree = "<group>"; };
+		5CD551791D0DFB500014B08C /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		5CD5517C1D0E037A0014B08C /* MKAnnotationViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtension.swift; sourceTree = "<group>"; };
+		5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusFavoritesManager.swift; sourceTree = "<group>"; };
+		5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKAnnotationViewExtension.swift; sourceTree = "<group>"; };
+		5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromiseLocationManagerDelegate.swift; sourceTree = "<group>"; };
+		5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CorvallisBus.a"; path = "Pods/../build/Debug-iphoneos/libPods-CorvallisBus.a"; sourceTree = "<group>"; };
+		5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libFlurry-iOS-SDK.a"; path = "Pods/../build/Debug-iphoneos/libFlurry-iOS-SDK.a"; sourceTree = "<group>"; };
+		5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
+		5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
+		5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
+		5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsViewController.swift; sourceTree = "<group>"; };
+		5CECD41D1B86DC50000F3E6C /* Corvallis, OR.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Corvallis, OR.gpx"; sourceTree = "<group>"; };
+		5CECD4221B86DC50000F3E6C /* MKPolyline+GMEncodedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKPolyline+GMEncodedString.h"; sourceTree = "<group>"; };
+		5CECD4231B86DC50000F3E6C /* MKPolyline+GMEncodedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKPolyline+GMEncodedString.m"; sourceTree = "<group>"; };
+		5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaultsExtensions.swift; sourceTree = "<group>"; };
+		5CECD4251B86DC50000F3E6C /* Failable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Failable.swift; sourceTree = "<group>"; };
+		5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStopViewModel.swift; sourceTree = "<group>"; };
+		5CECD42B1B86DC50000F3E6C /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		5CECD42D1B86DC50000F3E6C /* BusRouteLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusRouteLabel.swift; sourceTree = "<group>"; };
+		5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteStopTableViewCell.swift; sourceTree = "<group>"; };
+		5CECD44A1B86DCA1000F3E6C /* CorvallisBusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CorvallisBusTests.swift; sourceTree = "<group>"; };
+		5CECD44B1B86DCA1000F3E6C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CorvallisBusTodayExtension.entitlements; sourceTree = "<group>"; };
+		5CECD4511B86DCAA000F3E6C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TodayTableViewCell.xib; sourceTree = "<group>"; };
+		5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTodayExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5C4937C919CFCB82009A2FB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C07B48E1A0704D200F5928E /* SystemConfiguration.framework in Frameworks */,
+				5C07B48A1A0704C600F5928E /* Security.framework in Frameworks */,
+				5C07B4881A0704BE00F5928E /* QuartzCore.framework in Frameworks */,
+				5C07B4861A0704B600F5928E /* MobileCoreServices.framework in Frameworks */,
+				5C07B4841A0704A800F5928E /* libz.dylib in Frameworks */,
+				5C07B4821A07049800F5928E /* CoreLocation.framework in Frameworks */,
+				5C07B4811A07049400F5928E /* CoreGraphics.framework in Frameworks */,
+				5C07B47F1A07048D00F5928E /* CFNetwork.framework in Frameworks */,
+				5C07B47D1A07048400F5928E /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4937E019CFCB82009A2FB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CA19B781D0C9BB800F32665 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD551661D0DF6EA0014B08C /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CD5513E1D0DD3D80014B08C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD551421D0DD3D80014B08C /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192A519EF513100CB21EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C36E08119F7293700024186 /* CoreLocation.framework in Frameworks */,
+				5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5C4937C319CFCB82009A2FB2 = {
+			isa = PBXGroup;
+			children = (
+				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
+				5CECD41C1B86DC50000F3E6C /* Shared */,
+				5CECD44E1B86DCAA000F3E6C /* TodayExtension */,
+				5CECD4491B86DCA1000F3E6C /* Tests */,
+				5CA19B7C1D0C9BB800F32665 /* CorvallisBusMac */,
+				5CD551431D0DD3D80014B08C /* TodayExtensionMac */,
+				5CF192A919EF513100CB21EC /* Frameworks */,
+				5C4937CD19CFCB82009A2FB2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5C4937CD19CFCB82009A2FB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */,
+				5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */,
+				5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */,
+				5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */,
+				5CD551411D0DD3D80014B08C /* TodayExtensionMac.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5C4937CE19CFCB82009A2FB2 /* CorvallisBus */ = {
+			isa = PBXGroup;
+			children = (
+				5C127864200AB0A700B808EF /* ServiceAlertViewModel.swift */,
+				5C92BC7B1E11BCFF007990B7 /* TableViewPlaceholder.swift */,
+				5C92BC791E11BCD2007990B7 /* TableViewPlaceholder.xib */,
+				5CA3037F1B8ACCB0003E44ED /* Extensions */,
+				5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */,
+				5C02311119E9C69900135B42 /* CorvallisBus.entitlements */,
+				5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */,
+				5C4937D719CFCB82009A2FB2 /* Main.storyboard */,
+				5C4937DA19CFCB82009A2FB2 /* Images.xcassets */,
+				5CECD3F61B86DA3B000F3E6C /* View Controllers */,
+				5C4937CF19CFCB82009A2FB2 /* Supporting Files */,
+				5C3992E41A04534000AF52E4 /* BusStopAnnotation.swift */,
+				5C7612611A096E0D001F9DBE /* CorvallisBus-BridgingHeader.h */,
+				5C22F5021A26A3C500F791A6 /* ServiceAlertsManager.swift */,
+				5C4A08071A2E49FE0007B608 /* BusRouteDetailCell.swift */,
+				5C4A08081A2E49FE0007B608 /* BusRouteDetailCell.xib */,
+				5CA303901B8AE307003E44ED /* StopDetailViewModel.swift */,
+				5CA303921B8AEAD2003E44ED /* BusMapViewModel.swift */,
+				5C0BD1E91E0F058A00923F20 /* ServiceAlertCell.swift */,
+				5C92BC771E11AF4A007990B7 /* ServiceAlert.swift */,
+			);
+			path = CorvallisBus;
+			sourceTree = "<group>";
+		};
+		5C4937CF19CFCB82009A2FB2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5C4937D019CFCB82009A2FB2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CA19B7C1D0C9BB800F32665 /* CorvallisBusMac */ = {
+			isa = PBXGroup;
+			children = (
+				5C3165011D19E0CD00AA9FC0 /* Corvallis Bus.entitlements */,
+				5CD551791D0DFB500014B08C /* BrowseViewController.swift */,
+				5CD551711D0DF8FB0014B08C /* CorvallisBusMac-BridgingHeader.h */,
+				5CA19B7D1D0C9BB800F32665 /* AppDelegate.swift */,
+				5CA19B811D0C9BB800F32665 /* Assets.xcassets */,
+				5CA19B831D0C9BB800F32665 /* Main.storyboard */,
+				5CA19B861D0C9BB800F32665 /* Info.plist */,
+				5CD551671D0DF7650014B08C /* BusMapViewController.swift */,
+				5CD5517C1D0E037A0014B08C /* MKAnnotationViewExtension.swift */,
+			);
+			path = CorvallisBusMac;
+			sourceTree = "<group>";
+		};
+		5CA3037F1B8ACCB0003E44ED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5CA303801B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift */,
+				5CD8087B1B8C1875004E3121 /* MKAnnotationViewExtension.swift */,
+				5C0D127E1B92BAD000CDAD2E /* UITabBarControllerExtension.swift */,
+				5CCA12381B9B91A300701423 /* UIViewControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5CD551431D0DD3D80014B08C /* TodayExtensionMac */ = {
+			isa = PBXGroup;
+			children = (
+				5CD551461D0DD3D80014B08C /* TodayViewController.swift */,
+				5CD551481D0DD3D80014B08C /* ListRowViewController.swift */,
+				5CD5514A1D0DD3D80014B08C /* TodayViewController.xib */,
+				5CD5514D1D0DD3D80014B08C /* ListRowViewController.xib */,
+				5CD551501D0DD3D80014B08C /* Info.plist */,
+				5CD551511D0DD3D80014B08C /* InfoPlist.strings */,
+				5CD551441D0DD3D80014B08C /* Supporting Files */,
+			);
+			path = TodayExtensionMac;
+			sourceTree = "<group>";
+		};
+		5CD551441D0DD3D80014B08C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5CD551451D0DD3D80014B08C /* TodayExtensionMac.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5CECD3F61B86DA3B000F3E6C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */,
+				5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */,
+				5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */,
+				5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */,
+				5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */,
+				5CC81EC71B8A79800037A190 /* StopDetailViewController.swift */,
+				5C2FC12E1B8AC2C600E909E1 /* BusMapViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5CECD41C1B86DC50000F3E6C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */,
+				5CA3038D1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift */,
+				5CECD41D1B86DC50000F3E6C /* Corvallis, OR.gpx */,
+				5CECD4211B86DC50000F3E6C /* Extensions */,
+				5CECD4251B86DC50000F3E6C /* Failable.swift */,
+				5CECD4261B86DC50000F3E6C /* Models */,
+				5CECD42B1B86DC50000F3E6C /* Utils.swift */,
+				5CECD42C1B86DC50000F3E6C /* Views */,
+				5C8130F61B88EEF700A498AC /* CorvallisBusManager.swift */,
+				5C8130F91B88EFA100A498AC /* Promise.swift */,
+				5CD6400A1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		5CECD4211B86DC50000F3E6C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5CECD4221B86DC50000F3E6C /* MKPolyline+GMEncodedString.h */,
+				5CECD4231B86DC50000F3E6C /* MKPolyline+GMEncodedString.m */,
+				5CECD4241B86DC50000F3E6C /* NSUserDefaultsExtensions.swift */,
+				5C1FEA8F1B87983D00B781CE /* NSURLSessionExtensions.swift */,
+				5C8130FC1B88FFCF00A498AC /* NSJSONSerializationExtension.swift */,
+				5C05F0451BADEA3E003AA215 /* NSDateExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5CECD4261B86DC50000F3E6C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5CA303871B8AD7FC003E44ED /* BusRoute.swift */,
+				5CA303881B8AD7FC003E44ED /* BusStop.swift */,
+				5CECD42A1B86DC50000F3E6C /* FavoriteStopViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5CECD42C1B86DC50000F3E6C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5CECD42D1B86DC50000F3E6C /* BusRouteLabel.swift */,
+				5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5CECD4491B86DCA1000F3E6C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				5CECD44A1B86DCA1000F3E6C /* CorvallisBusTests.swift */,
+				5CECD44B1B86DCA1000F3E6C /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		5CECD44E1B86DCAA000F3E6C /* TodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				5C68C68E1B86E5FC00A52EC3 /* TodayExtension-BridgingHeader.h */,
+				5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */,
+				5CECD4511B86DCAA000F3E6C /* Info.plist */,
+				5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */,
+				5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */,
+				5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */,
+			);
+			path = TodayExtension;
+			sourceTree = "<group>";
+		};
+		5CF192A919EF513100CB21EC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5C51BE891E0D080C005B20AA /* libMWFeedParser.a */,
+				5C51BE871E0D0808005B20AA /* libFlurry-iOS-SDK.a */,
+				5CD551651D0DF6EA0014B08C /* MapKit.framework */,
+				5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */,
+				5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */,
+				5C07B48D1A0704D200F5928E /* SystemConfiguration.framework */,
+				5C07B4891A0704C600F5928E /* Security.framework */,
+				5C07B4871A0704BE00F5928E /* QuartzCore.framework */,
+				5C07B4851A0704B600F5928E /* MobileCoreServices.framework */,
+				5C07B4831A0704A800F5928E /* libz.dylib */,
+				5C07B4801A07049400F5928E /* CoreGraphics.framework */,
+				5C07B47E1A07048C00F5928E /* CFNetwork.framework */,
+				5C07B47C1A07048400F5928E /* AudioToolbox.framework */,
+				5C36E08019F7293700024186 /* CoreLocation.framework */,
+				5CF192AA19EF513100CB21EC /* NotificationCenter.framework */,
+				43C38EDE7C0640B9EE9BC804 /* libPods-CorvallisBus.a */,
+				98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */,
+				BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5C4937CB19CFCB82009A2FB2 /* CorvallisBus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C4937ED19CFCB82009A2FB2 /* Build configuration list for PBXNativeTarget "CorvallisBus" */;
+			buildPhases = (
+				5C4937C819CFCB82009A2FB2 /* Sources */,
+				5C4937C919CFCB82009A2FB2 /* Frameworks */,
+				5C4937CA19CFCB82009A2FB2 /* Resources */,
+				5CF192BB19EF513100CB21EC /* Embed App Extensions */,
+				5CF1930B19EF52B600CB21EC /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CF192B419EF513100CB21EC /* PBXTargetDependency */,
+				5CF192B719EF513100CB21EC /* PBXTargetDependency */,
+			);
+			name = CorvallisBus;
+			productName = CorvallisBus;
+			productReference = 5C4937CC19CFCB82009A2FB2 /* CorvallisBus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5C4937E219CFCB82009A2FB2 /* CorvallisBusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C4937F019CFCB82009A2FB2 /* Build configuration list for PBXNativeTarget "CorvallisBusTests" */;
+			buildPhases = (
+				5C4937DF19CFCB82009A2FB2 /* Sources */,
+				5C4937E019CFCB82009A2FB2 /* Frameworks */,
+				5C4937E119CFCB82009A2FB2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C4937E519CFCB82009A2FB2 /* PBXTargetDependency */,
+			);
+			name = CorvallisBusTests;
+			productName = CorvallisBusTests;
+			productReference = 5C4937E319CFCB82009A2FB2 /* CorvallisBusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5CA19B7A1D0C9BB800F32665 /* CorvallisBusMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CA19B891D0C9BB800F32665 /* Build configuration list for PBXNativeTarget "CorvallisBusMac" */;
+			buildPhases = (
+				5CA19B771D0C9BB800F32665 /* Sources */,
+				5CA19B781D0C9BB800F32665 /* Frameworks */,
+				5CA19B791D0C9BB800F32665 /* Resources */,
+				5CD5515A1D0DD3D80014B08C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5CD551551D0DD3D80014B08C /* PBXTargetDependency */,
+			);
+			name = CorvallisBusMac;
+			productName = CorvallisBusMac;
+			productReference = 5CA19B7B1D0C9BB800F32665 /* Corvallis Bus.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5CD551401D0DD3D80014B08C /* TodayExtensionMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CD551591D0DD3D80014B08C /* Build configuration list for PBXNativeTarget "TodayExtensionMac" */;
+			buildPhases = (
+				5CD5513D1D0DD3D80014B08C /* Sources */,
+				5CD5513E1D0DD3D80014B08C /* Frameworks */,
+				5CD5513F1D0DD3D80014B08C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TodayExtensionMac;
+			productName = TodayExtensionMac;
+			productReference = 5CD551411D0DD3D80014B08C /* TodayExtensionMac.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CF192B819EF513100CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusTodayExtension" */;
+			buildPhases = (
+				5CF192A419EF513100CB21EC /* Sources */,
+				5CF192A519EF513100CB21EC /* Frameworks */,
+				5CF192A619EF513100CB21EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CorvallisBusTodayExtension;
+			productName = CorvallisBusTodayExtension;
+			productReference = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5C4937C419CFCB82009A2FB2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Rikki Gibson";
+				TargetAttributes = {
+					5C4937CB19CFCB82009A2FB2 = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0820;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
+					};
+					5C4937E219CFCB82009A2FB2 = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0820;
+						TestTargetID = 5C4937CB19CFCB82009A2FB2;
+					};
+					5CA19B7A1D0C9BB800F32665 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
+					};
+					5CD551401D0DD3D80014B08C = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0920;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
+					};
+					5CF192A719EF513100CB21EC = {
+						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = 6M3YNUD5R9;
+						LastSwiftMigration = 0820;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 5C4937C719CFCB82009A2FB2 /* Build configuration list for PBXProject "CorvallisBus" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5C4937C319CFCB82009A2FB2;
+			productRefGroup = 5C4937CD19CFCB82009A2FB2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5C4937CB19CFCB82009A2FB2 /* CorvallisBus */,
+				5C4937E219CFCB82009A2FB2 /* CorvallisBusTests */,
+				5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */,
+				5CA19B7A1D0C9BB800F32665 /* CorvallisBusMac */,
+				5CD551401D0DD3D80014B08C /* TodayExtensionMac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5C4937CA19CFCB82009A2FB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
+				5C92BC7A1E11BCD2007990B7 /* TableViewPlaceholder.xib in Resources */,
+				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
+				5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */,
+				5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4937E119CFCB82009A2FB2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CA19B791D0C9BB800F32665 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CA19B821D0C9BB800F32665 /* Assets.xcassets in Resources */,
+				5CA19B851D0C9BB800F32665 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CD5513F1D0DD3D80014B08C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD5514C1D0DD3D80014B08C /* TodayViewController.xib in Resources */,
+				5CD551531D0DD3D80014B08C /* InfoPlist.strings in Resources */,
+				5C3165001D19D3AE00AA9FC0 /* Assets.xcassets in Resources */,
+				5CD5514F1D0DD3D80014B08C /* ListRowViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192A619EF513100CB21EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */,
+				5C3992F21A05B30B00AF52E4 /* Images.xcassets in Resources */,
+				5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */,
+				5CECD4551B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5C4937C819CFCB82009A2FB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CC81EC81B8A79800037A190 /* StopDetailViewController.swift in Sources */,
+				5C1FEA901B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */,
+				5C05F0461BADEA3E003AA215 /* NSDateExtensions.swift in Sources */,
+				5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */,
+				5CCA12391B9B91A300701423 /* UIViewControllerExtension.swift in Sources */,
+				5CECD4351B86DC50000F3E6C /* MKPolyline+GMEncodedString.m in Sources */,
+				5C92BC781E11AF4B007990B7 /* ServiceAlert.swift in Sources */,
+				5C127865200AB0A700B808EF /* ServiceAlertViewModel.swift in Sources */,
+				5CECD4411B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */,
+				5CECD4471B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */,
+				5C8130F71B88EEF700A498AC /* CorvallisBusManager.swift in Sources */,
+				5CA3038E1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift in Sources */,
+				5C4A08091A2E49FE0007B608 /* BusRouteDetailCell.swift in Sources */,
+				5CE40C7D1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift in Sources */,
+				5C22F5031A26A3C500F791A6 /* ServiceAlertsManager.swift in Sources */,
+				5C3992E51A04534000AF52E4 /* BusStopAnnotation.swift in Sources */,
+				5C0D127F1B92BAD000CDAD2E /* UITabBarControllerExtension.swift in Sources */,
+				5C8130FD1B88FFCF00A498AC /* NSJSONSerializationExtension.swift in Sources */,
+				5CECD4391B86DC50000F3E6C /* Failable.swift in Sources */,
+				5C2FC1311B8AC78300E909E1 /* BrowseViewController.swift in Sources */,
+				5CA303891B8AD7FC003E44ED /* BusRoute.swift in Sources */,
+				5CECD3FF1B86DA3B000F3E6C /* ServiceAlertsViewController.swift in Sources */,
+				5CECD3FE1B86DA3B000F3E6C /* PreferencesViewController.swift in Sources */,
+				5C0BD1EA1E0F058A00923F20 /* ServiceAlertCell.swift in Sources */,
+				5CECD4371B86DC50000F3E6C /* NSUserDefaultsExtensions.swift in Sources */,
+				5CD6400B1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */,
+				5CA303931B8AEAD2003E44ED /* BusMapViewModel.swift in Sources */,
+				5CA303811B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift in Sources */,
+				5CA303911B8AE307003E44ED /* StopDetailViewModel.swift in Sources */,
+				5CECD3FC1B86DA3B000F3E6C /* BusWebViewController.swift in Sources */,
+				5CECD4431B86DC50000F3E6C /* Utils.swift in Sources */,
+				5C92BC7C1E11BCFF007990B7 /* TableViewPlaceholder.swift in Sources */,
+				5C2FC12F1B8AC2C600E909E1 /* BusMapViewController.swift in Sources */,
+				5CD8087C1B8C1875004E3121 /* MKAnnotationViewExtension.swift in Sources */,
+				5CA3038B1B8AD7FC003E44ED /* BusStop.swift in Sources */,
+				5C4937D219CFCB82009A2FB2 /* AppDelegate.swift in Sources */,
+				5CECD4451B86DC50000F3E6C /* BusRouteLabel.swift in Sources */,
+				5C8130FA1B88EFA100A498AC /* Promise.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C4937DF19CFCB82009A2FB2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CECD44C1B86DCA1000F3E6C /* CorvallisBusTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CA19B771D0C9BB800F32665 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD551731D0DF9850014B08C /* BusStop.swift in Sources */,
+				5C387D831D0CC91500EE6AAA /* CorvallisBusAPIClient.swift in Sources */,
+				5CD5516A1D0DF8000014B08C /* BusRoute.swift in Sources */,
+				5C387D841D0CC92700EE6AAA /* NSURLSessionExtensions.swift in Sources */,
+				5C387D7D1D0CBD1500EE6AAA /* FavoriteStopViewModel.swift in Sources */,
+				5CD5517D1D0E037A0014B08C /* MKAnnotationViewExtension.swift in Sources */,
+				5C387D821D0CC90300EE6AAA /* NSUserDefaultsExtensions.swift in Sources */,
+				5C387D811D0CC75800EE6AAA /* Failable.swift in Sources */,
+				5C387D861D0CC94F00EE6AAA /* Utils.swift in Sources */,
+				5CD551691D0DF7F20014B08C /* CorvallisBusManager.swift in Sources */,
+				5CD551721D0DF9540014B08C /* NSDateExtensions.swift in Sources */,
+				5CE40C7F1D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */,
+				5CD551771D0DF9BD0014B08C /* StopDetailViewModel.swift in Sources */,
+				5CA19B7E1D0C9BB800F32665 /* AppDelegate.swift in Sources */,
+				5C387D7E1D0CC6E800EE6AAA /* CorvallisBusFavoritesManager.swift in Sources */,
+				5CD5517A1D0DFB500014B08C /* BrowseViewController.swift in Sources */,
+				5CD551781D0DF9D60014B08C /* BusMapViewModel.swift in Sources */,
+				5C387D7F1D0CC6F000EE6AAA /* Promise.swift in Sources */,
+				5CD5516B1D0DF8460014B08C /* MKPolyline+GMEncodedString.m in Sources */,
+				5CD551761D0DF9A70014B08C /* BusStopAnnotation.swift in Sources */,
+				5C387D851D0CC92F00EE6AAA /* NSJSONSerializationExtension.swift in Sources */,
+				5CD551681D0DF7650014B08C /* BusMapViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CD5513D1D0DD3D80014B08C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD5515F1D0DD5CA0014B08C /* Failable.swift in Sources */,
+				5CE40C801D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */,
+				5CD5515B1D0DD56B0014B08C /* FavoriteStopViewModel.swift in Sources */,
+				5CD5515D1D0DD5B90014B08C /* CorvallisBusAPIClient.swift in Sources */,
+				5CD551631D0DD6C00014B08C /* CorvallisBusFavoritesManager.swift in Sources */,
+				5CD551471D0DD3D80014B08C /* TodayViewController.swift in Sources */,
+				5CD551611D0DD5D70014B08C /* NSJSONSerializationExtension.swift in Sources */,
+				5CD551621D0DD5DA0014B08C /* NSUserDefaultsExtensions.swift in Sources */,
+				5CD551491D0DD3D80014B08C /* ListRowViewController.swift in Sources */,
+				5CD5515C1D0DD59D0014B08C /* Utils.swift in Sources */,
+				5CD5515E1D0DD5C40014B08C /* Promise.swift in Sources */,
+				5CD551601D0DD5D40014B08C /* NSURLSessionExtensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5CF192A419EF513100CB21EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CD551741D0DF98E0014B08C /* BusStop.swift in Sources */,
+				5CECD4421B86DC50000F3E6C /* FavoriteStopViewModel.swift in Sources */,
+				5CD551751D0DF9910014B08C /* BusRoute.swift in Sources */,
+				5C1FEA911B87983D00B781CE /* NSURLSessionExtensions.swift in Sources */,
+				5C8130FB1B88EFA100A498AC /* Promise.swift in Sources */,
+				5CECD4381B86DC50000F3E6C /* NSUserDefaultsExtensions.swift in Sources */,
+				5CECD43A1B86DC50000F3E6C /* Failable.swift in Sources */,
+				5CECD4481B86DC50000F3E6C /* FavoriteStopTableViewCell.swift in Sources */,
+				5CD6400C1B8C326C0099BBDD /* CorvallisBusFavoritesManager.swift in Sources */,
+				5CA3038F1B8ADA8A003E44ED /* CorvallisBusAPIClient.swift in Sources */,
+				5CECD45A1B86DCAA000F3E6C /* TodayViewController.swift in Sources */,
+				5CECD4441B86DC50000F3E6C /* Utils.swift in Sources */,
+				5CD640091B8C323D0099BBDD /* BusStopAnnotation.swift in Sources */,
+				5CE40C7E1D18DDBA00257E6A /* PromiseLocationManagerDelegate.swift in Sources */,
+				5CECD4461B86DC50000F3E6C /* BusRouteLabel.swift in Sources */,
+				5C8130FE1B88FFCF00A498AC /* NSJSONSerializationExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5C4937E519CFCB82009A2FB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5C4937CB19CFCB82009A2FB2 /* CorvallisBus */;
+			targetProxy = 5C4937E419CFCB82009A2FB2 /* PBXContainerItemProxy */;
+		};
+		5CD551551D0DD3D80014B08C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CD551401D0DD3D80014B08C /* TodayExtensionMac */;
+			targetProxy = 5CD551541D0DD3D80014B08C /* PBXContainerItemProxy */;
+		};
+		5CF192B419EF513100CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */;
+			targetProxy = 5CF192B319EF513100CB21EC /* PBXContainerItemProxy */;
+		};
+		5CF192B719EF513100CB21EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF192A719EF513100CB21EC /* CorvallisBusTodayExtension */;
+			targetProxy = 5CF192B619EF513100CB21EC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5C4937D719CFCB82009A2FB2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5C4937D819CFCB82009A2FB2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5CA19B831D0C9BB800F32665 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CA19B841D0C9BB800F32665 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5CD5514A1D0DD3D80014B08C /* TodayViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CD5514B1D0DD3D80014B08C /* Base */,
+			);
+			name = TodayViewController.xib;
+			sourceTree = "<group>";
+		};
+		5CD5514D1D0DD3D80014B08C /* ListRowViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CD5514E1D0DD3D80014B08C /* Base */,
+			);
+			name = ListRowViewController.xib;
+			sourceTree = "<group>";
+		};
+		5CD551511D0DD3D80014B08C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5CD551521D0DD3D80014B08C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5C4937EB19CFCB82009A2FB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		5C4937EC19CFCB82009A2FB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5C4937EE19CFCB82009A2FB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = CorvallisBus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5C4937EF19CFCB82009A2FB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = CorvallisBus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_DISABLE_SAFETY_CHECKS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5C4937F119CFCB82009A2FB2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
+			};
+			name = Debug;
+		};
+		5C4937F219CFCB82009A2FB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
+			};
+			name = Release;
+		};
+		5CA19B871D0C9BB800F32665 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_ENTITLEMENTS = "CorvallisBusMac/Corvallis Bus.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
+				PRODUCT_NAME = "Corvallis Bus";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		5CA19B881D0C9BB800F32665 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_ENTITLEMENTS = "CorvallisBusMac/Corvallis Bus.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = CorvallisBusMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac;
+				PRODUCT_NAME = "Corvallis Bus";
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBusMac/CorvallisBusMac-BridgingHeader.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		5CD551571D0DD3D80014B08C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayExtensionMac/TodayExtensionMac.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		5CD551581D0DD3D80014B08C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayExtensionMac/TodayExtensionMac.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6M3YNUD5R9;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = TodayExtensionMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = Rikki.CorvallisBusMac.TodayExtensionMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		5CF192B919EF513100CB21EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayExtension/CorvallisBusTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = TodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5CF192BA19EF513100CB21EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TodayExtension/CorvallisBusTodayExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = TodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.CorvallisBus.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5C4937C719CFCB82009A2FB2 /* Build configuration list for PBXProject "CorvallisBus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4937EB19CFCB82009A2FB2 /* Debug */,
+				5C4937EC19CFCB82009A2FB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C4937ED19CFCB82009A2FB2 /* Build configuration list for PBXNativeTarget "CorvallisBus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4937EE19CFCB82009A2FB2 /* Debug */,
+				5C4937EF19CFCB82009A2FB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C4937F019CFCB82009A2FB2 /* Build configuration list for PBXNativeTarget "CorvallisBusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C4937F119CFCB82009A2FB2 /* Debug */,
+				5C4937F219CFCB82009A2FB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CA19B891D0C9BB800F32665 /* Build configuration list for PBXNativeTarget "CorvallisBusMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CA19B871D0C9BB800F32665 /* Debug */,
+				5CA19B881D0C9BB800F32665 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CD551591D0DD3D80014B08C /* Build configuration list for PBXNativeTarget "TodayExtensionMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CD551571D0DD3D80014B08C /* Debug */,
+				5CD551581D0DD3D80014B08C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5CF192B819EF513100CB21EC /* Build configuration list for PBXNativeTarget "CorvallisBusTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CF192B919EF513100CB21EC /* Debug */,
+				5CF192BA19EF513100CB21EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5C4937C419CFCB82009A2FB2 /* Project object */;
+}

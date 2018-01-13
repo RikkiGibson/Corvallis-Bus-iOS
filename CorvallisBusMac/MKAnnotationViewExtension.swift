@@ -9,14 +9,14 @@
 import Foundation
 import MapKit
 
-let greenOvalImage = NSImage(named: "greenoval")
-let greenOvalHighlightedImage = NSImage(named: "greenoval-highlighted")
-let greenOvalDeemphasizedImage = NSImage(named: "greenoval-deemphasized")
-let goldOvalImage = NSImage(named: "goldoval")
-let goldOvalHighlightedImage = NSImage(named: "goldoval-highlighted")
-let goldOvalDeemphasizedImage = NSImage(named: "goldoval-deemphasized")
+let greenOvalImage = NSImage(named: NSImage.Name(rawValue: "greenoval"))
+let greenOvalHighlightedImage = NSImage(named: NSImage.Name(rawValue: "greenoval-highlighted"))
+let greenOvalDeemphasizedImage = NSImage(named: NSImage.Name(rawValue: "greenoval-deemphasized"))
+let goldOvalImage = NSImage(named: NSImage.Name(rawValue: "goldoval"))
+let goldOvalHighlightedImage = NSImage(named: NSImage.Name(rawValue: "goldoval-highlighted"))
+let goldOvalDeemphasizedImage = NSImage(named: NSImage.Name(rawValue: "goldoval-deemphasized"))
 
-let arrowImage = NSImage(named: "ListCurrentLoc")
+let arrowImage = NSImage(named: NSImage.Name(rawValue: "ListCurrentLoc"))
 
 extension MKAnnotationView {
     func update(with busStopAnnotation: BusStopAnnotation, isSelected: Bool) {
