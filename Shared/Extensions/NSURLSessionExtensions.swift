@@ -9,7 +9,7 @@
 import Foundation
 
 extension URLSession {
-    func downloadData(_ url: URL) -> Promise<Data, BusError> {
+    func downloadData(_ request: URLRequest) -> Promise<Data, BusError> {
         let sanitizeAPI = { (data: Data?, response: URLResponse?, error: NSError?) -> Failable<Data, BusError> in
             if let error = error {
                 return .error(BusError.fromNSError(error))
@@ -19,7 +19,7 @@ extension URLSession {
         }
         
         return Promise { (completionHandler: @escaping (Failable<Data, BusError>) -> Void) in
-            self.dataTask(with: url, completionHandler: {
+            self.dataTask(with: request, completionHandler: {
                 let failable = sanitizeAPI($0, $1, $2 as NSError?)
                 completionHandler(failable)
             }).resume()

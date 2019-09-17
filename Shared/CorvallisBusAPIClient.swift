@@ -16,16 +16,19 @@ final class CorvallisBusAPIClient {
         let stopsString = stopIds.map{ String($0) }.joined(separator: ",")
         let locationString = location == nil ? "" : "\(location!.latitude),\(location!.longitude)"
         let url = URL(string: BASE_URL + "/favorites?stops=\(stopsString)&location=\(locationString)")!
+        let request = URLRequest(url: url)
         
         let session = URLSession.shared
-        return session.downloadData(url)
+        return session.downloadData(request)
             .map(JSONSerialization.parseJSONArray)
     }
     
     static func staticData() -> Promise<[String : AnyObject], BusError> {
         let url = URL(string: BASE_URL + "/static")!
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
+
         let session = URLSession.shared
-        return session.downloadData(url)
+        return session.downloadData(request)
             .map(JSONSerialization.parseJSONObject)
     }
     
@@ -37,14 +40,14 @@ final class CorvallisBusAPIClient {
         }
         
         let joinedStops = stopIds.map{ String($0) }.joined(separator: ",")
-        let url = URL(string: "\(BASE_URL)/arrivals-summary/\(joinedStops)")!
+        let request = URLRequest(url: URL(string: "\(BASE_URL)/arrivals-summary/\(joinedStops)")!)
         let session = URLSession.shared
-        return session.downloadData(url)
+        return session.downloadData(request)
             .map(JSONSerialization.parseJSONObject)
     }
     
     static func serviceAlerts() -> Promise<[[String : AnyObject]], BusError> {
-        let url = URL(string: BASE_URL + "/service-alerts")!
+        let url = URLRequest(url: URL(string: BASE_URL + "/service-alerts")!)
         let session = URLSession.shared
         return session.downloadData(url)
             .map(JSONSerialization.parseJSONArray)
