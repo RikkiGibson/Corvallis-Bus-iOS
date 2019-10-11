@@ -13,7 +13,7 @@ final class ServiceAlertsManager {
     func serviceAlerts() -> Promise<[ServiceAlertViewModel], BusError> {
         return CorvallisBusAPIClient.serviceAlerts()
             .map({ (alertsJSON: [[String: AnyObject]]) -> [ServiceAlertViewModel] in
-                return alertsJSON.flatMap({ ServiceAlert.fromDictionary($0) })
+                return alertsJSON.compactMap({ ServiceAlert.fromDictionary($0) })
                     .map({
                         let defaults = UserDefaults.groupUserDefaults()
                         let seenIds = defaults.seenServiceAlertIds

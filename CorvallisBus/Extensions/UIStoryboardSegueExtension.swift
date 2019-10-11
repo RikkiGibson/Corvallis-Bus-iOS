@@ -15,6 +15,6 @@ extension UIStoryboardSegue {
         if let contentViewController = destination as? T {
             return contentViewController
         }
-        return destination.childViewControllers.first{ $0 is T } as? T
+        return destination.children.first{ $0 is T } as? T
     }
 }

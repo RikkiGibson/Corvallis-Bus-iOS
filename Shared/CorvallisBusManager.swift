@@ -79,7 +79,7 @@ class CorvallisBusManager : BusMapViewControllerDataSource {
         return self.staticData().map { (staticData: BusStaticData) in
             CorvallisBusAPIClient.arrivalsSummary([stopID]).map({ (arrivalsJson: [String: AnyObject]) -> Failable<[RouteDetailViewModel], BusError> in
                 guard let stopArrivalsJson = arrivalsJson[String(stopID)] as? [[String: AnyObject]] else { return .error(.nonNotify) }
-                return .success(stopArrivalsJson.flatMap({ parseArrivalsSummary($0, routes: staticData.routes) }))
+                return .success(stopArrivalsJson.compactMap({ parseArrivalsSummary($0, routes: staticData.routes) }))
             })
         }
     }

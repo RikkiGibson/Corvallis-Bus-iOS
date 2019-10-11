@@ -674,7 +674,7 @@
 					5C4937CB19CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1110;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -690,7 +690,7 @@
 					5C4937E219CFCB82009A2FB2 = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1110;
 						TestTargetID = 5C4937CB19CFCB82009A2FB2;
 					};
 					5CA19B7A1D0C9BB800F32665 = {
@@ -718,7 +718,7 @@
 					5CF192A719EF513100CB21EC = {
 						CreatedOnToolsVersion = 6.0.1;
 						DevelopmentTeam = 6M3YNUD5R9;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1110;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1121,7 +1121,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1151,7 +1151,7 @@
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "CorvallisBus/CorvallisBus-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1175,7 +1175,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Debug;
@@ -1195,7 +1195,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Rikki.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CorvallisBus.app/CorvallisBus";
 			};
 			name = Release;
@@ -1314,7 +1314,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1334,7 +1334,7 @@
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayExtension/TodayExtension-BridgingHeader.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

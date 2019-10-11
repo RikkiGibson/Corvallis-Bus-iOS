@@ -41,7 +41,7 @@ final class StopDetailViewController : UITableViewController {
         updateStopDetails(.success(StopDetailViewModel.empty()))
         errorPlaceholder.handler = { self.delegate?.reloadDetails() }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StopDetailViewController.onOrientationChanged), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     @objc func onOrientationChanged() {
@@ -75,7 +75,7 @@ final class StopDetailViewController : UITableViewController {
             if case .success(let routeDetails) = failable, !routeDetails.isEmpty {
                 let indexToSelect = didSelectDifferentStop
                     ? IndexPath(row: 0, section: 0)
-                    : IndexPath(row: routeDetails.index{ $0.routeName == selectedRouteName } ?? 0, section: 0)
+                    : IndexPath(row: routeDetails.firstIndex{ $0.routeName == selectedRouteName } ?? 0, section: 0)
                 self.tableView.selectRow(at: indexToSelect, animated: true, scrollPosition: .none)
                 self.tableView(self.tableView, didSelectRowAt: indexToSelect)
             }

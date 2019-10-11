@@ -18,7 +18,7 @@ protocol BusMapViewControllerDataSource : class {
 }
 
 let CORVALLIS_LOCATION = CLLocation(latitude: 44.56802, longitude: -123.27926)
-let DEFAULT_SPAN = MKCoordinateSpanMake(0.01, 0.01)
+let DEFAULT_SPAN = MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01)
 class BusMapViewController : UIViewController, MKMapViewDelegate {
     let locationManagerDelegate = PromiseLocationManagerDelegate()
     
@@ -55,7 +55,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(BusMapViewController.reloadAnnotationsIfExpired),
-            name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            name: UIApplication.didBecomeActiveNotification, object: nil)
         
         reloadTimer = Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(BusMapViewController.reloadAnnotationsIfExpired), userInfo: nil, repeats: true)
         
@@ -141,7 +141,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
     func clearDisplayedRoute() {
         
         if let polyline = viewModel.selectedRoute?.polyline {
-            mapView.remove(polyline)
+            mapView.removeOverlay(polyline)
         }
         
         for annotation in viewModel.stops.values {
@@ -160,7 +160,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
         }
         
         if let polyline = viewModel.selectedRoute?.polyline {
-            mapView.remove(polyline)
+            mapView.removeOverlay(polyline)
         }
         
         viewModel.selectedRoute = route
@@ -170,7 +170,7 @@ class BusMapViewController : UIViewController, MKMapViewDelegate {
                 view.updateWithBusStopAnnotation(annotation, isSelected: viewModel.selectedStopID == annotation.stop.id, animated: false)
             }
         }
-        mapView.add(route.polyline)
+        mapView.addOverlay(route.polyline)
     }
     
     // MARK: MKMapViewDelegate

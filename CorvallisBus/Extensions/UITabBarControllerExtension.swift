@@ -15,13 +15,13 @@ extension UITabBarController {
         // so it really doesn't seem like a meaningful reduction in effort.
         selectedIndex = 1
         return (selectedViewController as? BrowseViewController ??
-            selectedViewController?.childViewControllers.last as? BrowseViewController)!
+            selectedViewController?.children.last as? BrowseViewController)!
     }
     
     func childViewController<T: UIViewController>() -> T? {
-        for childViewController in childViewControllers {
+        for childViewController in children {
             if let childViewController = childViewController as? T ??
-                childViewController.childViewControllers.first({ $0 is T }) as? T {
+                childViewController.children.first({ $0 is T }) as? T {
                     return childViewController
             }
         }

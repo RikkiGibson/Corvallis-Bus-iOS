@@ -23,7 +23,7 @@ extension UIViewController {
         guard let destination = storyboard?.instantiateViewController(withIdentifier: "WebNavigation") as? UINavigationController else {
             fatalError("Tried to present URL while not attached to a storyboard with a view controller with identifier WebNavigation")
         }
-        let webVC = destination.childViewControllers.first as! BusWebViewController
+        let webVC = destination.children.first as! BusWebViewController
         webVC.initialURL = url
         webVC.alwaysShowNavigationBar = true
         

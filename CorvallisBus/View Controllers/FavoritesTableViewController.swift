@@ -50,7 +50,7 @@ final class FavoritesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(FavoritesTableViewController.updateFavorites),
-            name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            name: UIApplication.didBecomeActiveNotification, object: nil)
         
         timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(FavoritesTableViewController.updateFavorites),
             userInfo: nil, repeats: true)
@@ -173,7 +173,7 @@ final class FavoritesTableViewController: UITableViewController {
         return !selectedStop.isNearestStop
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard case .success(let models) = self.favoriteStops else {
             fatalError("Table view asked for cell when no models were present")
         }

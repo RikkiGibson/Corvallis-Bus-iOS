@@ -29,7 +29,7 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(BrowseViewController.reloadDetails),
-            name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            name: UIApplication.didBecomeActiveNotification, object: nil)
         
         timer = Timer.scheduledTimer(timeInterval: 30, target: self,
             selector: #selector(BrowseViewController.reloadDetails), userInfo: nil, repeats: true)
