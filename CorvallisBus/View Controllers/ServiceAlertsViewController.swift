@@ -35,7 +35,7 @@ final class ServiceAlertsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.placeholder.handler = { self.presentURL(URL(string: CorvallisBusAPIClient.BASE_URL + "/service-alerts/html")!) }
         self.errorPlaceholder.handler = self.reloadAlerts
         
@@ -171,5 +171,7 @@ final class ServiceAlertsViewController: UITableViewController {
         } else {
             presentError("Unable to open URL: \(urlString)")
         }
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
