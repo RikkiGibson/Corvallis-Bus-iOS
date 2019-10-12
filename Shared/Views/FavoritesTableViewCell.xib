@@ -87,7 +87,6 @@
                     <constraint firstItem="OSN-ne-QB4" firstAttribute="centerY" secondItem="USb-rY-NGf" secondAttribute="centerY" id="zqJ-lo-OrL"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="labelDistance" destination="kEd-bl-rad" id="N8w-kj-WqK"/>
                 <outlet property="labelFirstArrival" destination="WfJ-zS-xtJ" id="jlq-2c-7sf"/>

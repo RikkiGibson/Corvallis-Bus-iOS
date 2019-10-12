@@ -32,6 +32,8 @@ final class FavoriteStopTableViewCell: UITableViewCell {
         // Ideally, we would check the background color, but for now checking OS version will have to do.
         if #available(iOS 13.0, *) {
             labelStopName.textColor = UIColor.label
+            labelFirstRoute.textColor = UIColor.white
+            labelSecondRoute.textColor = UIColor.white
             labelFirstArrival.textColor = UIColor.label
             labelSecondArrival.textColor = UIColor.label
             labelDistance.textColor = UIColor.secondaryLabel
