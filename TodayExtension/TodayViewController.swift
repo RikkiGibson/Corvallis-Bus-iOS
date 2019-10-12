@@ -30,8 +30,8 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib(nibName: "TodayTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "TodayTableViewCell")
-
+        self.tableView.register(UINib(nibName: "FavoritesTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "FavoritesTableViewCell")
+        self.tableView.backgroundColor = .clear
         self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 66, bottom: 0, right: 8)
     }
     
@@ -73,7 +73,7 @@ final class TodayViewController: UITableViewController, NCWidgetProviding {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodayTableViewCell") as! FavoriteStopTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesTableViewCell") as! FavoriteStopTableViewCell
         
         cell.update(viewModel(for: indexPath.row))
         

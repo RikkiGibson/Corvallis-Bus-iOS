@@ -23,23 +23,27 @@ final class FavoriteStopTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        labelFirstRoute.backgroundColor = UIColor.lightGray
-        labelFirstRoute.layer.cornerRadius = 5
+        labelFirstRoute.layer.cornerRadius = 6
         labelFirstRoute.clipsToBounds = true
         
-        labelSecondRoute.backgroundColor = UIColor.clear
-        labelSecondRoute.layer.cornerRadius = 5
+        labelSecondRoute.layer.cornerRadius = 6
         labelSecondRoute.clipsToBounds = true
         
         // Ideally, we would check the background color, but for now checking OS version will have to do.
-        if #available(iOSApplicationExtension 10.0, *) {
-            if Bundle.main.bundlePath.hasSuffix(".appex") {
-                labelStopName.textColor = UIColor.black
-                labelFirstArrival.textColor = UIColor.black
-                labelSecondArrival.textColor = UIColor.black
-                labelDistance.textColor = UIColor.darkGray
-                locationImage.image = UIImage(named: "ListCurrentLoc")
-            }
+        if #available(iOS 13.0, *) {
+            labelStopName.textColor = UIColor.label
+            labelFirstArrival.textColor = UIColor.label
+            labelSecondArrival.textColor = UIColor.label
+            labelDistance.textColor = UIColor.secondaryLabel
+        }
+        else if #available(iOSApplicationExtension 10.0, *) {
+            labelStopName.textColor = UIColor.black
+            labelFirstArrival.textColor = UIColor.black
+            labelSecondArrival.textColor = UIColor.black
+            labelDistance.textColor = UIColor.darkGray
+        } else {
+            // iOS 9. Test this
+            locationImage.image = UIImage(named: "ListCurrentLocWhite")
         }
     }
     

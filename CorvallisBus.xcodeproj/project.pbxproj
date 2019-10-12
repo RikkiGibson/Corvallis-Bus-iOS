@@ -122,10 +122,10 @@
 		5CECD44C1B86DCA1000F3E6C /* CorvallisBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD44A1B86DCA1000F3E6C /* CorvallisBusTests.swift */; };
 		5CECD4551B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */; };
 		5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */; };
-		5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */; };
 		5CECD45A1B86DCAA000F3E6C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */; };
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D338E2C023518D2D0017380B /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -284,7 +284,6 @@
 		5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = CorvallisBusTodayExtension.entitlements; sourceTree = "<group>"; };
 		5CECD4511B86DCAA000F3E6C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TodayTableViewCell.xib; sourceTree = "<group>"; };
 		5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CorvallisBusTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -377,7 +376,6 @@
 				5C92BC7B1E11BCFF007990B7 /* TableViewPlaceholder.swift */,
 				5C92BC791E11BCD2007990B7 /* TableViewPlaceholder.xib */,
 				5CA3037F1B8ACCB0003E44ED /* Extensions */,
-				5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */,
 				5C02311119E9C69900135B42 /* CorvallisBus.entitlements */,
 				5C4937D119CFCB82009A2FB2 /* AppDelegate.swift */,
 				5C4937D719CFCB82009A2FB2 /* Main.storyboard */,
@@ -512,6 +510,7 @@
 		5CECD42C1B86DC50000F3E6C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */,
 				5CECD42D1B86DC50000F3E6C /* BusRouteLabel.swift */,
 				5CECD42E1B86DC50000F3E6C /* FavoriteStopTableViewCell.swift */,
 			);
@@ -534,7 +533,6 @@
 				5CECD44F1B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements */,
 				5CECD4511B86DCAA000F3E6C /* Info.plist */,
 				5CECD4521B86DCAA000F3E6C /* MainInterface.storyboard */,
-				5CECD4531B86DCAA000F3E6C /* TodayTableViewCell.xib */,
 				5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */,
 			);
 			path = TodayExtension;
@@ -795,8 +793,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CECD4581B86DCAA000F3E6C /* MainInterface.storyboard in Resources */,
+				D338E2C023518D2D0017380B /* FavoritesTableViewCell.xib in Resources */,
 				5C3992F21A05B30B00AF52E4 /* Images.xcassets in Resources */,
-				5CECD4591B86DCAA000F3E6C /* TodayTableViewCell.xib in Resources */,
 				5CECD4551B86DCAA000F3E6C /* CorvallisBusTodayExtension.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
