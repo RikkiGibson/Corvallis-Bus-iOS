@@ -173,5 +173,6 @@ final class ServiceAlertsViewController: UITableViewController {
         }
 
         tableView.deselectRow(at: indexPath, animated: true)
+        self.reloadAlerts()
     }
 }
