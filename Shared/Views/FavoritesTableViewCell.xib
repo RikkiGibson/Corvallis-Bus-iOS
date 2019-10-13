@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NW Monroe Ave &amp; SW 9th St" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCe-Tz-Tsi">
-                        <rect key="frame" x="11" y="3" width="309" height="21"/>
+                        <rect key="frame" x="16" y="3" width="304" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -26,19 +26,19 @@
                         <rect key="frame" x="287" y="32" width="15" height="15"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="2.3 miles" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEd-bl-rad">
-                        <rect key="frame" x="264" y="50.5" width="48" height="14"/>
+                        <rect key="frame" x="256" y="50.5" width="48" height="14"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:30 PM, then 10:30 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="USb-rY-NGf">
-                        <rect key="frame" x="71" y="46.5" width="193" height="18"/>
+                        <rect key="frame" x="76" y="46.5" width="180" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOSW" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OSN-ne-QB4" customClass="BusRouteLabel" customModule="CorvallisBus" customModuleProvider="target">
-                        <rect key="frame" x="11" y="46.5" width="54" height="18"/>
+                        <rect key="frame" x="16" y="46.5" width="54" height="18"/>
                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="ikN-aH-ooF"/>
@@ -49,13 +49,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 minutes, then 6:30 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WfJ-zS-xtJ">
-                        <rect key="frame" x="71" y="25" width="216" height="18"/>
+                        <rect key="frame" x="76" y="25" width="211" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ykj-eq-1KK" customClass="BusRouteLabel" customModule="CorvallisBus" customModuleProvider="target">
-                        <rect key="frame" x="11" y="25" width="54" height="18"/>
+                        <rect key="frame" x="16" y="25" width="54" height="18"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="54" id="ei4-OX-Toe"/>
@@ -70,8 +70,8 @@
                     <constraint firstItem="WfJ-zS-xtJ" firstAttribute="leading" secondItem="Ykj-eq-1KK" secondAttribute="trailing" constant="6" id="3QW-gl-ToM"/>
                     <constraint firstItem="Ykj-eq-1KK" firstAttribute="top" secondItem="lCe-Tz-Tsi" secondAttribute="bottom" constant="1" id="5QE-sC-FTO"/>
                     <constraint firstItem="OSN-ne-QB4" firstAttribute="top" secondItem="Ykj-eq-1KK" secondAttribute="bottom" constant="3.5" id="9mK-Hq-1Ps"/>
-                    <constraint firstAttribute="trailing" secondItem="kEd-bl-rad" secondAttribute="trailing" constant="8" id="Awf-u9-SuX"/>
-                    <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="Kmo-me-aJ5" secondAttribute="leading" constant="11" id="KEE-mx-nZo"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kEd-bl-rad" secondAttribute="trailing" id="Awf-u9-SuX"/>
+                    <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="Kmo-me-aJ5" secondAttribute="leadingMargin" id="KEE-mx-nZo"/>
                     <constraint firstItem="SNg-Q2-Vm4" firstAttribute="leading" secondItem="WfJ-zS-xtJ" secondAttribute="trailing" id="T99-32-HHL"/>
                     <constraint firstAttribute="bottom" secondItem="OSN-ne-QB4" secondAttribute="bottom" constant="5.5" id="U3B-bW-eXe"/>
                     <constraint firstItem="kEd-bl-rad" firstAttribute="firstBaseline" secondItem="OSN-ne-QB4" secondAttribute="firstBaseline" id="ZjO-VY-KSn"/>
