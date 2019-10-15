@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 extension UIViewController {
     func presentAlert(title: String, message: String) {
@@ -20,14 +21,7 @@ extension UIViewController {
     }
     
     func presentURL(_ url: URL) {
-        guard let destination = storyboard?.instantiateViewController(withIdentifier: "WebNavigation") as? UINavigationController else {
-            fatalError("Tried to present URL while not attached to a storyboard with a view controller with identifier WebNavigation")
-        }
-
-        let webVC = destination.children.first as! BusWebViewController
-        webVC.initialURL = url
-        webVC.alwaysShowNavigationBar = true
-        
-        self.present(destination, animated: true, completion: nil)
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
 }

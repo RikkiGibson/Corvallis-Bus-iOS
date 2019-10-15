@@ -78,11 +78,8 @@ final class BrowseViewController: UIViewController, BusMapViewControllerDelegate
             busMapViewController = segue.getContentViewController()
             busMapViewController!.dataSource = manager
             busMapViewController!.delegate = self
-        case "BusWebSegue":
-            if let destination: BusWebViewController = segue.getContentViewController() {
-                destination.initialURL = destinationURL
-            }
         default:
+            print("Unexpected identifier for BrowseViewController segue: \(identifier)")
             break
         }
     }

@@ -197,12 +197,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always show nearest stop" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RiA-Xe-q87">
-                                                    <rect key="frame" x="39" y="11.5" width="198" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Always show nearest stop" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RiA-Xe-q87">
+                                                    <rect key="frame" x="39" y="11.5" width="271" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-8v-Q78">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="260" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="2ba-8v-Q78">
                                                     <rect key="frame" x="16" y="15.5" width="15" height="15"/>
                                                 </imageView>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E2B-zf-KMX">
@@ -214,6 +214,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="RiA-Xe-q87" firstAttribute="leading" secondItem="2ba-8v-Q78" secondAttribute="trailing" constant="8" id="DDm-o9-Ovo"/>
+                                                <constraint firstItem="E2B-zf-KMX" firstAttribute="leading" secondItem="RiA-Xe-q87" secondAttribute="trailing" id="XC1-ke-M2F"/>
                                                 <constraint firstItem="RiA-Xe-q87" firstAttribute="centerY" secondItem="Kxd-Mo-byL" secondAttribute="centerY" id="XmZ-IZ-YYc"/>
                                                 <constraint firstItem="2ba-8v-Q78" firstAttribute="leading" secondItem="Kxd-Mo-byL" secondAttribute="leadingMargin" id="ZjV-XW-CHb"/>
                                                 <constraint firstItem="2ba-8v-Q78" firstAttribute="centerY" secondItem="Kxd-Mo-byL" secondAttribute="centerY" constant="1" id="hK6-nN-wGB"/>
@@ -332,7 +333,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kkf-7C-pLM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1946.25" y="124.64788732394366"/>
+            <point key="canvasLocation" x="1944.8" y="124.58770614692655"/>
         </scene>
         <!--Browse-->
         <scene sceneID="Vuq-bu-hgT">
@@ -460,7 +461,6 @@
                     <navigationItem key="navigationItem" title="Browse" id="jUS-nx-sK2"/>
                     <connections>
                         <outlet property="constraintStopDetailsPadding" destination="MyA-8f-aLN" id="6tO-DK-yxs"/>
-                        <outlet property="searchDisplayController" destination="57G-UC-EAU" id="Dga-0f-8Bj"/>
                         <outlet property="stopDetailContainer" destination="Gko-sg-FwP" id="yWE-xa-AUA"/>
                     </connections>
                 </viewController>
@@ -470,14 +470,6 @@
                         <action selector="buttonPush:" destination="Rfu-K7-Css" id="uJj-bN-vLo"/>
                     </connections>
                 </tapGestureRecognizer>
-                <searchDisplayController id="57G-UC-EAU">
-                    <connections>
-                        <outlet property="delegate" destination="Rfu-K7-Css" id="hca-xm-ZOz"/>
-                        <outlet property="searchContentsController" destination="Rfu-K7-Css" id="czf-sZ-90Q"/>
-                        <outlet property="searchResultsDataSource" destination="Rfu-K7-Css" id="qNd-0Y-S66"/>
-                        <outlet property="searchResultsDelegate" destination="Rfu-K7-Css" id="oag-6v-tte"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1920" y="-624"/>
         </scene>
@@ -647,36 +639,6 @@
             </objects>
             <point key="canvasLocation" x="2519.25" y="-313.5"/>
         </scene>
-        <!--Bus Web View Controller-->
-        <scene sceneID="Hm0-VL-40j">
-            <objects>
-                <viewController id="zbp-RX-Eyo" customClass="BusWebViewController" customModule="CorvallisBus" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gHk-xG-Afc"/>
-                        <viewControllerLayoutGuide type="bottom" id="UxN-Vq-b1g"/>
-                    </layoutGuides>
-                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Aqe-H5-rmJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="93S-6f-2bv">
-                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="2A4-v7-kTg">
-                            <connections>
-                                <action selector="onBackButtonPressed:" destination="zbp-RX-Eyo" id="79j-qn-Cg6"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Open in Safari" style="done" id="HBp-a7-djW">
-                            <connections>
-                                <action selector="openInBrowser:" destination="zbp-RX-Eyo" id="jaf-I6-vBO"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RvA-Yo-hNd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4223" y="-232"/>
-        </scene>
         <!--Preferences-->
         <scene sceneID="ygG-FP-nZf">
             <objects>
@@ -696,33 +658,11 @@
             </objects>
             <point key="canvasLocation" x="1107" y="52"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="lCG-Bc-A57">
-            <objects>
-                <navigationController storyboardIdentifier="WebNavigation" automaticallyAdjustsScrollViewInsets="NO" id="LTL-5N-aNi" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="y1q-cP-IJ3"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="U7O-bL-8kF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="FsH-4q-V3q">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="zbp-RX-Eyo" kind="relationship" relationship="rootViewController" id="S3B-ii-cke"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6lx-05-lCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3417" y="-231"/>
-        </scene>
     </scenes>
     <resources>
         <image name="ListCurrentLoc" width="15" height="15"/>
         <image name="alert" width="22" height="22"/>
-        <image name="bus_toolbar_icon" width="28" height="28"/>
+        <image name="bus_toolbar_icon" width="27.5" height="27.5"/>
         <image name="currentlocation" width="30" height="30"/>
         <image name="favorite" width="22" height="22"/>
         <image name="settings" width="22" height="22"/>

@@ -102,7 +102,6 @@
 		5CE40C7F1D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
 		5CE40C801D18DDBB00257E6A /* PromiseLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE40C7C1D18DDA800257E6A /* PromiseLocationManagerDelegate.swift */; };
 		5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
-		5CECD3FC1B86DA3B000F3E6C /* BusWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */; };
 		5CECD3FD1B86DA3B000F3E6C /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */; };
 		5CECD3FE1B86DA3B000F3E6C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */; };
 		5CECD3FF1B86DA3B000F3E6C /* ServiceAlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */; };
@@ -266,7 +265,6 @@
 		5CE70D5E1C2C944900884291 /* libPods-CorvallisBus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CorvallisBus.a"; path = "Pods/../build/Debug-iphoneos/libPods-CorvallisBus.a"; sourceTree = "<group>"; };
 		5CE70D601C2C946200884291 /* libFlurry-iOS-SDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libFlurry-iOS-SDK.a"; path = "Pods/../build/Debug-iphoneos/libFlurry-iOS-SDK.a"; sourceTree = "<group>"; };
 		5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavoritesTableViewCell.xib; sourceTree = "<group>"; };
-		5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusWebViewController.swift; sourceTree = "<group>"; };
 		5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceAlertsViewController.swift; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				5C2FC1301B8AC78300E909E1 /* BrowseViewController.swift */,
-				5CECD3F71B86DA3B000F3E6C /* BusWebViewController.swift */,
 				5CECD3F81B86DA3B000F3E6C /* FavoritesTableViewController.swift */,
 				5CECD3F91B86DA3B000F3E6C /* PreferencesViewController.swift */,
 				5CECD3FA1B86DA3B000F3E6C /* ServiceAlertsViewController.swift */,
@@ -835,7 +832,6 @@
 				5CA303931B8AEAD2003E44ED /* BusMapViewModel.swift in Sources */,
 				5CA303811B8ACCC1003E44ED /* UIStoryboardSegueExtension.swift in Sources */,
 				5CA303911B8AE307003E44ED /* StopDetailViewModel.swift in Sources */,
-				5CECD3FC1B86DA3B000F3E6C /* BusWebViewController.swift in Sources */,
 				5CECD4431B86DC50000F3E6C /* Utils.swift in Sources */,
 				5C92BC7C1E11BCFF007990B7 /* TableViewPlaceholder.swift in Sources */,
 				5C2FC12F1B8AC2C600E909E1 /* BusMapViewController.swift in Sources */,
