@@ -27,7 +27,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="fDZ-sQ-aFu" firstAttribute="centerY" secondItem="gxM-2c-rZZ" secondAttribute="centerY" id="3Yw-xH-nJt"/>
                 <constraint firstItem="EhW-kf-HRP" firstAttribute="centerX" secondItem="gxM-2c-rZZ" secondAttribute="centerX" id="IB2-2a-N8n"/>
