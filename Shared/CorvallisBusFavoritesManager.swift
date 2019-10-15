@@ -23,7 +23,7 @@ class CorvallisBusFavoritesManager {
         let defaults = UserDefaults.groupUserDefaults()
         let viewModelsPromise = favoriteStops(defaults.favoriteStopIds)
             .map { (json: [[String: AnyObject]]) -> [FavoriteStopViewModel] in
-                let viewModels = json.compactMap{ toFavoriteStopViewModel($0, fallbackToGrayColor: true) }
+                let viewModels = json.compactMap(toFavoriteStopViewModel)
                 if !defaults.shouldShowNearestStop {
                     return viewModels.filter({ !$0.isNearestStop })
                 }
@@ -52,16 +52,14 @@ class CorvallisBusFavoritesManager {
         return favoriteStops(defaults.favoriteStopIds)
             .map { (json: [[String: AnyObject]]) -> [FavoriteStopViewModel] in
                 defaults.cachedFavoriteStops = json
-                let viewModels = json.compactMap{ toFavoriteStopViewModel($0, fallbackToGrayColor: false) }
+                let viewModels = json.compactMap(toFavoriteStopViewModel)
                 return filterFavoriteStopsForWidget(viewModels, defaults)
             }
     }
     
     static func cachedFavoriteStopsForWidget() -> [FavoriteStopViewModel] {
         let defaults = UserDefaults.groupUserDefaults()
-        let viewModels = defaults.cachedFavoriteStops.compactMap({
-            toFavoriteStopViewModel($0, fallbackToGrayColor: false)
-        })
+        let viewModels = defaults.cachedFavoriteStops.compactMap(toFavoriteStopViewModel)
         return filterFavoriteStopsForWidget(viewModels, defaults)
     }
     

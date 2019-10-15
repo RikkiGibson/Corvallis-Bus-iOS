@@ -51,7 +51,7 @@ class TodayViewController: NSViewController, NCWidgetProviding, NCWidgetListView
         
         let cachedStops = UserDefaults.groupUserDefaults()
             .cachedFavoriteStops
-            .flatMap({ toFavoriteStopViewModel($0, fallbackToGrayColor: false) })
+            .flatMap(toFavoriteStopViewModel)
         listViewController.contents = cachedStops.map({ Box(value: $0) })
         completionHandler(.newData)
         CorvallisBusFavoritesManager.favoriteStopsForWidget()
