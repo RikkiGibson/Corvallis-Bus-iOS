@@ -91,9 +91,13 @@ final class StopDetailViewController : UITableViewController {
     }
     
     func updateTableView() {
-        tableView.beginUpdates()
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-        tableView.endUpdates()
+        if (tableView.numberOfSections > 0) {
+            tableView.beginUpdates()
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            tableView.endUpdates()
+        } else {
+            tableView.reloadData()
+        }
         
         if case .finished(.error) = viewModel.routeDetails.state {
             tableView.backgroundView = errorPlaceholder
