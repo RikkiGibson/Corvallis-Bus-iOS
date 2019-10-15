@@ -23,7 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="260" verticalHuggingPriority="260" image="ListCurrentLoc" translatesAutoresizingMaskIntoConstraints="NO" id="SNg-Q2-Vm4">
-                        <rect key="frame" x="287" y="32" width="15" height="15"/>
+                        <rect key="frame" x="281" y="27.5" width="15" height="15"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="2.3 miles" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kEd-bl-rad">
                         <rect key="frame" x="256" y="50.5" width="48" height="14"/>
@@ -49,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 minutes, then 6:30 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WfJ-zS-xtJ">
-                        <rect key="frame" x="76" y="25" width="211" height="18"/>
+                        <rect key="frame" x="76" y="25" width="175.5" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -69,19 +69,18 @@
                 <constraints>
                     <constraint firstItem="WfJ-zS-xtJ" firstAttribute="leading" secondItem="Ykj-eq-1KK" secondAttribute="trailing" constant="6" id="3QW-gl-ToM"/>
                     <constraint firstItem="Ykj-eq-1KK" firstAttribute="top" secondItem="lCe-Tz-Tsi" secondAttribute="bottom" constant="1" id="5QE-sC-FTO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SNg-Q2-Vm4" secondAttribute="trailing" constant="8" id="6Xb-Di-6Bl"/>
                     <constraint firstItem="OSN-ne-QB4" firstAttribute="top" secondItem="Ykj-eq-1KK" secondAttribute="bottom" constant="3.5" id="9mK-Hq-1Ps"/>
                     <constraint firstAttribute="trailingMargin" secondItem="kEd-bl-rad" secondAttribute="trailing" id="Awf-u9-SuX"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="leading" secondItem="Kmo-me-aJ5" secondAttribute="leadingMargin" id="KEE-mx-nZo"/>
-                    <constraint firstItem="SNg-Q2-Vm4" firstAttribute="leading" secondItem="WfJ-zS-xtJ" secondAttribute="trailing" id="T99-32-HHL"/>
                     <constraint firstAttribute="bottom" secondItem="OSN-ne-QB4" secondAttribute="bottom" constant="5.5" id="U3B-bW-eXe"/>
                     <constraint firstItem="kEd-bl-rad" firstAttribute="firstBaseline" secondItem="OSN-ne-QB4" secondAttribute="firstBaseline" id="ZjO-VY-KSn"/>
                     <constraint firstItem="kEd-bl-rad" firstAttribute="leading" secondItem="USb-rY-NGf" secondAttribute="trailing" id="aLw-c7-89n"/>
                     <constraint firstItem="lCe-Tz-Tsi" firstAttribute="top" secondItem="Kmo-me-aJ5" secondAttribute="top" constant="3" id="e28-4H-rEI"/>
                     <constraint firstItem="Ykj-eq-1KK" firstAttribute="leading" secondItem="lCe-Tz-Tsi" secondAttribute="leading" id="eet-vN-fAk"/>
                     <constraint firstAttribute="trailing" secondItem="lCe-Tz-Tsi" secondAttribute="trailing" id="fqz-Wa-Cvd"/>
-                    <constraint firstAttribute="trailing" secondItem="SNg-Q2-Vm4" secondAttribute="trailing" constant="18" id="g9l-oP-Cwh"/>
                     <constraint firstItem="USb-rY-NGf" firstAttribute="leading" secondItem="OSN-ne-QB4" secondAttribute="trailing" constant="6" id="kbo-n0-gGx"/>
-                    <constraint firstItem="kEd-bl-rad" firstAttribute="top" secondItem="SNg-Q2-Vm4" secondAttribute="bottom" constant="3.5" id="szi-gN-PDX"/>
+                    <constraint firstItem="kEd-bl-rad" firstAttribute="top" secondItem="SNg-Q2-Vm4" secondAttribute="bottom" constant="8" id="szi-gN-PDX"/>
                     <constraint firstItem="Ykj-eq-1KK" firstAttribute="leading" secondItem="OSN-ne-QB4" secondAttribute="leading" id="uF2-Rr-AUj"/>
                     <constraint firstItem="Ykj-eq-1KK" firstAttribute="centerY" secondItem="WfJ-zS-xtJ" secondAttribute="centerY" id="xyj-hW-6Ff"/>
                     <constraint firstItem="OSN-ne-QB4" firstAttribute="centerY" secondItem="USb-rY-NGf" secondAttribute="centerY" id="zqJ-lo-OrL"/>
