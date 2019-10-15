@@ -124,6 +124,7 @@
 		5CECD45A1B86DCAA000F3E6C /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CECD4541B86DCAA000F3E6C /* TodayViewController.swift */; };
 		5CF192AB19EF513100CB21EC /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF192AA19EF513100CB21EC /* NotificationCenter.framework */; };
 		5CF192B519EF513100CB21EC /* CorvallisBusTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5CF192A819EF513100CB21EC /* CorvallisBusTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D31860B22355677700086C9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D31860B12355677700086C9E /* LaunchScreen.storyboard */; };
 		D338E2C023518D2D0017380B /* FavoritesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CEA85181A087F3A00B7FBD9 /* FavoritesTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -287,6 +288,7 @@
 		5CF192AA19EF513100CB21EC /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		98895DC498BEACEC4F1709C3 /* libPods-CorvallisBusTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9E04692D5FE7D4977DC0E2 /* libPods-CorvallisBusTodayExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CorvallisBusTodayExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31860B12355677700086C9E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 		5C4937C319CFCB82009A2FB2 = {
 			isa = PBXGroup;
 			children = (
+				D31860B12355677700086C9E /* LaunchScreen.storyboard */,
 				5C4937CE19CFCB82009A2FB2 /* CorvallisBus */,
 				5CECD41C1B86DC50000F3E6C /* Shared */,
 				5CECD44E1B86DCAA000F3E6C /* TodayExtension */,
@@ -753,6 +756,7 @@
 				5C4937D919CFCB82009A2FB2 /* Main.storyboard in Resources */,
 				5C92BC7A1E11BCD2007990B7 /* TableViewPlaceholder.xib in Resources */,
 				5C4937DB19CFCB82009A2FB2 /* Images.xcassets in Resources */,
+				D31860B22355677700086C9E /* LaunchScreen.storyboard in Resources */,
 				5CEA85191A087F3A00B7FBD9 /* FavoritesTableViewCell.xib in Resources */,
 				5C4A080A1A2E49FE0007B608 /* BusRouteDetailCell.xib in Resources */,
 			);
@@ -1095,7 +1099,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1124,7 +1127,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CorvallisBus/CorvallisBus.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
